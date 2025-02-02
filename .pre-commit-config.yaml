@@ -1,0 +1,14 @@
+repos:
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2  # Must be the same as in `pyproject.toml`.
+    hooks:
+      - id: isort
+        # files: '(strava_client|tests)/'
+        types: [file, python]
+  - repo: https://github.com/python/black
+    rev: 24.10.0  # Must be the same as in `pyproject.toml`.
+    hooks:
+      - id: black
+        language_version: python3.10
+        # files: '(strava_client|tests)/'
+        types: [file, python]
