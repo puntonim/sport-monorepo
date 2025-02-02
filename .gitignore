@@ -455,6 +455,9 @@ pip-selfcheck.json
 # End of https://www.toptal.com/developers/gitignore/api/vim,linux,macos,python,pycharm,virtualenv,jupyternotebooks,visualstudiocode,sublimetext,cmake,serverless
 
 .idea/
+.serverless/
+node_modules/
+*.sqlite3
 # Un-ignore scripts dir and Makefile.
 !scripts
 !Makefile

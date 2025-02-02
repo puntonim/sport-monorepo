@@ -1,0 +1,22 @@
+date	type	name	moving_time_hours	distance_km	elevation_m	has_tendinitis
+2024-01-01T13:08:02Z;Run;Afternoon Run;1.27H;15.1km;50.0m;
+2024-01-04T12:31:06Z;Run;Lunch Run;0.78H;10.1km;60.0m;
+2024-01-06T09:04:47Z;Run;Mezza sul Brembo;1.67H;21.3km;99.0m;tendinite
+2024-01-10T13:03:24Z;Run;Afternoon Run;0.79H;10.0km;29.0m;
+2024-01-14T09:03:43Z;Run;Passeggiando Sui Colli di Bergamo;1.69H;18.3km;403.0m;tendinite
+2024-01-16T12:13:59Z;Run;Lunch Run;0.8H;10.0km;33.0m;tendinite
+2024-01-21T09:43:52Z;Run;Corri con Energia, Cornate d'Adda;2.5H;27.5km;148.0m;tendinite
+2024-01-25T12:14:55Z;Run;Lunch Run;0.4H;3.4km;102.0m;
+2024-01-27T17:01:28Z;Run;Dobbiaco Winter Night Run;1.01H;11.9km;150.0m;
+2024-01-31T11:22:00Z;Run;Lunch Run;0.79H;10.0km;26.0m;tendinite
+2024-02-13T17:10:24Z;Run;Afternoon Run;0.79H;10.0km;30.0m;tendinite
+2024-02-18T08:45:58Z;Run;La Padelada Arcene;1.64H;20.0km;36.0m;tendinite
+2024-02-23T17:46:31Z;Run;Afternoon Run;0.57H;7.3km;23.0m;tendinite
+2024-02-25T08:59:15Z;Run;Riscaldamento pre-maratonina di Treviglio;0.44H;4.4km;11.0m;tendinite
+2024-02-25T09:31:44Z;Run;Maratonina di Treviglio;1.69H;21.3km;48.0m;tendinite
+2024-03-01T16:32:19Z;Run;Afternoon Run;0.77H;10.0km;28.0m;
+2024-03-03T09:26:56Z;Run;Riscaldamento pre-mezza maratona di Lecco;0.3H;3.2km;24.0m;
+2024-03-03T10:01:24Z;Run;Mezza maratona di Lecco;1.65H;21.4km;49.0m;tendinite
+2024-03-07T12:39:37Z;Run;Lunch Run;0.78H;10.0km;33.0m;
+2024-03-11T12:04:55Z;Run;Lunch Run;1.51H;18.0km;59.0m;
+2024-03-14T17:14:32Z;Run;Afternoon Run;0.78H;10.1km;30.0m;tendinite

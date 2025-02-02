@@ -1,0 +1,50 @@
+[project]
+name = "strava-facade-api"
+description = "Strava Facade API"
+authors = [
+    {name = "puntonim",email = "puntonim@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"  # Latest AWS Lambda Python runtime.
+
+# Do not edit `version` directly or with `poetry version`, but instead run: `$ make version-bump/1.0.0`.
+# This is so we can write the version in __version__.py which is always included in
+#  the wheel after a poetry build (unlike pyproject.toml).
+version = "1.2.0"
+
+dependencies = [
+    "requests (>=2.32.3,<3.0.0)",
+    # "strava-client[aws-parameter-store] @ git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/strava-client",
+    "strava-client[aws-parameter-store] @ ../../libs/strava-client",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+boto3 = "1.27.1"  # Must be the same as in AWS Lambda Python runtime: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html.
+botocore = "1.30.1"  # Must be the same as in AWS Lambda Python runtime: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html.
+black = "24.10.0"  # Must be the same as in `.pre-commit-config.yaml`.
+isort = "5.13.2"  # Must be the same as in `.pre-commit-config.yaml`.
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.4"
+pytest-xdist = {extras = ["psutil"], version = "^3.6.1"}
+
+[tool.black]  # See: https://black.readthedocs.io/en/stable/pyproject_toml.html
+line-length = 88  # Default.
+# skip-string-normalization = true  # Only for old projects.
+target-version = ["py313"]
+include = '\.py?$'
+extend-exclude = '''  # It automatically excludes all files in .gitignore by default.
+/(
+    \.git
+  # Project-specific:
+  | docs
+)/
+'''
+
+[tool.isort]
+profile = "black"  # See: https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html#profile
+skip_gitignore = true  # Skip all files in .gitignore.

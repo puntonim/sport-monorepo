@@ -1,0 +1,153 @@
+# Docs:
+#  - Serverless for AWS full specs: https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml/
+#  - Python reqs: https://github.com/UnitedIncome/serverless-python-requirements
+#  - IAM: https://www.serverless.com/framework/docs/providers/aws/guide/iam
+#  - IAM Roles Per Function: https://www.serverless.com/plugins/serverless-iam-roles-per-function
+
+service: strava-facade-api
+
+
+frameworkVersion: "4"
+
+
+provider:
+  name: aws
+  runtime: python3.13
+  region: eu-south-1
+  stage: production # Default stage to be used. If omitted the default is `dev`. Override with `sls deploy --stage production`.
+  memorySize: 256 # Default is 1024.
+  timeout: 10 # Default is 6 seconds. Note: API Gateway current maximum is 30 seconds.
+  logRetentionInDays: 90 # Set the default RetentionInDays for a CloudWatch LogGroup. Default is never expire.
+  environment: # Env vars. Use it also for secrets and config to override those in `settings_default.toml`.
+    # Note: they do NOT need a prefix.
+    # Note: it's better to store all secrets here rather than nested under `functions:`
+    #  so they are available to all Lambdas and to the `/settings` introspection endpoint.
+    # Some are from ssm Parameter Store: https://www.serverless.com/framework/docs/providers/aws/guide/variables#reference-variables-using-the-ssm-parameter-store
+    API_AUTHORIZER_TOKEN: ${env:API_AUTHORIZER_TOKEN, ssm:/strava-facade-api/${opt:stage, self:provider.stage}/api-authorizer-token, ssm:/strava-facade-api/production/api-authorizer-token, 'XXX'}
+  httpApi:
+    authorizers:
+      tokenAuthorizer:
+        type: request
+        functionName: authorizer
+        enableSimpleResponses: true
+        # Note: you can manually clear the cache by temporary setting this value
+        #  to 0 in AWS web console. Then switching it back to 3600.
+        resultTtlInSeconds: 3600 # Cache authorizer results for 1 hour.
+        identitySource:
+          - $request.header.Authorization # The header to be cached.
+    # cors: # Docs: https://www.serverless.com/framework/docs/providers/aws/events/http-api#
+    #   allowedOrigins:
+    #     - http://localhost:8080
+    #     - https://docs.google.com
+  tags: # CloudFormation tags to apply to APIs and functions.
+    project: ${self:service}
+    environment: ${sls:stage}
+    managed-with: Serverless framework
+    source: ${self:custom.source}
+  stackTags: ${self:provider.tags} # CloudFormation tags to apply to the stack.
+  deploymentBucket:
+    blockPublicAccess: true # Prevent public access via ACLs or bucket policies. Default is false.
+    tags: ${self:provider.tags} # Tags to add to each of the deployment resources.
+
+
+functions:
+  authorizer:
+    handler: strava_facade_api.views.authorizer_view.lambda_handler
+    memorySize: 128
+    timeout: 28 # Note: API Gateway current maximum is 29 seconds.
+    iamRoleStatements: []
+
+  endpoint-introspection:
+    handler: strava_facade_api.views.introspection_view.lambda_handler
+    timeout: 5 # Note: API Gateway current maximum is 29 seconds.
+    maximumRetryAttempts: 0
+    events:
+      - httpApi:
+          path: /version
+          method: GET
+      - httpApi:
+          path: /health
+          method: GET
+      - httpApi:
+          path: /unhealth
+          method: GET
+    iamRoleStatements: []
+
+  endpoint-upd-activity-desc:
+    handler: strava_facade_api.views.update_activity_description_view.lambda_handler
+    timeout: 29 # Note: API Gateway current maximum is 29 seconds.
+    maximumRetryAttempts: 0
+    events:
+      - httpApi:
+          path: /update-activity-description
+          method: POST
+          authorizer:
+            name: tokenAuthorizer
+    # Custom name because the auto generated one is too long.
+    iamRoleStatementsName: strava-facade-api-prod-upd-activity-desc-eu-south-1-lambdaRole
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - ssm:GetParameter
+          - ssm:PutParameter
+        Resource:
+          - arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/${sls:stage}/*
+
+  endpoint-create-activity:
+    handler: strava_facade_api.views.create_activity_view.lambda_handler
+    timeout: 29 # Note: API Gateway current maximum is 29 seconds.
+    maximumRetryAttempts: 0
+    events:
+      - httpApi:
+          path: /create-activity
+          method: POST
+          authorizer:
+            name: tokenAuthorizer
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - ssm:GetParameter
+          - ssm:PutParameter
+        Resource:
+          - arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/${sls:stage}/*
+
+package:
+  # Individually should only be used for a project with multiple modules each with their own specific dependencies.
+  #  Docs: https://www.serverless.com/plugins/serverless-python-requirements#per-function-requirements
+  individually: false
+  patterns: # Specify the directories and files which should be included in the deployment package. Order matters.
+    - "!**"
+    - strava_facade_api/**
+    - "!**/__pycache__/**"
+    - pyproject.toml
+    - serverless.yml
+
+
+plugins:
+  - serverless-python-requirements
+  - serverless-iam-roles-per-function
+
+
+custom:
+  # Constants.
+  source: https://github.com/puntonim/strava-facade-api/blob/main/serverless.yml
+
+  # Plugin: serverless-python-requirements.
+  pythonRequirements:
+    # With the layer option, a new layer is created with the naming convention ${self:service}-${sls:stage}-python-requirements.
+    layer: false
+    slim: true # Strip the .so files, remove __pycache__, etc. See: https://www.serverless.com/plugins/serverless-python-requirements.
+    # When deploying from local dev machine, it's important to disable useStaticCache, useDownloadCache and pip cache
+    #  in order to ensure that local libs (like `events`) are always rebuilt.
+    useStaticCache: false
+    useDownloadCache: false
+    # Use `--no-deps` because all deps are listed in poetry.lock and then exported to requirements.txt.
+    # Also, without using `--no-deps` caused an issue with the versioning of git deps (datetime-utils and strava-client).
+    pipCmdExtraArgs: ["--no-cache-dir --no-deps"]
+
+
+# Raw CloudFormation template syntax, in YAML.
+# Docs: https://www.serverless.com/framework/docs/providers/aws/guide/resources.
+resources:
+  # Set the description in the CloudFormation stack.
+  Description: Managed by Serverless at ${self:custom.source}
