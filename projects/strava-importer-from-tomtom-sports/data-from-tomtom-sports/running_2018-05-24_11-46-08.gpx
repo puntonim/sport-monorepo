@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gpx version="1.1" creator="TomTom.2003 with Barometer" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <metadata>
+        <name>Activity</name>
+    </metadata>
+    <trk>
+        <name>Running</name>
+        <trkseg>
+            <trkpt lat="46.232727" lon="6.043712">
+                <ele>450.8</ele>
+                <time>2018-05-24T09:46:00.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232746" lon="6.043702">
+                <ele>450.9</ele>
+                <time>2018-05-24T09:46:01.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232765" lon="6.043675">
+                <ele>451.0</ele>
+                <time>2018-05-24T09:46:02.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232779" lon="6.043641">
+                <ele>451.1</ele>
+                <time>2018-05-24T09:46:03.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232793" lon="6.043605">
+                <ele>451.1</ele>
+                <time>2018-05-24T09:46:04.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232807" lon="6.04357">
+                <ele>451.2</ele>
+                <time>2018-05-24T09:46:05.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232818" lon="6.04354">
+                <ele>451.3</ele>
+                <time>2018-05-24T09:46:06.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232833" lon="6.043509">
+                <ele>451.4</ele>
+                <time>2018-05-24T09:46:07.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232848" lon="6.043479">
+                <ele>451.5</ele>
+                <time>2018-05-24T09:46:08.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232858" lon="6.043447">
+                <ele>451.6</ele>
+                <time>2018-05-24T09:46:09.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232868" lon="6.04342">
+                <ele>451.7</ele>
+                <time>2018-05-24T09:46:10.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232883" lon="6.043383">
+                <ele>451.8</ele>
+                <time>2018-05-24T09:46:11.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232896" lon="6.043347">
+                <ele>451.9</ele>
+                <time>2018-05-24T09:46:12.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232911" lon="6.04331">
+                <ele>452.0</ele>
+                <time>2018-05-24T09:46:13.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232927" lon="6.043264">
+                <ele>452.2</ele>
+                <time>2018-05-24T09:46:14.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232944" lon="6.043228">
+                <ele>452.3</ele>
+                <time>2018-05-24T09:46:15.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232963" lon="6.043206">
+                <ele>452.4</ele>
+                <time>2018-05-24T09:46:16.000Z</time>
+            </trkpt>
+            <trkpt lat="46.232987" lon="6.043185">
+                <ele>452.5</ele>
+                <time>2018-05-24T09:46:17.000Z</time>
+            </trkpt>
+            <trkpt lat="46.233006" lon="6.043158">
+                <ele>452.6</ele>
+                <time>2018-05-24T09:46:18.000Z</time>
+            </trkpt>
+            <trkpt lat="46.233029" lon="6.043132">
+                <ele>452.8</ele>
+                <time>2018-05-24T09:46:19.000Z</time>
+            </trkpt>
+            <trkpt lat="46.23305" lon="6.04311">
+                <ele>452.9</ele>
+                <time>2018-05-24T09:46:20.000Z</time>
+            </trkpt>
+            <trkpt lat="46.233068" lon="6.043078">
+                <ele>453.0</ele>
+                <time>2018-05-24T09:46:21.000Z</time>
+            </trkpt>
+            <trkpt lat="46.233078" lon="6.043046">
+                <ele>453.1</ele>
+                <time>2018-05-24T09:46:22.000Z</time>
+            </trkpt>
+            <trkpt lat="46.2331" lon="6.043015">
+                <ele>453.2</ele>
+                <time>2018-05-24T09:46:23.000Z</time>
+            </trkpt>
+            <trkpt lat="46.233114" lon="6.042985">
+                <ele>453.3</ele>
+                <time>2018-05-24T09:46:24.000Z</time>
+            </trkpt>
+            <trkpt lat="46.233133" lon="6.042957">
+                <ele>453.4</ele>
+                <time>2018-05-24T09:46:25.000Z</time>
+            </trkpt>
+            <trkpt lat="46.233143" lon="6.042924">
+                <ele>453.5</ele>
+                <time>2018-05-24T09:46:26.000Z</time>
+            </trkpt>
+            <trkpt lat="46.233148" lon="6.042888">
+                <ele>453.6</ele>
+                <time>2018-05-24T09:46:27.000Z</time>
+            </trkpt>
+            <trkpt lat="46.233159" lon="6.042848">
+                <ele>453.7</ele>
+                <time>2018-05-24T09:46:28.000Z</time>
+            </trkpt>
+            <trkpt lat="46.233171" lon="6.042808">
+                <ele>453.9</ele>
+                <time>2018-05-24T09:46:29.000Z</time>
+            </trkpt>
+            <trkpt lat="46.233184" lon="6.042768">
+                <ele>454.0</ele>
+                <time>2018-05-24T09:46:30.000Z</time>
+            </trkpt>
+            <trkpt lat="46.2332" lon="6.042735">
+                <ele>454.1</ele>
+                <time>2018-05-24T09:46:31.000Z</time>
+            </trkpt>
+        </trkseg>
+        <trkseg>
+            <trkpt lat="46.233212" lon="6.042706">
+                <ele>454.2</ele>
+                <time>2018-05-24T09:46:32.000Z</time>
+            </trkpt>
+        </trkseg>
+    </trk>
+</gpx>
