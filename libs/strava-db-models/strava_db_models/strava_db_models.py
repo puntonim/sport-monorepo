@@ -64,6 +64,12 @@ class RawActivitySummary(peewee_utils.BasePeeweeModel):
     strava_id: int = peewee.IntegerField(unique=True)
     md5_checksum: str = peewee.CharField(max_length=512)
 
+    def __repr__(self) -> str:
+        return f"RawActivitySummary(id={self.id!r}, strava_id={self.strava_id!r})"
+
+    def __str__(self) -> str:
+        return self.__repr__()
+
 
 class Activity(peewee_utils.BasePeeweeModel):
     """
@@ -105,6 +111,12 @@ class Activity(peewee_utils.BasePeeweeModel):
 
     def extract_local_start_date(self) -> datetime:
         return self.start_date.astimezone(ZoneInfo(self.timezone.split(" ")[1]))
+
+    def __repr__(self) -> str:
+        return f"Activity(id={self.id!r}, strava_id={self.strava_id!r}, name={self.name!r})"
+
+    def __str__(self) -> str:
+        return self.__repr__()
 
 
 # Register all tables.
