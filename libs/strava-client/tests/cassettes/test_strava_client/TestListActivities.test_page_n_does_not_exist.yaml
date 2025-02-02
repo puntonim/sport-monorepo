@@ -1,0 +1,72 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/athlete/activities?after=1737176400&per_page=2&page=99
+  response:
+    body:
+      string: '[]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 28 Jan 2025 14:43:35 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 4e78864de8e88865aeedd2f9849556b6.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - njx0X5kSmhkKLqEh-xq3mqTXI6ek3qMpzLBovEjPwnY1rRl7qQfaYg==
+      X-Amz-Cf-Pop:
+      - MXP63-P3
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '2'
+      etag:
+      - W/"4f53cda18c2baa0c0354bb5f9a3ecbe5"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '52'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 2,24
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 2,22
+      x-request-id:
+      - 4f3789dd-884c-47d2-adb4-a38e3dd9aceb
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

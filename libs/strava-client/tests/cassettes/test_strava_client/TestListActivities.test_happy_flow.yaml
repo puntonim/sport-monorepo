@@ -1,0 +1,121 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/athlete/activities?per_page=3
+  response:
+    body:
+      string: '[{"resource_state": 2, "athlete": {"id": 115890775, "resource_state":
+        1}, "name": "Weight training: biceps \ud83e\udda0", "distance": 0.0, "moving_time":
+        3952, "elapsed_time": 3952, "total_elevation_gain": 0, "type": "WeightTraining",
+        "sport_type": "WeightTraining", "id": 13451142175, "start_date": "2025-01-25T17:48:11Z",
+        "start_date_local": "2025-01-25T18:48:11Z", "timezone": "(GMT+01:00) Africa/Algiers",
+        "utc_offset": 3600.0, "location_city": null, "location_state": null, "location_country":
+        "Italy", "achievement_count": 0, "kudos_count": 1, "comment_count": 1, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a13451142175", "summary_polyline": "",
+        "resource_state": 2}, "trainer": true, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0, "max_speed":
+        0.0, "average_temp": 26, "has_heartrate": true, "average_heartrate": 55.9,
+        "max_heartrate": 119.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 0.0, "elev_low": 0.0, "upload_id": 14347895023, "upload_id_str":
+        "14347895023", "external_id": "garmin_ping_405401415493", "from_accepted_tag":
+        false, "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
+        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Valgardena
+        \ud83e\udda0", "distance": 30455.4, "moving_time": 6099, "elapsed_time": 16977,
+        "total_elevation_gain": 111.8, "type": "Snowboard", "sport_type": "Snowboard",
+        "id": 13414279778, "start_date": "2025-01-21T09:55:44Z", "start_date_local":
+        "2025-01-21T10:55:44Z", "timezone": "(GMT+01:00) Europe/Rome", "utc_offset":
+        3600.0, "location_city": null, "location_state": null, "location_country":
+        "Italy", "achievement_count": 2, "kudos_count": 3, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a13414279778", "summary_polyline": "wxk{G}fqfAfJ}DbCoCca@zNtB]tDiFVmAc@eHn@_E~FuE~CwCn@qBd@kGIsB`@aAnCsA~Hf@vDYdAcAPaEvA{DhD_EtFmExA}BxDm@~B}AVu@evAdpA\\QLs@QeDzEkFpCkBd@mAjBeANmAzAo@bB{BnDoC~@}Av@_FnJC|En@nCe@~@cAXkE~BiFjIyHrFqDhIuAB|@nDjAfB}AjBe@`HMpBiAxCI`CcCrDcH`DsBtDWdA{BhCkKnD_ChBcDnD`HZnEG`EnCrHfJzLvD|BpAvCfLfHvFjBzIz@j@_BdAYPFEa@{~Bsv@UiAVyJU_K{@uFFgG^}ApAWnCh@fBbC`]tNfKzGhAnAlFjBhB~BXhBtAdDNbDSdDvA~EhBpDnItJlDhCzKtJvBr@nDZbJdCr@q@m@KEk@MR^a@I}DFbBz@jBx@FOVcBg@Vb@UVt@Aa@Ua@Kps@p`@HrC\\nAaAtEjA[PsA`Ak@nlBynCwCq@kBPoFtEoAtBi@pGDhBdAzG_AdA\\fE`@nCAlMw@vE@dAe@d@o@jD]VcBaBq@[TOfZmbAmA]_Dd@yA_AcGxFaAfInAvJQlAa@Vl@~HFrIuA~Lo@dCg@t@[Gs@uAy@@Ck@`ZucAFjApAdCnApE^`D[dAgCVUnAc@DiCbB_EdG{BvBy@lHi@~AB`EiAdKcAnBsB_BOLAd@VNYZf@]p@`Cc@`Ce@AYjBWHoAeBs@mB{@mEeCkC_Bu@uF[mKbAsAy@e@eBy@cABA}BjA}ALe@~ANfBf@pAQf@eIvNeAtCcEzEmA~CcCb@@`AqApBk@jBFlFo@dA{@dGg@^eAxD}@`@e@Y_@f@SgDu@uC~@rASs@d@YjAxLfBeBoxDo{AwEa@yAf@e@vCt@`FxArBvBnJ_@fCYHHo@U?uuAbpAl@mAAsD|EaExAuB`AUtA{Bf@GDoAdDqBfAiBzDwCn@gDlA{BdA]zDx@n@]hDz@lEg@z@gAA{AbAsErCmEbDgClDkEpAy@jFkAjAyAoDlCipAzmAnB`HnAtBtDZ|@W\\cApIgEfKsDrA}@l@_Bq`@hOtCvAz@Ir@p@xFItB~BtA\\vJcDpImDv@xAv@|FJnPNh@^On@gC|CeCp@eCpBq@fB~@xBhC~@DKt@gC`CcCxFyAdAaD`GmBfAeDSsHrGQb@Hv@jItEDd@w@bAoBh@_B~Ba@X_GdBYn@~DvNhEpBz@~AlBnFzAjIdCrHpBrLfDlFbb@dgA",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        null, "start_latlng": [46.59784, 11.724494], "end_latlng": [46.582939, 11.688567],
+        "average_speed": 4.994, "max_speed": 13.94, "average_temp": 25, "has_heartrate":
+        true, "average_heartrate": 89.8, "max_heartrate": 169.0, "heartrate_opt_out":
+        false, "display_hide_heartrate_option": true, "elev_high": 2510.2, "elev_low":
+        1407.8, "upload_id": 14308023042, "upload_id_str": "14308023042", "external_id":
+        "garmin_ping_404236421817", "from_accepted_tag": false, "pr_count": 1, "total_photo_count":
+        3, "has_kudoed": false}, {"resource_state": 2, "athlete": {"id": 115890775,
+        "resource_state": 1}, "name": "Vallunga \ud83e\udda0", "distance": 9844.0,
+        "moving_time": 7381, "elapsed_time": 8708, "total_elevation_gain": 334.0,
+        "type": "Snowshoe", "sport_type": "Snowshoe", "id": 13396681056, "start_date":
+        "2025-01-19T10:41:23Z", "start_date_local": "2025-01-19T11:41:23Z", "timezone":
+        "(GMT+01:00) Europe/Rome", "utc_offset": 3600.0, "location_city": null, "location_state":
+        null, "location_country": "Italy", "achievement_count": 0, "kudos_count":
+        2, "comment_count": 0, "athlete_count": 1, "photo_count": 0, "map": {"id":
+        "a13396681056", "summary_polyline": "}te{Guf{fATwBAsAE]MSIWOaBMe@Ga@Cq@@_AO}@GeASo@?GH?iAuAk@e@K_@MQw@u@e@YeAiAqAy@MECDDEo@EiCeBSWYq@OG_A_Ag@cCq@}Ak@{@GS_@s@KAg@k@W}@[g@e@eAOg@WWK]Iw@KQeA}@?]H_@Co@M_@[GQMk@}Ag@_@EME_@?y@IQYa@iA_A_@OEAADCCB?ACOJTGCEA?@BG?LKGD@NDSGKFNCAIDBCDR?YKHR?MCDDOBJBGCF?CE@HCAF]AKiBaBYk@Q}@?[Ju@Ca@?eACQFo@Cy@Io@?m@a@aBQQ[aAWi@MQQG][}As@Oa@_@a@GYMW{@gAe@mA{@wDAq@@g@L[LoBEqABs@Is@CaAEYU_AWaB[q@@OIm@Ao@QiBCs@JaAFwASoCHmB?UG]eEeNq@_Bu@cCgAkCm@mBmAaDaBqC]{AQi@aAsBy@yBaAmBUw@KI@AEOYo@Q_AEm@Sw@]a@GUG]@OCk@Sq@Wi@s@q@YMc@CSa@LqBEm@Kg@A[HUAe@Eg@@u@B_@Je@Am@ImA@QH]HG@c@B]ACDDEEIcABa@J]?]Hi@A_@Js@?EG?B]IUAUVmAAMFi@MYDa@GKIE?UUSIM?i@DBATDBAFJ@JJFNAPHDDNA`@DBBb@Gd@Er@Kd@?NHHCf@BD?F]lEF`BEx@Uh@HrBMbCFnAI`@Jn@Fp@CjBHZLJf@FRNj@l@Xb@Lv@Bf@ATTx@VVHVZtBLd@Rf@Xd@Xz@tBfFv@|A|@bDX^n@nAfAlCp@pBp@dB`CzGlEnNHd@?`@GfAAd@PzA@z@Ab@SvA@~@LhANvBVx@ZbBV`ADpAJ|@Ct@FlAM|AUv@Ar@J|@JTp@xC^z@j@b@NTRh@`@j@HVpCdBr@lADVd@r@XxA@l@H~@EbB@tAKvANjAXl@|A|Ad@p@nAz@f@r@H^LjAJRRNLPf@tAl@THV@TIdA@PLRt@v@HVTlAVTb@rAf@v@X|@pAtAp@pA~@xBRvALb@NFd@l@XR\\j@r@x@t@`@\\\\b@L\\?n@Vv@h@~@dAXJt@r@TZ\\p@f@^x@pAH\\LxALz@BXAfADd@VbABhAb@dAA~AUzB",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        null, "start_latlng": [46.563999, 11.773746], "end_latlng": [46.563982, 11.773705],
+        "average_speed": 1.334, "max_speed": 2.46, "average_temp": 20, "has_heartrate":
+        true, "average_heartrate": 81.0, "max_heartrate": 110.0, "heartrate_opt_out":
+        false, "display_hide_heartrate_option": true, "elev_high": 1936.0, "elev_low":
+        1628.4, "upload_id": 14288916493, "upload_id_str": "14288916493", "external_id":
+        "garmin_ping_403655400739", "from_accepted_tag": false, "pr_count": 0, "total_photo_count":
+        7, "has_kudoed": false}]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 26 Jan 2025 15:33:58 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 869d8366b387742bb311ae374af51c3e.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - AE447eFtYTUqfXHcIVYE7IRgQRgcXlKV18JiQXoK6W_Hp786e7o89g==
+      X-Amz-Cf-Pop:
+      - MXP53-P2
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '5880'
+      etag:
+      - W/"3fce3c3b1d588fcc5ae9cb6dec51288d"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '259'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 1,1
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 1,1
+      x-request-id:
+      - fea259a2-8e4c-4de8-8ad7-3cee381e8802
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

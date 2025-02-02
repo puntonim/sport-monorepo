@@ -1,0 +1,249 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/athlete/activities?before=1737911700&after=1737902700
+  response:
+    body:
+      string: '[]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 26 Jan 2025 21:16:53 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 adef7e196300f0ab5286a44dbbcbc5a6.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - rGqZqKWdLx45uc5vHPbK61c2IkoQpx1FtgSIGJvQkM8P003-ubeXog==
+      X-Amz-Cf-Pop:
+      - MXP53-P2
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '2'
+      etag:
+      - W/"4f53cda18c2baa0c0354bb5f9a3ecbe5"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '108'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 1,19
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 1,16
+      x-request-id:
+      - 29077cd1-97a2-44d5-8b21-669e0b0e7f63
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: name=test+create+1&sport_type=WeightTraining&start_date_local=2025-01-26T16%3A00%3A00%2B00%3A00&elapsed_time=3600&description=test+create+description
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '149'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: POST
+    uri: https://www.strava.com/api/v3/activities
+  response:
+    body:
+      string: '{"resource_state": 3, "athlete": {"id": 115890775, "resource_state":
+        1}, "name": "test create 1", "distance": 0.0, "moving_time": 3600, "elapsed_time":
+        3600, "total_elevation_gain": 0, "type": "WeightTraining", "sport_type": "WeightTraining",
+        "id": 13461322692, "start_date": "2025-01-26T15:00:00Z", "start_date_local":
+        "2025-01-26T16:00:00Z", "timezone": "(GMT+01:00) Europe/Rome", "utc_offset":
+        3600.0, "location_city": null, "location_state": null, "location_country":
+        "Italy", "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a13461322692", "polyline": "", "resource_state":
+        3, "summary_polyline": ""}, "trainer": false, "commute": false, "manual":
+        true, "private": false, "visibility": "followers_only", "flagged": false,
+        "gear_id": null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0,
+        "max_speed": 0, "has_heartrate": false, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        false, "upload_id": null, "external_id": null, "from_accepted_tag": false,
+        "pr_count": 0, "total_photo_count": 0, "has_kudoed": false, "description":
+        "test create description", "calories": 0, "perceived_exertion": null, "prefer_perceived_exertion":
+        null, "segment_efforts": [], "photos": {"primary": null, "count": 0}, "stats_visibility":
+        [{"type": "heart_rate", "visibility": "everyone"}, {"type": "pace", "visibility":
+        "everyone"}, {"type": "power", "visibility": "everyone"}, {"type": "speed",
+        "visibility": "everyone"}, {"type": "calories", "visibility": "everyone"}],
+        "hide_from_home": false, "embed_token": "66babe8c591f50ba4fb1c5383f960a4302f595fb",
+        "available_zones": []}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 26 Jan 2025 21:16:53 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 0a22f8f332c3e135af4786cbb2490510.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - vSCWRtblXJjPedR3DdrZaRkuF-CvStYGrKRrOsJVTpzYqCW4mQ2q6w==
+      X-Amz-Cf-Pop:
+      - MXP53-P2
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      etag:
+      - W/"3b055db539f6323bbcf7f449236d291e"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 201 Created
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '397'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 2,20
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - ','
+      x-request-id:
+      - ca9b4cb9-c0a3-4b4e-8e4c-11600df73787
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/athlete/activities?before=1737915900&after=1737906900
+  response:
+    body:
+      string: '[{"resource_state": 2, "athlete": {"id": 115890775, "resource_state":
+        1}, "name": "Weight training: triceps \ud83e\udda0", "distance": 0.0, "moving_time":
+        2953, "elapsed_time": 2953, "total_elevation_gain": 0, "type": "WeightTraining",
+        "sport_type": "WeightTraining", "id": 13460285621, "start_date": "2025-01-26T17:40:07Z",
+        "start_date_local": "2025-01-26T18:40:07Z", "timezone": "(GMT+01:00) Africa/Algiers",
+        "utc_offset": 3600.0, "location_city": null, "location_state": null, "location_country":
+        "Italy", "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a13460285621", "summary_polyline": "",
+        "resource_state": 2}, "trainer": true, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0, "max_speed":
+        0.0, "average_temp": 27, "has_heartrate": true, "average_heartrate": 61.3,
+        "max_heartrate": 99.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 0.0, "elev_low": 0.0, "upload_id": 14357871703, "upload_id_str":
+        "14357871703", "external_id": "garmin_ping_405675506494", "from_accepted_tag":
+        false, "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 26 Jan 2025 21:16:54 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 5a9fdee27256334715c1d3434faee45e.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - ELIEYSWEvD5OCQP9lUSDYvyNadcmuwG336m7UhOEABpWIOsbPUX77Q==
+      X-Amz-Cf-Pop:
+      - MXP53-P2
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '1171'
+      etag:
+      - W/"d7c126f65a510ce07847eef8b7cbb74c"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '157'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 3,21
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 2,17
+      x-request-id:
+      - 91a3ec67-495d-4077-99c2-13cf0e1ab180
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

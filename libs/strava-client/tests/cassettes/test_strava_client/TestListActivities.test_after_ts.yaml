@@ -1,0 +1,107 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/athlete/activities?after=1737176400&per_page=2
+  response:
+    body:
+      string: '[{"resource_state": 2, "athlete": {"id": 115890775, "resource_state":
+        1}, "name": "Dobbiaco Winter Night Run \ud83e\udda0", "distance": 11799.8,
+        "moving_time": 3381, "elapsed_time": 3384, "total_elevation_gain": 148.0,
+        "type": "Run", "sport_type": "TrailRun", "workout_type": 1, "id": 13389554554,
+        "start_date": "2025-01-18T16:00:07Z", "start_date_local": "2025-01-18T17:00:07Z",
+        "timezone": "(GMT+01:00) Europe/Rome", "utc_offset": 3600.0, "location_city":
+        null, "location_state": null, "location_country": "Italy", "achievement_count":
+        7, "kudos_count": 5, "comment_count": 0, "athlete_count": 36, "photo_count":
+        0, "map": {"id": "a13389554554", "summary_polyline": "alc|Gk{qiAh@x@LZ`@`@VFPEn@}@d@_@VQf@O`@Bf@Qv@Il@Nx@DRE|@k@d@Ox@Ep@Nn@EnAm@\\IrBYZ@lAPvCfA~@l@r@RXV^TnAX`@XRd@\\ZZAx@i@Z@^JNLNXXRz@RPHTTN\\^l@ZVtAfBj@TRRz@dBf@tAX\\Zl@h@RL@XAXOd@CpA@~@\\jBKPJ`@p@^HrA?nANz@?l@Jz@RfAp@^Zt@`ALHRHz@H|DKz@[^Wl@Y`@Id@WxAOJEHKNc@Dw@F[~@aC^{AZe@N]Z]XSl@YbAOfA?fA\\f@Al@MHGn@w@`@Q`Au@JGXCj@Ul@gAlAgAdAWp@?j@WVDXVL?NGh@a@`@MJQHuBNiAJ[RQ|@KhAg@|CIj@DLLXn@\\HlAs@r@w@Xs@n@g@h@k@d@@THNAj@g@^i@PIxAWrAk@\\GHKLc@TMxCAp@Hj@?fANrAC`BRfBjAt@z@p@f@lCt@l@^fB\\`@Cl@Ut@Gd@Qd@I\\CZVFZHjAJ`@JRJFr@HhAt@l@In@H`@IXF~AJpAGVILKR_@NKJApAPd@VVn@jARZTDDLp@RRP\\XIr@m@f@KlAC^\\P@jAu@\\GBC@GSO[KyAYm@CSFy@?wB_@]CYOo@Q}Bc@g@Og@GqD{@aDm@a@OiAQeCi@cA_@m@Ma@CQIgEu@cAYyCo@k@GiAIcA[_DFaBU{BA}@HSAe@JsC|@[BOJaDj@yAAw@Fi@Rw@P_AJ{De@gCBi@Gk@Ka@CmA]y@]c@Ck@NYPu@x@q@jAgAn@aBh@]T{@\\aDN_Cd@a@T{A^m@Z]Z[Nk@d@q@Pa@CsAYkC{@qEmAwBWuAI}@?yCpAq@Ps@BoAGi@D_@L_A~@_@x@e@x@w@bAKTa@h@e@XsBVy@G{ATwAOyAGi@KiD_Be@]}@mA[q@k@_Be@aBWg@i@w@_@Wg@UkGgBuAMaAHqC~@]DuAAm@FmBr@_@Fs@EsAo@g@K{@HeAZg@D]Ak@MmAi@[SuB{@kCSu@?{Az@q@RaBPe@K]UU_@Ki@Ck@F_@f@wAf@y@`@]XEZZf@l@",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        "g16266480", "start_latlng": [46.718827, 12.223813], "end_latlng": [46.718823,
+        12.223711], "average_speed": 3.487, "max_speed": 5.04, "average_cadence":
+        85.4, "average_temp": 5, "average_watts": 407.1, "max_watts": 659, "weighted_average_watts":
+        408, "device_watts": true, "kilojoules": 1376.3, "has_heartrate": true, "average_heartrate":
+        125.3, "max_heartrate": 137.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 1336.0, "elev_low": 1220.8, "upload_id": 14281221128, "upload_id_str":
+        "14281221128", "external_id": "garmin_ping_403430880961", "from_accepted_tag":
+        false, "pr_count": 7, "total_photo_count": 4, "has_kudoed": false}, {"resource_state":
+        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Vallunga \ud83e\udda0",
+        "distance": 9844.0, "moving_time": 7381, "elapsed_time": 8708, "total_elevation_gain":
+        334.0, "type": "Snowshoe", "sport_type": "Snowshoe", "id": 13396681056, "start_date":
+        "2025-01-19T10:41:23Z", "start_date_local": "2025-01-19T11:41:23Z", "timezone":
+        "(GMT+01:00) Europe/Rome", "utc_offset": 3600.0, "location_city": null, "location_state":
+        null, "location_country": "Italy", "achievement_count": 0, "kudos_count":
+        2, "comment_count": 0, "athlete_count": 1, "photo_count": 0, "map": {"id":
+        "a13396681056", "summary_polyline": "}te{Guf{fATwBAsAE]MSIWOaBMe@Ga@Cq@@_AO}@GeASo@?GH?iAuAk@e@K_@MQw@u@e@YeAiAqAy@MECDDEo@EiCeBSWYq@OG_A_Ag@cCq@}Ak@{@GS_@s@KAg@k@W}@[g@e@eAOg@WWK]Iw@KQeA}@?]H_@Co@M_@[GQMk@}Ag@_@EME_@?y@IQYa@iA_A_@OEAADCCB?ACOJTGCEA?@BG?LKGD@NDSGKFNCAIDBCDR?YKHR?MCDDOBJBGCF?CE@HCAF]AKiBaBYk@Q}@?[Ju@Ca@?eACQFo@Cy@Io@?m@a@aBQQ[aAWi@MQQG][}As@Oa@_@a@GYMW{@gAe@mA{@wDAq@@g@L[LoBEqABs@Is@CaAEYU_AWaB[q@@OIm@Ao@QiBCs@JaAFwASoCHmB?UG]eEeNq@_Bu@cCgAkCm@mBmAaDaBqC]{AQi@aAsBy@yBaAmBUw@KI@AEOYo@Q_AEm@Sw@]a@GUG]@OCk@Sq@Wi@s@q@YMc@CSa@LqBEm@Kg@A[HUAe@Eg@@u@B_@Je@Am@ImA@QH]HG@c@B]ACDDEEIcABa@J]?]Hi@A_@Js@?EG?B]IUAUVmAAMFi@MYDa@GKIE?UUSIM?i@DBATDBAFJ@JJFNAPHDDNA`@DBBb@Gd@Er@Kd@?NHHCf@BD?F]lEF`BEx@Uh@HrBMbCFnAI`@Jn@Fp@CjBHZLJf@FRNj@l@Xb@Lv@Bf@ATTx@VVHVZtBLd@Rf@Xd@Xz@tBfFv@|A|@bDX^n@nAfAlCp@pBp@dB`CzGlEnNHd@?`@GfAAd@PzA@z@Ab@SvA@~@LhANvBVx@ZbBV`ADpAJ|@Ct@FlAM|AUv@Ar@J|@JTp@xC^z@j@b@NTRh@`@j@HVpCdBr@lADVd@r@XxA@l@H~@EbB@tAKvANjAXl@|A|Ad@p@nAz@f@r@H^LjAJRRNLPf@tAl@THV@TIdA@PLRt@v@HVTlAVTb@rAf@v@X|@pAtAp@pA~@xBRvALb@NFd@l@XR\\j@r@x@t@`@\\\\b@L\\?n@Vv@h@~@dAXJt@r@TZ\\p@f@^x@pAH\\LxALz@BXAfADd@VbABhAb@dAA~AUzB",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        null, "start_latlng": [46.563999, 11.773746], "end_latlng": [46.563982, 11.773705],
+        "average_speed": 1.334, "max_speed": 2.46, "average_temp": 20, "has_heartrate":
+        true, "average_heartrate": 81.0, "max_heartrate": 110.0, "heartrate_opt_out":
+        false, "display_hide_heartrate_option": true, "elev_high": 1936.0, "elev_low":
+        1628.4, "upload_id": 14288916493, "upload_id_str": "14288916493", "external_id":
+        "garmin_ping_403655400739", "from_accepted_tag": false, "pr_count": 0, "total_photo_count":
+        7, "has_kudoed": false}]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 25 Jan 2025 17:02:02 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 f4b52c3931d1baf7a0b625b363d63d6c.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - a8R6FCv1cNHBy7B8cK-M7EyhMen5N8YNMkBnorfE2Q-PJ-BI4GsVSw==
+      X-Amz-Cf-Pop:
+      - MXP53-P2
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '4678'
+      etag:
+      - W/"b475f29763838b4a967359abe3cb4569"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '322'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 1,9
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 1,9
+      x-request-id:
+      - 4979aabc-e337-431e-86e1-6d0ec55a2981
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

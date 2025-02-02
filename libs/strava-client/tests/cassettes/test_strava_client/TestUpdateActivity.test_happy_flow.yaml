@@ -1,0 +1,96 @@
+interactions:
+- request:
+    body: name=test+Weight+training&description=bla+bla
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '45'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: PUT
+    uri: https://www.strava.com/api/v3/activities/13381920990
+  response:
+    body:
+      string: '{"resource_state": 3, "athlete": {"id": 115890775, "resource_state":
+        1}, "name": "test Weight training", "distance": 0.0, "moving_time": 3600,
+        "elapsed_time": 3600, "total_elevation_gain": 0, "type": "WeightTraining",
+        "sport_type": "WeightTraining", "id": 13381920990, "start_date": "2025-01-17T19:00:00Z",
+        "start_date_local": "2025-01-17T20:00:00Z", "timezone": "(GMT+01:00) Europe/Rome",
+        "utc_offset": 3600.0, "location_city": null, "location_state": null, "location_country":
+        "Italy", "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a13381920990", "polyline": "", "resource_state":
+        3, "summary_polyline": ""}, "trainer": false, "commute": false, "manual":
+        true, "private": false, "visibility": "followers_only", "flagged": false,
+        "gear_id": null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0,
+        "max_speed": 0, "has_heartrate": false, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        false, "upload_id": null, "external_id": null, "from_accepted_tag": false,
+        "pr_count": 0, "total_photo_count": 0, "has_kudoed": false, "description":
+        "bla bla", "calories": 0, "perceived_exertion": null, "prefer_perceived_exertion":
+        null, "segment_efforts": [], "photos": {"primary": null, "count": 0}, "stats_visibility":
+        [{"type": "heart_rate", "visibility": "everyone"}, {"type": "pace", "visibility":
+        "everyone"}, {"type": "power", "visibility": "everyone"}, {"type": "speed",
+        "visibility": "everyone"}, {"type": "calories", "visibility": "everyone"}],
+        "hide_from_home": false, "embed_token": "1bce5ff099297c85fdb084603a3e81b67791eaab",
+        "available_zones": []}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 26 Jan 2025 16:40:18 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 59e4ad432d462243b40c1447c9691d6a.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - 0B16hI-C_lwXLENHsn0fre3AKvfg9lAQA3tXYWh6ZdKTLaGu3vyXew==
+      X-Amz-Cf-Pop:
+      - MXP53-P2
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '1504'
+      etag:
+      - W/"17597dff6f3bfccbfaaa617451f798ff"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '340'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 1,6
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 1,6
+      x-request-id:
+      - dd5b7570-c400-45d8-b357-ccf5a2348ad2
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

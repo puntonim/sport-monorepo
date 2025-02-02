@@ -1,0 +1,73 @@
+interactions:
+- request:
+    body: name=test+create+1&sport_type=XXX&start_date_local=2025-01-26T16%3A00%3A00%2B00%3A00&elapsed_time=3600&description=test+create+description
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '138'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: POST
+    uri: https://www.strava.com/api/v3/activities
+  response:
+    body:
+      string: '{"message": "Bad Request", "errors": [{"resource": "Activity", "field":
+        "sport_type", "code": "invalid"}]}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 26 Jan 2025 21:08:53 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 869d8366b387742bb311ae374af51c3e.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - w_u_cMdYfdqMbMux6ZQFagoQmEW4ucC_RGvMVT8e4tLXyah-3xTbUw==
+      X-Amz-Cf-Pop:
+      - MXP53-P2
+      X-Cache:
+      - Error from cloudfront
+      cache-control:
+      - no-cache
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 400 Bad Request
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '43'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 3,18
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - ','
+      x-request-id:
+      - 72e1e957-5f9b-419d-b1cc-804d3d98963e
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 400
+      message: Bad Request
+version: 1
