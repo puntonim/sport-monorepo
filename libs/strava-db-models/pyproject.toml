@@ -1,0 +1,45 @@
+[project]
+name = "strava-db-models"
+description = "Strava DB Models with Peewee ORM"
+version = "1.0.0"
+authors = [
+    {name = "puntonim",email = "puntonim@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "peewee-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=peewee-utils",
+    "log-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=log-utils",
+    "peewee (>=3.17.8,<4.0.0)",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+black = "24.10.0"
+isort = "5.13.2"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.4"
+pytest-xdist = {extras = ["psutil"], version = "^3.6.1"}
+# VCR.py integration with pytest.
+pytest-recording = "^0.13.2"
+
+[tool.black]  # See: https://black.readthedocs.io/en/stable/pyproject_toml.html
+line-length = 88  # Default.
+# skip-string-normalization = true  # Only for old projects.
+target-version = ["py313"]
+include = '\.py?$'
+extend-exclude = '''  # It automatically excludes all files in .gitignore by default.
+/(
+    \.git
+  # Project-specific:
+  | docs
+)/
+'''
+
+[tool.isort]
+profile = "black"  # See: https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html#profile
+skip_gitignore = true  # Skip all files in .gitignore.
