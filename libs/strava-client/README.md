@@ -25,6 +25,11 @@ Usage
 
 See top docstrings in [strava_client.py](strava_client/strava_client.py).
 
+Use, at the moment, by:
+ - strava-facade-api in strava-monorepo
+ - strava-exporter-to-db in strava-monorepo
+
+
 Local dir install
 -----------------
 To install this client in a project, from a local dir, add this to `pyproject.toml`:

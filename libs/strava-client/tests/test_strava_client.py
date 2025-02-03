@@ -254,3 +254,51 @@ class TestCreateActivity:
                 description="test create description 2",
                 do_detect_duplicates=True,
             )
+
+
+class TestGetStreams:
+    def setup_method(self):
+        do_force_skip_refresh_token = True if is_vcr_episode_or_error() else False
+        self.token_mgr = FileTokenManager(
+            client_id=CLIENT_ID,
+            client_secret=CLIENT_SECRET,
+            token_json_file_path=ROOT_DIR / "strava-api-token.json",
+            # Set `do_force_skip_refresh_token` to False when recording cassettes.
+            do_force_skip_refresh_token=do_force_skip_refresh_token,
+        )
+
+    def test_happy_flow(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        stream_types = (
+            "time",
+            "distance",
+            "latlng",
+            "altitude",
+            "heartrate",
+        )
+        response = client.get_streams(13389554554, stream_types=stream_types)
+        assert len(response) == 5
+        for stream in response:
+            assert stream["type"] in stream_types
+            assert stream["data"]
+            assert stream["series_type"] == "distance"
+            assert stream["original_size"]
+            assert stream["resolution"]
+            assert stream["data"]
+
+    def test_single_type(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.get_streams(13389554554, stream_types=["heartrate"])
+        assert len(response) == 2
+        assert response[0]["type"] == "distance"
+        assert response[0]["data"]
+        assert response[0]["series_type"] == "distance"
+        assert response[0]["original_size"]
+        assert response[0]["resolution"]
+        assert response[0]["data"]
+        assert response[1]["type"] == "heartrate"
+        assert response[1]["data"]
+        assert response[1]["series_type"] == "distance"
+        assert response[1]["original_size"]
+        assert response[1]["resolution"]
+        assert response[1]["data"]
