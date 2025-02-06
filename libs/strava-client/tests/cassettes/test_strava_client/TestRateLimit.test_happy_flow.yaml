@@ -1,0 +1,69 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/athlete/activities?after=1737176400&per_page=2
+  response:
+    body:
+      string: '{"message": "Rate Limit Exceeded", "errors": [{"resource": "Application",
+        "field": "read rate limit", "code": "exceeded"}]}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 06 Feb 2025 15:47:51 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 deaad1e568685a25accc9fd26a305f78.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - gyO6thqhbDQRYCiQBE_otVyEI-PgFObeChNxrZGwp-ATS0OKVPB7Xg==
+      X-Amz-Cf-Pop:
+      - MXP53-P2
+      X-Cache:
+      - Error from cloudfront
+      cache-control:
+      - no-cache
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 429 Too Many Requests
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '44'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 102,705
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 102,705
+      x-request-id:
+      - 63f295ee-e515-4044-a6a7-927bc7479c82
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 429
+      message: Too Many Requests
+version: 1

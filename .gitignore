@@ -458,6 +458,8 @@ pip-selfcheck.json
 .serverless/
 node_modules/
 *.sqlite3
+*.BAK*
+*.bak*
 # Un-ignore scripts dir and Makefile.
 !scripts
 !Makefile

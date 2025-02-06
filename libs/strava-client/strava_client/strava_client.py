@@ -56,6 +56,7 @@ assert response[0]["id"] == 13389554554
 ```
 """
 
+import functools
 from datetime import datetime, timedelta
 
 import log_utils as logger
@@ -70,13 +71,35 @@ __all__ = [
     "RequestedResultsPageDoesNotExist",
     "SportTypeInvalid",
     "StravaClient",
+    "StravaApiRateLimitExceeded",
 ]
+
+
+def handle_api_rate_limit_error(fn):
+    @functools.wraps(fn)
+    def closure(*args, **kwargs):
+        # `self` in the original method.
+        zelf = args[0]  # noqa
+        try:
+            return fn(*args, **kwargs)
+        except requests.exceptions.HTTPError as exc:
+            if exc.response.status_code == 429:
+                # Handling the Strava API rate limits:
+                #  100 requests every 15 minutes: reset at natural 15-minute intervals
+                #   corresponding to 0, 15, 30 and 45 minutes after the hour.
+                #  1000 per day: resets at midnight UTC.
+                #  https://developers.strava.com/docs/rate-limits/
+                raise StravaApiRateLimitExceeded from exc
+            raise
+
+    return closure
 
 
 class StravaClient:
     def __init__(self, access_token: str):
         self._access_token = access_token
 
+    @handle_api_rate_limit_error
     def list_activities(
         self,
         after_ts: datetime | int | float | None = None,
@@ -144,6 +167,7 @@ class StravaClient:
 
         return data
 
+    @handle_api_rate_limit_error
     def get_activity_details(self, activity_id: int) -> dict:
         """
         Get details for the given activity id.
@@ -172,6 +196,7 @@ class StravaClient:
         details: dict = response.json()
         return details
 
+    @handle_api_rate_limit_error
     def update_activity(self, activity_id: int, data: dict) -> dict:
         """
         Update an activity by its id.
@@ -192,6 +217,7 @@ class StravaClient:
             raise
         return response.json()
 
+    @handle_api_rate_limit_error
     def create_activity(
         self,
         name: str,
@@ -267,6 +293,7 @@ class StravaClient:
         details: dict = response.json()
         return details
 
+    @handle_api_rate_limit_error
     def get_streams(self, activity_id: int, stream_types: list[str]) -> list[dict]:
         """
         Get streams for the given activity id.
@@ -347,3 +374,32 @@ class RequestedResultsPageDoesNotExist(BaseStravaClientException):
 class InvalidStreamType(BaseStravaClientException):
     def __init__(self, stream_type: str):
         self.stream_type = stream_type
+
+
+class StravaApiRateLimitExceeded(BaseStravaClientException):
+    def __init__(self):
+        self.ts = datetime.now().astimezone()
+        # Strava API rate limits:
+        #  100 requests every 15 minutes: reset at natural 15-minute intervals
+        #   corresponding to 0, 15, 30 and 45 minutes after the hour.
+        #  1000 per day: resets at midnight UTC.
+        #  https://developers.strava.com/docs/rate-limits/
+
+        # Find the next minute divisible by 15 (so 0, 15, 30 and 45 min after the hour).
+        for i in range(1, 16):
+            self.reset_ts = self.ts + timedelta(minutes=i)
+            if self.reset_ts.minute % 15 == 0:
+                self.reset_ts = self.reset_ts.replace(second=0, microsecond=0)
+                break
+
+        self.msg = (
+            f"You *probably* exceeded Strava API rate limit of 100 requests per 15 mins.\n"
+            f" You must wait until the natural 15-min interval corresponding to 0, 15,"
+            f" 30 and 45 minutes after the hour.\n"
+            f" You hit the limit at: {self.ts.isoformat()}\n"
+            f" And must wait until: {self.reset_ts.isoformat()}\n"
+            f" You also *might* have exceeded the daily limit of 1000 requests that"
+            f" resets at midnight UTC.\n"
+            f" Docs: https://developers.strava.com/docs/rate-limits/"
+        )
+        super().__init__(self.msg)

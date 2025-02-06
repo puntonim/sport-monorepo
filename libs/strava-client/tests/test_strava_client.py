@@ -9,6 +9,7 @@ from strava_client import (
     PossibleDuplicatedActivity,
     RequestedResultsPageDoesNotExist,
     SportTypeInvalid,
+    StravaApiRateLimitExceeded,
     StravaClient,
 )
 from strava_client.conf.settings_module import ROOT_DIR
@@ -17,6 +18,11 @@ from tests.conftest import is_vcr_episode_or_error
 
 # TODO use valid creds only when recording cassettes. Do not commit valid ones.
 #  Find valid creds in Parameter Store for the project `strava-facade-api`.
+#  Trick: first write your new test copying the setup_method in TestParamStoreToken,
+#   then record the new cassette
+#   then delete the first request in the cassette (it's the request to Param Store)
+#   finally replace the setup_method with the one in TestListActivities.
+#   Doing so you don't need to write here valid creds.
 CLIENT_ID = "XXXid"
 CLIENT_SECRET = "XXXsecret"
 
@@ -302,3 +308,24 @@ class TestGetStreams:
         assert response[1]["original_size"]
         assert response[1]["resolution"]
         assert response[1]["data"]
+
+
+class TestRateLimit:
+    def setup_method(self):
+        do_force_skip_refresh_token = True if is_vcr_episode_or_error() else False
+        self.token_mgr = FileTokenManager(
+            client_id=CLIENT_ID,
+            client_secret=CLIENT_SECRET,
+            token_json_file_path=ROOT_DIR / "strava-api-token.json",
+            # Set `do_force_skip_refresh_token` to False when recording cassettes.
+            do_force_skip_refresh_token=do_force_skip_refresh_token,
+        )
+
+    def test_happy_flow(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        with pytest.raises(StravaApiRateLimitExceeded):
+            # Any requests will fail after exceeding the API rate limit.
+            client.list_activities(
+                after_ts=datetime(2025, 1, 18, 6, 0, tzinfo=ZoneInfo("Europe/Rome")),
+                n_results_per_page=2,
+            )

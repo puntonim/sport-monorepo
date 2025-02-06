@@ -1,0 +1,51 @@
+[project]
+name = "strava-exporter-to-db"
+description = "Strava Exporter to SQLite DB"
+authors = [
+    {name = "puntonim",email = "puntonim@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"  # Latest AWS Lambda Python runtime.
+version = "1.0.0"
+dependencies = [
+    "checksum-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=checksum-utils",
+    "log-utils[rich-adapter] @ git+https://github.com/puntonim/utils-monorepo#subdirectory=log-utils",
+    # "strava-client[aws-parameter-store] @ git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/strava-client",
+    "strava-client[aws-parameter-store] @ ../../libs/strava-client",
+    "strava-db-models @ ../../libs/strava-db-models",
+    "peewee (>=3.17.8,<4.0.0)",
+    "rich (>=13.9.4,<14.0.0)",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+black = "24.10.0"  # Must be the same as in `.pre-commit-config.yaml`.
+isort = "5.13.2"  # Must be the same as in `.pre-commit-config.yaml`.
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.4"
+pytest-xdist = {extras = ["psutil"], version = "^3.6.1"}
+
+[tool.black]  # See: https://black.readthedocs.io/en/stable/pyproject_toml.html
+line-length = 88  # Default.
+# skip-string-normalization = true  # Only for old projects.
+target-version = ["py313"]
+include = '\.py?$'
+extend-exclude = '''  # It automatically excludes all files in .gitignore by default.
+/(
+    \.git
+  # Project-specific:
+  | docs
+)/
+'''
+
+[tool.isort]
+profile = "black"  # See: https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html#profile
+skip_gitignore = true  # Skip all files in .gitignore.
+
+
+[project.scripts]
+export-to-db = 'strava_exporter_to_db.cli:main'
