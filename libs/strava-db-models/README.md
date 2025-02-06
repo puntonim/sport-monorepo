@@ -11,6 +11,10 @@ Usage
 
 See top docstrings in [strava_db_models.py](strava_db_models/strava_db_models.py).
 
+Used, at the moment, by:
+ - strava-exporter-to-db in strava-monorepo
+
+
 Local dir install
 -----------------
 To install these models in a project, from a local dir, add this to `pyproject.toml`:

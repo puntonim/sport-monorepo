@@ -25,7 +25,7 @@ Usage
 
 See top docstrings in [strava_client.py](strava_client/strava_client.py).
 
-Use, at the moment, by:
+Used, at the moment, by:
  - strava-facade-api in strava-monorepo
  - strava-exporter-to-db in strava-monorepo
 
