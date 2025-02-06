@@ -10,6 +10,9 @@ class ConsoleAdapter:
 
     def log(self, *args, **kwargs):
         # if not settings.IS_TEST:
+        # Use _stack_offset=2 to get to the original source line that
+        #  invoked the log statement.
+        kwargs["_stack_offset"] = 2
         return self.stderr_console.log(*args, **kwargs)
 
     def print(self, *args, **kwargs):

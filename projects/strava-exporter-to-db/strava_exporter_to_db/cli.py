@@ -85,7 +85,6 @@ def main(test_cmd_line_args: list[str] | None = None):
     Args:
         test_cmd_line_args: used in unit tests.
     """
-
     if test_cmd_line_args:
         parser.exit_on_error = False
         args = parser.parse_args(test_cmd_line_args)
