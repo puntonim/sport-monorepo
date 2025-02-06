@@ -2,6 +2,10 @@ from time import time
 
 import requests
 
+__all__ = [
+    "BaseTokenManagerException",
+]
+
 
 class BaseTokenManager:
     def _is_expired(self) -> bool:

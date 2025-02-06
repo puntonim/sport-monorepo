@@ -1,16 +1,18 @@
+import functools
 from datetime import datetime
 from typing import Optional, Union
 
-import requests
-from strava_client.strava_client import (
+from strava_client import (
     InvalidDatetime,
     NaiveDatetime,
     PossibleDuplicatedActivity,
+    StravaApiRateLimitExceeded,
     StravaClient,
 )
-from strava_client.token_managers.aws_parameter_store_token_manager import (
+from strava_client.token_managers import (
     AwsParameterStoreTokenManager,
     AwsParameterStoreTokenManagerException,
+    BaseTokenManagerException,
 )
 
 from . import domain_exceptions as exceptions
@@ -26,6 +28,20 @@ CLIENT_SECRET_PARAMETER_STORE_KEY_PATH = (
 )
 
 
+def handle_strava_api_rate_limit_error(fn):
+    @functools.wraps(fn)
+    def closure(*args, **kwargs):
+        # `self` in the original method.
+        # zelf = args[0]
+        try:
+            return fn(*args, **kwargs)
+        except StravaApiRateLimitExceeded as exc:
+            raise exceptions.StravaApiRateLimitExceededError from exc
+
+    return closure
+
+
+@handle_strava_api_rate_limit_error
 def update_activity_description(
     after_ts: Union[int, float],
     before_ts: Union[int, float],
@@ -55,13 +71,10 @@ def update_activity_description(
     )
     try:
         access_token = token_mgr.get_access_token()
-    except AwsParameterStoreTokenManagerException as exc:
+    except (AwsParameterStoreTokenManagerException, BaseTokenManagerException) as exc:
         raise exceptions.StravaAuthenticationError(str(exc)) from exc
 
-    try:
-        strava = StravaClient(access_token)
-    except requests.HTTPError as exc:
-        raise exceptions.StravaApiError(str(exc)) from exc
+    strava = StravaClient(access_token)
 
     # Get all activities of the given type for the given day.
     activities = strava.list_activities(after_ts, before_ts, activity_type)
@@ -87,6 +100,7 @@ def update_activity_description(
     return updated_activity
 
 
+@handle_strava_api_rate_limit_error
 def create_activity(
     name: str,
     activity_type: str,
@@ -112,13 +126,10 @@ def create_activity(
     )
     try:
         access_token = token_mgr.get_access_token()
-    except AwsParameterStoreTokenManagerException as exc:
+    except (AwsParameterStoreTokenManagerException, BaseTokenManagerException) as exc:
         raise exceptions.StravaAuthenticationError(str(exc)) from exc
 
-    try:
-        strava = StravaClient(access_token)
-    except requests.HTTPError as exc:
-        raise exceptions.StravaApiError(str(exc)) from exc
+    strava = StravaClient(access_token)
 
     try:
         activity = strava.create_activity(

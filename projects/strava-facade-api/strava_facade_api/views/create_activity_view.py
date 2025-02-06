@@ -188,5 +188,7 @@ def lambda_handler(event: dict[str, Any], context) -> dict:
         return BadRequest400Response(str(exc)).to_dict()
     except domain_exceptions.StravaApiError as exc:
         return BadRequest400Response(str(exc)).to_dict()
+    except domain_exceptions.StravaApiRateLimitExceededError as exc:
+        return BadRequest400Response(str(exc.__cause__)).to_dict()
 
     return Ok200Response(new_activity).to_dict()

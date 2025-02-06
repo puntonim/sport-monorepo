@@ -33,3 +33,7 @@ class NaiveDatetimeInput(BaseDomainException):
 class PossibleDuplicatedActivityFound(BaseDomainException):
     def __init__(self, activity_id: str | None = None):
         self.activity_id = activity_id
+
+
+class StravaApiRateLimitExceededError(BaseDomainException):
+    pass
