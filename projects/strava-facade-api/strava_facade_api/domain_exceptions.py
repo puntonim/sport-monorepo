@@ -2,8 +2,9 @@ class BaseDomainException(Exception):
     pass
 
 
-class NoActivityFound(BaseDomainException):
-    pass
+class ActivityNotFoundInStravaApi(BaseDomainException):
+    def __init__(self, activity_id: int) -> None:
+        self.activity_id = activity_id
 
 
 class ActivityAlreadyHasDescription(BaseDomainException):
@@ -25,6 +26,11 @@ class InvalidDatetimeInput(BaseDomainException):
         self.value = value
 
 
+class RequestedResultsPageDoesNotExistInStravaApi(BaseDomainException):
+    def __init__(self, page_n: int):
+        self.page_n = page_n
+
+
 class NaiveDatetimeInput(BaseDomainException):
     def __init__(self, value):
         self.value = value
@@ -37,3 +43,8 @@ class PossibleDuplicatedActivityFound(BaseDomainException):
 
 class StravaApiRateLimitExceededError(BaseDomainException):
     pass
+
+
+class AfterTsInTheFutureInStravaApi(BaseDomainException):
+    def __init__(self, after_ts: int):
+        self.after_ts = after_ts

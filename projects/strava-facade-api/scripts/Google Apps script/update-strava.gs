@@ -31,15 +31,17 @@ class UpdateStravaButton {
     }
 
     // Parse data.
-    const [dayStartTs, dayEndTs, originalDate] = this._parseDate();
+    const [startTs, endTs, originalDate, isTsWithHour] = this._parseDate();
     const name = this._parseTitle();
     const note = this._parseNote();
     // Detect if it is a regular session log or a calisthenics session at YouReborn.
     this.isCalisthenicsCourse = this._isCalisthenicsCourse(note);
     const exercises = this._parseExercises();
 
-    if (this.isCalisthenicsCourse) { // It's a calisthenics course session at YouReborn.
-      const [startHour, startMin, durationHour, durationMin] = this._askStartTimeAndDuration();
+    //**** CALISTHENICS: it's a calisthenics course session at YouReborn.
+    if (this.isCalisthenicsCourse) {
+      const originalDateWithHour = isTsWithHour ? originalDate : null;
+      const [startHour, startMin, durationHour, durationMin] = this._askStartTimeAndDuration(originalDateWithHour);
 
       // Eg. "2024-07-25T18:17:33.983+02:00".
       const startDateString = this._formatStartDateString(originalDate, startHour, startMin);
@@ -49,17 +51,17 @@ class UpdateStravaButton {
 
       // And create the new Strava activity.
       this._createStravaActivity(startDateString, durationHour, durationMin, description, name);
-  //         $ curl -X POST https://q0adsu470c.execute-api.eu-south-1.amazonaws.com/create-activity \
-  //       -H 'Authorization: XXX' \
-  //       -d '{"name": "test1", "activityType": "WeightTraining", "startDate": "2024-07-25T18:17:33.983+02:00", "durationSeconds": 3960, "description": "My new descr"}'
+      //   $ curl -X POST https://q0adsu470c.execute-api.eu-south-1.amazonaws.com/create-activity \
+      // -H 'Authorization: XXX' \
+      // -d '{"name": "test1", "activityType": "WeightTraining", "startDate": "2024-07-25T18:17:33.983+02:00", "durationSeconds": 3960, "description": "My new descr"}'
 
-
-
-    } else { // It's a regular gym session.
+    //**** REGULAR: it's a regular gym session.
+    } else {
       // Send an alert message for "logging" purpose.
-      const description = this._sendUpdateAlertMessage(dayStartTs, dayEndTs, name, exercises, note);
+      const description = this._sendUpdateAlertMessage(startTs, endTs, name, exercises, note);
+
       // And update the description of the existing Strava activity.
-      this._updateStravaActivityDescription(dayStartTs, dayEndTs, description, name);
+      this._updateStravaActivityDescription(startTs, endTs, description, name);
     }
   }
 
@@ -88,13 +90,33 @@ class UpdateStravaButton {
   _parseDate() {
     // Parse data: date.
     const originalDate = this.activeRange.getCell(1, 1).getValue();
+
     if (!(originalDate instanceof Date)) {
       showAlert("Not a valid date: " + originalDate);
       throw new NotADate();
     }
-    const dayStartTs = Math.round(originalDate / 1000);
-    const dayEndTs = dayStartTs + 24 * 60 * 60 - 1;
-    return [dayStartTs, dayEndTs, originalDate];
+
+    const h = originalDate.getHours();
+    const m = originalDate.getMinutes();
+    const startTs = Math.round(originalDate / 1000);
+
+    let endTs;
+    let isTsWithHour = false;
+
+    // If it is a new date, with hours:
+    if (h+m !== 0) {
+      isTsWithHour = true;
+      // Add exactly 30 mins.
+      endTs = startTs + 30 * 60;
+    }
+
+    // Else, it is an old date, without hours.
+    else{
+      // Add exactly 24 hours - 1 sec, so it's 23:59:59;
+      endTs = startTs + 24 * 60 * 60 - 1;
+    }
+
+    return [startTs, endTs, originalDate, isTsWithHour];
   }
 
   _formatStartDateString(originalDate, startHour, startMin) {
@@ -103,8 +125,8 @@ class UpdateStravaButton {
     startDate.setHours(startHour, startMin);
     return dateToIsoString(startDate);
   }
-  
-  _parseTitle() { 
+
+  _parseTitle() {
     // Parse data: title.
     const title = this.activeRange.getCell(1, 2).getValue();
     const name = "Weight training: " + title[0].toLowerCase() + title.slice(1);
@@ -145,7 +167,7 @@ class UpdateStravaButton {
         }
         exercises.push({name: name, reps: targetReps, sets: sets});
       }
-    }    
+    }
     return exercises;
   }
 
@@ -164,13 +186,13 @@ class UpdateStravaButton {
       return false;
     }
   }
-  
-  _sendUpdateAlertMessage(dayStartTs, dayEndTs, name, exercises, note) {
+
+  _sendUpdateAlertMessage(startTs, endTs, name, exercises, note) {
     /**
      * Send an alert message for "logging" purpose
      *  about the update of an existing Strava activity.
      */
-    const header = "UPDATE ACTIVITY DESCTIPTION\n\nTimestamps: " + dayStartTs + " - " + dayEndTs;
+    const header = "UPDATE ACTIVITY DESCTIPTION\n\nTimestamps: " + startTs + " - " + endTs;
     let description = "";
     for (let exercise of exercises) {
       description += exercise.name + ": " + exercise.reps + " reps x " + exercise.sets + " sets\n"
@@ -196,15 +218,43 @@ class UpdateStravaButton {
 
   _updateStravaActivityDescription(afterTs, beforeTs, description, name) {
     const stravaFacadeApiClient = new StravaFacadeApiClient();
+
+    // Search for an activity between the given timestamps.
     let response = null;
     try {
-      response = stravaFacadeApiClient.updateActivityDescription(afterTs, beforeTs, description, name);
+      response = stravaFacadeApiClient.listActivities(afterTs, beforeTs);
+    } catch (err) {
+      throw err;
+    }
+    // Inform the user about all activities found.
+    if (!response.length) {
+      showAlert("No activity found, check the start date!");
+      return;
+    }
+    let text = "Found #" + response.length + " activities:";
+    for (let activity of response) {
+      text += "\n\nId: " + activity.id;
+      text += "\nName: " + activity.name;
+      text += "\nTs: " + activity.start_date_local;
+    }
+    // Inform that we will update the first one.
+    const activity = response[0];
+    if (response.length > 1) text += "\n\nUpdate the 1st one (" + activity.name + ")?";
+    else text += "\n\nUpdate it?";
+    const yesOrNo = showYesNoAlert(text);
+    if (!yesOrNo) return; // "no" answer.
+
+    // Finally update the activity.
+    response = null;
+    try {
+      response = stravaFacadeApiClient.updateActivityDescription(activity.id, description, name);
     } catch (err) {
       if (err instanceof ActivityAlreadyHasDescription) {
-        const yesOrNo = showYesNoAlert("Found an activity with a description already. Overwrite?");
-        if (yesOrNo) { // "yes" answer.
-          response = stravaFacadeApiClient.updateActivityDescription(afterTs, beforeTs, description, name, false);
-        } else return;
+        let text = err.toString();
+        text += "\n\nOverwrite?"
+        const yesOrNo = showYesNoAlert(text);
+        if (!yesOrNo) return; // "no" answer.
+        response = stravaFacadeApiClient.updateActivityDescription(activity.id, description, name, false);
       } else {
         throw err;
       }
@@ -225,12 +275,33 @@ class UpdateStravaButton {
     openUrlInNewBrowserTab("https://www.strava.com/activities/" + activityId, "Opening Strava...");
   }
 
-  _askStartTimeAndDuration() {
-    let response = showPrompt("Start time? Duration?", "Default (leave blank): 20:00 1:00");
-   
+  _askStartTimeAndDuration(originalDateWithHour) {
+    /**
+     * originalDateWithHour: either null or the date with a proper hour set, as written in the original cell.
+     */
+    let h = 20;
+    let m = 0;
+    if (originalDateWithHour) {
+      h = originalDateWithHour.getHours();
+      m = originalDateWithHour.getMinutes();
+    }
+
+    let text = "Default (leave blank): ";
+    text += h.toLocaleString("en-US", {
+      minimumIntegerDigits: 2,
+      useGrouping: false
+    });
+    text += ":";
+    text += m.toLocaleString("en-US", {
+      minimumIntegerDigits: 2,
+      useGrouping: false
+    });
+    text += " 1:00";
+    let response = showPrompt("Start time? Duration?", text);
+
     // Default.
     if (response === "") {
-      return [20, 0, 1, 0];
+      return [h, m, 1, 0];
     }
 
     // Split start time and duration.
@@ -269,13 +340,47 @@ class UpdateStravaButton {
       throw new InvalidMinute(durationMin);
     }
 
-    return [startHour, startMin, durationHour, durationMin];    
+    return [startHour, startMin, durationHour, durationMin];
   }
 }
 
 
 class StravaFacadeApiClient {
-  updateActivityDescription(afterTs, beforeTs, description, name, doStopIfDescriptionNotNull=true) {
+  listActivities (afterTs, beforeTs) {
+    /**
+     * Get to my strava-facade-api Lambda
+     *  in order to list Strava activities.
+     */
+    Logger.log("START request to Lambda");
+
+    // Make a GET request with query string.
+    const options = {
+      "method": "get",
+      "headers": {
+        "authorization": STRAVA_FACADE_API_SECRET,
+      },
+      "muteHttpExceptions": true,
+    };
+    let url = STRAVA_FACADE_API_BASE_URL + "/activity?after-ts=" + afterTs;
+    url += "&before-ts=" + beforeTs;
+    url += "&activity-type=WeightTraining";
+    url += "&n-results-per-page=10&page-n=1";
+    // Docs: https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app
+    const response = UrlFetchApp.fetch(url, options);
+    const responseBody = response.getContentText();
+    const responseCode = response.getResponseCode();
+    Logger.log(responseBody);
+
+    if (responseCode > 299) {
+      const msg = "Status code: " + responseCode + "\nBody: " + responseBody;
+      showAlert(`** Error response from Lambda strava-facade-api-*! **\n\n${msg}`);
+      throw new ResponseError(msg);
+    }
+    Logger.log("END request to Lambda");
+    return JSON.parse(responseBody);
+  }
+
+  updateActivityDescription(activityId, description, name, doStopIfDescriptionNotNull=true) {
     /**
      * Post to my strava-facade-api Lambda
      *  in order to update an existing Strava activity's description.
@@ -288,8 +393,7 @@ class StravaFacadeApiClient {
 
     // Make a POST request with a JSON payload.
     const data = {
-      "afterTs": afterTs,
-      "beforeTs": beforeTs,
+      "activityId": activityId,
       "description": description,
       "activityType": "WeightTraining",
       "name": name,
@@ -304,13 +408,14 @@ class StravaFacadeApiClient {
       },
       "muteHttpExceptions": true,
     };
+    // Docs: https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app
     const response = UrlFetchApp.fetch(STRAVA_FACADE_API_BASE_URL + "/update-activity-description", options);
     const responseBody = response.getContentText();
     const responseCode = response.getResponseCode();
     Logger.log(responseBody);
 
     if ((responseCode === 400) && (responseBody.includes("The activity found already has a description"))) {
-      throw new ActivityAlreadyHasDescription();
+      throw new ActivityAlreadyHasDescription(responseBody);
     } else if (responseCode === 404) {
       throw new ActivityNotFound();
     } else if (responseCode > 299) {
@@ -326,7 +431,7 @@ class StravaFacadeApiClient {
     /**
      * Post to my strava-facade-api Lambda
      *  in order to create a new Strava activity.
-     * 
+     *
      * Example:
      *  $ curl -X POST https://q0adsu470c.execute-api.eu-south-1.amazonaws.com/create-activity \
      *       -H 'Authorization: XXX' \
@@ -351,6 +456,7 @@ class StravaFacadeApiClient {
       },
       "muteHttpExceptions": true,
     };
+    // Docs: https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app
     const response = UrlFetchApp.fetch(STRAVA_FACADE_API_BASE_URL + "/create-activity", options);
     const responseBody = response.getContentText();
     const responseCode = response.getResponseCode();

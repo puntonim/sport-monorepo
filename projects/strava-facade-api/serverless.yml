@@ -73,6 +73,24 @@ functions:
           method: GET
     iamRoleStatements: []
 
+  endpoint-list-activities:
+    handler: strava_facade_api.views.list_activities_view.lambda_handler
+    timeout: 29 # Note: API Gateway current maximum is 29 seconds.
+    maximumRetryAttempts: 0
+    events:
+      - httpApi:
+          path: /activity
+          method: GET
+          authorizer:
+            name: tokenAuthorizer
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - ssm:GetParameter
+          - ssm:PutParameter
+        Resource:
+          - arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/${sls:stage}/*
+
   endpoint-upd-activity-desc:
     handler: strava_facade_api.views.update_activity_description_view.lambda_handler
     timeout: 29 # Note: API Gateway current maximum is 29 seconds.

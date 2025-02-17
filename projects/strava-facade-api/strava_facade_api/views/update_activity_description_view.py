@@ -177,22 +177,10 @@ def lambda_handler(event: dict[str, Any], context) -> dict:
     if not isinstance(body, dict):
         return BadRequest400Response("Posted body must be a JSON object").to_dict()
 
-    after_ts = body.get("afterTs")
-    if not after_ts:
+    activity_id = body.get("activityId")
+    if not activity_id:
         return BadRequest400Response(
-            "Posted body must include the key 'afterTs'"
-        ).to_dict()
-
-    before_ts = body.get("beforeTs")
-    if not before_ts:
-        return BadRequest400Response(
-            "Posted body must include the key 'beforeTs'"
-        ).to_dict()
-
-    activity_type = body.get("activityType")
-    if not activity_type:
-        return BadRequest400Response(
-            "Posted body must include the key 'activityType'"
+            "Posted body must include the key 'activityId'"
         ).to_dict()
 
     description = body.get("description")
@@ -212,16 +200,14 @@ def lambda_handler(event: dict[str, Any], context) -> dict:
 
     try:
         updated_activity = domain.update_activity_description(
-            after_ts=after_ts,
-            before_ts=before_ts,
-            activity_type=activity_type,
+            activity_id=activity_id,
             description=description,
             name=name,
             do_stop_if_description_not_null=do_stop_if_description_not_null,
         )
-    except domain_exceptions.NoActivityFound as exc:
+    except domain_exceptions.ActivityNotFoundInStravaApi as exc:
         return NotFound404Response(
-            "No activity found in the given time range"
+            f"The activity was not found: id={exc.activity_id}"
         ).to_dict()
     except domain_exceptions.ActivityAlreadyHasDescription as exc:
         return BadRequest400Response(

@@ -1,11 +1,13 @@
 import functools
 from datetime import datetime
-from typing import Optional, Union
 
 from strava_client import (
+    ActivityNotFound,
+    AfterTsInTheFuture,
     InvalidDatetime,
     NaiveDatetime,
     PossibleDuplicatedActivity,
+    RequestedResultsPageDoesNotExist,
     StravaApiRateLimitExceeded,
     StravaClient,
 )
@@ -42,16 +44,15 @@ def handle_strava_api_rate_limit_error(fn):
 
 
 @handle_strava_api_rate_limit_error
-def update_activity_description(
-    after_ts: Union[int, float],
-    before_ts: Union[int, float],
-    activity_type: str,
-    description: str,
-    name: Optional[str] = None,
-    do_stop_if_description_not_null=True,
-):
+def list_activities(
+    after_ts: int | None = None,
+    before_ts: int | None = None,
+    activity_type: str | None = None,
+    n_results_per_page: int | None = None,
+    page_n: int = 1,
+) -> list[dict]:
     """
-    Update the description of an existing Strava activity.
+    List activities in Strava.
     The activity is found filtering by after and before timestamps and activity
      type (eg. "WeightTraining").
 
@@ -59,6 +60,50 @@ def update_activity_description(
         after_ts: timestamp used to filter and find the activity (eg. 1691704800).
         before_ts: timestamp used to filter and find the activity (eg. 1691791199).
         activity_type: used to filter and find the activity (eg. "WeightTraining").
+        n_results_per_page: number of results in each results page (eg. 100).
+        page_n: result page number (eg. 2).
+    """
+    token_mgr = AwsParameterStoreTokenManager(
+        "/strava-facade-api/production/strava-api-token-json",
+        "/strava-facade-api/production/strava-api-client-id",
+        "/strava-facade-api/production/strava-api-client-secret",
+    )
+    try:
+        access_token = token_mgr.get_access_token()
+    except (AwsParameterStoreTokenManagerException, BaseTokenManagerException) as exc:
+        raise exceptions.StravaAuthenticationError(str(exc)) from exc
+
+    strava = StravaClient(access_token)
+
+    # Get all activities of the given type for the given day.
+    try:
+        activities: list[dict] = strava.list_activities(
+            after_ts,
+            before_ts,
+            activity_type,
+            n_results_per_page,
+            page_n,
+        )
+    # except NaiveDatetime as exc:  # Cannot happen as here the timestamps are ints.
+    except RequestedResultsPageDoesNotExist as exc:
+        raise exceptions.RequestedResultsPageDoesNotExistInStravaApi(exc.page_n)
+    except AfterTsInTheFuture as exc:
+        raise exceptions.AfterTsInTheFutureInStravaApi(exc.after_ts)
+    return activities
+
+
+@handle_strava_api_rate_limit_error
+def update_activity_description(
+    activity_id: int,
+    description: str,
+    name: str | None = None,
+    do_stop_if_description_not_null=True,
+):
+    """
+    Update the description of an existing Strava activity by its id.
+
+    Args:
+        activity_id: id of the Strava activity (eg. XXX).
         description: the updated description of the activity.
         name: the updated name (or title) of the activity, optional.
         do_stop_if_description_not_null: if True the update is not performed when
@@ -76,19 +121,17 @@ def update_activity_description(
 
     strava = StravaClient(access_token)
 
-    # Get all activities of the given type for the given day.
-    activities = strava.list_activities(after_ts, before_ts, activity_type)
-    if not activities:
-        raise exceptions.NoActivityFound
-
-    # Get the latest of these activities and ensure it has no description.
-    latest_activity = activities[0]
+    # Get the details and ensure it has no description.
     if do_stop_if_description_not_null:
-        latest_activity_details = strava.get_activity_details(latest_activity["id"])
-        if latest_activity_details["description"]:
+        try:
+            activity_details = strava.get_activity_details(activity_id)
+        except ActivityNotFound as exc:
+            raise exceptions.ActivityNotFoundInStravaApi(activity_id) from exc
+        description = activity_details.get("description")
+        if description:
             raise exceptions.ActivityAlreadyHasDescription(
-                activity_id=latest_activity["id"],
-                description=latest_activity_details["description"],
+                activity_id=activity_id,
+                description=description,
             )
 
     # Finally update the description.
@@ -96,7 +139,7 @@ def update_activity_description(
     # And the name if given.
     if name:
         data["name"] = name
-    updated_activity = strava.update_activity(latest_activity["id"], data)
+    updated_activity = strava.update_activity(activity_id, data)
     return updated_activity
 
 
