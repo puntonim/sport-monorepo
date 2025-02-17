@@ -72,6 +72,7 @@ __all__ = [
     "SportTypeInvalid",
     "StravaClient",
     "StravaApiRateLimitExceeded",
+    "AfterTsInTheFuture",
 ]
 
 
@@ -146,7 +147,14 @@ class StravaClient:
         if page_n != 1:
             payload["page"] = page_n
         response = requests.get(url, headers=headers, params=payload)
-        response.raise_for_status()
+
+        try:
+            response.raise_for_status()
+        except requests.HTTPError as exc:
+            for err in exc.response.json().get("errors", []):
+                if err.get("field", "") == "after" and err.get("code", "") == "future":
+                    raise AfterTsInTheFuture(after_ts) from exc
+            raise
 
         data: list[dict] = response.json()
 
@@ -374,6 +382,11 @@ class RequestedResultsPageDoesNotExist(BaseStravaClientException):
 class InvalidStreamType(BaseStravaClientException):
     def __init__(self, stream_type: str):
         self.stream_type = stream_type
+
+
+class AfterTsInTheFuture(BaseStravaClientException):
+    def __init__(self, after_ts):
+        self.after_ts = after_ts
 
 
 class StravaApiRateLimitExceeded(BaseStravaClientException):

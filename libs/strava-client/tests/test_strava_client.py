@@ -5,6 +5,7 @@ import pytest
 
 from strava_client import (
     ActivityNotFound,
+    AfterTsInTheFuture,
     NaiveDatetime,
     PossibleDuplicatedActivity,
     RequestedResultsPageDoesNotExist,
@@ -89,6 +90,14 @@ class TestListActivities:
         assert response[0]["name"] == "Dobbiaco Winter Night Run 🦠"
         assert response[0]["id"] == 13389554554
 
+    def test_after_ts_in_the_future(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        with pytest.raises(AfterTsInTheFuture):
+            client.list_activities(
+                after_ts=datetime(2099, 1, 18, 6, 0, tzinfo=ZoneInfo("Europe/Rome")),
+                n_results_per_page=2,
+            )
+
     def test_before_ts(self):
         client = StravaClient(self.token_mgr.get_access_token())
         response = client.list_activities(
@@ -98,6 +107,14 @@ class TestListActivities:
         assert len(response) == 2
         assert response[0]["name"] == "Weight training: calisthenics"
         assert response[0]["id"] == 13381920990
+
+    def test_before_ts_in_the_future(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(2099, 1, 18, 6, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=2,
+        )
+        assert len(response) == 2
 
     def test_activity_type(self):
         client = StravaClient(self.token_mgr.get_access_token())
