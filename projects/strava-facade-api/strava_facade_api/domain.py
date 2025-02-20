@@ -127,11 +127,10 @@ def update_activity_description(
             activity_details = strava.get_activity_details(activity_id)
         except ActivityNotFound as exc:
             raise exceptions.ActivityNotFoundInStravaApi(activity_id) from exc
-        description = activity_details.get("description")
-        if description:
+        if existing_descr := activity_details.get("description"):
             raise exceptions.ActivityAlreadyHasDescription(
                 activity_id=activity_id,
-                description=description,
+                description=existing_descr,
             )
 
     # Finally update the description.
