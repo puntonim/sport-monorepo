@@ -131,7 +131,9 @@ class ExporterToDb:
                     self._db_create_or_update_raw_activity_summary(summary_data)
                     logger.info(f"Created RawActivitySummary strava_id={strava_id}")
                     self._db_create_or_update_activity(summary_data)
-                    logger.info(f"Created Activity strava_id={strava_id}")
+                    logger.info(
+                        f"Created Activity strava_id={strava_id} start_date={summary_data['start_date']}"
+                    )
 
                 # If this RawActivitySummary already exists in the db:
                 #  compute the checksum and if changed, update RawActivitySummary
@@ -142,7 +144,9 @@ class ExporterToDb:
                         self._db_create_or_update_raw_activity_summary(summary_data)
                         logger.info(f"Updated RawActivitySummary strava_id={strava_id}")
                         self._db_create_or_update_activity(summary_data)
-                        logger.info(f"Updated Activity strava_id={summary_data['id']}")
+                        logger.info(
+                            f"Updated Activity strava_id={strava_id} start_date={summary_data['start_date']}"
+                        )
 
     @peewee_utils.use_db
     def export_details(self):
@@ -185,7 +189,9 @@ class ExporterToDb:
                 self._db_create_or_update_raw_activity_details(details_data)
                 logger.info(f"Created RawActivityDetails strava_id={strava_id}")
                 self._db_create_or_update_activity(details_data)
-                logger.info(f"Created Activity strava_id={strava_id}")
+                logger.info(
+                    f"Updated Activity strava_id={strava_id} start_date={activity.start_date}"
+                )
 
             # If this RawActivityDetails already exists in the db:
             #  compute the checksum and if changed, update RawActivityDetails
@@ -196,7 +202,9 @@ class ExporterToDb:
                     self._db_create_or_update_raw_activity_details(details_data)
                     logger.info(f"Updated RawActivityDetails strava_id={strava_id}")
                     self._db_create_or_update_activity(details_data)
-                    logger.info(f"Updated Activity strava_id={strava_id}")
+                    logger.info(
+                        f"Updated Activity strava_id={strava_id} start_date={activity.start_date}"
+                    )
 
     def _api_yield_all_activity_summaries(self) -> Generator[list[dict]]:
         # Trick: using a closure here only because the decorator does not work
@@ -268,6 +276,24 @@ class ExporterToDb:
             utc_offset=data["utc_offset"],
             gear_id=data["gear_id"],
         )
+        # Heart rate data in the summary.
+        _all_hr_values = [
+            data.get("has_heartrate"),
+            data.get("average_heartrate"),
+            data.get("max_heartrate"),
+        ]
+        # If they are not all True and not all False, then there is an error.
+        if (not all(_all_hr_values)) and (not all([not x for x in _all_hr_values])):
+            raise HeartRateError(
+                data["id"],
+                data.get("has_heartrate"),
+                data.get("average_heartrate"),
+                data.get("max_heartrate"),
+            )
+        if data.get("average_heartrate"):
+            create_data["heartrate_avg"] = data["average_heartrate"]
+            create_data["heartrate_max"] = data["max_heartrate"]
+
         # Activity details attrs are optional (nullable).
         if "description" in data:
             create_data["description"] = data["description"]
@@ -311,9 +337,29 @@ class GearIdMismatch(BaseExporterToDbExceptions):
         self.strava_id = strava_id
         self.gear_id_attr = gear_id_attr
         self.gear_id_obj = gear_id_obj
-        super(
+        super().__init__(
             f"Gear id mismatch in details for strava_id={strava_id}:"
             f" gear_id={gear_id_attr} but gear.id={gear_id_obj}"
+        )
+
+
+class HeartRateError(BaseExporterToDbExceptions):
+    def __init__(
+        self,
+        strava_id: int,
+        has_heartrate: bool,
+        average_heartrate: float,
+        max_heartrate: float,
+    ):
+        self.strava_id = strava_id
+        self.has_heartrate = has_heartrate
+        self.average_heartrate = average_heartrate
+        self.max_heartrate = max_heartrate
+        super().__init__(
+            f"Heart rate attrs inconsistent for strava_id={strava_id}:"
+            f" has_heartrate={has_heartrate}, "
+            f" average_heartrate={average_heartrate}, "
+            f" max_heartrate={max_heartrate}"
         )
 
 

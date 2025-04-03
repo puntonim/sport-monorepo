@@ -198,6 +198,10 @@ class Activity(peewee_utils.BasePeeweeModel):
     ## Useless cause always "Italy".
     # location_country: str | None = peewee.CharField(max_length=64, null=True)
     gear_id: str | None = peewee.CharField(max_length=64, null=True)
+    # Eg. 125.3.
+    heartrate_avg: float = peewee.FloatField(null=True)
+    # Eg. 137.0.
+    heartrate_max: float = peewee.FloatField(null=True)
 
     # Data extracted from RawActivityDetails.
     # They are filled at a later time (not at creation time) with an update query, so
