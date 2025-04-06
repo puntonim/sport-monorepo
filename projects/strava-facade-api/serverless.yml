@@ -148,7 +148,7 @@ plugins:
 
 custom:
   # Constants.
-  source: https://github.com/puntonim/strava-facade-api/blob/main/serverless.yml
+  source: https://github.com/puntonim/sport-monorepo/blob/main/projects/strava-facade-api/serverless.yml
 
   # Plugin: serverless-python-requirements.
   pythonRequirements:

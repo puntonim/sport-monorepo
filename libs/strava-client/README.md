@@ -1,4 +1,4 @@
-**Strava monorepo: Strava Client**
+**Sport monorepo: Strava Client**
 ==================================
 
 Just a Python client for Strava API.\
@@ -26,8 +26,8 @@ Usage
 See top docstrings in [strava_client.py](strava_client/strava_client.py).
 
 Used, at the moment, by:
- - strava-facade-api in strava-monorepo
- - strava-exporter-to-db in strava-monorepo
+ - strava-facade-api in sport-monorepo
+ - strava-exporter-to-db in sport-monorepo
 
 
 Local dir install
@@ -38,9 +38,9 @@ To install this client in a project, from a local dir, add this to `pyproject.to
 ...
 dependencies = [
     "strava-client @ ../libs/strava-client"
-    # "strava-client @ file:///Users/myuser/workspace/strava-monorepo/libs/strava-client"
+    # "strava-client @ file:///Users/myuser/workspace/sport-monorepo/libs/strava-client"
     # Or, to install the extra AWS Parameter Store:
-    # "strava-client[aws-parameter-store] @ file:///Users/myuser/workspace/strava-monorepo/libs/strava-client"
+    # "strava-client[aws-parameter-store] @ file:///Users/myuser/workspace/sport-monorepo/libs/strava-client"
 ]
 
 [tool.poetry.dependencies]
@@ -55,18 +55,18 @@ To install this client in a project, from Github, add this to `pyproject.toml`:
 [project]
 ...
 dependencies = [
-    "strava-client @ git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/strava-client",
+    "strava-client @ git+https://github.com/puntonim/sport-monorepo#subdirectory=libs/strava-client",
     # Or, to install the extra AWS Parameter Store:
-    # "strava-client[aws-parameter-store] @ git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/strava-client",
+    # "strava-client[aws-parameter-store] @ git+https://github.com/puntonim/sport-monorepo#subdirectory=libs/strava-client",
 ]
 ```
 
 Pip install
 -----------
 ```sh
-$ pip install "strava-client @ git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/strava-client"
+$ pip install "strava-client @ git+https://github.com/puntonim/sport-monorepo#subdirectory=libs/strava-client"
 # Or, to install the extra AWS Parameter Store:
-$ pip install "strava-client[aws-parameter-store] @ git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/strava-client",
+$ pip install "strava-client[aws-parameter-store] @ git+https://github.com/puntonim/sport-monorepo#subdirectory=libs/strava-client",
 ```
 
 

@@ -1,9 +1,9 @@
-**Strava monorepo: Libraries**
-==============================
+**Sport monorepo: Libraries**
+=============================
 
-Just a collection of standalone Strava Python libraries that can be installed
+Just a collection of standalone Sport Python libraries that can be installed
  individually.\
-Projects in this strava-monorepo typically include some of them as local requirements.
+Projects in this sport-monorepo typically include some of them as local requirements.
 Other projects can install them from the Git subdir.
 
 
@@ -83,8 +83,8 @@ To add a new requirement:
 $ poetry add requests
 $ poetry add pytest --dev  # Dev only.
 $ poetry add requests[security,socks]  # With extras.
-$ poetry add git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/strava-client  # From git.
-$ poetry add "git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/strava-client[aws-parameter-store]"  # From git with extras.
+$ poetry add git+https://github.com/puntonim/sport-monorepo#subdirectory=libs/strava-client  # From git.
+$ poetry add "git+https://github.com/puntonim/sport-monorepo#subdirectory=libs/strava-client[aws-parameter-store]"  # From git with extras.
 ```
 
 3 - Pre-commit

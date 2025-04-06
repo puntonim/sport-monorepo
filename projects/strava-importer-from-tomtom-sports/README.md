@@ -1,5 +1,5 @@
-**Strava monorepo: Strava Importer from TomTom Sports**
-=======================================================
+**Sport monorepo: Strava Importer from TomTom Sports**
+======================================================
 
 This basic script helps importing into Strava the activity manually exported from
  TomTom Sports website.

@@ -1,6 +1,6 @@
 """
-** STRAVA MONOREPO: STRAVA CLIENT **
-====================================
+** SPORT MONOREPO: STRAVA CLIENT **
+===================================
 
 With Strava token stored to a **local file**:
 ```py

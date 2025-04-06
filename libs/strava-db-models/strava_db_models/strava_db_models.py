@@ -1,9 +1,9 @@
 """
-** STRAVA MONOREPO: STRAVA DB MODELS **
+** SPORT MONOREPO: STRAVA DB MODELS **
 =======================================
 
 Used, at the moment, by:
- - strava-exporter-to-db in strava-monorepo
+ - strava-exporter-to-db in sport-monorepo
 
 Basic use
 ---------

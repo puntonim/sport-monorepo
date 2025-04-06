@@ -14,7 +14,7 @@ version = "1.2.0"
 
 dependencies = [
     "requests (>=2.32.3,<3.0.0)",
-    # "strava-client[aws-parameter-store] @ git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/strava-client",
+    # "strava-client[aws-parameter-store] @ git+https://github.com/puntonim/sport-monorepo#subdirectory=libs/strava-client",
     "strava-client[aws-parameter-store] @ ../../libs/strava-client",
 ]
 

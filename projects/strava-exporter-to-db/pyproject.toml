@@ -10,7 +10,7 @@ version = "1.0.0"
 dependencies = [
     "checksum-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=checksum-utils",
     "log-utils[rich-adapter] @ git+https://github.com/puntonim/utils-monorepo#subdirectory=log-utils",
-    # "strava-client[aws-parameter-store] @ git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/strava-client",
+    # "strava-client[aws-parameter-store] @ git+https://github.com/puntonim/sport-monorepo#subdirectory=libs/strava-client",
     "strava-client[aws-parameter-store] @ ../../libs/strava-client",
     "strava-db-models @ ../../libs/strava-db-models",
     "peewee (>=3.17.8,<4.0.0)",

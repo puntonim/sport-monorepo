@@ -53,9 +53,4 @@ class TestGetActivityDetails:
             # max_polyline_count: int = 4000,
             do_keep_raw_response=False,
         )
-        from pprint import pprint
-
-        import ipdb
-
-        ipdb.set_trace()
         assert details

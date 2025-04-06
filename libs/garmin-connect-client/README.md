@@ -1,5 +1,5 @@
-**Strava monorepo: Garmin Connect Client**
-==========================================
+**Sport monorepo: Garmin Connect Client**
+=========================================
 
 Just a Python client for Garmin Connect API.\
 Note: this API is not the official one, as that one is not for private customer.
@@ -32,7 +32,7 @@ To install this client in a project, from a local dir, add this to `pyproject.to
 ...
 dependencies = [
     "garmin-connect-client @ ../libs/garmin-connect-client"
-    # "garmin-connect-client @ file:///Users/myuser/workspace/strava-monorepo/libs/garmin-connect-client"
+    # "garmin-connect-client @ file:///Users/myuser/workspace/sport-monorepo/libs/garmin-connect-client"
 ]
 
 [tool.poetry.dependencies]
@@ -47,14 +47,14 @@ To install this client in a project, from Github, add this to `pyproject.toml`:
 [project]
 ...
 dependencies = [
-    "garmin-connect-client @ git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/garmin-connect-client",
+    "garmin-connect-client @ git+https://github.com/puntonim/sport-monorepo#subdirectory=libs/garmin-connect-client",
 ]
 ```
 
 Pip install
 -----------
 ```sh
-$ pip install "garmin-connect-client @ git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/garmin-connect-client"
+$ pip install "garmin-connect-client @ git+https://github.com/puntonim/sport-monorepo#subdirectory=libs/garmin-connect-client"
 ```
 
 

@@ -1,7 +1,7 @@
-**Strava monorepo: Projects**
-=============================
+**Sport monorepo: Projects**
+============================
 
-Just a collection of Strava projects that I happened to write.
+Just a collection of Sport projects that I happened to write.
 
 See the individual `README.md` file in each project subdir to know how to install and
  use each project.

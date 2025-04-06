@@ -1,5 +1,5 @@
-**Strava monorepo: Strava Exporter to DB**
-==========================================
+**Sport monorepo: Strava Exporter to DB**
+=========================================
 
 A CLI to export Strava activities to a SQLite DB.
 
@@ -135,8 +135,8 @@ To add a new requirement:
 $ poetry add requests
 $ poetry add pytest --dev  # Dev only.
 $ poetry add requests[security,socks]  # With extras.
-$ poetry add git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/strava-client  # From git.
-$ poetry add "git+https://github.com/puntonim/strava-monorepo#subdirectory=libs/strava-client[aws-parameter-store]"  # From git with extras.
+$ poetry add git+https://github.com/puntonim/sport-monorepo#subdirectory=libs/strava-client  # From git.
+$ poetry add "git+https://github.com/puntonim/sport-monorepo#subdirectory=libs/strava-client[aws-parameter-store]"  # From git with extras.
 ```
 
 3 - Pre-commit

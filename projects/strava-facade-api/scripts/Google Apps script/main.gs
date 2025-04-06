@@ -3,7 +3,7 @@
  *  named "Gym sessions log". This script invokes the strava-importer-api"s
  *  Lambda function in order to update Strava.
  *
- * The source of this project is at: https://github.com/puntonim/strava-monorepo/tree/main/projects/strava-facade-api/scripts/Google%20Apps%20script
+ * The source of this project is at: https://github.com/puntonim/sport-monorepo/tree/main/projects/strava-facade-api/scripts/Google%20Apps%20script
  */
 
 class BaseError extends Error {
