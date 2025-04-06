@@ -298,9 +298,10 @@ class TestGetStreams:
             "latlng",
             "altitude",
             "heartrate",
+            "moving",
         )
         response = client.get_streams(13389554554, stream_types=stream_types)
-        assert len(response) == 5
+        assert len(response) == 6
         for stream in response:
             assert stream["type"] in stream_types
             assert stream["data"]

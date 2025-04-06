@@ -328,6 +328,7 @@ class StravaClient:
                 "latlng",
                 "altitude",
                 "heartrate",
+                "moving",  # True if the athlete was moving.
             ):
                 raise InvalidStreamType(stream_type)
 
