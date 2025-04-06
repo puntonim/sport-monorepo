@@ -1,0 +1,331 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/userprofile-service/socialProfile
+  response:
+    body:
+      string: '{"id": 408106091, "profileId": 113739130, "garminGUID": "036d4457-1523-4d57-a237-43de978cd7cc",
+        "displayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "fullName": "Paolo",
+        "userName": "puntonim@gmail.com", "profileImageType": "UPLOADED_PHOTO", "profileImageUrlLarge":
+        "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "hasPremiumSocialIcon": false, "location": "Verdellino, Italy", "facebookUrl":
+        null, "twitterUrl": null, "personalWebsite": null, "motivation": 2, "bio":
+        null, "primaryActivity": "other", "favoriteActivityTypes": ["running", "cycling",
+        "weight_training", "snow_sports"], "runningTrainingSpeed": 0.0, "cyclingTrainingSpeed":
+        0.0, "favoriteCyclingActivityTypes": ["road", "mountain"], "cyclingClassification":
+        null, "cyclingMaxAvgPower": 0.0, "swimmingTrainingSpeed": 0.0, "profileVisibility":
+        "following", "activityStartVisibility": "public", "activityMapVisibility":
+        "public", "courseVisibility": "public", "activityHeartRateVisibility": "public",
+        "activityPowerVisibility": "public", "badgeVisibility": "private", "showAge":
+        false, "showWeight": false, "showHeight": false, "showWeightClass": false,
+        "showAgeRange": false, "showGender": false, "showActivityClass": false, "showVO2Max":
+        false, "showPersonalRecords": true, "showLast12Months": true, "showLifetimeTotals":
+        true, "showUpcomingEvents": true, "showRecentFavorites": true, "showRecentDevice":
+        true, "showRecentGear": false, "showBadges": true, "otherActivity": null,
+        "otherPrimaryActivity": null, "otherMotivation": null, "userRoles": ["SCOPE_ATP_READ",
+        "SCOPE_ATP_WRITE", "SCOPE_COMMUNITY_COURSE_READ", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_CONNECT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_DIVE_API_READ", "SCOPE_DI_OAUTH_2_AUTHORIZATION_CODE_CREATE",
+        "SCOPE_DT_CLIENT_ANALYTICS_WRITE", "SCOPE_GARMINPAY_READ", "SCOPE_GARMINPAY_WRITE",
+        "SCOPE_GCOFFER_READ", "SCOPE_GCOFFER_WRITE", "SCOPE_GHS_SAMD", "SCOPE_GHS_UPLOAD",
+        "SCOPE_GOLF_API_READ", "SCOPE_GOLF_API_WRITE", "SCOPE_INSIGHTS_READ", "SCOPE_INSIGHTS_WRITE",
+        "SCOPE_OMT_CAMPAIGN_READ", "SCOPE_OMT_SUBSCRIPTION_READ", "SCOPE_PRODUCT_SEARCH_READ",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "nameApproved": true, "userProfileFullName": "Paolo", "makeGolfScorecardsPrivate":
+        true, "allowGolfLiveScoring": false, "allowGolfScoringByConnections": true,
+        "userLevel": 3, "userPoint": 101, "levelUpdateDate": "2023-06-11T20:10:14.0",
+        "levelIsViewed": false, "levelPointThreshold": 140, "userPointOffset": 0,
+        "userPro": false}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Sat, 05 Apr 2025 17:26:38 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2660'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/userprofile-service/userprofile/user-settings
+  response:
+    body:
+      string: '{"id": 113739130, "userData": {"gender": "MALE", "weight": 80000.0,
+        "height": 180.0, "timeFormat": "time_twenty_four_hr", "birthDate": "1980-01-18",
+        "measurementSystem": "metric", "activityLevel": 7, "handedness": "RIGHT",
+        "powerFormat": {"formatId": 30, "formatKey": "watt", "minFraction": 0, "maxFraction":
+        0, "groupingUsed": true, "displayFormat": null}, "heartRateFormat": {"formatId":
+        21, "formatKey": "bpm", "minFraction": 0, "maxFraction": 0, "groupingUsed":
+        false, "displayFormat": null}, "firstDayOfWeek": {"dayId": 3, "dayName": "monday",
+        "sortOrder": 3, "isPossibleFirstDay": true}, "vo2MaxRunning": 51.0, "vo2MaxCycling":
+        null, "lactateThresholdSpeed": 0.39722111000000004, "lactateThresholdHeartRate":
+        143, "diveNumber": null, "intensityMinutesCalcMethod": "AUTO", "moderateIntensityMinutesHrZone":
+        3, "vigorousIntensityMinutesHrZone": 4, "hydrationMeasurementUnit": "cup",
+        "hydrationContainers": [], "hydrationAutoGoalEnabled": true, "firstbeatMaxStressScore":
+        null, "firstbeatCyclingLtTimestamp": null, "firstbeatRunningLtTimestamp":
+        1110447995, "thresholdHeartRateAutoDetected": true, "ftpAutoDetected": true,
+        "trainingStatusPausedDate": null, "weatherLocation": {"useFixedLocation":
+        null, "latitude": null, "longitude": null, "locationName": null, "isoCountryCode":
+        null, "postalCode": null}, "golfDistanceUnit": "statute_us", "golfElevationUnit":
+        null, "golfSpeedUnit": null, "externalBottomTime": null, "availableTrainingDays":
+        ["FRIDAY", "SATURDAY", "SUNDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "MONDAY"],
+        "preferredLongTrainingDays": ["SATURDAY", "SUNDAY"]}, "userSleep": {"sleepTime":
+        0, "defaultSleepTime": false, "wakeTime": 28800, "defaultWakeTime": false},
+        "connectDate": null, "sourceType": null, "userSleepWindows": [{"sleepWindowFrequency":
+        "SUNDAY", "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "MONDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "TUESDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "WEDNESDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "THURSDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "FRIDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "SATURDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "DAILY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Sat, 05 Apr 2025 17:26:38 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2516'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2025-03-22
+  response:
+    body:
+      string: '{"ActivitiesForDay": {"requestUrl": "/activitylist-service/activities/fordailysummary/3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "statusCode": 200, "headers": {}, "errorMessage": null, "payload": [{"activityId":
+        18603794245, "activityName": "Strength", "startTimeLocal": "2025-03-22T12:06:14.0",
+        "startTimeGMT": "2025-03-22T11:06:14.0", "activityType": {"typeId": 13, "typeKey":
+        "strength_training", "parentTypeId": 29, "isHidden": false, "trimmable": false,
+        "restricted": false}, "eventType": {"typeId": 9, "typeKey": "uncategorized",
+        "sortOrder": 10}, "distance": 0.0, "duration": 5267.6572265625, "ownerId":
+        113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "calories":
+        410.0, "bmrCalories": 126.81397026909723, "activeCalories": 283.18602973090276,
+        "steps": 428, "privacy": {"typeId": 2, "typeKey": "private"}, "requestorHasAccess":
+        true, "elapsedDuration": 5267.6572265625, "minTemperature": 31.0, "lapCount":
+        1, "averageHR": 72.0, "activeSets": 21, "moderateIntensityMinutes": 38, "vigorousIntensityMinutes":
+        3, "pr": false, "purposefull": false, "atpActivity": false, "favorite": false,
+        "parent": false}, {"activityId": 18606916834, "activityName": "Limone Piemonte
+        Trail Running", "startTimeLocal": "2025-03-22T17:04:36.0", "startTimeGMT":
+        "2025-03-22T16:04:36.0", "activityType": {"typeId": 6, "typeKey": "trail_running",
+        "parentTypeId": 1, "isHidden": false, "trimmable": true, "restricted": false},
+        "eventType": {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "distance":
+        10803.7001953125, "duration": 4177.955078125, "activeSplitSummaryDuration":
+        4177.955078125, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "calories": 951.0, "bmrCalories": 100.58040002893519, "activeCalories": 850.4195999710648,
+        "steps": 11150, "privacy": {"typeId": 2, "typeKey": "private"}, "requestorHasAccess":
+        true, "elapsedDuration": 4177.955078125, "minTemperature": 12.0, "lapCount":
+        11, "averageHR": 121.0, "maxSpeed": 0.440399980545044, "maxSplitDistance":
+        10803, "noOfSplits": 1, "totalAscent": 514.0, "moderateIntensityMinutes":
+        1, "vigorousIntensityMinutes": 44, "pr": false, "purposefull": false, "atpActivity":
+        false, "favorite": false, "parent": false}], "successful": true}, "AllDayHR":
+        {"requestUrl": "/wellness-service/wellness/dailyHeartRate", "statusCode":
+        200, "headers": {}, "errorMessage": null, "payload": {"userProfilePK": 113739130,
+        "calendarDate": "2025-03-22", "startTimestampGMT": "2025-03-21T23:00:00.0",
+        "endTimestampGMT": "2025-03-22T23:00:00.0", "startTimestampLocal": "2025-03-22T00:00:00.0",
+        "endTimestampLocal": "2025-03-23T00:00:00.0", "maxHeartRate": 137, "minHeartRate":
+        53, "restingHeartRate": 50, "lastSevenDaysAvgRestingHeartRate": 47, "heartRateValues":
+        [[1742598000000, null], [1742624040000, 77], [1742624160000, 92], [1742624280000,
+        95], [1742624400000, 63], [1742624520000, 63], [1742624640000, 59], [1742624760000,
+        57], [1742624880000, 67], [1742625000000, 59], [1742625120000, 61], [1742625240000,
+        61], [1742625360000, 59], [1742625480000, 61], [1742625600000, 60], [1742625720000,
+        61], [1742625840000, 57], [1742625960000, 74], [1742626080000, 68], [1742626200000,
+        60], [1742626320000, 62], [1742626440000, 67], [1742626560000, 65], [1742626680000,
+        64], [1742626800000, 64], [1742626920000, 58], [1742627040000, 58], [1742627160000,
+        58], [1742627280000, 56], [1742627400000, 64], [1742627520000, 71], [1742627640000,
+        65], [1742627760000, 56], [1742627880000, 57], [1742628000000, 58], [1742628120000,
+        56], [1742628240000, 56], [1742628360000, 57], [1742628480000, 58], [1742628600000,
+        58], [1742628720000, 57], [1742628840000, 56], [1742628960000, 55], [1742629080000,
+        58], [1742629200000, 56], [1742629320000, 60], [1742629440000, 59], [1742629560000,
+        56], [1742629680000, 55], [1742629800000, 58], [1742629920000, 57], [1742630040000,
+        56], [1742630160000, 57], [1742630280000, 56], [1742630400000, 58], [1742630520000,
+        63], [1742630640000, 62], [1742630760000, 56], [1742630880000, 63], [1742631000000,
+        72], [1742631120000, 67], [1742631240000, 64], [1742631360000, 59], [1742631480000,
+        55], [1742631600000, 54], [1742631720000, 55], [1742631840000, 56], [1742631960000,
+        57], [1742632080000, 53], [1742632200000, 53], [1742632320000, 55], [1742632440000,
+        56], [1742632560000, 62], [1742632680000, 55], [1742632800000, 55], [1742632920000,
+        63], [1742633040000, 70], [1742633160000, 59], [1742633280000, 59], [1742633400000,
+        55], [1742633520000, 56], [1742633640000, 67], [1742633760000, 65], [1742633880000,
+        58], [1742634000000, 61], [1742634120000, 62], [1742634240000, 65], [1742634360000,
+        63], [1742634480000, 69], [1742634600000, 68], [1742634720000, 62], [1742634840000,
+        69], [1742634960000, 73], [1742635080000, 69], [1742635200000, 71], [1742635320000,
+        78], [1742635440000, 77], [1742635560000, 78], [1742635680000, 77], [1742635800000,
+        77], [1742635920000, 71], [1742636040000, 74], [1742636160000, 83], [1742636280000,
+        85], [1742636400000, 64], [1742636520000, 74], [1742636640000, 79], [1742636760000,
+        97], [1742636880000, 74], [1742637000000, 70], [1742637120000, 67], [1742637240000,
+        70], [1742637360000, 77], [1742637480000, 79], [1742637600000, 76], [1742637720000,
+        59], [1742637840000, 62], [1742637960000, 66], [1742638080000, 64], [1742638200000,
+        67], [1742638320000, 80], [1742638440000, 78], [1742638560000, 62], [1742638680000,
+        73], [1742638800000, 61], [1742638920000, 57], [1742639040000, 56], [1742639160000,
+        61], [1742639280000, 59], [1742639400000, 55], [1742639520000, 55], [1742639640000,
+        54], [1742639760000, 56], [1742639880000, 75], [1742640000000, 84], [1742640120000,
+        77], [1742640240000, 81], [1742640360000, 87], [1742640480000, 87], [1742640600000,
+        67], [1742640720000, 69], [1742640840000, 62], [1742640960000, 60], [1742641080000,
+        63], [1742641200000, 72], [1742641320000, 72], [1742641440000, 66], [1742641560000,
+        61], [1742641680000, 79], [1742641800000, 97], [1742641920000, 59], [1742642040000,
+        65], [1742642160000, 66], [1742642280000, 64], [1742642400000, 56], [1742642520000,
+        70], [1742642640000, 71], [1742642760000, 68], [1742642880000, 73], [1742643000000,
+        72], [1742643120000, 76], [1742643240000, 68], [1742643360000, 77], [1742643480000,
+        62], [1742643600000, 77], [1742643720000, 76], [1742643840000, 65], [1742643960000,
+        80], [1742644080000, 70], [1742644200000, 78], [1742644320000, 77], [1742644440000,
+        74], [1742644560000, 83], [1742644680000, 66], [1742644800000, 70], [1742644920000,
+        80], [1742645040000, 66], [1742645160000, 65], [1742645280000, 81], [1742645400000,
+        70], [1742645520000, 81], [1742645640000, 72], [1742645760000, 67], [1742645880000,
+        73], [1742646000000, 81], [1742646120000, 72], [1742646240000, 77], [1742646360000,
+        62], [1742646480000, 70], [1742646600000, 82], [1742646720000, 68], [1742646840000,
+        71], [1742646960000, 77], [1742647080000, 71], [1742647200000, 76], [1742647320000,
+        70], [1742647440000, 77], [1742647560000, 74], [1742647680000, 69], [1742647800000,
+        66], [1742647920000, 69], [1742648040000, 70], [1742648160000, 72], [1742648280000,
+        70], [1742648400000, 68], [1742648520000, 84], [1742648640000, 76], [1742648760000,
+        61], [1742648880000, 65], [1742649000000, 64], [1742649120000, 62], [1742649240000,
+        63], [1742649360000, 76], [1742649480000, 86], [1742649600000, 76], [1742649720000,
+        65], [1742649840000, 67], [1742649960000, 75], [1742650080000, 70], [1742650200000,
+        61], [1742650320000, 60], [1742650440000, 69], [1742650560000, 80], [1742650680000,
+        76], [1742650800000, 79], [1742650920000, 86], [1742651040000, 78], [1742651160000,
+        75], [1742651280000, 73], [1742651400000, 83], [1742651520000, 79], [1742651640000,
+        61], [1742651760000, 69], [1742651880000, 73], [1742652000000, 77], [1742652120000,
+        74], [1742652240000, 76], [1742652360000, 74], [1742652480000, 70], [1742652600000,
+        69], [1742652720000, 65], [1742652840000, 58], [1742652960000, 63], [1742653080000,
+        69], [1742653200000, 62], [1742653320000, 55], [1742653440000, 74], [1742653560000,
+        80], [1742653680000, 79], [1742653800000, 79], [1742653920000, 79], [1742654040000,
+        68], [1742654160000, 70], [1742654280000, 74], [1742654400000, 73], [1742654520000,
+        70], [1742654640000, 77], [1742654760000, 70], [1742654880000, 70], [1742655000000,
+        92], [1742655120000, 95], [1742655240000, 97], [1742655360000, 102], [1742655480000,
+        108], [1742655600000, 99], [1742655720000, 91], [1742655840000, 94], [1742655960000,
+        107], [1742656080000, 82], [1742656200000, 111], [1742656320000, 123], [1742656440000,
+        137], [1742656560000, 120], [1742656680000, 108], [1742656800000, 95], [1742656920000,
+        85], [1742657040000, 86], [1742657160000, 129], [1742657280000, 129], [1742657400000,
+        98], [1742657520000, 100], [1742657640000, 112], [1742657760000, 109], [1742657880000,
+        120], [1742658000000, 90], [1742658120000, 92], [1742658240000, 90], [1742658360000,
+        88], [1742658480000, 92], [1742658600000, 93], [1742658720000, 103], [1742658840000,
+        111], [1742658960000, 112], [1742659080000, 105], [1742659200000, 111], [1742659320000,
+        110], [1742659440000, 100], [1742659560000, 113], [1742659680000, 131], [1742659800000,
+        131], [1742659920000, 128], [1742660040000, 124], [1742660160000, 123], [1742660280000,
+        121], [1742660400000, 119], [1742660520000, 119], [1742660640000, 118], [1742660760000,
+        119], [1742660880000, 117], [1742661000000, 120], [1742661120000, 120], [1742661240000,
+        129], [1742661360000, 124], [1742661480000, 122], [1742661600000, 117], [1742661720000,
+        125], [1742661840000, 123], [1742661960000, 93], [1742662080000, 93], [1742662200000,
+        93], [1742662320000, 93], [1742662440000, 93], [1742662560000, 93], [1742662680000,
+        93], [1742662800000, 93], [1742662920000, 93], [1742663040000, 93], [1742663160000,
+        93], [1742663280000, 93], [1742663400000, 93], [1742663520000, 93], [1742663640000,
+        93], [1742663760000, 93], [1742663880000, 93], [1742664000000, 93], [1742664120000,
+        93], [1742664240000, 93], [1742664360000, 93], [1742664480000, 93], [1742664600000,
+        93], [1742664720000, 93], [1742664840000, 93], [1742664960000, 93], [1742665080000,
+        93], [1742665200000, 93], [1742665320000, 93], [1742665440000, 93], [1742665560000,
+        93], [1742665680000, 93], [1742665800000, 93], [1742665920000, 93], [1742666040000,
+        93], [1742666160000, 93], [1742666280000, 93], [1742666400000, 93], [1742666520000,
+        93], [1742666640000, 84], [1742666760000, 76], [1742666880000, 73], [1742667000000,
+        69], [1742667120000, 68], [1742667240000, 73], [1742667360000, 83], [1742667480000,
+        85], [1742667600000, 95], [1742667720000, 95], [1742667840000, 94], [1742667960000,
+        86], [1742668080000, 86], [1742668200000, 91], [1742668320000, 100], [1742668440000,
+        103], [1742668560000, 105], [1742668680000, 104], [1742668800000, 90], [1742668920000,
+        92], [1742669040000, 95], [1742669160000, 96], [1742669280000, 93], [1742669400000,
+        83], [1742669520000, 87], [1742669640000, 90], [1742669760000, 85], [1742669880000,
+        91], [1742670000000, 90], [1742670120000, 95], [1742670240000, 97], [1742670360000,
+        87], [1742670480000, 82], [1742670600000, 87], [1742670720000, 87], [1742670840000,
+        86], [1742670960000, 88], [1742671080000, 91], [1742671200000, 79], [1742671320000,
+        74], [1742671440000, 76], [1742671560000, 65], [1742671680000, 63], [1742671800000,
+        63], [1742671920000, 67], [1742672040000, 67], [1742672160000, 69], [1742672280000,
+        73], [1742672400000, 78], [1742672520000, 69], [1742672640000, 67], [1742672760000,
+        64], [1742672880000, 64], [1742673000000, 66], [1742673120000, 69], [1742673240000,
+        64], [1742673360000, 76], [1742673480000, 73], [1742673600000, 62], [1742673720000,
+        58], [1742673840000, 58], [1742673960000, 60], [1742674080000, 61], [1742674200000,
+        64], [1742674320000, 59], [1742674440000, 60], [1742674560000, 61], [1742674680000,
+        56], [1742674800000, 60], [1742674920000, 60], [1742675040000, 70], [1742675160000,
+        61], [1742675280000, 53], [1742675400000, 57], [1742675520000, 59], [1742675640000,
+        57], [1742675760000, 60], [1742675880000, 60], [1742676000000, 60], [1742676120000,
+        61], [1742676240000, 63], [1742676360000, 63], [1742676480000, 57], [1742676600000,
+        55], [1742676720000, 61], [1742676840000, 57], [1742676960000, 56], [1742677080000,
+        59], [1742677200000, 61], [1742677320000, 56], [1742677440000, 54], [1742677560000,
+        56], [1742677680000, 57], [1742677800000, 56], [1742677920000, 61], [1742678040000,
+        56], [1742678160000, 61], [1742678280000, 62], [1742678400000, 63], [1742678520000,
+        64], [1742678640000, 78], [1742678760000, 86], [1742678880000, 94], [1742679000000,
+        105], [1742679120000, 104], [1742679240000, 104], [1742679360000, 96], [1742679480000,
+        100], [1742679600000, 91], [1742679720000, 91], [1742679840000, 90], [1742679960000,
+        90], [1742680080000, 89], [1742680200000, 91], [1742680320000, 92], [1742680440000,
+        92], [1742680560000, 87], [1742680680000, 76], [1742680800000, 79], [1742680920000,
+        85], [1742681040000, 86], [1742681160000, 86], [1742681280000, 88], [1742681400000,
+        91], [1742681520000, 89], [1742681640000, 83], [1742681760000, 79], [1742681880000,
+        76], [1742682000000, 81], [1742682120000, 88], [1742682240000, 86], [1742682360000,
+        86], [1742682480000, 94], [1742682600000, 93], [1742682720000, 93], [1742682840000,
+        89], [1742682960000, 90], [1742683080000, 90], [1742683200000, 89], [1742683320000,
+        92], [1742683440000, 88], [1742683560000, 88], [1742683680000, 85], [1742683800000,
+        88], [1742683920000, 101], [1742684040000, 98], [1742684160000, 89], [1742684280000,
+        80]], "heartRateValueDescriptors": [{"key": "timestamp", "index": 0}, {"key":
+        "heartrate", "index": 1}]}, "successful": true}, "SleepTimes": {"currentDaySleepEndTimeGMT":
+        null, "currentDaySleepStartTimeGMT": null, "nextDaySleepEndTimeGMT": null,
+        "nextDaySleepStartTimeGMT": null}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 05 Apr 2025 17:26:38 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '12430'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+version: 1

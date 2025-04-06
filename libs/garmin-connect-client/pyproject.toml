@@ -1,6 +1,6 @@
 [project]
-name = "strava-client"
-description = "Strava Client"
+name = "garmin-connect-client"
+description = "Garmin Connect Client"
 version = "1.0.0"
 authors = [
     {name = "puntonim",email = "puntonim@gmail.com"}
@@ -8,9 +8,10 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "requests (>=2.32.3,<3.0.0)",
-    "datetime-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=datetime-utils",
-    "log-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=log-utils",
+    #"requests (>=2.32.3,<3.0.0)",
+    #"datetime-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=datetime-utils",
+    #"log-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=log-utils",
+    "garminconnect (>=0.2.26,<0.3.0)",
 ]
 
 [build-system]
@@ -19,7 +20,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project.optional-dependencies]
 # Extra (optional) dependencies that users of this project might choose to install or not.
-aws-parameter-store = ["aws-parameter-store-client @ git+https://github.com/puntonim/aws-clients-monorepo#subdirectory=aws-parameter-store-client"]
+#aws-parameter-store = ["aws-parameter-store-client @ git+https://github.com/puntonim/aws-clients-monorepo#subdirectory=aws-parameter-store-client"]
 
 [tool.poetry.group.dev.dependencies]
 black = "24.10.0"
