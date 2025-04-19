@@ -5,9 +5,10 @@ details = garmin.get_activity_details(
 )    
 
 
-# EXAMPLE OF SINGLE METRIC
-# ========================
+# EXAMPLE OF SINGLE DATAPOINT (metric)
+# ====================================
 # IMP: the order of the metrics changes on every request, see below.
+# Note: Garmin does not use the term datapoint but metric.
         {
             "metrics": [
                 56.0,  # directAvailableStamina

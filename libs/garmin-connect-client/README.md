@@ -15,7 +15,6 @@ The authentication is interactive and it asks for the username and password used
  in Garmin Connect official website. It gets a token and stores it in a local file
  for months.
 
-
 Usage
 =====
 

@@ -12,9 +12,17 @@ from garmin_connect_client import GarminConnectClient
 client = GarminConnectClient()
 # It will ask interactively for username and password the first time.
 
-activities = client.list_activities("2025-03-22")
-assert len(activities["ActivitiesForDay"]["payload"]) == 2
-assert activities["ActivitiesForDay"]["payload"][0]["activityId"] == 18603794245
+response = client.list_activities("2025-03-22")
+activities = list(response.get_activities())
+assert len(activities) == 2
+assert activities[0]["activityId"] == 18603794245
+assert activities[0]["activityName"] == "Strength"
+assert activities[1]["activityId"] == 18606916834
+assert activities[1]["activityName"] == "Limone Piemonte Trail Running"
+
+response = client.get_activity_summary(18606916834)
+assert response.data["activityId"] == 18606916834
+assert response.data["activityName"] == "Limone Piemonte Trail Running"
 ```
 """
 
@@ -31,13 +39,16 @@ from garminconnect import (
     GarminConnectTooManyRequestsError,
 )
 
-from .activity_details_response import ActivityDetailsResponse
+from .responses import (
+    ActivityDetailsResponse,
+    ActivitySummaryResponse,
+    ListActivitiesResponse,
+)
 
 __all__ = [
     "GarminConnectClient",
     "InvalidDate",
     "BaseGarminConnectClientException",
-    "ActivityDetailsResponse",
 ]
 
 ROOT_DIR = Path(__file__).parent.parent
@@ -71,7 +82,7 @@ class GarminConnectClient:
                     fout.write(token_base64)
         return self._garmin
 
-    def list_activities(self, day: date | datetime | str) -> dict[str, dict]:
+    def list_activities(self, day: date | datetime | str) -> ListActivitiesResponse:
         """
         List all activities for the given day.
 
@@ -79,7 +90,15 @@ class GarminConnectClient:
             day: eg. datetime.date(2023, 5, 1) or datetime.datetime(2023, 5, 1, 0, 0)
              or "2023-05-01".
 
-        Example: see `docs/list activities for date.md`.
+        Raw response data format: see `docs/list activities for date.md`.
+
+        Example:
+            client = GarminConnectClient()
+            response = client.list_activities("2025-03-22")
+            activities = list(response.get_activities())
+            assert len(activities) == 2
+            assert activities[0]["activityId"] == 18603794245
+            assert activities[0]["activityName"] == "Strength"
         """
         if isinstance(day, date) or isinstance(day, datetime):
             date_str = day.isoformat()
@@ -92,19 +111,25 @@ class GarminConnectClient:
         else:
             raise InvalidDate(day)
         data: dict[str, dict] = self.garmin.get_activities_fordate(date_str)
-        return data
+        return ListActivitiesResponse(data)
 
-    def get_activity_summary(self, activity_id: int) -> dict[str, Any]:
+    def get_activity_summary(self, activity_id: int) -> ActivitySummaryResponse:
         """
         Get summary for the given activity_id.
 
         Args:
             activity_id: eg. 18606916834.
 
-        Example: see `docs/activity summary.md`.
+        Raw response data format: see `docs/activity summary.md`.
+
+        Example:
+            client = GarminConnectClient()
+            response = client.get_activity_summary(18606916834)
+            assert response.data["activityId"] == 18606916834
+            assert response.data["activityName"] == "Limone Piemonte Trail Running"
         """
         data: dict[str, Any] = self.garmin.get_activity(activity_id)
-        return data
+        return ActivitySummaryResponse(data)
 
     def get_activity_details(
         self,
@@ -112,12 +137,16 @@ class GarminConnectClient:
         max_metrics_data_count: int = 2000,
         do_include_polyline: bool = False,
         max_polyline_count: int = 4000,
-        do_keep_raw_response: bool = False,
+        do_keep_raw_data: bool = False,
     ) -> ActivityDetailsResponse:
         """
         Get details for the given activity_id.
 
-        Note that this response can be big, some Mb, so we do not collect polylines
+        Note: if you want to plot over time (eg. HR over time), like Garmin Connect
+         website does, then use `response.non_paused_time_stream` for the x-axis.
+         Strava website instead only plots over distance.
+
+        Note: this response can be large, some Mb, so we do not collect polylines
          by default and also discard not relevant metrics to reduce the size.
 
         Args:
@@ -127,20 +156,33 @@ class GarminConnectClient:
             do_include_polyline: the polyline.
             max_polyline_count: max number of metrics datapoints to include in
              the response.
-            do_keep_raw_response: keep the raw response, duplicating some data.
+            do_keep_raw_data: keep the raw response data, duplicating some data.
 
-        Example: see `docs/activity details.md`.
+        Raw response data format: see `docs/activity details.md`.
+
+        Example:
+            client = GarminConnectClient()
+            response = client.get_activity_details(
+                18606916834,
+                max_metrics_data_count=999 * 1000,
+                do_include_polyline=False,
+                # max_polyline_count: int = 4000,
+                do_keep_raw_data=False,
+            )
+            assert response.activity_id == 18606916834
+            assert response.original_size == 4179
+            assert response.streams_size == 4179
+            assert response.elapsed_time_stream[3] == 17.0
         """
         maxpoly = 0
         if do_include_polyline:
             maxpoly = max_polyline_count
-        data: dict[str, Any] = self.garmin.get_activity_details(
+        response: dict[str, Any] = self.garmin.get_activity_details(
             activity_id,
             maxchart=max_metrics_data_count,
             maxpoly=maxpoly,
         )
-        activity_details = ActivityDetailsResponse(data, do_keep_raw_response)
-        return activity_details
+        return ActivityDetailsResponse(response, do_keep_raw_data)
 
 
 class BaseGarminConnectClientException(Exception):
