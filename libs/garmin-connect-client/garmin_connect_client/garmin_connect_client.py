@@ -8,9 +8,18 @@ The authentication is interactive and it asks for the username and password used
 
 ```py
 from garmin_connect_client import GarminConnectClient
+from garmin_connect_client.garmin_connect_token_managers import (
+    FileGarminConnectTokenManager,
+)
 
 client = GarminConnectClient()
 # It will ask interactively for username and password the first time.
+
+# You can also leverage the file token manager:
+# garmin_tk_mgr = FileGarminConnectTokenManager(email="my@email.com", password="sss")
+# garmin_tk_mgr = FileGarminConnectTokenManager(token_file_path=Path() / "token.txt")
+# garmin_tk_mgr = FileGarminConnectTokenManager(do_use_fake_test_token=True)
+# client = GarminConnectClient(garmin_tk_mgr)
 
 response = client.list_activities("2025-03-22")
 activities = list(response.get_activities())
@@ -27,18 +36,15 @@ assert response.data["activityName"] == "Limone Piemonte Trail Running"
 """
 
 from datetime import date, datetime
-from getpass import getpass
-from pathlib import Path
 from typing import Any
 
 import garth
-from garminconnect import (
-    Garmin,
-    GarminConnectAuthenticationError,
-    GarminConnectConnectionError,
-    GarminConnectTooManyRequestsError,
-)
+from garminconnect import Garmin, GarminConnectAuthenticationError
 
+from .garmin_connect_token_managers import (
+    FileGarminConnectTokenManager,
+    FileGarminConnectTokenManagerException,
+)
 from .responses import (
     ActivityDetailsResponse,
     ActivitySummaryResponse,
@@ -51,35 +57,33 @@ __all__ = [
     "BaseGarminConnectClientException",
 ]
 
-ROOT_DIR = Path(__file__).parent.parent
-TOKEN_FILE = ROOT_DIR / "garmin-connect-token"
-
 
 class GarminConnectClient:
-    def __init__(self):
+    def __init__(self, token_manager: FileGarminConnectTokenManager | None = None):
         self._garmin: Garmin | None = None
+        self._token_manager = token_manager or FileGarminConnectTokenManager()
 
     @property
     def garmin(self) -> Garmin:
         if not self._garmin:
             self._garmin = Garmin()
+
             try:
-                with open(TOKEN_FILE, "r") as fin:
-                    token_base64 = fin.read()
+                token_base64 = self._token_manager.get_access_token()
                 self._garmin.login(token_base64)
             except (
+                FileGarminConnectTokenManagerException,
                 FileNotFoundError,
                 garth.exc.GarthHTTPError,
                 GarminConnectAuthenticationError,
             ) as exc:
                 # Session expired, interactive login with username and password.
-                email = input("Garmin Connect login email: ")
-                password = getpass("Garmin Connect login password: ")
+                email = self._token_manager.get_email()
+                password = self._token_manager.get_password()
                 self._garmin = Garmin(email=email, password=password)
                 self._garmin.login()
                 token_base64 = self._garmin.garth.dumps()
-                with open(TOKEN_FILE, "w") as fout:
-                    fout.write(token_base64)
+                self._token_manager.store_access_token(token_base64)
         return self._garmin
 
     def list_activities(self, day: date | datetime | str) -> ListActivitiesResponse:

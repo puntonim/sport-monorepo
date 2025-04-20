@@ -15,6 +15,8 @@ class BaseGarminResponse:
 
 
 class ListActivitiesResponse(BaseGarminResponse):
+    # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
+    #  annotations. If you assign values they become CLASS attrs.
     data: [str, dict]
 
     @lru_cache
@@ -25,6 +27,8 @@ class ListActivitiesResponse(BaseGarminResponse):
 
 
 class ActivitySummaryResponse(BaseGarminResponse):
+    # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
+    #  annotations. If you assign values they become CLASS attrs.
     data: [str, Any]
 
 
@@ -144,10 +148,13 @@ class ActivityDetailsResponse(BaseGarminResponse):
             }
     """
 
-    data: dict[str, Any] | None = None
+    # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
+    #  annotations. If you assign values they become CLASS attrs.
+
+    data: dict[str, Any] | None
     _relevant_metric_descriptors: dict[str, int]
 
-    ## Public attrs.
+    ## Public attrs annotations.
     activity_id: int
     # The tot number datapoints in the original dataset collected by the device.
     original_size: int
@@ -158,26 +165,38 @@ class ActivityDetailsResponse(BaseGarminResponse):
     # There are more like directGradeAdjustedSpeed, directVerticalSpeed,
     #  directGroundContactTime, ...
     # Timestamp GMT when the datapoint was collected.
-    ts_stream: list[float] = []  # directTimestamp in gmt [s], eg. 1742663472000.0.
+    ts_stream: list[float]  # directTimestamp in gmt [s], eg. 1742663472000.0.
     # Seconds elapsed since the start. It's the diff between timestamps.
-    elapsed_time_stream: list[float] = []  # sumElapsedDuration [s], eg. 3996.0.
+    elapsed_time_stream: list[float]  # sumElapsedDuration [s], eg. 3996.0.
     # Seconds since the start, excluding the time when the device was paused.
     # Note that the device might not have been paused, but the athlete be still (because
     #  the athlete forgot to pause).
     # Note: it's the x-axis used in Garmin Connect website for charts over time,
     #  for example for the chart HR over time.
-    non_paused_time_stream: list[float] = []  # sumDuration [s], eg. 3996.0.
+    non_paused_time_stream: list[float]  # sumDuration [s], eg. 3996.0.
     # Seconds since start, when the athlete was actually moving.
     # It's computed checking the cioords and it is the most realible stream for the
     #  moving time, as the device might not have been propelry paused when the athlete
     #  was still.
-    moving_time_stream: list[float] = []  # sumMovingDuration [s], eg. 3993.0.
-    distance_stream: list[float] = []  # sumDistance [m], eg. 10100.8203125.
-    speed_stream: list[float] = []  # directSpeed [mps], eg. 4.198999881744385.
-    lat_stream: list[float] = []  # directLatitude, eg. 44.16305732913315.
-    lng_stream: list[float] = []  # directLongitude, eg. 7.572167655453086.
-    altitude_stream: list[float] = []  # directElevation [m], eg. 1476.4000244140625.
-    heartrate_stream: list[float] = []  # directHeartRate [bpm], eg. 138.0.
+    moving_time_stream: list[float]  # sumMovingDuration [s], eg. 3993.0.
+    distance_stream: list[float]  # sumDistance [m], eg. 10100.8203125.
+    speed_stream: list[float]  # directSpeed [mps], eg. 4.198999881744385.
+    lat_stream: list[float]  # directLatitude, eg. 44.16305732913315.
+    lng_stream: list[float]  # directLongitude, eg. 7.572167655453086.
+    altitude_stream: list[float]  # directElevation [m], eg. 1476.4000244140625.
+    heartrate_stream: list[float]  # directHeartRate [bpm], eg. 138.0.
+    _all_stream_names: list[str] = (
+        "ts_stream",
+        "elapsed_time_stream",
+        "non_paused_time_stream",
+        "moving_time_stream",
+        "distance_stream",
+        "speed_stream",
+        "lat_stream",
+        "lng_stream",
+        "altitude_stream",
+        "heartrate_stream",
+    )
 
     def __init__(self, data: dict, do_keep_raw_data: bool = False):
         """
@@ -186,6 +205,8 @@ class ActivityDetailsResponse(BaseGarminResponse):
             data [dict]: the raw response data received by `garminconnect` lib.
             do_keep_raw_data: True to keep the raw response data. It can be large.
         """
+        self.data = None
+
         self._parse_raw_data(data)
 
         # Store data only if requested. It duplicates data and it can be large.
@@ -244,6 +265,9 @@ class ActivityDetailsResponse(BaseGarminResponse):
     def _parse_relevant_metrics(
         self, activity_detail_metrics_attr: list[dict[str, list[float | None]]]
     ):
+        for stream_name in self._all_stream_names:
+            setattr(self, stream_name, [])
+
         for metric in activity_detail_metrics_attr:
             x: list = metric["metrics"]
             self.elapsed_time_stream.append(

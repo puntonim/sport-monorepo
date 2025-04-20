@@ -1,11 +1,20 @@
 from datetime import datetime
 
 from garmin_connect_client import GarminConnectClient
+from garmin_connect_client.garmin_connect_token_managers import (
+    FileGarminConnectTokenManager,
+)
+
+# IMP: run tests using `do_use_fake_test_token=True`, but record new episodes
+#  with `do_use_fake_test_token=False`.
 
 
 class TestListActivities:
     def test_happy_flow(self):
-        client = GarminConnectClient()
+        client = GarminConnectClient(
+            # Note: use do_use_fake_test_token=False when recording new episodes.
+            FileGarminConnectTokenManager(do_use_fake_test_token=True)
+        )
         response = client.list_activities("2025-03-22")
         activities = list(response.get_activities())
         assert len(activities) == 2
@@ -15,7 +24,10 @@ class TestListActivities:
         assert activities[1]["activityName"] == "Limone Piemonte Trail Running"
 
     def test_datetime(self):
-        client = GarminConnectClient()
+        client = GarminConnectClient(
+            # Note: use do_use_fake_test_token=False when recording new episodes.
+            FileGarminConnectTokenManager(do_use_fake_test_token=True)
+        )
         response = client.list_activities(datetime(2025, 3, 22))
         activities = list(response.get_activities())
         assert len(activities) == 2
@@ -28,7 +40,10 @@ class TestListActivities:
 
 class TestGetActivitySummary:
     def test_happy_flow(self):
-        client = GarminConnectClient()
+        client = GarminConnectClient(
+            # Note: use do_use_fake_test_token=False when recording new episodes.
+            FileGarminConnectTokenManager(do_use_fake_test_token=True)
+        )
         activity_id = 18606916834
         response = client.get_activity_summary(activity_id)
         assert response.data["activityId"] == activity_id
@@ -37,7 +52,10 @@ class TestGetActivitySummary:
 
 class TestGetActivityDetails:
     def test_happy_flow(self):
-        client = GarminConnectClient()
+        client = GarminConnectClient(
+            # Note: use do_use_fake_test_token=False when recording new episodes.
+            FileGarminConnectTokenManager(do_use_fake_test_token=True)
+        )
         activity_id = 18606916834
         response = client.get_activity_details(
             activity_id,
