@@ -1,15 +1,18 @@
 import importlib
 import json
 
-from .base_token_manager import BaseTokenManager, BaseTokenManagerException
+from .base_strava_token_manager import (
+    BaseStravaTokenManager,
+    BaseStravaTokenManagerException,
+)
 
 __all__ = [
-    "AwsParameterStoreTokenManager",
-    "AwsParameterStoreTokenManagerException",
+    "AwsParameterStoreStravaTokenManager",
+    "AwsParameterStoreStravaTokenManagerException",
 ]
 
 
-class AwsParameterStoreTokenManager(BaseTokenManager):
+class AwsParameterStoreStravaTokenManager(BaseStravaTokenManager):
     def __init__(
         self,
         token_json_parameter_store_key_path: str,  # Eg: "/strava-facade-api/production/strava-api-token-json"
@@ -38,7 +41,7 @@ class AwsParameterStoreTokenManager(BaseTokenManager):
         try:
             content = self.AwsParameterStoreClient().get_secret(path)
         except self.ParameterNotFound as exc:
-            raise AwsParameterStoreTokenManagerException() from exc
+            raise AwsParameterStoreStravaTokenManagerException from exc
         return content
 
     @property
@@ -47,7 +50,7 @@ class AwsParameterStoreTokenManager(BaseTokenManager):
         try:
             content = self.AwsParameterStoreClient().get_secret(path)
         except self.ParameterNotFound as exc:
-            raise AwsParameterStoreTokenManagerException() from exc
+            raise AwsParameterStoreStravaTokenManagerException from exc
         return content
 
     def get_access_token(self) -> str:
@@ -69,25 +72,25 @@ class AwsParameterStoreTokenManager(BaseTokenManager):
         try:
             content = self.AwsParameterStoreClient().get_secret(path)
         except self.ParameterNotFound as exc:
-            raise AwsParameterStoreTokenManagerException() from exc
+            raise AwsParameterStoreStravaTokenManagerException from exc
 
         try:
             self._token = json.loads(content)
         except json.JSONDecodeError:
-            raise AwsParameterStoreTokenManagerException(
+            raise AwsParameterStoreStravaTokenManagerException(
                 f"JSONDecodeError in SSM: {path}"
             )
 
         if not self._token.get("access_token"):
-            raise AwsParameterStoreTokenManagerException(
+            raise AwsParameterStoreStravaTokenManagerException(
                 f"Missing 'access_token' in SSM: {path}"
             )
         if not self._token.get("refresh_token"):
-            raise AwsParameterStoreTokenManagerException(
+            raise AwsParameterStoreStravaTokenManagerException(
                 f"Missing 'refresh_token' in SSM: {path}"
             )
         if not self._token.get("expires_at"):
-            raise AwsParameterStoreTokenManagerException(
+            raise AwsParameterStoreStravaTokenManagerException(
                 f"Missing 'expires_at' in SSM: {path}"
             )
 
@@ -100,5 +103,5 @@ class AwsParameterStoreTokenManager(BaseTokenManager):
         )
 
 
-class AwsParameterStoreTokenManagerException(BaseTokenManagerException):
+class AwsParameterStoreStravaTokenManagerException(BaseStravaTokenManagerException):
     pass

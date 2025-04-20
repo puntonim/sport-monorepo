@@ -6,7 +6,7 @@ With Strava token stored to a **local file**:
 ```py
 from pathlib import Path
 
-from strava_client.token_managers import FileTokenManager
+from strava_client.strava_token_managers import FileStravaTokenManager
 from strava_client import StravaClient
 
 # Create the file strava-api-token.json with content similar to:
@@ -18,7 +18,7 @@ from strava_client import StravaClient
 #     "refresh_token": "XXX"
 # }
 
-token_mgr = FileTokenManager(
+token_mgr = FileStravaTokenManager(
     client_id="myclientid",
     client_secret="myclientsecret",
     token_json_file_path=Path() / "strava-api-token.json",
@@ -27,9 +27,9 @@ client = StravaClient(token_mgr.get_access_token())
 response = client.list_activities(
     n_results_per_page=3,
 )
-assert len(response) == 3
-assert response[0]["name"] == "Weight training: biceps 🦠"
-assert response[0]["id"] == 13451142175
+assert len(response.data) == 3
+assert response.data[0]["name"] == "Weight training: biceps 🦠"
+assert response.data[0]["id"] == 13451142175
 ```
 
 With Strava token, client id and client secret stored in **AWS Parameter Store**:
@@ -37,10 +37,10 @@ With Strava token, client id and client secret stored in **AWS Parameter Store**
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from strava_client.token_managers import AwsParameterStoreTokenManager
+from strava_client.strava_token_managers import AwsParameterStoreStravaTokenManager
 from strava_client import StravaClient
 
-token_mgr = AwsParameterStoreTokenManager(
+token_mgr = AwsParameterStoreStravaTokenManager(
     "/strava-facade-api/production/strava-api-token-json",
     "/strava-facade-api/production/strava-api-client-id",
     "/strava-facade-api/production/strava-api-client-secret",
@@ -50,9 +50,9 @@ response = client.list_activities(
     after_ts=datetime(2025, 1, 18, 6, 0, tzinfo=ZoneInfo("Europe/Rome")),
     n_results_per_page=2,
 )
-assert len(response) == 2
-assert response[0]["name"] == "Dobbiaco Winter Night Run 🦠"
-assert response[0]["id"] == 13389554554
+assert len(response.data) == 3
+assert response.data[0]["name"] == "Weight training: biceps 🦠"
+assert response.data[0]["id"] == 13451142175
 ```
 """
 
@@ -62,6 +62,14 @@ from datetime import datetime, timedelta
 import log_utils as logger
 import requests
 from datetime_utils import datetime_utils
+
+from .responses import (
+    ActivityDetailsResponse,
+    CreatedActivity,
+    ListActivitiesResponse,
+    StreamsResponse,
+    UpdatedActivity,
+)
 
 __all__ = [
     "ActivityNotFound",
@@ -105,16 +113,13 @@ class StravaClient:
         self,
         after_ts: datetime | int | float | None = None,
         before_ts: datetime | int | float | None = None,
-        activity_type: str | None = None,
         n_results_per_page: int | None = None,
         page_n: int = 1,
-    ) -> list[dict]:
+    ) -> ListActivitiesResponse:
         """
         List all my activities and filter by date, as supported by Strava API.
-        Also, filter by activity_type, but this is just a Python filtering (NOT supported by Strava API).
 
-        Returns:
-            see "docs/activity summary.md"
+        Raw response data format: see "docs/activity summary.md"
 
         Docs:
             - Authentication: https://developers.strava.com/docs/authentication/
@@ -123,6 +128,26 @@ class StravaClient:
         Curl example:
             $ curl "https://www.strava.com/api/v3/athlete/activities?after=1718834400&before=1718920799" \
              -H "Authorization: Bearer XXX"
+
+        Example:
+            token_mgr = FileStravaTokenManager(
+                client_id="myclientid",
+                client_secret="myclientsecret",
+                token_json_file_path=Path() / "strava-api-token.json",
+            )
+            client = StravaClient(self.token_mgr.get_access_token())
+            response = client.list_activities(n_results_per_page=10)
+
+            assert len(response.data) == 10
+            assert response.data[0]["name"] == "Weight training: biceps 🦠"
+            assert response.data[0]["id"] == 13451142175
+
+            activities = list(response.filter_by_activity_type("Run"))
+            assert len(activities) == 2
+            assert activities[0]["name"] == "Dobbiaco Winter Night Run 🦠"
+            assert activities[0]["id"] == 13389554554
+            assert activities[1]["name"] == "6x300m"
+            assert activities[1]["id"] == 13361068984
         """
         if isinstance(after_ts, datetime):
             if datetime_utils.is_naive(after_ts):
@@ -156,32 +181,28 @@ class StravaClient:
                     raise AfterTsInTheFuture(after_ts) from exc
             raise
 
-        data: list[dict] = response.json()
+        return_data = ListActivitiesResponse(response)
 
         # If the results page requested does not exist:
-        if page_n != 1 and data == []:
+        if page_n != 1 and return_data.data == []:
             raise RequestedResultsPageDoesNotExist(page_n)
 
-        # Filter y activity_type.
-        if activity_type:
-            data = []
-            for activity in response.json():
-                activity: dict
-                if (
-                    activity.get("type") == activity_type
-                    or activity.get("sport_type") == activity_type
-                ):
-                    data.append(activity)
-
-        return data
+        return return_data
 
     @handle_api_rate_limit_error
-    def get_activity_details(self, activity_id: int) -> dict:
+    def get_activity_details(self, activity_id: int) -> ActivityDetailsResponse:
         """
         Get details for the given activity id.
+        The response is a class that offers the method `get_segment_effort`
+         to get a segment effort data.
+
+        Raw response data format: see "docs/activity details.md"
 
         Returns:
-            see "docs/activity details.md"
+            responses.ActivityDetails instance with the attribute `data` [dict]
+             like described in "docs/activity details.md".
+             The response offers the method `get_segment_effort` to get a segment
+             effort data.
 
         Docs:
             - Authentication: https://developers.strava.com/docs/authentication/
@@ -190,6 +211,18 @@ class StravaClient:
         Curl example:
             $ curl "https://www.strava.com/api/v3/activities/13389554554" \
              -H "Authorization: Bearer XXX"
+
+        Example:
+            token_mgr = FileStravaTokenManager(
+                client_id="myclientid",
+                client_secret="myclientsecret",
+                token_json_file_path=Path() / "strava-api-token.json",
+            )
+            client = StravaClient(self.token_mgr.get_access_token())
+            response = client.get_activity_details(13389554554)
+            assert response.data["name"] == "Dobbiaco Winter Night Run 🦠"
+            assert response.data["id"] == 13389554554
+            assert "description" in response.data
         """
         logger.info(f"Getting activity details for id={activity_id}...")
         url = f"https://www.strava.com/api/v3/activities/{activity_id}"
@@ -201,17 +234,32 @@ class StravaClient:
             if exc.response.status_code == 404:
                 raise ActivityNotFound(activity_id) from exc
             raise
-        details: dict = response.json()
-        return details
+        return ActivityDetailsResponse(response)
 
     @handle_api_rate_limit_error
-    def update_activity(self, activity_id: int, data: dict) -> dict:
+    def update_activity(self, activity_id: int, data: dict) -> UpdatedActivity:
         """
         Update an activity by its id.
 
         Docs:
             - Authentication: https://developers.strava.com/docs/authentication/
             - Update Activity API: https://developers.strava.com/docs/reference/#api-Activities-updateActivityById
+
+        Example:
+            token_mgr = FileStravaTokenManager(
+                client_id="myclientid",
+                client_secret="myclientsecret",
+                token_json_file_path=Path() / "strava-api-token.json",
+            )
+            client = StravaClient(self.token_mgr.get_access_token())
+            data = {
+                "name": "test Weight training",
+                "description": "bla bla",
+            }
+            response = client.update_activity(13381920990, data)
+            assert response.data["id"] == 13381920990
+            assert response.data["name"] == "test Weight training"
+            assert response.data["description"] == "bla bla"
         """
         logger.info(f"Updating activity id={activity_id}...")
         url = f"https://www.strava.com/api/v3/activities/{activity_id}"
@@ -223,7 +271,7 @@ class StravaClient:
             if exc.response.status_code == 404:
                 raise ActivityNotFound(activity_id) from exc
             raise
-        return response.json()
+        return UpdatedActivity(response)
 
     @handle_api_rate_limit_error
     def create_activity(
@@ -234,7 +282,7 @@ class StravaClient:
         duration_seconds: int,  # Seconds.
         description: str | None,
         do_detect_duplicates=False,
-    ):
+    ) -> CreatedActivity:
         """
         Create a new activity.
         It also tries to make sure that this new activity is not a duplicate.
@@ -242,13 +290,32 @@ class StravaClient:
         Docs:
             - Authentication: https://developers.strava.com/docs/authentication/
             - Create Activity API: https://developers.strava.com/docs/reference/#api-Activities-createActivity
+
+        Example:
+            token_mgr = FileStravaTokenManager(
+                client_id="myclientid",
+                client_secret="myclientsecret",
+                token_json_file_path=Path() / "strava-api-token.json",
+            )
+            client = StravaClient(self.token_mgr.get_access_token())
+            response = client.create_activity(
+                name="test create 1",
+                sport_type="WeightTraining",
+                start_date=datetime(2025, 1, 26, 16, 0, tzinfo=timezone.utc),
+                duration_seconds=60 * 60,
+                description="test create description",
+                do_detect_duplicates=False,
+            )
+            assert response.data["id"] == 13461246226
+            assert response.data["name"] == "test create 1"
+            assert response.data["description"] == "test create description"
         """
         logger.info(f"Creating new activity...")
 
         # Parse start_date.
         if isinstance(start_date, str):
             try:
-                start_date = datetime.fromisoformat(start_date)
+                start_date = datetime_utils.iso_string_to_date(start_date)
             except ValueError as exc:
                 raise InvalidDatetime(start_date) from exc
 
@@ -264,7 +331,8 @@ class StravaClient:
         if do_detect_duplicates:
             after_ts = (start_date - timedelta(hours=1, minutes=15)).timestamp()
             before_ts = (start_date + timedelta(hours=1, minutes=15)).timestamp()
-            activities = self.list_activities(after_ts, before_ts, sport_type)
+            response = self.list_activities(after_ts, before_ts)
+            activities = list(response.filter_by_activity_type(sport_type))
             if activities:
                 logger.info(f"Found possible duplicate: {activities[0]['id']}")
                 raise PossibleDuplicatedActivity(activities[0]["id"])
@@ -298,18 +366,16 @@ class StravaClient:
                         raise SportTypeInvalid(sport_type) from exc
             raise
 
-        details: dict = response.json()
-        return details
+        return CreatedActivity(response)
 
     @handle_api_rate_limit_error
-    def get_streams(self, activity_id: int, stream_types: list[str]) -> list[dict]:
+    def get_streams(self, activity_id: int, stream_types: list[str]) -> StreamsResponse:
         """
         Get streams for the given activity id.
         Supported stream types: time, distance, latlng, altitude, heartrate.
         Full list of stream types: https://developers.strava.com/docs/reference/#api-models-StreamSet
 
-        Returns:
-            see "docs/streams.md"
+        Raw response data format: see "docs/streams.md"
 
         Docs:
             - Authentication: https://developers.strava.com/docs/authentication/
@@ -318,6 +384,17 @@ class StravaClient:
         Curl example:
             $ curl "https://www.strava.com/api/v3/activities/13389554554/streams?keys=time,heartrate" \
              -H "Authorization: Bearer XXX"
+
+        Example:
+            token_mgr = FileStravaTokenManager(
+                client_id="myclientid",
+                client_secret="myclientsecret",
+                token_json_file_path=Path() / "strava-api-token.json",
+            )
+            client = StravaClient(self.token_mgr.get_access_token())
+            response = client.get_streams(13389554554, stream_types=stream_types)
+            assert len(response.data) == 6
+            assert response.get_elapsed_time_stream()[6] == 134.6
         """
         # Full list of stream types:
         #  https://developers.strava.com/docs/reference/#api-models-StreamSet
@@ -342,8 +419,7 @@ class StravaClient:
             if exc.response.status_code == 404:
                 raise ActivityNotFound(activity_id) from exc
             raise
-        data: list[dict] = response.json()
-        return data
+        return StreamsResponse(response)
 
 
 class BaseStravaClientException(Exception):
