@@ -53,7 +53,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Sun, 06 Apr 2025 14:37:54 GMT
+      - Wed, 23 Apr 2025 10:22:08 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -78,25 +78,25 @@ interactions:
     uri: https://connectapi.garmin.com/userprofile-service/userprofile/user-settings
   response:
     body:
-      string: '{"id": 113739130, "userData": {"gender": "MALE", "weight": 80000.0,
+      string: '{"id": 113739130, "userData": {"gender": "MALE", "weight": 81000.0,
         "height": 180.0, "timeFormat": "time_twenty_four_hr", "birthDate": "1980-01-18",
         "measurementSystem": "metric", "activityLevel": 7, "handedness": "RIGHT",
         "powerFormat": {"formatId": 30, "formatKey": "watt", "minFraction": 0, "maxFraction":
         0, "groupingUsed": true, "displayFormat": null}, "heartRateFormat": {"formatId":
         21, "formatKey": "bpm", "minFraction": 0, "maxFraction": 0, "groupingUsed":
         false, "displayFormat": null}, "firstDayOfWeek": {"dayId": 3, "dayName": "monday",
-        "sortOrder": 3, "isPossibleFirstDay": true}, "vo2MaxRunning": 51.0, "vo2MaxCycling":
-        null, "lactateThresholdSpeed": 0.39722111000000004, "lactateThresholdHeartRate":
-        143, "diveNumber": null, "intensityMinutesCalcMethod": "AUTO", "moderateIntensityMinutesHrZone":
+        "sortOrder": 3, "isPossibleFirstDay": true}, "vo2MaxRunning": 48.0, "vo2MaxCycling":
+        null, "lactateThresholdSpeed": 0.36944341, "lactateThresholdHeartRate": 170,
+        "diveNumber": null, "intensityMinutesCalcMethod": "AUTO", "moderateIntensityMinutesHrZone":
         3, "vigorousIntensityMinutesHrZone": 4, "hydrationMeasurementUnit": "cup",
         "hydrationContainers": [], "hydrationAutoGoalEnabled": true, "firstbeatMaxStressScore":
         null, "firstbeatCyclingLtTimestamp": null, "firstbeatRunningLtTimestamp":
-        1110447995, "thresholdHeartRateAutoDetected": true, "ftpAutoDetected": true,
+        1114172809, "thresholdHeartRateAutoDetected": true, "ftpAutoDetected": true,
         "trainingStatusPausedDate": null, "weatherLocation": {"useFixedLocation":
         null, "latitude": null, "longitude": null, "locationName": null, "isoCountryCode":
         null, "postalCode": null}, "golfDistanceUnit": "statute_us", "golfElevationUnit":
         null, "golfSpeedUnit": null, "externalBottomTime": null, "availableTrainingDays":
-        ["THURSDAY", "SUNDAY", "MONDAY", "SATURDAY", "WEDNESDAY", "TUESDAY", "FRIDAY"],
+        ["SUNDAY", "FRIDAY", "THURSDAY", "TUESDAY", "SATURDAY", "MONDAY", "WEDNESDAY"],
         "preferredLongTrainingDays": ["SUNDAY", "SATURDAY"]}, "userSleep": {"sleepTime":
         0, "defaultSleepTime": false, "wakeTime": 28800, "defaultWakeTime": false},
         "connectDate": null, "sourceType": null, "userSleepWindows": [{"sleepWindowFrequency":
@@ -120,13 +120,13 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Sun, 06 Apr 2025 14:37:54 GMT
+      - Wed, 23 Apr 2025 10:22:08 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
       - chunked
       content-length:
-      - '2516'
+      - '2507'
       pragma:
       - no-cache
     status:
@@ -169,33 +169,32 @@ interactions:
         "hasIntensityIntervals": false, "hasSplits": true, "eBikeMaxAssistModes":
         null, "eBikeBatteryUsage": null, "eBikeBatteryRemaining": null, "eBikeAssistModeInfoDTOList":
         null, "hasRunPowerWindData": true, "calendarEventInfo": null, "groupRideUUID":
-        null, "hasHeatMap": false, "autoCalcCalories": false, "favorite": false, "gcj02":
-        false, "runPowerWindDataEnabled": true, "manualActivity": false, "trimmed":
-        false, "personalRecord": false, "elevationCorrected": false}, "summaryDTO":
-        {"startTimeLocal": "2025-03-22T17:04:36.0", "startTimeGMT": "2025-03-22T16:04:36.0",
-        "startLatitude": 44.16586736217141, "startLongitude": 7.569181434810162, "distance":
-        10803.7, "duration": 4177.955, "movingDuration": 4173.44, "elapsedDuration":
-        4177.955, "elevationGain": 514.0, "elevationLoss": 508.0, "maxElevation":
-        1803.6, "minElevation": 1396.8, "averageSpeed": 2.5859999656677246, "averageMovingSpeed":
-        2.5886798967979896, "maxSpeed": 4.4039998054504395, "calories": 951.0, "bmrCalories":
-        101.0, "averageHR": 121.0, "maxHR": 146.0, "minHR": 98.0, "averageRunCadence":
-        159.359375, "maxRunCadence": 236.0, "averageTemperature": 15.536073508039488,
-        "maxTemperature": 19.0, "minTemperature": 12.0, "averagePower": 333.0, "maxPower":
-        473.0, "minPower": 0.0, "normalizedPower": 353.0, "totalWork": 331.74065994911723,
-        "groundContactTime": 277.20001220703125, "strideLength": 97.27000122070314,
-        "verticalOscillation": 8.34000015258789, "trainingEffect": 3.700000047683716,
-        "anaerobicTrainingEffect": 2.0, "aerobicTrainingEffectMessage": "IMPROVING_AEROBIC_ENDURANCE_9",
-        "anaerobicTrainingEffectMessage": "MAINTAINING_ANAEROBIC_BASE_1", "verticalRatio":
-        8.930000305175781, "endLatitude": 44.1658887360245, "endLongitude": 7.569096609950066,
-        "maxVerticalSpeed": 0.8000488281250001, "waterEstimated": 1025.0, "trainingEffectLabel":
-        "AEROBIC_BASE", "activityTrainingLoad": 189.7177276611328, "minActivityLapDuration":
-        205.186, "directWorkoutFeel": 75, "directWorkoutRpe": 80, "moderateIntensityMinutes":
-        1, "vigorousIntensityMinutes": 44, "steps": 11150, "beginPotentialStamina":
-        81.0, "endPotentialStamina": 56.0, "minAvailableStamina": 50.0, "avgGradeAdjustedSpeed":
-        2.947999954223633, "differenceBodyBattery": -10}, "locationName": "Limone
-        Piemonte", "splitSummaries": [{"distance": 10803.7, "duration": 4177.955,
-        "movingDuration": 4174.0, "elevationGain": 514.0, "elevationLoss": 508.0,
-        "averageSpeed": 2.5859999656677246, "averageMovingSpeed": 2.588332581531504,
+        null, "hasHeatMap": false, "trimmed": false, "manualActivity": false, "runPowerWindDataEnabled":
+        true, "personalRecord": false, "autoCalcCalories": false, "favorite": false,
+        "gcj02": false, "elevationCorrected": false}, "summaryDTO": {"startTimeLocal":
+        "2025-03-22T17:04:36.0", "startTimeGMT": "2025-03-22T16:04:36.0", "startLatitude":
+        44.16586736217141, "startLongitude": 7.569181434810162, "distance": 10803.7,
+        "duration": 4177.955, "movingDuration": 4173.44, "elapsedDuration": 4177.955,
+        "elevationGain": 514.0, "elevationLoss": 508.0, "maxElevation": 1803.6, "minElevation":
+        1396.8, "averageSpeed": 2.5859999656677246, "averageMovingSpeed": 2.5886798967979896,
+        "maxSpeed": 4.4039998054504395, "calories": 951.0, "bmrCalories": 101.0, "averageHR":
+        121.0, "maxHR": 146.0, "minHR": 98.0, "averageRunCadence": 159.359375, "maxRunCadence":
+        236.0, "averageTemperature": 15.536073508039488, "maxTemperature": 19.0, "minTemperature":
+        12.0, "averagePower": 333.0, "maxPower": 473.0, "minPower": 0.0, "normalizedPower":
+        353.0, "totalWork": 331.74065994911723, "groundContactTime": 277.20001220703125,
+        "strideLength": 97.27000122070314, "verticalOscillation": 8.34000015258789,
+        "trainingEffect": 3.700000047683716, "anaerobicTrainingEffect": 2.0, "aerobicTrainingEffectMessage":
+        "IMPROVING_AEROBIC_ENDURANCE_9", "anaerobicTrainingEffectMessage": "MAINTAINING_ANAEROBIC_BASE_1",
+        "verticalRatio": 8.930000305175781, "endLatitude": 44.1658887360245, "endLongitude":
+        7.569096609950066, "maxVerticalSpeed": 0.8000488281250001, "waterEstimated":
+        1025.0, "trainingEffectLabel": "AEROBIC_BASE", "activityTrainingLoad": 189.7177276611328,
+        "minActivityLapDuration": 205.186, "directWorkoutFeel": 75, "directWorkoutRpe":
+        80, "moderateIntensityMinutes": 1, "vigorousIntensityMinutes": 44, "steps":
+        11150, "beginPotentialStamina": 81.0, "endPotentialStamina": 56.0, "minAvailableStamina":
+        50.0, "avgGradeAdjustedSpeed": 2.947999954223633, "differenceBodyBattery":
+        -10}, "locationName": "Limone Piemonte", "splitSummaries": [{"distance": 10803.7,
+        "duration": 4177.955, "movingDuration": 4174.0, "elevationGain": 514.0, "elevationLoss":
+        508.0, "averageSpeed": 2.5859999656677246, "averageMovingSpeed": 2.588332581531504,
         "maxSpeed": 4.4039998054504395, "calories": 951.0, "bmrCalories": 101.0, "averageHR":
         121.0, "maxHR": 146.0, "averageRunCadence": 159.34375, "maxRunCadence": 236.0,
         "averageTemperature": 16.0, "maxTemperature": 19.0, "minTemperature": 12.0,
@@ -235,7 +234,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Sun, 06 Apr 2025 14:37:55 GMT
+      - Wed, 23 Apr 2025 10:22:09 GMT
       Server:
       - cloudflare
       Transfer-Encoding:

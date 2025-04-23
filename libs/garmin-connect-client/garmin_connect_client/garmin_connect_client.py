@@ -174,7 +174,7 @@ class GarminConnectClient:
                 do_keep_raw_data=False,
             )
             assert response.activity_id == 18606916834
-            assert response.original_size == 4179
+            assert response.original_dataset_size == 4179
             assert response.streams_size == 4179
             assert response.elapsed_time_stream[3] == 17.0
         """

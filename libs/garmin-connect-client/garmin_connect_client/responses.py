@@ -157,8 +157,8 @@ class ActivityDetailsResponse(BaseGarminResponse):
     ## Public attrs annotations.
     activity_id: int
     # The tot number datapoints in the original dataset collected by the device.
-    original_size: int
-    # The number of datapoints in this response: it is <= `original_size`
+    original_dataset_size: int
+    # The number of datapoints in this response: it is <= `original_dataset_size`
     #  as it can be a subset of the original dataset collected by the device.
     streams_size: int
     ## Interesting metrics.
@@ -219,8 +219,8 @@ class ActivityDetailsResponse(BaseGarminResponse):
         ## Parse basic attrs.
         self.activity_id = data["activityId"]
         # The tot number datapoints in the original dataset collected by the device.
-        self.original_size = data["totalMetricsCount"]
-        # The number of datapoints in this response: it is <= `original_size`
+        self.original_dataset_size = data["totalMetricsCount"]
+        # The number of datapoints in this response: it is <= `original_dataset_size`
         #  as it can be a subset of the original dataset collected by the device.
         self.streams_size = data["metricsCount"]
 

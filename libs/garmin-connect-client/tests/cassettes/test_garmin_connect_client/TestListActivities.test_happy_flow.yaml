@@ -53,7 +53,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Sat, 05 Apr 2025 17:26:38 GMT
+      - Wed, 23 Apr 2025 10:18:08 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -78,26 +78,26 @@ interactions:
     uri: https://connectapi.garmin.com/userprofile-service/userprofile/user-settings
   response:
     body:
-      string: '{"id": 113739130, "userData": {"gender": "MALE", "weight": 80000.0,
+      string: '{"id": 113739130, "userData": {"gender": "MALE", "weight": 81000.0,
         "height": 180.0, "timeFormat": "time_twenty_four_hr", "birthDate": "1980-01-18",
         "measurementSystem": "metric", "activityLevel": 7, "handedness": "RIGHT",
         "powerFormat": {"formatId": 30, "formatKey": "watt", "minFraction": 0, "maxFraction":
         0, "groupingUsed": true, "displayFormat": null}, "heartRateFormat": {"formatId":
         21, "formatKey": "bpm", "minFraction": 0, "maxFraction": 0, "groupingUsed":
         false, "displayFormat": null}, "firstDayOfWeek": {"dayId": 3, "dayName": "monday",
-        "sortOrder": 3, "isPossibleFirstDay": true}, "vo2MaxRunning": 51.0, "vo2MaxCycling":
-        null, "lactateThresholdSpeed": 0.39722111000000004, "lactateThresholdHeartRate":
-        143, "diveNumber": null, "intensityMinutesCalcMethod": "AUTO", "moderateIntensityMinutesHrZone":
+        "sortOrder": 3, "isPossibleFirstDay": true}, "vo2MaxRunning": 48.0, "vo2MaxCycling":
+        null, "lactateThresholdSpeed": 0.36944341, "lactateThresholdHeartRate": 170,
+        "diveNumber": null, "intensityMinutesCalcMethod": "AUTO", "moderateIntensityMinutesHrZone":
         3, "vigorousIntensityMinutesHrZone": 4, "hydrationMeasurementUnit": "cup",
         "hydrationContainers": [], "hydrationAutoGoalEnabled": true, "firstbeatMaxStressScore":
         null, "firstbeatCyclingLtTimestamp": null, "firstbeatRunningLtTimestamp":
-        1110447995, "thresholdHeartRateAutoDetected": true, "ftpAutoDetected": true,
+        1114172809, "thresholdHeartRateAutoDetected": true, "ftpAutoDetected": true,
         "trainingStatusPausedDate": null, "weatherLocation": {"useFixedLocation":
         null, "latitude": null, "longitude": null, "locationName": null, "isoCountryCode":
         null, "postalCode": null}, "golfDistanceUnit": "statute_us", "golfElevationUnit":
         null, "golfSpeedUnit": null, "externalBottomTime": null, "availableTrainingDays":
-        ["FRIDAY", "SATURDAY", "SUNDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "MONDAY"],
-        "preferredLongTrainingDays": ["SATURDAY", "SUNDAY"]}, "userSleep": {"sleepTime":
+        ["MONDAY", "SUNDAY", "WEDNESDAY", "FRIDAY", "SATURDAY", "THURSDAY", "TUESDAY"],
+        "preferredLongTrainingDays": ["SUNDAY", "SATURDAY"]}, "userSleep": {"sleepTime":
         0, "defaultSleepTime": false, "wakeTime": 28800, "defaultWakeTime": false},
         "connectDate": null, "sourceType": null, "userSleepWindows": [{"sleepWindowFrequency":
         "SUNDAY", "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
@@ -120,13 +120,13 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Sat, 05 Apr 2025 17:26:38 GMT
+      - Wed, 23 Apr 2025 10:18:09 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
       - chunked
       content-length:
-      - '2516'
+      - '2507'
       pragma:
       - no-cache
     status:
@@ -149,19 +149,19 @@ interactions:
         "statusCode": 200, "headers": {}, "errorMessage": null, "payload": [{"activityId":
         18603794245, "activityName": "Strength", "startTimeLocal": "2025-03-22T12:06:14.0",
         "startTimeGMT": "2025-03-22T11:06:14.0", "activityType": {"typeId": 13, "typeKey":
-        "strength_training", "parentTypeId": 29, "isHidden": false, "trimmable": false,
-        "restricted": false}, "eventType": {"typeId": 9, "typeKey": "uncategorized",
+        "strength_training", "parentTypeId": 29, "isHidden": false, "restricted":
+        false, "trimmable": false}, "eventType": {"typeId": 9, "typeKey": "uncategorized",
         "sortOrder": 10}, "distance": 0.0, "duration": 5267.6572265625, "ownerId":
         113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "calories":
         410.0, "bmrCalories": 126.81397026909723, "activeCalories": 283.18602973090276,
         "steps": 428, "privacy": {"typeId": 2, "typeKey": "private"}, "requestorHasAccess":
         true, "elapsedDuration": 5267.6572265625, "minTemperature": 31.0, "lapCount":
         1, "averageHR": 72.0, "activeSets": 21, "moderateIntensityMinutes": 38, "vigorousIntensityMinutes":
-        3, "pr": false, "purposefull": false, "atpActivity": false, "favorite": false,
-        "parent": false}, {"activityId": 18606916834, "activityName": "Limone Piemonte
-        Trail Running", "startTimeLocal": "2025-03-22T17:04:36.0", "startTimeGMT":
+        3, "purposefull": false, "pr": false, "favorite": false, "parent": false,
+        "atpActivity": false}, {"activityId": 18606916834, "activityName": "Limone
+        Piemonte Trail Running", "startTimeLocal": "2025-03-22T17:04:36.0", "startTimeGMT":
         "2025-03-22T16:04:36.0", "activityType": {"typeId": 6, "typeKey": "trail_running",
-        "parentTypeId": 1, "isHidden": false, "trimmable": true, "restricted": false},
+        "parentTypeId": 1, "isHidden": false, "restricted": false, "trimmable": true},
         "eventType": {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "distance":
         10803.7001953125, "duration": 4177.955078125, "activeSplitSummaryDuration":
         4177.955078125, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
@@ -170,8 +170,8 @@ interactions:
         true, "elapsedDuration": 4177.955078125, "minTemperature": 12.0, "lapCount":
         11, "averageHR": 121.0, "maxSpeed": 0.440399980545044, "maxSplitDistance":
         10803, "noOfSplits": 1, "totalAscent": 514.0, "moderateIntensityMinutes":
-        1, "vigorousIntensityMinutes": 44, "pr": false, "purposefull": false, "atpActivity":
-        false, "favorite": false, "parent": false}], "successful": true}, "AllDayHR":
+        1, "vigorousIntensityMinutes": 44, "purposefull": false, "pr": false, "favorite":
+        false, "parent": false, "atpActivity": false}], "successful": true}, "AllDayHR":
         {"requestUrl": "/wellness-service/wellness/dailyHeartRate", "statusCode":
         200, "headers": {}, "errorMessage": null, "payload": {"userProfilePK": 113739130,
         "calendarDate": "2025-03-22", "startTimestampGMT": "2025-03-21T23:00:00.0",
@@ -316,7 +316,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 05 Apr 2025 17:26:38 GMT
+      - Wed, 23 Apr 2025 10:18:10 GMT
       Server:
       - cloudflare
       Transfer-Encoding:

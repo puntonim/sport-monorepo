@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from typing import Iterator
 
 import pytest
@@ -60,6 +61,10 @@ def is_vcr_episode_or_error():
     return IS_VCR_EPISODE_OR_ERROR
 
 
+def is_vcr_record_mode() -> bool:
+    return not is_vcr_episode_or_error()
+
+
 def get_record_mode() -> str:
     return "none" if is_vcr_episode_or_error() else "new_episodes"
 
@@ -93,6 +98,9 @@ def before_record_request(request):
         or "oauth" in request.uri
         or "thegarth" in request.uri
     ):
+        return None
+    # Do not record requests to AWS Parameter Store.
+    elif re.search(r"ssm\.[a-zA-Z0-9-]+\.amazonaws.com", request.uri):
         return None
     return request
 
