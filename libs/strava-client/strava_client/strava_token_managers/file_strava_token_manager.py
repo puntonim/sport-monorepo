@@ -18,13 +18,11 @@ class FileStravaTokenManager(BaseStravaTokenManager):
         client_id: str,
         client_secret: str,
         token_json_file_path: Path,
-        do_force_skip_refresh_token=False,  # Set to True when replaying test cassettes.
     ) -> None:
         self._client_id = client_id
         self._client_secret = client_secret
         self._token_json_file_path = token_json_file_path
         self._token = None
-        self._do_force_skip_refresh_token = do_force_skip_refresh_token
 
     def get_access_token(self) -> str:
         """
@@ -33,7 +31,7 @@ class FileStravaTokenManager(BaseStravaTokenManager):
         if not self._token:
             self._load_token_from_file()
 
-        if self._token and self._is_expired() and not self._do_force_skip_refresh_token:
+        if self._token and self._is_expired():
             print("Access token expired, refreshing...")
             self._refresh_token_from_strava()
             self._write_token_to_file()
@@ -44,10 +42,10 @@ class FileStravaTokenManager(BaseStravaTokenManager):
         try:
             with open(self._token_json_file_path) as fin:
                 content = fin.read()
-        except FileNotFoundError:
+        except FileNotFoundError as exc:
             raise FileStravaTokenManagerException(
                 f"File not found: {self._token_json_file_path}"
-            )
+            ) from exc
 
         try:
             self._token = json.loads(content)

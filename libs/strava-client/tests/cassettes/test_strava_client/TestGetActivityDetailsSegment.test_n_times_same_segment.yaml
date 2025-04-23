@@ -402,7 +402,7 @@ interactions:
         "2025-02-20T16:51:38Z", "distance": 10000, "pr_rank": null, "achievements":
         [], "start_index": 1, "end_index": 3744}], "gear": {"id": "g20743230", "primary":
         false, "name": "ASICS Nimbus 26", "nickname": "", "resource_state": 2, "retired":
-        false, "distance": 308461, "converted_distance": 308.5}, "photos": {"primary":
+        false, "distance": 329577, "converted_distance": 329.6}, "photos": {"primary":
         null, "count": 0}, "stats_visibility": [{"type": "heart_rate", "visibility":
         "everyone"}, {"type": "pace", "visibility": "everyone"}, {"type": "power",
         "visibility": "everyone"}, {"type": "speed", "visibility": "everyone"}, {"type":
@@ -421,13 +421,13 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 17 Apr 2025 13:02:20 GMT
+      - Wed, 23 Apr 2025 11:30:07 GMT
       Transfer-Encoding:
       - chunked
       Via:
-      - 1.1 2b391135ee43b212334ee9625d1f8bf0.cloudfront.net (CloudFront)
+      - 1.1 cf4a5b670929e909e269a5a8000da4b6.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - VgVg5t8MSdOqMlcIKyALKF5ydJKyfq_Vg72iVmagTW_vuKxSsJ-vLg==
+      - -h3o66iLJmNi6oUY0bIBjUw124adC_xNW_dZa3y_dO8ha4Fq68BchQ==
       X-Amz-Cf-Pop:
       - MXP53-P6
       X-Cache:
@@ -437,7 +437,7 @@ interactions:
       content-length:
       - '31765'
       etag:
-      - W/"4b6207fea65aa8030f15c2f162e0834f"
+      - W/"0664db529e6bf07379ade124374713d7"
       referrer-policy:
       - strict-origin-when-cross-origin
       server:
@@ -451,7 +451,7 @@ interactions:
       x-download-options:
       - noopen
       x-envoy-upstream-service-time:
-      - '476'
+      - '516'
       x-frame-options:
       - DENY
       x-permitted-cross-domain-policies:
@@ -459,13 +459,13 @@ interactions:
       x-ratelimit-limit:
       - 200,2000
       x-ratelimit-usage:
-      - 1,1
+      - 1,19
       x-readratelimit-limit:
       - 100,1000
       x-readratelimit-usage:
-      - 1,1
+      - 1,19
       x-request-id:
-      - 406d0c0d-7cc3-4737-95cd-665d1506a119
+      - 3ee339aa-bef3-41b7-aba3-b32d7a51f304
       x-xss-protection:
       - 1; mode=block
     status:

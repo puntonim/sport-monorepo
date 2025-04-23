@@ -13,190 +13,194 @@ interactions:
   response:
     body:
       string: '[{"resource_state": 2, "athlete": {"id": 115890775, "resource_state":
-        1}, "name": "Weight training: biceps \ud83e\udda0", "distance": 0.0, "moving_time":
-        3952, "elapsed_time": 3952, "total_elevation_gain": 0, "type": "WeightTraining",
-        "sport_type": "WeightTraining", "id": 13451142175, "start_date": "2025-01-25T17:48:11Z",
-        "start_date_local": "2025-01-25T18:48:11Z", "timezone": "(GMT+01:00) Africa/Algiers",
-        "utc_offset": 3600.0, "location_city": null, "location_state": null, "location_country":
-        "Italy", "achievement_count": 0, "kudos_count": 1, "comment_count": 1, "athlete_count":
-        1, "photo_count": 0, "map": {"id": "a13451142175", "summary_polyline": "",
+        1}, "name": "Lunch Run", "distance": 21116.2, "moving_time": 6332, "elapsed_time":
+        6425, "total_elevation_gain": 75.0, "type": "Run", "sport_type": "Run", "workout_type":
+        0, "id": 14241623406, "start_date": "2025-04-21T10:35:00Z", "start_date_local":
+        "2025-04-21T12:35:00Z", "timezone": "(GMT+01:00) Europe/Rome", "utc_offset":
+        7200.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 0, "kudos_count": 3, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a14241623406", "summary_polyline": "oqkuGmduy@kF`@mHGmEHmGKuJiEkFg@e@USy@]qC_@w@MeAiBcBMYDmGXyBtA{D?gDt@e@tDqABMaFrBSXEjDoA|CSpAOjHEVSNuEIg@Nw@`AaADIq@FeBOWMuLKw@KaFBgFUwE?mCJoBOa@eBFu@uCm@^OA_@eAQcAlBd@mBu@Sm@NUeAi@N_AHA^{BdEp@`GlBJQ^oDTeALSh@Jh@e@\\AvFz@h@j@^NHLF|CA~@Mz@c@bCQNCLSlEJd@`QdGzBp@nBNb@ZjRwApB_@BJRFbCm@PNj@rGHRrI_Af@@F`@NjE?PIRSFsBa@eB{@q@K{@Vw@~@Wx@M~@u@pC?|@S`D?rAFn@Vl@f@Z`@@rCgBbFqEREv@PD^@tHHvDTrFVvBGTw@A{Cf@{BJkDh@eHh@iLG_BH}FKkEuBeDsA_Go@YYMe@YgCg@qAM{@eBiBOe@DeFLeBT}@fAoCFo@EB]jA{@vBKf@OdEA`CEVUPwEEe@Jc@p@YRq@FQMCc@F{AKc@OiK@u@Kq@IuEDcD]kI@wBLaBM[iBHa@uAQgAu@`@QMg@iBAWlBf@oBu@MYHc@EG{@e@VoCJYZUjBVbDz@lDnAHEFW`@kENe@LKl@D`@]\\A|Fz@`@f@b@LHJHpCKxBg@pCW`@SjELh@~FfBzHvCrBl@`CT^Z|QoAlBWd@DjCq@LXj@lGDPJHzFu@tBINnBDbCELc@Jm@IkA[iBw@o@?o@\\q@bAc@rB?XuABb@bAFbA[xDAhBHf@Zn@f@Vb@A`C}AxF}EbATBjIHhETxET|BAXw@@qDj@yBFkCf@aHh@uO?oGKwFqCoBu@gGq@S_@Kg@UcCi@mAO}@oBqAs@Y_EKq@Li@v@SJi@DOIGy@DqAKa@QuJ@aAIw@GeDAaIUyEFgFEMMAk@Lq@Au@}Cs@\\MCe@aBEe@lBf@oBq@Ue@N_@cAe@Z}C\\c@f@DnCh@lGlBLOLgBXkBJc@PQh@D`@_@ZEbGbAd@f@^LFLFnCA`ASxAa@zBMFGTQfEJd@zCx@xLnEdBd@nAFn@PTRxS{A`A@bDy@NZj@jGBPHFnJcALXLfEAf@MNqBWwBaAi@I}@Vw@|@]rA?r@F`@Q?F\\UnAIFk@|CExBFx@Zl@^Tl@@dCcBnFsEbAHFR?jJJfC",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        "g20743230", "start_latlng": [45.609108, 9.616695], "end_latlng": [45.608714,
+        9.616326], "average_speed": 3.335, "max_speed": 5.18, "average_cadence": 83.9,
+        "average_temp": 24, "average_watts": 388.4, "max_watts": 610, "weighted_average_watts":
+        387, "device_watts": true, "kilojoules": 2457.3, "has_heartrate": true, "average_heartrate":
+        138.2, "max_heartrate": 162.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 189.0, "elev_low": 170.2, "upload_id": 15198561932, "upload_id_str":
+        "15198561932", "external_id": "garmin_ping_431212113288", "from_accepted_tag":
+        false, "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
+        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Weight training:
+        forearms, calisthenics, triceps", "distance": 0.0, "moving_time": 7261, "elapsed_time":
+        7261, "total_elevation_gain": 0, "type": "WeightTraining", "sport_type": "WeightTraining",
+        "id": 14235652850, "start_date": "2025-04-20T16:24:18Z", "start_date_local":
+        "2025-04-20T18:24:18Z", "timezone": "(GMT+02:00) Africa/Blantyre", "utc_offset":
+        7200.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a14235652850", "summary_polyline": "",
         "resource_state": 2}, "trainer": true, "commute": false, "manual": false,
         "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
         null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0, "max_speed":
-        0.0, "average_temp": 26, "has_heartrate": true, "average_heartrate": 55.9,
-        "max_heartrate": 119.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
-        true, "elev_high": 0.0, "elev_low": 0.0, "upload_id": 14347895023, "upload_id_str":
-        "14347895023", "external_id": "garmin_ping_405401415493", "from_accepted_tag":
+        0.0, "average_temp": 27, "has_heartrate": true, "average_heartrate": 66.8,
+        "max_heartrate": 110.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 0.0, "elev_low": 0.0, "upload_id": 15192296118, "upload_id_str":
+        "15192296118", "external_id": "garmin_ping_430988084902", "from_accepted_tag":
         false, "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
-        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Valgardena
-        \ud83e\udda0", "distance": 30455.4, "moving_time": 6099, "elapsed_time": 16977,
-        "total_elevation_gain": 111.8, "type": "Snowboard", "sport_type": "Snowboard",
-        "id": 13414279778, "start_date": "2025-01-21T09:55:44Z", "start_date_local":
-        "2025-01-21T10:55:44Z", "timezone": "(GMT+01:00) Europe/Rome", "utc_offset":
-        3600.0, "location_city": null, "location_state": null, "location_country":
-        "Italy", "achievement_count": 2, "kudos_count": 3, "comment_count": 0, "athlete_count":
-        1, "photo_count": 0, "map": {"id": "a13414279778", "summary_polyline": "wxk{G}fqfAfJ}DbCoCca@zNtB]tDiFVmAc@eHn@_E~FuE~CwCn@qBd@kGIsB`@aAnCsA~Hf@vDYdAcAPaEvA{DhD_EtFmExA}BxDm@~B}AVu@evAdpA\\QLs@QeDzEkFpCkBd@mAjBeANmAzAo@bB{BnDoC~@}Av@_FnJC|En@nCe@~@cAXkE~BiFjIyHrFqDhIuAB|@nDjAfB}AjBe@`HMpBiAxCI`CcCrDcH`DsBtDWdA{BhCkKnD_ChBcDnD`HZnEG`EnCrHfJzLvD|BpAvCfLfHvFjBzIz@j@_BdAYPFEa@{~Bsv@UiAVyJU_K{@uFFgG^}ApAWnCh@fBbC`]tNfKzGhAnAlFjBhB~BXhBtAdDNbDSdDvA~EhBpDnItJlDhCzKtJvBr@nDZbJdCr@q@m@KEk@MR^a@I}DFbBz@jBx@FOVcBg@Vb@UVt@Aa@Ua@Kps@p`@HrC\\nAaAtEjA[PsA`Ak@nlBynCwCq@kBPoFtEoAtBi@pGDhBdAzG_AdA\\fE`@nCAlMw@vE@dAe@d@o@jD]VcBaBq@[TOfZmbAmA]_Dd@yA_AcGxFaAfInAvJQlAa@Vl@~HFrIuA~Lo@dCg@t@[Gs@uAy@@Ck@`ZucAFjApAdCnApE^`D[dAgCVUnAc@DiCbB_EdG{BvBy@lHi@~AB`EiAdKcAnBsB_BOLAd@VNYZf@]p@`Cc@`Ce@AYjBWHoAeBs@mB{@mEeCkC_Bu@uF[mKbAsAy@e@eBy@cABA}BjA}ALe@~ANfBf@pAQf@eIvNeAtCcEzEmA~CcCb@@`AqApBk@jBFlFo@dA{@dGg@^eAxD}@`@e@Y_@f@SgDu@uC~@rASs@d@YjAxLfBeBoxDo{AwEa@yAf@e@vCt@`FxArBvBnJ_@fCYHHo@U?uuAbpAl@mAAsD|EaExAuB`AUtA{Bf@GDoAdDqBfAiBzDwCn@gDlA{BdA]zDx@n@]hDz@lEg@z@gAA{AbAsErCmEbDgClDkEpAy@jFkAjAyAoDlCipAzmAnB`HnAtBtDZ|@W\\cApIgEfKsDrA}@l@_Bq`@hOtCvAz@Ir@p@xFItB~BtA\\vJcDpImDv@xAv@|FJnPNh@^On@gC|CeCp@eCpBq@fB~@xBhC~@DKt@gC`CcCxFyAdAaD`GmBfAeDSsHrGQb@Hv@jItEDd@w@bAoBh@_B~Ba@X_GdBYn@~DvNhEpBz@~AlBnFzAjIdCrHpBrLfDlFbb@dgA",
-        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
-        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
-        null, "start_latlng": [46.59784, 11.724494], "end_latlng": [46.582939, 11.688567],
-        "average_speed": 4.994, "max_speed": 13.94, "average_temp": 25, "has_heartrate":
-        true, "average_heartrate": 89.8, "max_heartrate": 169.0, "heartrate_opt_out":
-        false, "display_hide_heartrate_option": true, "elev_high": 2510.2, "elev_low":
-        1407.8, "upload_id": 14308023042, "upload_id_str": "14308023042", "external_id":
-        "garmin_ping_404236421817", "from_accepted_tag": false, "pr_count": 1, "total_photo_count":
-        3, "has_kudoed": false}, {"resource_state": 2, "athlete": {"id": 115890775,
-        "resource_state": 1}, "name": "Vallunga \ud83e\udda0", "distance": 9844.0,
-        "moving_time": 7381, "elapsed_time": 8708, "total_elevation_gain": 334.0,
-        "type": "Snowshoe", "sport_type": "Snowshoe", "id": 13396681056, "start_date":
-        "2025-01-19T10:41:23Z", "start_date_local": "2025-01-19T11:41:23Z", "timezone":
-        "(GMT+01:00) Europe/Rome", "utc_offset": 3600.0, "location_city": null, "location_state":
-        null, "location_country": "Italy", "achievement_count": 0, "kudos_count":
-        2, "comment_count": 0, "athlete_count": 1, "photo_count": 0, "map": {"id":
-        "a13396681056", "summary_polyline": "}te{Guf{fATwBAsAE]MSIWOaBMe@Ga@Cq@@_AO}@GeASo@?GH?iAuAk@e@K_@MQw@u@e@YeAiAqAy@MECDDEo@EiCeBSWYq@OG_A_Ag@cCq@}Ak@{@GS_@s@KAg@k@W}@[g@e@eAOg@WWK]Iw@KQeA}@?]H_@Co@M_@[GQMk@}Ag@_@EME_@?y@IQYa@iA_A_@OEAADCCB?ACOJTGCEA?@BG?LKGD@NDSGKFNCAIDBCDR?YKHR?MCDDOBJBGCF?CE@HCAF]AKiBaBYk@Q}@?[Ju@Ca@?eACQFo@Cy@Io@?m@a@aBQQ[aAWi@MQQG][}As@Oa@_@a@GYMW{@gAe@mA{@wDAq@@g@L[LoBEqABs@Is@CaAEYU_AWaB[q@@OIm@Ao@QiBCs@JaAFwASoCHmB?UG]eEeNq@_Bu@cCgAkCm@mBmAaDaBqC]{AQi@aAsBy@yBaAmBUw@KI@AEOYo@Q_AEm@Sw@]a@GUG]@OCk@Sq@Wi@s@q@YMc@CSa@LqBEm@Kg@A[HUAe@Eg@@u@B_@Je@Am@ImA@QH]HG@c@B]ACDDEEIcABa@J]?]Hi@A_@Js@?EG?B]IUAUVmAAMFi@MYDa@GKIE?UUSIM?i@DBATDBAFJ@JJFNAPHDDNA`@DBBb@Gd@Er@Kd@?NHHCf@BD?F]lEF`BEx@Uh@HrBMbCFnAI`@Jn@Fp@CjBHZLJf@FRNj@l@Xb@Lv@Bf@ATTx@VVHVZtBLd@Rf@Xd@Xz@tBfFv@|A|@bDX^n@nAfAlCp@pBp@dB`CzGlEnNHd@?`@GfAAd@PzA@z@Ab@SvA@~@LhANvBVx@ZbBV`ADpAJ|@Ct@FlAM|AUv@Ar@J|@JTp@xC^z@j@b@NTRh@`@j@HVpCdBr@lADVd@r@XxA@l@H~@EbB@tAKvANjAXl@|A|Ad@p@nAz@f@r@H^LjAJRRNLPf@tAl@THV@TIdA@PLRt@v@HVTlAVTb@rAf@v@X|@pAtAp@pA~@xBRvALb@NFd@l@XR\\j@r@x@t@`@\\\\b@L\\?n@Vv@h@~@dAXJt@r@TZ\\p@f@^x@pAH\\LxALz@BXAfADd@VbABhAb@dAA~AUzB",
-        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
-        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
-        null, "start_latlng": [46.563999, 11.773746], "end_latlng": [46.563982, 11.773705],
-        "average_speed": 1.334, "max_speed": 2.46, "average_temp": 20, "has_heartrate":
-        true, "average_heartrate": 81.0, "max_heartrate": 110.0, "heartrate_opt_out":
-        false, "display_hide_heartrate_option": true, "elev_high": 1936.0, "elev_low":
-        1628.4, "upload_id": 14288916493, "upload_id_str": "14288916493", "external_id":
-        "garmin_ping_403655400739", "from_accepted_tag": false, "pr_count": 0, "total_photo_count":
-        7, "has_kudoed": false}, {"resource_state": 2, "athlete": {"id": 115890775,
-        "resource_state": 1}, "name": "Dobbiaco Winter Night Run \ud83e\udda0", "distance":
-        11799.8, "moving_time": 3381, "elapsed_time": 3384, "total_elevation_gain":
-        148.0, "type": "Run", "sport_type": "TrailRun", "workout_type": 1, "id": 13389554554,
-        "start_date": "2025-01-18T16:00:07Z", "start_date_local": "2025-01-18T17:00:07Z",
-        "timezone": "(GMT+01:00) Europe/Rome", "utc_offset": 3600.0, "location_city":
-        null, "location_state": null, "location_country": "Italy", "achievement_count":
-        7, "kudos_count": 5, "comment_count": 0, "athlete_count": 36, "photo_count":
-        0, "map": {"id": "a13389554554", "summary_polyline": "alc|Gk{qiAh@x@LZ`@`@VFPEn@}@d@_@VQf@O`@Bf@Qv@Il@Nx@DRE|@k@d@Ox@Ep@Nn@EnAm@\\IrBYZ@lAPvCfA~@l@r@RXV^TnAX`@XRd@\\ZZAx@i@Z@^JNLNXXRz@RPHTTN\\^l@ZVtAfBj@TRRz@dBf@tAX\\Zl@h@RL@XAXOd@CpA@~@\\jBKPJ`@p@^HrA?nANz@?l@Jz@RfAp@^Zt@`ALHRHz@H|DKz@[^Wl@Y`@Id@WxAOJEHKNc@Dw@F[~@aC^{AZe@N]Z]XSl@YbAOfA?fA\\f@Al@MHGn@w@`@Q`Au@JGXCj@Ul@gAlAgAdAWp@?j@WVDXVL?NGh@a@`@MJQHuBNiAJ[RQ|@KhAg@|CIj@DLLXn@\\HlAs@r@w@Xs@n@g@h@k@d@@THNAj@g@^i@PIxAWrAk@\\GHKLc@TMxCAp@Hj@?fANrAC`BRfBjAt@z@p@f@lCt@l@^fB\\`@Cl@Ut@Gd@Qd@I\\CZVFZHjAJ`@JRJFr@HhAt@l@In@H`@IXF~AJpAGVILKR_@NKJApAPd@VVn@jARZTDDLp@RRP\\XIr@m@f@KlAC^\\P@jAu@\\GBC@GSO[KyAYm@CSFy@?wB_@]CYOo@Q}Bc@g@Og@GqD{@aDm@a@OiAQeCi@cA_@m@Ma@CQIgEu@cAYyCo@k@GiAIcA[_DFaBU{BA}@HSAe@JsC|@[BOJaDj@yAAw@Fi@Rw@P_AJ{De@gCBi@Gk@Ka@CmA]y@]c@Ck@NYPu@x@q@jAgAn@aBh@]T{@\\aDN_Cd@a@T{A^m@Z]Z[Nk@d@q@Pa@CsAYkC{@qEmAwBWuAI}@?yCpAq@Ps@BoAGi@D_@L_A~@_@x@e@x@w@bAKTa@h@e@XsBVy@G{ATwAOyAGi@KiD_Be@]}@mA[q@k@_Be@aBWg@i@w@_@Wg@UkGgBuAMaAHqC~@]DuAAm@FmBr@_@Fs@EsAo@g@K{@HeAZg@D]Ak@MmAi@[SuB{@kCSu@?{Az@q@RaBPe@K]UU_@Ki@Ck@F_@f@wAf@y@`@]XEZZf@l@",
-        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
-        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
-        "g16266480", "start_latlng": [46.718827, 12.223813], "end_latlng": [46.718823,
-        12.223711], "average_speed": 3.487, "max_speed": 5.04, "average_cadence":
-        85.4, "average_temp": 5, "average_watts": 407.1, "max_watts": 659, "weighted_average_watts":
-        408, "device_watts": true, "kilojoules": 1376.3, "has_heartrate": true, "average_heartrate":
-        125.3, "max_heartrate": 137.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
-        true, "elev_high": 1336.0, "elev_low": 1220.8, "upload_id": 14281221128, "upload_id_str":
-        "14281221128", "external_id": "garmin_ping_403430880961", "from_accepted_tag":
-        false, "pr_count": 7, "total_photo_count": 4, "has_kudoed": false}, {"resource_state":
         2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Weight training:
-        calisthenics", "distance": 0.0, "moving_time": 3600, "elapsed_time": 3600,
-        "total_elevation_gain": 0, "type": "WeightTraining", "sport_type": "WeightTraining",
-        "id": 13381920990, "start_date": "2025-01-17T19:00:00Z", "start_date_local":
-        "2025-01-17T20:00:00Z", "timezone": "(GMT+01:00) Europe/Rome", "utc_offset":
-        3600.0, "location_city": null, "location_state": null, "location_country":
-        "Italy", "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
-        1, "photo_count": 0, "map": {"id": "a13381920990", "summary_polyline": "",
-        "resource_state": 2}, "trainer": false, "commute": false, "manual": true,
-        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
-        null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0, "max_speed":
-        0, "has_heartrate": false, "heartrate_opt_out": false, "display_hide_heartrate_option":
-        false, "upload_id": null, "external_id": null, "from_accepted_tag": false,
-        "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
-        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Weight training:
-        chest, biceps", "distance": 0.0, "moving_time": 4173, "elapsed_time": 4173,
-        "total_elevation_gain": 0, "type": "WeightTraining", "sport_type": "WeightTraining",
-        "id": 13371865434, "start_date": "2025-01-16T16:05:33Z", "start_date_local":
-        "2025-01-16T17:05:33Z", "timezone": "(GMT+01:00) Africa/Algiers", "utc_offset":
-        3600.0, "location_city": null, "location_state": null, "location_country":
-        "Italy", "achievement_count": 0, "kudos_count": 1, "comment_count": 0, "athlete_count":
-        1, "photo_count": 0, "map": {"id": "a13371865434", "summary_polyline": "",
+        forearms, calisthenics, biceps", "distance": 0.0, "moving_time": 8438, "elapsed_time":
+        8438, "total_elevation_gain": 0, "type": "WeightTraining", "sport_type": "WeightTraining",
+        "id": 14225651392, "start_date": "2025-04-19T15:19:40Z", "start_date_local":
+        "2025-04-19T17:19:40Z", "timezone": "(GMT+02:00) Africa/Blantyre", "utc_offset":
+        7200.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a14225651392", "summary_polyline": "",
         "resource_state": 2}, "trainer": true, "commute": false, "manual": false,
         "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
         null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0, "max_speed":
-        0.0, "average_temp": 26, "has_heartrate": true, "average_heartrate": 69.3,
-        "max_heartrate": 124.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
-        true, "elev_high": 0.0, "elev_low": 0.0, "upload_id": 14262146399, "upload_id_str":
-        "14262146399", "external_id": "garmin_ping_402878210725", "from_accepted_tag":
+        0.0, "average_temp": 26, "has_heartrate": true, "average_heartrate": 66.5,
+        "max_heartrate": 99.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 0.0, "elev_low": 0.0, "upload_id": 15181778164, "upload_id_str":
+        "15181778164", "external_id": "garmin_ping_430679040819", "from_accepted_tag":
         false, "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
-        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Weight training:
-        calisthenics", "distance": 0.0, "moving_time": 3600, "elapsed_time": 3600,
-        "total_elevation_gain": 0, "type": "WeightTraining", "sport_type": "WeightTraining",
-        "id": 13368419569, "start_date": "2025-01-15T19:00:00Z", "start_date_local":
-        "2025-01-15T20:00:00Z", "timezone": "(GMT+01:00) Europe/Rome", "utc_offset":
-        3600.0, "location_city": null, "location_state": null, "location_country":
-        "Italy", "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
-        1, "photo_count": 0, "map": {"id": "a13368419569", "summary_polyline": "",
-        "resource_state": 2}, "trainer": false, "commute": false, "manual": true,
-        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
-        null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0, "max_speed":
-        0, "has_heartrate": false, "heartrate_opt_out": false, "display_hide_heartrate_option":
-        false, "upload_id": null, "external_id": null, "from_accepted_tag": false,
-        "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
-        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "6x300m", "distance":
-        10372.0, "moving_time": 3925, "elapsed_time": 4202, "total_elevation_gain":
-        37.0, "type": "Run", "sport_type": "Run", "workout_type": 0, "id": 13361068984,
-        "start_date": "2025-01-15T11:42:44Z", "start_date_local": "2025-01-15T12:42:44Z",
-        "timezone": "(GMT+01:00) Europe/Rome", "utc_offset": 3600.0, "location_city":
-        null, "location_state": null, "location_country": "Italy", "achievement_count":
-        0, "kudos_count": 1, "comment_count": 0, "athlete_count": 1, "photo_count":
-        0, "map": {"id": "a13361068984", "summary_polyline": "oqkuGoduy@MA{@FaCVoABiDEkADcCEi@Fm@?aAEaECQCICIGi@UuCyAoCgAcBSgCU[GKIMQIe@MeBIe@I[Wa@GSKu@EISKWc@u@m@GKCMAcAJeFJ_AH]Tq@l@mATo@B_@GaC@OHIPKdAa@|@Wx@a@NABHIMoEbBIDKPGZDlBCV_@dAKPKX]t@SdAGpAEbFCNELQLK@gEIg@Rg@r@OLKB[@YAGICQFyB?GIIAGCiDMmFBe@Ik@IkBAq@@OE_AFqBA{@?sAUeE@wDDw@I[GCS@w@NU?K[_@yAO_AM_@?GLG@GOAaBi@?EMYDUBA@I@EOKq@QCEAOH]JgALm@ToDJi@@CB@UlC?NBLFFFDv@PbBTt@PRJfAXjBp@F@@AAAO?u@[eAWYOm@Qw@]USEG]oAY]]KCGA[GEQUC@UfC?NBNFJTHx@JnCh@hCz@ZFXP@Ca@IWKe@MMG[Iy@Y_Ac@c@a@KSCO@Y?K_@_@Ee@c@KEKOKC@SrCDXFHPJ|BZj@Lj@N|@^pBh@@EG@GEG@KCc@SE?aA]OE_Aa@OCUOa@k@O}@IUMECQ?Se@GCCCKOGStC@NLNj@LjBZfAVfAZlBp@@GKBIC{@WoBs@w@UYWYa@I]?UMWMMCc@e@KEKQKBCAVSnB@\\FJHHRFxBZ^HjFbBCDI?a@IMWw@Uy@WKGa@KKMUCW[OYEEQgAEIOCCGEa@I?YGEKSM@I@TQfBA\\?PJRTJ|BZh@JrEvAJH@IABG?BFb@JHCDML}ANmATeANUF?TLJAJGV[JCLAv@Nr@Hv@NdANb@JT`@JHN@LFFNBfDAd@Ip@i@|CEHCEC@ENQhE@ZDHDFVDVJ\\HlA`@FDNB^PRDdBn@h@Vj@N~@`@p@Rp@Vt@Ph@RXH^B`@At@LPVHDRA^Gv@E^I~@C^ET?REh@GtEYpCWj@FxA]jA_@FFFT@`@Lp@DdARnB@LFJH@PEf@Cn@KjAGREN@`B]j@EBBDJBNHxBBdBAFGFQFO?SA_AOmAk@m@[[Gc@Ba@PUPe@p@Wv@Mp@DPN\\PLIAOZOvAMDQVMj@ObAEh@ArBFh@N^JNPNLD`@@XKhBqApC}B`@a@t@k@RWP?p@PDP@NCv@@n@AnEFpC",
+        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Monterosso
+        - Nembro - Selvino", "distance": 39593.0, "moving_time": 8255, "elapsed_time":
+        11260, "total_elevation_gain": 734.0, "type": "Ride", "sport_type": "MountainBikeRide",
+        "workout_type": 10, "id": 14211292173, "start_date": "2025-04-18T07:17:09Z",
+        "start_date_local": "2025-04-18T09:17:09Z", "timezone": "(GMT+01:00) Europe/Rome",
+        "utc_offset": 7200.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 26, "kudos_count": 4, "comment_count": 0, "athlete_count":
+        2, "photo_count": 0, "map": {"id": "a14211292173", "summary_polyline": "cf`vGymbz@fBfChG]tFsFvCqGH}DyAeHwAcd@a@iCh@zBzDYJe@aAgFaC}FiA{GSyGkAwI}AaE_EuAmH|AuEUyE|@qEbCuH`@kAwFxJaFl@uAkCqB_KuRoKyZ{DyEKsBwOiJiDkSuDiE{@gIyBeFlBoEaAs@cI}So@_EcE_LbCaC@i@wLuWHeEkJot@yDe]JmAgA{EaFqe@_BoHmAiCwAuGR_AsBoIVjA_JtEcFl@eCwAkBtA]pAcEeBqDxAT|@`B{@tIfIHtEsClA_DFgC{BmDOqK{G}Fp@_JjEwEbKwE~A_CpF{D|EJf@jB{A}A~AyDjIPf@z@iBy@zBuBDmDfCJ\\lBuAeDjCyEjMsHdKe@jBeETcBxAy@hDgBF{@wGg@gQSxKq@fDUtFTpC_AoKZiNwA|OIxK{@gNl@gFC_DUxC_BnIiCvEvAxDNjBWqAoCyDQeA`CsDt@{ISUqAtI{E`Ed@nE|A~CFlBYoBwBwBcBkFXmBxBqCyCdBeA~Ep@~DhBvCNxA{@~B{AjAaCnHvAmIzA_CM_A{BcDfAtDyA~Ai@pEqAfCdAcEGsD_@i@}FdB{GRiB`CmBPkB|D_Bj@mAzAqBMYw@TaGm@mEBmDkBwAwEc@{AoGl@bFz@`A~DRjBdAAjDp@dE_@jG`@hArBPtDiCfBwDdBKvBqC|GOtFcBb@tD}AtE\\NxA_Df@}DvAeAgAaE~BnEyApBeBnIN\\xBkHbC}B`@wAO}AgBoCCgBm@yAdAcFhCiB{BpCWlB`BhF|BdCVvBD}BgBiD]uEnE{CpAyI_@nIeCtDRtAvCdEDtAVKQwByAqD|B_E`CwNs@hJp@vJI|B\\LJ{LtAyNc@pMf@`L^AUqCdAuLNuHWaB\\n@AhF\\tI|@fGvBOv@mDpAiAnEYf@mBnHcKbFuMlDiCaCv@lDgCpB?hA}B_@Io@`BEe@nDoHhBeBO[yAxASUjDcE`C{FzEaBrEiKvIaE`Gs@vKtGfDLxCzBnCMzCaAHqEyI{ImBt@Gw@vCoAfE`Bj@uAhBcAdCjA`Bs@hBXtJ}FnAdGSz@R`BxArFbDvKfFlf@~@fExH`t@aCjBbDeBG|BbEt[k@`JFjEVAJ|BrC|Fl@tFtEdNbAtKtBhJ\\hFjCBLt@b@e@nAhC`BtKbEjFlDfStB|@lDeFlBs@w@ErB@hBbBSvF}@rDj@lC`EdFnK`[|JlRdCbBg@bBdC|IzHcBnDVvJyArCnA~AjEfAfINrGvAxHxBfFr@nDTfKnAxKoHlAkDfUmA~A{AvD?|@yCfBgAlC",
         "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
         "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
-        "g20743230", "start_latlng": [45.609109, 9.616702], "end_latlng": [45.609066,
-        9.616619], "average_speed": 2.643, "max_speed": 6.68, "average_cadence": 77.8,
-        "average_temp": 14, "average_watts": 299.3, "max_watts": 715, "weighted_average_watts":
-        321, "device_watts": true, "kilojoules": 1116.9, "has_heartrate": true, "average_heartrate":
-        112.8, "max_heartrate": 145.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
-        true, "elev_high": 191.2, "elev_low": 171.2, "upload_id": 14250558178, "upload_id_str":
-        "14250558178", "external_id": "garmin_ping_402544641776", "from_accepted_tag":
+        "b12393437", "start_latlng": [45.720403, 9.684542], "end_latlng": [45.720286,
+        9.684451], "average_speed": 4.796, "max_speed": 12.56, "average_temp": 20,
+        "average_watts": 163.3, "device_watts": false, "kilojoules": 1347.7, "has_heartrate":
+        true, "average_heartrate": 93.1, "max_heartrate": 145.0, "heartrate_opt_out":
+        false, "display_hide_heartrate_option": true, "elev_high": 923.2, "elev_low":
+        278.0, "upload_id": 15166749333, "upload_id_str": "15166749333", "external_id":
+        "garmin_ping_430256799381", "from_accepted_tag": false, "pr_count": 1, "total_photo_count":
+        0, "has_kudoed": false}, {"resource_state": 2, "athlete": {"id": 115890775,
+        "resource_state": 1}, "name": "Weight training: legs, calisthenics", "distance":
+        0.0, "moving_time": 7335, "elapsed_time": 7335, "total_elevation_gain": 0,
+        "type": "WeightTraining", "sport_type": "WeightTraining", "id": 14206254325,
+        "start_date": "2025-04-17T16:31:31Z", "start_date_local": "2025-04-17T18:31:31Z",
+        "timezone": "(GMT+02:00) Africa/Blantyre", "utc_offset": 7200.0, "location_city":
+        null, "location_state": null, "location_country": null, "achievement_count":
+        0, "kudos_count": 0, "comment_count": 0, "athlete_count": 1, "photo_count":
+        0, "map": {"id": "a14206254325", "summary_polyline": "", "resource_state":
+        2}, "trainer": true, "commute": false, "manual": false, "private": false,
+        "visibility": "followers_only", "flagged": false, "gear_id": null, "start_latlng":
+        [], "end_latlng": [], "average_speed": 0.0, "max_speed": 0.0, "average_temp":
+        25, "has_heartrate": true, "average_heartrate": 70.8, "max_heartrate": 120.0,
+        "heartrate_opt_out": false, "display_hide_heartrate_option": true, "elev_high":
+        0.0, "elev_low": 0.0, "upload_id": 15161483783, "upload_id_str": "15161483783",
+        "external_id": "garmin_ping_430056603078", "from_accepted_tag": false, "pr_count":
+        0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state": 2, "athlete":
+        {"id": 115890775, "resource_state": 1}, "name": "Weight training: chest, calisthenics",
+        "distance": 0.0, "moving_time": 4838, "elapsed_time": 4838, "total_elevation_gain":
+        0, "type": "WeightTraining", "sport_type": "WeightTraining", "id": 14196502990,
+        "start_date": "2025-04-16T16:37:26Z", "start_date_local": "2025-04-16T18:37:26Z",
+        "timezone": "(GMT+02:00) Africa/Blantyre", "utc_offset": 7200.0, "location_city":
+        null, "location_state": null, "location_country": null, "achievement_count":
+        0, "kudos_count": 0, "comment_count": 0, "athlete_count": 1, "photo_count":
+        0, "map": {"id": "a14196502990", "summary_polyline": "", "resource_state":
+        2}, "trainer": true, "commute": false, "manual": false, "private": false,
+        "visibility": "followers_only", "flagged": false, "gear_id": null, "start_latlng":
+        [], "end_latlng": [], "average_speed": 0.0, "max_speed": 0.0, "average_temp":
+        26, "has_heartrate": true, "average_heartrate": 73.4, "max_heartrate": 112.0,
+        "heartrate_opt_out": false, "display_hide_heartrate_option": true, "elev_high":
+        0.0, "elev_low": 0.0, "upload_id": 15151322282, "upload_id_str": "15151322282",
+        "external_id": "garmin_ping_429728830095", "from_accepted_tag": false, "pr_count":
+        0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state": 2, "athlete":
+        {"id": 115890775, "resource_state": 1}, "name": "Lunch Run", "distance": 18016.2,
+        "moving_time": 5382, "elapsed_time": 5391, "total_elevation_gain": 122.0,
+        "type": "Run", "sport_type": "Run", "workout_type": 0, "id": 14193080476,
+        "start_date": "2025-04-16T10:01:39Z", "start_date_local": "2025-04-16T12:01:39Z",
+        "timezone": "(GMT+01:00) Europe/Rome", "utc_offset": 7200.0, "location_city":
+        null, "location_state": null, "location_country": null, "achievement_count":
+        0, "kudos_count": 2, "comment_count": 0, "athlete_count": 1, "photo_count":
+        0, "map": {"id": "a14193080476", "summary_polyline": "qnkuG{duy@wHh@aABsHGqDHeBIiCA[GwDoB}CoA}Fm@[OYaAUaCg@kAK{@USS[SOIQ_@UIUCy@HyFJ_ANg@nAqCFSGgCDe@jAi@~CkABGM?cCjAmA^WREPDvACx@oAdDWlAKjHETKRYHgDE{@JMFq@x@s@JOGIU@iADs@KQG{A?{AKgE?}@Gu@G_DCiADyBCiABaAI{@MgD@kBH}AKc@KAqCVwADOGOaBHM`@Se@{BAUjBd@gBg@Si@LUEQy@YEMLcABw@Po@NM\\@rDp@tFjBHEHUXqDNw@JUJAf@Nh@i@PEdFv@f@N`@h@`@JDL@N@rCGrAk@`DAFOHERI~CEd@BXHNl@JbBh@`G~BdCz@~C|@xBTJBPX`DStEe@f@BbIg@zCy@N`@@f@VhCP`BHLhAUxCSzB_@PBFLJvADnCGTc@LaB[gB{@g@M_@Da@Ns@r@Wt@[vAUXMDDFKHBHCFF\\Ar@BF]vCGt@?~@F|@Xt@b@Zb@@d@StAcAvCcC`B}APIz@NH\\AhHJrET~FRzACXaAB{Bb@sDPgCd@{BFyBZ{AFyDKqGFwGKyC}AkBy@_Bo@cDa@eBOOQM[]}Ce@aAOeAkAuAUOQ]AYNuHJq@`BaEG_DHMh@WxDuABE?GI@yBfAmAb@YVIh@@xBIXgAbCOf@M~@ItGEXGN_@LwDKw@T_@h@SPq@HQIEQ?e@FqAK]QiIA_A@u@Gs@O}EHuBEwCQaD@_EHkAMc@oBHu@_Dq@d@GCe@aBKe@LA|Af@iBu@Wa@LOEQy@c@Hu@J{AJYVUf@DhDr@jFdBHEHWJ}APoANu@JWJC`@Hl@c@ZE`ALp@RdABdAPJHVd@b@PFL?vADdBG`Ak@|CIRECGJKlDGd@BRJNhEtApDzAdDhAnCv@pAFt@LNVJF\\?~@MjPmAdAC~A]dA]HFBPp@tGDNtJiAJVHzBBtBKTYB}@QIIkAYcAi@k@Gu@Vs@t@_@~@Sx@e@rCFt@c@dDAtAJ~@Xf@h@\\\\@fBgAtGyFbAPFVEhEHzGTvFX`C@HELw@?gDj@gCHiCd@oHf@sBEoHAaCFgEE_@EwE}BmCeA}Fk@]UGMKk@QsBMe@]m@KcAeBeBSc@BmA?iC@h@ChDDTJJv@j@PV`@ZH`Ab@x@\\pDHTPTzFh@dDlAzCxAd@Z\\HpFHrBEhCDrAEpDHbD]zBM",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        "g20743230", "start_latlng": [45.608644, 9.616223], "end_latlng": [45.608919,
+        9.616559], "average_speed": 3.347, "max_speed": 6.3, "average_cadence": 84.1,
+        "average_temp": 27, "average_watts": 398.1, "max_watts": 561, "weighted_average_watts":
+        400, "device_watts": true, "kilojoules": 2145.9, "has_heartrate": true, "average_heartrate":
+        140.4, "max_heartrate": 163.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 190.6, "elev_low": 170.2, "upload_id": 15147753145, "upload_id_str":
+        "15147753145", "external_id": "garmin_ping_429636327925", "from_accepted_tag":
         false, "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
         2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Weight training:
-        ring muscle-up progression day #10, back", "distance": 0.0, "moving_time":
-        7443, "elapsed_time": 7443, "total_elevation_gain": 0, "type": "WeightTraining",
-        "sport_type": "WeightTraining", "id": 13354637658, "start_date": "2025-01-14T16:26:33Z",
-        "start_date_local": "2025-01-14T17:26:33Z", "timezone": "(GMT+01:00) Africa/Algiers",
-        "utc_offset": 3600.0, "location_city": null, "location_state": null, "location_country":
-        "Italy", "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
-        1, "photo_count": 0, "map": {"id": "a13354637658", "summary_polyline": "",
+        forearms, calisthenics, back", "distance": 0.0, "moving_time": 7474, "elapsed_time":
+        7474, "total_elevation_gain": 0, "type": "WeightTraining", "sport_type": "WeightTraining",
+        "id": 14176729894, "start_date": "2025-04-14T15:34:25Z", "start_date_local":
+        "2025-04-14T17:34:25Z", "timezone": "(GMT+02:00) Africa/Blantyre", "utc_offset":
+        7200.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a14176729894", "summary_polyline": "",
         "resource_state": 2}, "trainer": true, "commute": false, "manual": false,
         "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
         null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0, "max_speed":
-        0.0, "average_temp": 24, "has_heartrate": true, "average_heartrate": 68.7,
-        "max_heartrate": 113.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
-        true, "elev_high": 0.0, "elev_low": 0.0, "upload_id": 14243671630, "upload_id_str":
-        "14243671630", "external_id": "garmin_ping_402334049782", "from_accepted_tag":
+        0.0, "average_temp": 26, "has_heartrate": true, "average_heartrate": 63.2,
+        "max_heartrate": 107.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 0.0, "elev_low": 0.0, "upload_id": 15130751941, "upload_id_str":
+        "15130751941", "external_id": "garmin_ping_429081679027", "from_accepted_tag":
         false, "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
-        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Weight training:
-        ring muscle-up progression day #9", "distance": 0.0, "moving_time": 2655,
-        "elapsed_time": 2655, "total_elevation_gain": 0, "type": "WeightTraining",
-        "sport_type": "WeightTraining", "id": 13345221056, "start_date": "2025-01-13T17:37:43Z",
-        "start_date_local": "2025-01-13T18:37:43Z", "timezone": "(GMT+01:00) Africa/Algiers",
-        "utc_offset": 3600.0, "location_city": null, "location_state": null, "location_country":
-        "Italy", "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
-        1, "photo_count": 0, "map": {"id": "a13345221056", "summary_polyline": "",
-        "resource_state": 2}, "trainer": true, "commute": false, "manual": false,
+        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Ranica - Nembro
+        - Selvino", "distance": 31768.9, "moving_time": 6027, "elapsed_time": 6842,
+        "total_elevation_gain": 681.0, "type": "Ride", "sport_type": "MountainBikeRide",
+        "workout_type": 10, "id": 14153560677, "start_date": "2025-04-12T08:30:04Z",
+        "start_date_local": "2025-04-12T10:30:04Z", "timezone": "(GMT+01:00) Europe/Rome",
+        "utc_offset": 7200.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 23, "kudos_count": 5, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a14153560677", "summary_polyline": "kbavG}ijz@L_BkBeA}@BcGkIgCbAo@y@{L_@oEkAuAmArCwHE{CsCoHuA}@CiGwBiB}CqJ{FsMB{@vAp@Z}BwAiDuAsLaAwKZcBgAiJM}E_BwEy@qAoEqP_A_HeDwNsEmJuD}O]aD@iEsC]s@sFc@}@cCd@wKfHyA{F}@b@v@a@Uw@N|@iItEcCCmBr@cC_BiBtAk@pAgD{AaC\\eAx@Bp@tBq@bJdJGvDeDrA}BD{C_CaDQsK{GeGt@kF`DsBf@oEbKkEnAiCvF}D~EId@XDdB{AuA|AaElIA^V?x@_Bu@vBoBByDfCLd@lBqAkDlCcFtMeHrJa@hBeEPcBtA{@nDgBPw@iFAqEYaHi@cDJfBKjIq@fDWpFT`D_@qCYgGZmBB_KULO~Fw@vGOhEDlEG_Cq@mJp@mF?sC]T?|BcB|Is@vBsApAhAtC`@lC_EaI~BiDt@cKUBkAvIyEnD\\fEbBbDJxB_@uBwByB_BeF\\qBxBoCgDrB{@pEj@`BDhBfBvCNlAu@bCaBnA}BnHjAwFJcBxA_CiCsEKZnAvC}AhBa@|DsAlCMKtAyDIuDc@a@uFdBwGHuBjCiBNqBbE}Ad@yA`BcBUW_AZmGu@sEByC{BsA}D[wAeEOkBxK`L@jDj@zD]zGXx@xBXtDkCdByDrBYlBcCxGOfFeBl@l@LlC}ApETX|AeDb@qDxAwAeA{D~BfE{A~BeBhIJZ|BmHrA_AlAeCEwAgBwCKqBm@}A|@}ExCoB{AtA{@xCzAnFhC`DHbBTOIeBiBkD[oEvEoDjAsI_@|I_C`DJzAlCnDJbBVBCsA_BgFtB}ClBqJ@eCXOw@zJn@hJGnB\\LJaLnAmOE`JYbBj@nLVF?wJr@_EP_HWoCZV@|FZvH^fF`@dArBYt@aDvAuA~DQt@uBhH_KxEgMhD}BJg@mBvAK]dDyBzBMz@kB[Kq@zABo@vDwHxAcBeBrAYGH[tDqE~BuFrE{AfC{GjAeBdBYvFgDlFu@rHnDhBfBpDPxC|BlCI|CoA@oE}I}IwBp@Aa@|@w@vB]jD~Av@}A~A_AfCpAvAq@vBPlJ}FnAxFp@BjBk@hGcFdCs@j@tA^jE|Cb@?rElBrKjChKnBxCz@|BGj@f@\\fC~Kr@`GrExPx@rAfBlFJxEhA|I]dBt@zI`BvNvAxD]rB_Ay@]`@vGbP|BzH~BdBDnGtAbAzCpIA`CqCjHpAlA`ElA`M\\v@z@jAy@fA@tFbIjDp@i@pH",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
         "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
-        null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0, "max_speed":
-        0.0, "average_temp": 24, "has_heartrate": true, "average_heartrate": 65.0,
-        "max_heartrate": 116.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
-        true, "elev_high": 0.0, "elev_low": 0.0, "upload_id": 14233599900, "upload_id_str":
-        "14233599900", "external_id": "garmin_ping_402040552446", "from_accepted_tag":
-        false, "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}]'
+        "b12393437", "start_latlng": [45.722838, 9.720466], "end_latlng": [45.723469,
+        9.719917], "average_speed": 5.271, "max_speed": 12.86, "average_temp": 21,
+        "average_watts": 201.2, "device_watts": false, "kilojoules": 1212.5, "has_heartrate":
+        true, "average_heartrate": 105.4, "max_heartrate": 144.0, "heartrate_opt_out":
+        false, "display_hide_heartrate_option": true, "elev_high": 923.2, "elev_low":
+        272.0, "upload_id": 15106427736, "upload_id_str": "15106427736", "external_id":
+        "garmin_ping_428337852067", "from_accepted_tag": false, "pr_count": 3, "total_photo_count":
+        1, "has_kudoed": false}, {"resource_state": 2, "athlete": {"id": 115890775,
+        "resource_state": 1}, "name": "Weight training: calisthenics", "distance":
+        0.0, "moving_time": 3600, "elapsed_time": 3600, "total_elevation_gain": 0,
+        "type": "WeightTraining", "sport_type": "WeightTraining", "id": 14148863759,
+        "start_date": "2025-04-11T18:00:00Z", "start_date_local": "2025-04-11T20:00:00Z",
+        "timezone": "(GMT+01:00) Europe/Rome", "utc_offset": 7200.0, "location_city":
+        null, "location_state": null, "location_country": null, "achievement_count":
+        0, "kudos_count": 0, "comment_count": 0, "athlete_count": 1, "photo_count":
+        0, "map": {"id": "a14148863759", "summary_polyline": "", "resource_state":
+        2}, "trainer": false, "commute": false, "manual": true, "private": false,
+        "visibility": "followers_only", "flagged": false, "gear_id": null, "start_latlng":
+        [], "end_latlng": [], "average_speed": 0.0, "max_speed": 0, "has_heartrate":
+        false, "heartrate_opt_out": false, "display_hide_heartrate_option": false,
+        "upload_id": null, "external_id": null, "from_accepted_tag": false, "pr_count":
+        0, "total_photo_count": 0, "has_kudoed": false}]'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sun, 26 Jan 2025 15:47:03 GMT
+      - Wed, 23 Apr 2025 11:23:04 GMT
       Transfer-Encoding:
       - chunked
       Via:
-      - 1.1 60fbd37e02af93daf30940afee9b7698.cloudfront.net (CloudFront)
+      - 1.1 cd5b12d4f8d1b7b93983071257abfd4e.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - CFnhs0swu6uiflJQt_k_hyQHpZGKOVHCVjzu8_J7MErbmmBVFn4N1w==
+      - kMHufK68rkTkR8aSmI304frkDMuWpxyP8LccFd65k7WKrI97Ucb-Ew==
       X-Amz-Cf-Pop:
-      - MXP53-P2
+      - MXP53-P6
       X-Cache:
       - Miss from cloudfront
       cache-control:
       - max-age=0, private, must-revalidate
       content-length:
-      - '16302'
+      - '17018'
       etag:
-      - W/"218a054e3b4dd7f3a1ee740d4617efb9"
+      - W/"04646c0a9f085461832ec09e5bdd49d5"
       referrer-policy:
       - strict-origin-when-cross-origin
       server:
@@ -210,7 +214,7 @@ interactions:
       x-download-options:
       - noopen
       x-envoy-upstream-service-time:
-      - '678'
+      - '244'
       x-frame-options:
       - DENY
       x-permitted-cross-domain-policies:
@@ -218,13 +222,13 @@ interactions:
       x-ratelimit-limit:
       - 200,2000
       x-ratelimit-usage:
-      - 1,3
+      - 7,10
       x-readratelimit-limit:
       - 100,1000
       x-readratelimit-usage:
-      - 1,3
+      - 7,10
       x-request-id:
-      - 679b67ae-4c78-48cc-a4c9-afb74eeb6f9c
+      - 5dcf63b7-9203-4c9a-844e-3bf54f2cc455
       x-xss-protection:
       - 1; mode=block
     status:

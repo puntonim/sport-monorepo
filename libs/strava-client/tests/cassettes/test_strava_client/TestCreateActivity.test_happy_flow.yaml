@@ -19,11 +19,11 @@ interactions:
       string: '{"resource_state": 3, "athlete": {"id": 115890775, "resource_state":
         1}, "name": "test create 1", "distance": 0.0, "moving_time": 3600, "elapsed_time":
         3600, "total_elevation_gain": 0, "type": "WeightTraining", "sport_type": "WeightTraining",
-        "id": 13461246226, "start_date": "2025-01-26T15:00:00Z", "start_date_local":
+        "id": 14261347515, "start_date": "2025-01-26T15:00:00Z", "start_date_local":
         "2025-01-26T16:00:00Z", "timezone": "(GMT+01:00) Europe/Rome", "utc_offset":
         3600.0, "location_city": null, "location_state": null, "location_country":
-        "Italy", "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
-        1, "photo_count": 0, "map": {"id": "a13461246226", "polyline": "", "resource_state":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a14261347515", "polyline": "", "resource_state":
         3, "summary_polyline": ""}, "trainer": false, "commute": false, "manual":
         true, "private": false, "visibility": "followers_only", "flagged": false,
         "gear_id": null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0,
@@ -35,7 +35,7 @@ interactions:
         [{"type": "heart_rate", "visibility": "everyone"}, {"type": "pace", "visibility":
         "everyone"}, {"type": "power", "visibility": "everyone"}, {"type": "speed",
         "visibility": "everyone"}, {"type": "calories", "visibility": "everyone"}],
-        "hide_from_home": false, "embed_token": "ecc37ecf3230e8738fda7798ea830fc07b974de1",
+        "hide_from_home": false, "embed_token": "c02b9560044e14c25b12b8044594a0b8b7af093e",
         "available_zones": []}'
     headers:
       Connection:
@@ -43,21 +43,21 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sun, 26 Jan 2025 21:03:38 GMT
+      - Wed, 23 Apr 2025 11:32:31 GMT
       Transfer-Encoding:
       - chunked
       Via:
-      - 1.1 8e8540d018f18b8833babc5ff23ec2c6.cloudfront.net (CloudFront)
+      - 1.1 5890bb8e986830a44ebf23d3924b09cc.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - 3ry2QaAWOgDFU3BablNBgsQMmroyAcLBvFByFesrAA77P9_n90EGvw==
+      - RkHpizQcPEoUE-GkFh23-GS0ng3BiC_yO1rxjDAfVRWNhc3h_wL3rg==
       X-Amz-Cf-Pop:
-      - MXP53-P2
+      - MXP53-P6
       X-Cache:
       - Miss from cloudfront
       cache-control:
       - max-age=0, private, must-revalidate
       etag:
-      - W/"783935e35af0e303f774264448e6417c"
+      - W/"2ca523e7b7b17dc9ca50f921b613c5f3"
       referrer-policy:
       - strict-origin-when-cross-origin
       server:
@@ -71,7 +71,7 @@ interactions:
       x-download-options:
       - noopen
       x-envoy-upstream-service-time:
-      - '426'
+      - '325'
       x-frame-options:
       - DENY
       x-permitted-cross-domain-policies:
@@ -79,13 +79,13 @@ interactions:
       x-ratelimit-limit:
       - 200,2000
       x-ratelimit-usage:
-      - 2,17
+      - 4,22
       x-readratelimit-limit:
       - 100,1000
       x-readratelimit-usage:
       - ','
       x-request-id:
-      - 5bbc00f4-fb99-4fa6-958c-7627a0a514c7
+      - e2ca378a-a64c-4d10-8068-9cd83f7727f7
       x-xss-protection:
       - 1; mode=block
     status:

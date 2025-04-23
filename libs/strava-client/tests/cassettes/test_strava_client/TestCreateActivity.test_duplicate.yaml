@@ -19,15 +19,13 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sun, 26 Jan 2025 21:16:53 GMT
-      Transfer-Encoding:
-      - chunked
+      - Wed, 23 Apr 2025 11:35:12 GMT
       Via:
-      - 1.1 adef7e196300f0ab5286a44dbbcbc5a6.cloudfront.net (CloudFront)
+      - 1.1 d75ae4449c085f5bea1aa41995260040.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - rGqZqKWdLx45uc5vHPbK61c2IkoQpx1FtgSIGJvQkM8P003-ubeXog==
+      - flzLsnvDSgegD1qWoACKjIteswWspeVdO032616aUclme_oknf8sTw==
       X-Amz-Cf-Pop:
-      - MXP53-P2
+      - MXP53-P6
       X-Cache:
       - Miss from cloudfront
       cache-control:
@@ -49,7 +47,7 @@ interactions:
       x-download-options:
       - noopen
       x-envoy-upstream-service-time:
-      - '108'
+      - '59'
       x-frame-options:
       - DENY
       x-permitted-cross-domain-policies:
@@ -57,13 +55,13 @@ interactions:
       x-ratelimit-limit:
       - 200,2000
       x-ratelimit-usage:
-      - 1,19
+      - 6,24
       x-readratelimit-limit:
       - 100,1000
       x-readratelimit-usage:
-      - 1,16
+      - 4,22
       x-request-id:
-      - 29077cd1-97a2-44d5-8b21-669e0b0e7f63
+      - a8b07c4d-626f-444f-9eec-608317520089
       x-xss-protection:
       - 1; mode=block
     status:
@@ -89,11 +87,11 @@ interactions:
       string: '{"resource_state": 3, "athlete": {"id": 115890775, "resource_state":
         1}, "name": "test create 1", "distance": 0.0, "moving_time": 3600, "elapsed_time":
         3600, "total_elevation_gain": 0, "type": "WeightTraining", "sport_type": "WeightTraining",
-        "id": 13461322692, "start_date": "2025-01-26T15:00:00Z", "start_date_local":
+        "id": 14261372946, "start_date": "2025-01-26T15:00:00Z", "start_date_local":
         "2025-01-26T16:00:00Z", "timezone": "(GMT+01:00) Europe/Rome", "utc_offset":
         3600.0, "location_city": null, "location_state": null, "location_country":
-        "Italy", "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
-        1, "photo_count": 0, "map": {"id": "a13461322692", "polyline": "", "resource_state":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a14261372946", "polyline": "", "resource_state":
         3, "summary_polyline": ""}, "trainer": false, "commute": false, "manual":
         true, "private": false, "visibility": "followers_only", "flagged": false,
         "gear_id": null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0,
@@ -105,7 +103,7 @@ interactions:
         [{"type": "heart_rate", "visibility": "everyone"}, {"type": "pace", "visibility":
         "everyone"}, {"type": "power", "visibility": "everyone"}, {"type": "speed",
         "visibility": "everyone"}, {"type": "calories", "visibility": "everyone"}],
-        "hide_from_home": false, "embed_token": "66babe8c591f50ba4fb1c5383f960a4302f595fb",
+        "hide_from_home": false, "embed_token": "84998286208f11db79384720ce5cc927c28bcb6b",
         "available_zones": []}'
     headers:
       Connection:
@@ -113,21 +111,19 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sun, 26 Jan 2025 21:16:53 GMT
-      Transfer-Encoding:
-      - chunked
+      - Wed, 23 Apr 2025 11:35:13 GMT
       Via:
-      - 1.1 0a22f8f332c3e135af4786cbb2490510.cloudfront.net (CloudFront)
+      - 1.1 c564dd6366e334a08696b125b5fb3c52.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - vSCWRtblXJjPedR3DdrZaRkuF-CvStYGrKRrOsJVTpzYqCW4mQ2q6w==
+      - u9nSE9OcCgLalEAM6B1bAnW8twSbMLLgNM6OlrfNxtQKSAb2-AKz4Q==
       X-Amz-Cf-Pop:
-      - MXP53-P2
+      - MXP53-P6
       X-Cache:
       - Miss from cloudfront
       cache-control:
       - max-age=0, private, must-revalidate
       etag:
-      - W/"3b055db539f6323bbcf7f449236d291e"
+      - W/"120889038248405b5e76efa6603d6153"
       referrer-policy:
       - strict-origin-when-cross-origin
       server:
@@ -141,7 +137,7 @@ interactions:
       x-download-options:
       - noopen
       x-envoy-upstream-service-time:
-      - '397'
+      - '303'
       x-frame-options:
       - DENY
       x-permitted-cross-domain-policies:
@@ -149,13 +145,13 @@ interactions:
       x-ratelimit-limit:
       - 200,2000
       x-ratelimit-usage:
-      - 2,20
+      - 7,25
       x-readratelimit-limit:
       - 100,1000
       x-readratelimit-usage:
       - ','
       x-request-id:
-      - ca9b4cb9-c0a3-4b4e-8e4c-11600df73787
+      - a90e3435-0621-4644-a47e-4dd92d6bca61
       x-xss-protection:
       - 1; mode=block
     status:
@@ -180,7 +176,7 @@ interactions:
         "sport_type": "WeightTraining", "id": 13460285621, "start_date": "2025-01-26T17:40:07Z",
         "start_date_local": "2025-01-26T18:40:07Z", "timezone": "(GMT+01:00) Africa/Algiers",
         "utc_offset": 3600.0, "location_city": null, "location_state": null, "location_country":
-        "Italy", "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
         1, "photo_count": 0, "map": {"id": "a13460285621", "summary_polyline": "",
         "resource_state": 2}, "trainer": true, "commute": false, "manual": false,
         "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
@@ -196,23 +192,23 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sun, 26 Jan 2025 21:16:54 GMT
+      - Wed, 23 Apr 2025 11:35:33 GMT
       Transfer-Encoding:
       - chunked
       Via:
-      - 1.1 5a9fdee27256334715c1d3434faee45e.cloudfront.net (CloudFront)
+      - 1.1 7fd2b1040a25ae10cc3cd92885e6ff1c.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - ELIEYSWEvD5OCQP9lUSDYvyNadcmuwG336m7UhOEABpWIOsbPUX77Q==
+      - BMSfmhrfDq6wWE8cxIs3SHyAk8jZ6ThSbfgTkoQL_jBL4IsL9Nuh_Q==
       X-Amz-Cf-Pop:
-      - MXP53-P2
+      - MXP53-P6
       X-Cache:
       - Miss from cloudfront
       cache-control:
       - max-age=0, private, must-revalidate
       content-length:
-      - '1171'
+      - '1168'
       etag:
-      - W/"d7c126f65a510ce07847eef8b7cbb74c"
+      - W/"3fc8c703ad27d9b4c22c9309d56072db"
       referrer-policy:
       - strict-origin-when-cross-origin
       server:
@@ -226,7 +222,7 @@ interactions:
       x-download-options:
       - noopen
       x-envoy-upstream-service-time:
-      - '157'
+      - '227'
       x-frame-options:
       - DENY
       x-permitted-cross-domain-policies:
@@ -234,13 +230,13 @@ interactions:
       x-ratelimit-limit:
       - 200,2000
       x-ratelimit-usage:
-      - 3,21
+      - 8,26
       x-readratelimit-limit:
       - 100,1000
       x-readratelimit-usage:
-      - 2,17
+      - 5,23
       x-request-id:
-      - 91a3ec67-495d-4077-99c2-13cf0e1ab180
+      - c8c74f97-6057-47a5-af4e-87568aa1ce6c
       x-xss-protection:
       - 1; mode=block
     status:

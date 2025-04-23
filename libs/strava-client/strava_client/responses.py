@@ -157,14 +157,14 @@ class StreamsResponse(BaseJsonResponse):
     @lru_cache
     def _validate_data_size(self):
         # This is the original size of the data collected by the Garmin watch.
-        original_size = self.data[0]["original_size"]
+        original_dataset_size = self.get_original_dataset_size()
 
         for d in self.data:
             # This is the size of this dataset.
             stream_size = len(d["data"])
-            if stream_size != original_size:
+            if stream_size != original_dataset_size:
                 stream_name = d["type"]
-                raise StreamSizeError(stream_name, stream_size, original_size)
+                raise StreamSizeError(stream_name, stream_size, original_dataset_size)
 
     def _get_stream_by_name(self, name: str) -> list:
         self._validate_data_size()
@@ -176,6 +176,10 @@ class StreamsResponse(BaseJsonResponse):
         if not stream_data:
             raise StreamNotFound(name)
         return stream_data
+
+    @lru_cache
+    def get_original_dataset_size(self) -> int:
+        return self.data[0]["original_size"]
 
     def get_elapsed_time_stream(self) -> list:
         return self._get_stream_by_name("time")
@@ -256,7 +260,7 @@ class StreamNotFound(BaseJsonResponseException):
 
 
 class StreamSizeError(BaseJsonResponseException):
-    def __init__(self, stream_name, stream_size, original_size):
+    def __init__(self, stream_name, stream_size, original_dataset_size):
         self.stream_name = stream_name
         self.stream_size = stream_size
-        self.original_size = original_size
+        self.original_dataset_size = original_dataset_size

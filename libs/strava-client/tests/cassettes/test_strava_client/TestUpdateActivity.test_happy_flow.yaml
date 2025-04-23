@@ -22,7 +22,7 @@ interactions:
         "sport_type": "WeightTraining", "id": 13381920990, "start_date": "2025-01-17T19:00:00Z",
         "start_date_local": "2025-01-17T20:00:00Z", "timezone": "(GMT+01:00) Europe/Rome",
         "utc_offset": 3600.0, "location_city": null, "location_state": null, "location_country":
-        "Italy", "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
         1, "photo_count": 0, "map": {"id": "a13381920990", "polyline": "", "resource_state":
         3, "summary_polyline": ""}, "trainer": false, "commute": false, "manual":
         true, "private": false, "visibility": "followers_only", "flagged": false,
@@ -36,30 +36,30 @@ interactions:
         "everyone"}, {"type": "power", "visibility": "everyone"}, {"type": "speed",
         "visibility": "everyone"}, {"type": "calories", "visibility": "everyone"}],
         "hide_from_home": false, "embed_token": "1bce5ff099297c85fdb084603a3e81b67791eaab",
-        "available_zones": []}'
+        "private_note": "", "available_zones": []}'
     headers:
       Connection:
       - keep-alive
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sun, 26 Jan 2025 16:40:18 GMT
+      - Wed, 23 Apr 2025 11:31:16 GMT
       Transfer-Encoding:
       - chunked
       Via:
-      - 1.1 59e4ad432d462243b40c1447c9691d6a.cloudfront.net (CloudFront)
+      - 1.1 67dc234673fb0fe2789a767cb32364a2.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - 0B16hI-C_lwXLENHsn0fre3AKvfg9lAQA3tXYWh6ZdKTLaGu3vyXew==
+      - I3elztXSpUaa3rdZYGt5mQxgVRROPcHphQqW-v54D7NlzG700fgHgQ==
       X-Amz-Cf-Pop:
-      - MXP53-P2
+      - MXP53-P6
       X-Cache:
       - Miss from cloudfront
       cache-control:
       - max-age=0, private, must-revalidate
       content-length:
-      - '1504'
+      - '1519'
       etag:
-      - W/"17597dff6f3bfccbfaaa617451f798ff"
+      - W/"48dfa077d0c1e5b4b6323193b46deb59"
       referrer-policy:
       - strict-origin-when-cross-origin
       server:
@@ -73,7 +73,7 @@ interactions:
       x-download-options:
       - noopen
       x-envoy-upstream-service-time:
-      - '340'
+      - '232'
       x-frame-options:
       - DENY
       x-permitted-cross-domain-policies:
@@ -81,13 +81,13 @@ interactions:
       x-ratelimit-limit:
       - 200,2000
       x-ratelimit-usage:
-      - 1,6
+      - 2,20
       x-readratelimit-limit:
       - 100,1000
       x-readratelimit-usage:
-      - 1,6
+      - 2,20
       x-request-id:
-      - dd5b7570-c400-45d8-b357-ccf5a2348ad2
+      - fb7ba8a8-8d4f-4b9f-b441-5a11facbf4c2
       x-xss-protection:
       - 1; mode=block
     status:

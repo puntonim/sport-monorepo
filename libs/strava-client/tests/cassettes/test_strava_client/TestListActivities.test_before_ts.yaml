@@ -18,7 +18,7 @@ interactions:
         "sport_type": "WeightTraining", "id": 13381920990, "start_date": "2025-01-17T19:00:00Z",
         "start_date_local": "2025-01-17T20:00:00Z", "timezone": "(GMT+01:00) Europe/Rome",
         "utc_offset": 3600.0, "location_city": null, "location_state": null, "location_country":
-        "Italy", "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
         1, "photo_count": 0, "map": {"id": "a13381920990", "summary_polyline": "",
         "resource_state": 2}, "trainer": false, "commute": false, "manual": true,
         "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
@@ -32,7 +32,7 @@ interactions:
         "id": 13371865434, "start_date": "2025-01-16T16:05:33Z", "start_date_local":
         "2025-01-16T17:05:33Z", "timezone": "(GMT+01:00) Africa/Algiers", "utc_offset":
         3600.0, "location_city": null, "location_state": null, "location_country":
-        "Italy", "achievement_count": 0, "kudos_count": 1, "comment_count": 0, "athlete_count":
+        null, "achievement_count": 0, "kudos_count": 1, "comment_count": 0, "athlete_count":
         1, "photo_count": 0, "map": {"id": "a13371865434", "summary_polyline": "",
         "resource_state": 2}, "trainer": true, "commute": false, "manual": false,
         "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
@@ -48,23 +48,23 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sun, 26 Jan 2025 15:35:22 GMT
+      - Wed, 23 Apr 2025 11:22:31 GMT
       Transfer-Encoding:
       - chunked
       Via:
-      - 1.1 3cdb446b466c48710dc5fa2be85a7dc0.cloudfront.net (CloudFront)
+      - 1.1 cf3f0b86ea5f0564fa74acb00e1bb9ea.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - tCiSZex3hHKCz5s_W1Y16aXU4pfE-u4g0WuI61Cx42eMYEec9wXTUg==
+      - B3SZbjV3SztxAln9R3uShGVPoQbiMKDzs2INTBFmjZMccAdQ7taO4Q==
       X-Amz-Cf-Pop:
-      - MXP53-P2
+      - MXP53-P6
       X-Cache:
       - Miss from cloudfront
       cache-control:
       - max-age=0, private, must-revalidate
       content-length:
-      - '2186'
+      - '2180'
       etag:
-      - W/"c53519ab72a5319770c1893939370219"
+      - W/"0a137783da3895025c69fe5c562b4d27"
       referrer-policy:
       - strict-origin-when-cross-origin
       server:
@@ -78,7 +78,7 @@ interactions:
       x-download-options:
       - noopen
       x-envoy-upstream-service-time:
-      - '208'
+      - '212'
       x-frame-options:
       - DENY
       x-permitted-cross-domain-policies:
@@ -86,13 +86,13 @@ interactions:
       x-ratelimit-limit:
       - 200,2000
       x-ratelimit-usage:
-      - 2,2
+      - 5,8
       x-readratelimit-limit:
       - 100,1000
       x-readratelimit-usage:
-      - 2,2
+      - 5,8
       x-request-id:
-      - a3b678e7-8bfa-4455-b6c0-4ce3d168ddae
+      - 0b38f0b6-2d7d-44de-a0a6-81bb9d8569c8
       x-xss-protection:
       - 1; mode=block
     status:
