@@ -457,7 +457,7 @@ class TestGetStreams:
         assert response.get_heartrate_stream() == response.data[3]["data"]
         assert response.get_altitude_stream() == response.data[4]["data"]
         assert response.get_elapsed_time_stream() == response.data[5]["data"]
-        assert response.get_moving_time_stream()
+        assert response.compute_moving_time_stream()
 
     def test_single_type(self):
         client = StravaClient(self.token_mgr.get_access_token())

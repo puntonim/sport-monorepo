@@ -199,7 +199,7 @@ class StreamsResponse(BaseJsonResponse):
     def get_moving_stream(self) -> list:
         return self._get_stream_by_name("moving")
 
-    def get_moving_time_stream(self) -> list:
+    def compute_moving_time_stream(self) -> list:
         """
         To compute moving times:
          - we traverse all the `elapsed time` datapoints
