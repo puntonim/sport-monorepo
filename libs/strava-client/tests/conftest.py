@@ -6,10 +6,9 @@ from typing import Iterator
 import pytest
 from _pytest.fixtures import SubRequest
 from _pytest.unittest import TestCaseFunction
+from strava_client.conf.settings_module import settings, test_settings
 from vcr.cassette import Cassette
 from vcr.errors import CannotOverwriteExistingCassetteException
-
-from strava_client.conf.settings_module import settings, test_settings
 
 IS_VCR_EPISODE_OR_ERROR = True  # False to record new cassettes.
 IS_VCR_ENABLED = True
@@ -109,27 +108,27 @@ def before_record_response(response):
     """
     try:
         data = json.loads(response["body"]["string"].decode())
-    except json.JSONDecodeError:
-        return response
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        pass
+    else:
+        if "access_token" in data:
+            data["access_token"] = "**REDACTED**"
 
-    if "access_token" in data:
-        data["access_token"] = "**REDACTED**"
+        if isinstance(data, dict):
+            if data.get("parametri", {}).get("sessione", {}).get("codice_sessione"):
+                data["parametri"]["sessione"]["codice_sessione"] = "**REDACTED**"
+            if data.get("parametri", {}).get("sessione", {}).get("idCliente"):
+                data["parametri"]["sessione"]["idCliente"] = "**REDACTED**"
+            if data.get("parametri", {}).get("sessione", {}).get("nomeCliente"):
+                data["parametri"]["sessione"]["nomeCliente"] = "**REDACTED**"
+            if data.get("parametri", {}).get("sessione", {}).get("cognomeCliente"):
+                data["parametri"]["sessione"]["cognomeCliente"] = "**REDACTED**"
+            if data.get("parametri", {}).get("sessione", {}).get("mail"):
+                data["parametri"]["sessione"]["mail"] = "**REDACTED**"
+            if data.get("parametri", {}).get("sessione", {}).get("pass"):
+                data["parametri"]["sessione"]["pass"] = "**REDACTED**"
 
-    if isinstance(data, dict):
-        if data.get("parametri", {}).get("sessione", {}).get("codice_sessione"):
-            data["parametri"]["sessione"]["codice_sessione"] = "**REDACTED**"
-        if data.get("parametri", {}).get("sessione", {}).get("idCliente"):
-            data["parametri"]["sessione"]["idCliente"] = "**REDACTED**"
-        if data.get("parametri", {}).get("sessione", {}).get("nomeCliente"):
-            data["parametri"]["sessione"]["nomeCliente"] = "**REDACTED**"
-        if data.get("parametri", {}).get("sessione", {}).get("cognomeCliente"):
-            data["parametri"]["sessione"]["cognomeCliente"] = "**REDACTED**"
-        if data.get("parametri", {}).get("sessione", {}).get("mail"):
-            data["parametri"]["sessione"]["mail"] = "**REDACTED**"
-        if data.get("parametri", {}).get("sessione", {}).get("pass"):
-            data["parametri"]["sessione"]["pass"] = "**REDACTED**"
-
-    response["body"]["string"] = json.dumps(data).encode()
+        response["body"]["string"] = json.dumps(data).encode()
     return response
 
 

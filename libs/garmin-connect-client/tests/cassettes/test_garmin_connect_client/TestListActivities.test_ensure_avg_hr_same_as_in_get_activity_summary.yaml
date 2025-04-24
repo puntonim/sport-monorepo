@@ -1,0 +1,1585 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/userprofile-service/socialProfile
+  response:
+    body:
+      string: '{"id": 408106091, "profileId": 113739130, "garminGUID": "036d4457-1523-4d57-a237-43de978cd7cc",
+        "displayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "fullName": "Paolo",
+        "userName": "puntonim@gmail.com", "profileImageType": "UPLOADED_PHOTO", "profileImageUrlLarge":
+        "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "hasPremiumSocialIcon": false, "location": "Verdellino, Italy", "facebookUrl":
+        null, "twitterUrl": null, "personalWebsite": null, "motivation": 2, "bio":
+        null, "primaryActivity": "other", "favoriteActivityTypes": ["running", "cycling",
+        "weight_training", "snow_sports"], "runningTrainingSpeed": 0.0, "cyclingTrainingSpeed":
+        0.0, "favoriteCyclingActivityTypes": ["road", "mountain"], "cyclingClassification":
+        null, "cyclingMaxAvgPower": 0.0, "swimmingTrainingSpeed": 0.0, "profileVisibility":
+        "following", "activityStartVisibility": "public", "activityMapVisibility":
+        "public", "courseVisibility": "public", "activityHeartRateVisibility": "public",
+        "activityPowerVisibility": "public", "badgeVisibility": "private", "showAge":
+        false, "showWeight": false, "showHeight": false, "showWeightClass": false,
+        "showAgeRange": false, "showGender": false, "showActivityClass": false, "showVO2Max":
+        false, "showPersonalRecords": true, "showLast12Months": true, "showLifetimeTotals":
+        true, "showUpcomingEvents": true, "showRecentFavorites": true, "showRecentDevice":
+        true, "showRecentGear": false, "showBadges": true, "otherActivity": null,
+        "otherPrimaryActivity": null, "otherMotivation": null, "userRoles": ["SCOPE_ATP_READ",
+        "SCOPE_ATP_WRITE", "SCOPE_COMMUNITY_COURSE_READ", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_CONNECT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_DIVE_API_READ", "SCOPE_DI_OAUTH_2_AUTHORIZATION_CODE_CREATE",
+        "SCOPE_DT_CLIENT_ANALYTICS_WRITE", "SCOPE_GARMINPAY_READ", "SCOPE_GARMINPAY_WRITE",
+        "SCOPE_GCOFFER_READ", "SCOPE_GCOFFER_WRITE", "SCOPE_GHS_SAMD", "SCOPE_GHS_UPLOAD",
+        "SCOPE_GOLF_API_READ", "SCOPE_GOLF_API_WRITE", "SCOPE_INSIGHTS_READ", "SCOPE_INSIGHTS_WRITE",
+        "SCOPE_OMT_CAMPAIGN_READ", "SCOPE_OMT_SUBSCRIPTION_READ", "SCOPE_PRODUCT_SEARCH_READ",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "nameApproved": true, "userProfileFullName": "Paolo", "makeGolfScorecardsPrivate":
+        true, "allowGolfLiveScoring": false, "allowGolfScoringByConnections": true,
+        "userLevel": 3, "userPoint": 101, "levelUpdateDate": "2023-06-11T20:10:14.0",
+        "levelIsViewed": false, "levelPointThreshold": 140, "userPointOffset": 0,
+        "userPro": false}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 24 Apr 2025 12:51:20 GMT
+      Server:
+      - cloudflare
+      content-length:
+      - '2660'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/userprofile-service/userprofile/user-settings
+  response:
+    body:
+      string: '{"id": 113739130, "userData": {"gender": "MALE", "weight": 81000.0,
+        "height": 180.0, "timeFormat": "time_twenty_four_hr", "birthDate": "1980-01-18",
+        "measurementSystem": "metric", "activityLevel": 7, "handedness": "RIGHT",
+        "powerFormat": {"formatId": 30, "formatKey": "watt", "minFraction": 0, "maxFraction":
+        0, "groupingUsed": true, "displayFormat": null}, "heartRateFormat": {"formatId":
+        21, "formatKey": "bpm", "minFraction": 0, "maxFraction": 0, "groupingUsed":
+        false, "displayFormat": null}, "firstDayOfWeek": {"dayId": 3, "dayName": "monday",
+        "sortOrder": 3, "isPossibleFirstDay": true}, "vo2MaxRunning": 48.0, "vo2MaxCycling":
+        null, "lactateThresholdSpeed": 0.36944341, "lactateThresholdHeartRate": 170,
+        "diveNumber": null, "intensityMinutesCalcMethod": "AUTO", "moderateIntensityMinutesHrZone":
+        3, "vigorousIntensityMinutesHrZone": 4, "hydrationMeasurementUnit": "cup",
+        "hydrationContainers": [], "hydrationAutoGoalEnabled": true, "firstbeatMaxStressScore":
+        null, "firstbeatCyclingLtTimestamp": null, "firstbeatRunningLtTimestamp":
+        1114172809, "thresholdHeartRateAutoDetected": true, "ftpAutoDetected": true,
+        "trainingStatusPausedDate": null, "weatherLocation": {"useFixedLocation":
+        null, "latitude": null, "longitude": null, "locationName": null, "isoCountryCode":
+        null, "postalCode": null}, "golfDistanceUnit": "statute_us", "golfElevationUnit":
+        null, "golfSpeedUnit": null, "externalBottomTime": null, "availableTrainingDays":
+        ["SUNDAY", "FRIDAY", "THURSDAY", "TUESDAY", "SATURDAY", "MONDAY", "WEDNESDAY"],
+        "preferredLongTrainingDays": ["SUNDAY", "SATURDAY"]}, "userSleep": {"sleepTime":
+        0, "defaultSleepTime": false, "wakeTime": 28800, "defaultWakeTime": false},
+        "connectDate": null, "sourceType": null, "userSleepWindows": [{"sleepWindowFrequency":
+        "SUNDAY", "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "MONDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "TUESDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "WEDNESDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "THURSDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "FRIDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "SATURDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "DAILY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 24 Apr 2025 12:51:21 GMT
+      Server:
+      - cloudflare
+      content-length:
+      - '2507'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2025-03-31
+  response:
+    body:
+      string: '{"ActivitiesForDay": {"requestUrl": "/activitylist-service/activities/fordailysummary/3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "statusCode": 200, "headers": {}, "errorMessage": null, "payload": [{"activityId":
+        18689027868, "activityName": "Bergamo Mountain Biking", "startTimeLocal":
+        "2025-03-31T09:29:56.0", "startTimeGMT": "2025-03-31T07:29:56.0", "activityType":
+        {"typeId": 5, "typeKey": "mountain_biking", "parentTypeId": 2, "isHidden":
+        false, "trimmable": true, "restricted": false}, "eventType": {"typeId": 9,
+        "typeKey": "uncategorized", "sortOrder": 10}, "distance": 60436.87890625,
+        "duration": 14023.0595703125, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "calories": 1972.0, "bmrCalories": 337.5921748408565, "activeCalories": 1634.4078251591436,
+        "privacy": {"typeId": 2, "typeKey": "private"}, "requestorHasAccess": true,
+        "elapsedDuration": 19900.06640625, "minTemperature": 21.0, "lapCount": 13,
+        "averageHR": 96.0, "maxSpeed": 1.56850004196167, "moderateIntensityMinutes":
+        53, "vigorousIntensityMinutes": 123, "pr": false, "purposefull": false, "atpActivity":
+        false, "favorite": false, "parent": false}], "successful": true}, "AllDayHR":
+        {"requestUrl": "/wellness-service/wellness/dailyHeartRate", "statusCode":
+        200, "headers": {}, "errorMessage": null, "payload": {"userProfilePK": 113739130,
+        "calendarDate": "2025-03-31", "startTimestampGMT": "2025-03-30T22:00:00.0",
+        "endTimestampGMT": "2025-03-31T22:00:00.0", "startTimestampLocal": "2025-03-31T00:00:00.0",
+        "endTimestampLocal": "2025-04-01T00:00:00.0", "maxHeartRate": 136, "minHeartRate":
+        50, "restingHeartRate": 51, "lastSevenDaysAvgRestingHeartRate": 50, "heartRateValueDescriptors":
+        [{"key": "timestamp", "index": 0}, {"key": "heartrate", "index": 1}], "heartRateValues":
+        [[1743372000000, null], [1743402120000, 73], [1743402240000, 77], [1743402360000,
+        63], [1743402480000, 67], [1743402600000, 60], [1743402720000, 64], [1743402840000,
+        61], [1743402960000, 65], [1743403080000, 56], [1743403200000, 50], [1743403320000,
+        63], [1743403440000, 57], [1743403560000, 52], [1743403680000, 52], [1743403800000,
+        50], [1743403920000, 50], [1743404040000, 52], [1743404160000, 54], [1743404280000,
+        50], [1743404400000, 50], [1743404520000, 51], [1743404640000, 51], [1743404760000,
+        50], [1743404880000, 51], [1743405000000, 50], [1743405120000, 51], [1743405240000,
+        51], [1743405360000, 54], [1743405480000, 61], [1743405600000, 66], [1743405720000,
+        65], [1743405840000, 65], [1743405960000, 59], [1743406080000, 55], [1743406200000,
+        54], [1743406320000, 58], [1743406440000, 62], [1743406560000, 62], [1743406680000,
+        66], [1743406800000, 67], [1743406920000, 60], [1743407040000, 63], [1743407160000,
+        70], [1743407280000, 77], [1743407400000, 94], [1743407520000, 108], [1743407640000,
+        101], [1743407760000, 90], [1743407880000, 87], [1743408000000, 87], [1743408120000,
+        89], [1743408240000, 98], [1743408360000, 95], [1743408480000, 90], [1743408600000,
+        95], [1743408720000, 96], [1743408840000, 109], [1743408960000, 110], [1743409080000,
+        109], [1743409200000, 114], [1743409320000, 113], [1743409440000, 108], [1743409560000,
+        104], [1743409680000, 103], [1743409800000, 105], [1743409920000, 110], [1743410040000,
+        105], [1743410160000, 103], [1743410280000, 102], [1743410400000, 103], [1743410520000,
+        108], [1743410640000, 106], [1743410760000, 112], [1743410880000, 113], [1743411000000,
+        111], [1743411120000, 117], [1743411240000, 119], [1743411360000, 120], [1743411480000,
+        121], [1743411600000, 118], [1743411720000, 121], [1743411840000, 136], [1743411960000,
+        135], [1743412080000, 115], [1743412200000, 85], [1743412320000, 87], [1743412440000,
+        72], [1743412560000, 72], [1743412680000, 76], [1743412800000, 68], [1743412920000,
+        63], [1743413040000, 61], [1743413160000, 80], [1743413280000, 83], [1743413400000,
+        68], [1743413520000, 69], [1743413640000, 80], [1743413760000, 85], [1743413880000,
+        90], [1743414000000, 98], [1743414120000, 113], [1743414240000, 119], [1743414360000,
+        91], [1743414480000, 106], [1743414600000, 111], [1743414720000, 96], [1743414840000,
+        89], [1743414960000, 94], [1743415080000, 82], [1743415200000, 74], [1743415320000,
+        68], [1743415440000, 77], [1743415560000, 79], [1743415680000, 81], [1743415800000,
+        100], [1743415920000, 92], [1743416040000, 101], [1743416160000, 102], [1743416280000,
+        122], [1743416400000, 112], [1743416520000, 111], [1743416640000, 96], [1743416760000,
+        74], [1743416880000, 69], [1743417000000, 71], [1743417120000, 69], [1743417240000,
+        66], [1743417360000, 68], [1743417480000, 67], [1743417600000, 67], [1743417720000,
+        68], [1743417840000, 67], [1743417960000, 64], [1743418080000, 69], [1743418200000,
+        67], [1743418320000, 68], [1743418440000, 80], [1743418560000, 82], [1743418680000,
+        88], [1743418800000, 80], [1743418920000, 102], [1743419040000, 90], [1743419160000,
+        72], [1743419280000, 74], [1743419400000, 74], [1743419520000, 73], [1743419640000,
+        76], [1743419760000, 74], [1743419880000, 70], [1743420000000, 54], [1743420120000,
+        63], [1743420240000, 64], [1743420360000, 64], [1743420480000, 101], [1743420600000,
+        70], [1743420720000, 71], [1743420840000, 61], [1743420960000, 62], [1743421080000,
+        64], [1743421200000, 84], [1743421320000, 107], [1743421440000, 98], [1743421560000,
+        73], [1743421680000, 72], [1743421800000, 84], [1743421920000, 85], [1743422040000,
+        100], [1743422160000, 101], [1743422280000, 101], [1743422400000, 92], [1743422520000,
+        90], [1743422640000, 104], [1743422760000, 121], [1743422880000, 106], [1743423000000,
+        99], [1743423120000, 88], [1743423240000, 81], [1743423360000, 81], [1743423480000,
+        90], [1743423600000, 97], [1743423720000, 88], [1743423840000, 75], [1743423960000,
+        100], [1743424080000, 114], [1743424200000, 119], [1743424320000, 114], [1743424440000,
+        110], [1743424560000, 111], [1743424680000, 113], [1743424800000, 118], [1743424920000,
+        133], [1743425040000, 94], [1743425160000, 82], [1743425280000, 86], [1743425400000,
+        87], [1743425520000, 99], [1743425640000, 103], [1743425760000, 104], [1743425880000,
+        103], [1743426000000, 116], [1743426120000, 135], [1743426240000, 80], [1743426360000,
+        70], [1743426480000, 81], [1743426600000, 80], [1743426720000, 70], [1743426840000,
+        65], [1743426960000, 65], [1743427080000, 64], [1743427200000, 66], [1743427320000,
+        65], [1743427440000, 65], [1743427560000, 65], [1743427680000, 69], [1743427800000,
+        73], [1743427920000, 68], [1743428040000, 66], [1743428160000, 68], [1743428280000,
+        69], [1743428400000, 60], [1743428520000, 62], [1743428640000, 60], [1743428760000,
+        61], [1743428880000, 62], [1743429000000, 61], [1743429120000, 60], [1743429240000,
+        63], [1743429360000, 63], [1743429480000, 62], [1743429600000, 61], [1743429720000,
+        68], [1743429840000, 70], [1743429960000, 71], [1743430080000, 80], [1743430200000,
+        75]]}, "successful": true}, "SleepTimes": {"currentDaySleepEndTimeGMT": null,
+        "currentDaySleepStartTimeGMT": null, "nextDaySleepEndTimeGMT": null, "nextDaySleepStartTimeGMT":
+        null}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 12:51:22 GMT
+      Server:
+      - cloudflare
+      content-length:
+      - '6369'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2024-06-18
+  response:
+    body:
+      string: '{"ActivitiesForDay": {"requestUrl": "/activitylist-service/activities/fordailysummary/3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "statusCode": 200, "headers": {}, "errorMessage": null, "payload": [{"activityId":
+        15974223178, "activityName": "Bergamo Cycling", "startTimeLocal": "2024-06-18T10:24:51.0",
+        "startTimeGMT": "2024-06-18T08:24:51.0", "activityType": {"typeId": 2, "typeKey":
+        "cycling", "parentTypeId": 17, "isHidden": false, "restricted": false, "trimmable":
+        true}, "eventType": {"typeId": 9, "typeKey": "uncategorized", "sortOrder":
+        10}, "distance": 62270.12109375, "duration": 13562.37890625, "activeSplitSummaryDuration":
+        13562.37905883789, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "calories": 1597.0, "bmrCalories": 321.63558308919266, "activeCalories": 1275.3644169108074,
+        "privacy": {"typeId": 2, "typeKey": "private"}, "requestorHasAccess": true,
+        "elapsedDuration": 23251.44921875, "minTemperature": 25.0, "lapCount": 13,
+        "avgRespirationRate": 25.040000915527344, "averageHR": 98.0, "maxSpeed": 1.311900043487549,
+        "maxSplitDistance": 62270, "totalAscent": 1342.0, "moderateIntensityMinutes":
+        72, "vigorousIntensityMinutes": 80, "purposefull": false, "pr": false, "atpActivity":
+        false, "favorite": false, "parent": false}], "successful": true}, "AllDayHR":
+        {"requestUrl": "/wellness-service/wellness/dailyHeartRate", "statusCode":
+        200, "headers": {}, "errorMessage": null, "payload": {"userProfilePK": 113739130,
+        "calendarDate": "2024-06-18", "startTimestampGMT": "2024-06-17T22:00:00.0",
+        "endTimestampGMT": "2024-06-18T22:00:00.0", "startTimestampLocal": "2024-06-18T00:00:00.0",
+        "endTimestampLocal": "2024-06-19T00:00:00.0", "maxHeartRate": null, "minHeartRate":
+        null, "restingHeartRate": 52, "lastSevenDaysAvgRestingHeartRate": 49, "heartRateValueDescriptors":
+        null, "heartRateValues": null}, "successful": true}, "SleepTimes": {"currentDaySleepEndTimeGMT":
+        null, "currentDaySleepStartTimeGMT": null, "nextDaySleepEndTimeGMT": null,
+        "nextDaySleepStartTimeGMT": null}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 12:51:39 GMT
+      Server:
+      - cloudflare
+      content-length:
+      - '1886'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2023-11-26
+  response:
+    body:
+      string: '{"ActivitiesForDay": {"requestUrl": "/activitylist-service/activities/fordailysummary/3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "statusCode": 200, "headers": {}, "errorMessage": null, "payload": [{"activityId":
+        12877651519, "activityName": "Milan Running", "startTimeLocal": "2023-11-26T09:00:56.0",
+        "startTimeGMT": "2023-11-26T08:00:56.0", "activityType": {"typeId": 1, "typeKey":
+        "running", "parentTypeId": 17, "isHidden": false, "trimmable": true, "restricted":
+        false}, "eventType": {"typeId": 9, "typeKey": "uncategorized", "sortOrder":
+        10}, "distance": 21460.8203125, "duration": 5762.330078125, "activeSplitSummaryDuration":
+        5762.330078125, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "calories": 1443.0, "bmrCalories": 137.05542026095918, "activeCalories": 1305.9445797390408,
+        "steps": 16554, "privacy": {"typeId": 2, "typeKey": "private"}, "requestorHasAccess":
+        true, "elapsedDuration": 5762.330078125, "minTemperature": 17.0, "lapCount":
+        22, "avgRespirationRate": 35.900001525878906, "averageHR": 148.0, "maxSpeed":
+        0.5235000133514405, "maxSplitDistance": 21460, "noOfSplits": 1, "totalAscent":
+        34.0, "moderateIntensityMinutes": 0, "vigorousIntensityMinutes": 92, "pr":
+        false, "purposefull": false, "atpActivity": false, "favorite": false, "parent":
+        false}], "successful": true}, "AllDayHR": {"requestUrl": "/wellness-service/wellness/dailyHeartRate",
+        "statusCode": 200, "headers": {}, "errorMessage": null, "payload": {"userProfilePK":
+        113739130, "calendarDate": "2023-11-26", "startTimestampGMT": "2023-11-25T23:00:00.0",
+        "endTimestampGMT": "2023-11-26T23:00:00.0", "startTimestampLocal": "2023-11-26T00:00:00.0",
+        "endTimestampLocal": "2023-11-27T00:00:00.0", "maxHeartRate": null, "minHeartRate":
+        null, "restingHeartRate": 44, "lastSevenDaysAvgRestingHeartRate": 44, "heartRateValueDescriptors":
+        null, "heartRateValues": null}, "successful": true}, "SleepTimes": {"currentDaySleepEndTimeGMT":
+        null, "currentDaySleepStartTimeGMT": null, "nextDaySleepEndTimeGMT": null,
+        "nextDaySleepStartTimeGMT": null}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 12:51:45 GMT
+      Server:
+      - cloudflare
+      content-length:
+      - '1908'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2023-06-10
+  response:
+    body:
+      string: '{"ActivitiesForDay": {"requestUrl": "/activitylist-service/activities/fordailysummary/3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "statusCode": 200, "headers": {}, "errorMessage": null, "payload": [{"activityId":
+        11313479371, "activityName": "Selva di Val Gardena Mountain Biking", "startTimeLocal":
+        "2023-06-10T08:31:11.0", "startTimeGMT": "2023-06-10T06:31:11.0", "activityType":
+        {"typeId": 5, "typeKey": "mountain_biking", "parentTypeId": 2, "isHidden":
+        false, "restricted": false, "trimmable": true}, "eventType": {"typeId": 9,
+        "typeKey": "uncategorized", "sortOrder": 10}, "distance": 46988.6484375, "duration":
+        13600.1298828125, "activeSplitSummaryDuration": 13600.129974365234, "ownerId":
+        113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "calories":
+        2071.0, "bmrCalories": 323.47531144883897, "activeCalories": 1747.524688551161,
+        "privacy": {"typeId": 2, "typeKey": "private"}, "requestorHasAccess": true,
+        "elapsedDuration": 20814.650390625, "minTemperature": 20.0, "lapCount": 10,
+        "avgRespirationRate": 29.549999237060547, "averageHR": 121.0, "maxSpeed":
+        1.6813999176025392, "maxSplitDistance": 46988, "totalAscent": 1598.0, "moderateIntensityMinutes":
+        49, "vigorousIntensityMinutes": 141, "atpActivity": false, "favorite": false,
+        "pr": false, "purposefull": false, "parent": false}], "successful": true},
+        "AllDayHR": {"requestUrl": "/wellness-service/wellness/dailyHeartRate", "statusCode":
+        200, "headers": {}, "errorMessage": null, "payload": {"userProfilePK": 113739130,
+        "calendarDate": "2023-06-10", "startTimestampGMT": "2023-06-09T22:00:00.0",
+        "endTimestampGMT": "2023-06-10T22:00:00.0", "startTimestampLocal": "2023-06-10T00:00:00.0",
+        "endTimestampLocal": "2023-06-11T00:00:00.0", "maxHeartRate": null, "minHeartRate":
+        null, "restingHeartRate": 41, "lastSevenDaysAvgRestingHeartRate": 38, "heartRateValueDescriptors":
+        null, "heartRateValues": null}, "successful": true}, "SleepTimes": {"currentDaySleepEndTimeGMT":
+        1686369180000, "currentDaySleepStartTimeGMT": 1686349140000, "nextDaySleepEndTimeGMT":
+        1686458760000, "nextDaySleepStartTimeGMT": 1686432300000}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 12:51:49 GMT
+      Server:
+      - cloudflare
+      content-length:
+      - '1955'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2025-03-25
+  response:
+    body:
+      string: '{"ActivitiesForDay": {"requestUrl": "/activitylist-service/activities/fordailysummary/3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "statusCode": 200, "headers": {}, "errorMessage": null, "payload": [{"activityId":
+        18633237715, "activityName": "Colere Snowboard", "startTimeLocal": "2025-03-25T09:33:05.0",
+        "startTimeGMT": "2025-03-25T08:33:05.0", "activityType": {"typeId": 252, "typeKey":
+        "resort_snowboarding", "parentTypeId": 165, "isHidden": false, "trimmable":
+        true, "restricted": false}, "eventType": {"typeId": 9, "typeKey": "uncategorized",
+        "sortOrder": 10}, "distance": 52362.03125, "duration": 23167.193359375, "activeSplitSummaryDuration":
+        15984.1650390625, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "calories": 2083.0, "bmrCalories": 557.7287290219907, "activeCalories": 1525.2712709780094,
+        "privacy": {"typeId": 2, "typeKey": "private"}, "requestorHasAccess": true,
+        "elapsedDuration": 23167.193359375, "minTemperature": 24.0, "lapCount": 16,
+        "averageHR": 80.0, "maxSpeed": 1.5864999771118165, "maxSplitDistance": 6376,
+        "noOfSplits": 15, "totalAscent": 85.0, "moderateIntensityMinutes": 130, "vigorousIntensityMinutes":
+        59, "purposefull": false, "pr": false, "favorite": false, "atpActivity": false,
+        "parent": false}], "successful": true}, "AllDayHR": {"requestUrl": "/wellness-service/wellness/dailyHeartRate",
+        "statusCode": 200, "headers": {}, "errorMessage": null, "payload": {"userProfilePK":
+        113739130, "calendarDate": "2025-03-25", "startTimestampGMT": "2025-03-24T23:00:00.0",
+        "endTimestampGMT": "2025-03-25T23:00:00.0", "startTimestampLocal": "2025-03-25T00:00:00.0",
+        "endTimestampLocal": "2025-03-26T00:00:00.0", "maxHeartRate": 121, "minHeartRate":
+        49, "restingHeartRate": 54, "lastSevenDaysAvgRestingHeartRate": 50, "heartRateValueDescriptors":
+        [{"key": "timestamp", "index": 0}, {"key": "heartrate", "index": 1}], "heartRateValues":
+        [[1742857200000, null], [1742882520000, 96], [1742882640000, 97], [1742882760000,
+        94], [1742882880000, 68], [1742883000000, 66], [1742883120000, 62], [1742883240000,
+        69], [1742883360000, 56], [1742883480000, 58], [1742883600000, 53], [1742883720000,
+        53], [1742883840000, 62], [1742883960000, 52], [1742884080000, 53], [1742884200000,
+        54], [1742884320000, 54], [1742884440000, 54], [1742884560000, 55], [1742884680000,
+        54], [1742884800000, 54], [1742884920000, 56], [1742885040000, 59], [1742885160000,
+        57], [1742885280000, 55], [1742885400000, 57], [1742885520000, 55], [1742885640000,
+        56], [1742885760000, 55], [1742885880000, 56], [1742886000000, 56], [1742886120000,
+        66], [1742886240000, 60], [1742886360000, 56], [1742886480000, 57], [1742886600000,
+        57], [1742886720000, 58], [1742886840000, 61], [1742886960000, 62], [1742887080000,
+        60], [1742887200000, 56], [1742887320000, 59], [1742887440000, 57], [1742887560000,
+        57], [1742887680000, 56], [1742887800000, 56], [1742887920000, 60], [1742888040000,
+        57], [1742888160000, 60], [1742888280000, 55], [1742888400000, 56], [1742888520000,
+        55], [1742888640000, 54], [1742888760000, 55], [1742888880000, 54], [1742889000000,
+        54], [1742889120000, 55], [1742889240000, 60], [1742889360000, 64], [1742889480000,
+        61], [1742889600000, 65], [1742889720000, 76], [1742889840000, 79], [1742889960000,
+        85], [1742890080000, 76], [1742890200000, 66], [1742890320000, 75], [1742890440000,
+        67], [1742890560000, 70], [1742890680000, 58], [1742890800000, 67], [1742890920000,
+        74], [1742891040000, 74], [1742891160000, 79], [1742891280000, 70], [1742891400000,
+        63], [1742891520000, 69], [1742891640000, 88], [1742891760000, 97], [1742891880000,
+        80], [1742892000000, 86], [1742892120000, 60], [1742892240000, 61], [1742892360000,
+        62], [1742892480000, 70], [1742892600000, 96], [1742892720000, 86], [1742892840000,
+        96], [1742892960000, 96], [1742893080000, 102], [1742893200000, 75], [1742893320000,
+        62], [1742893440000, 71], [1742893560000, 98], [1742893680000, 92], [1742893800000,
+        98], [1742893920000, 66], [1742894040000, 63], [1742894160000, 61], [1742894280000,
+        69], [1742894400000, 88], [1742894520000, 77], [1742894640000, 72], [1742894760000,
+        83], [1742894880000, 76], [1742895000000, 63], [1742895120000, 60], [1742895240000,
+        66], [1742895360000, 85], [1742895480000, 98], [1742895600000, 93], [1742895720000,
+        97], [1742895840000, 93], [1742895960000, 72], [1742896080000, 69], [1742896200000,
+        65], [1742896320000, 75], [1742896440000, 104], [1742896560000, 101], [1742896680000,
+        84], [1742896800000, 99], [1742896920000, 78], [1742897040000, 64], [1742897160000,
+        63], [1742897280000, 63], [1742897400000, 69], [1742897520000, 109], [1742897640000,
+        109], [1742897760000, 116], [1742897880000, 107], [1742898000000, 95], [1742898120000,
+        98], [1742898240000, 76], [1742898360000, 78], [1742898480000, 71], [1742898600000,
+        75], [1742898720000, 92], [1742898840000, 89], [1742898960000, 77], [1742899080000,
+        112], [1742899200000, 121], [1742899320000, 104], [1742899440000, 82], [1742899560000,
+        73], [1742899680000, 87], [1742899800000, 82], [1742899920000, 66], [1742900040000,
+        61], [1742900160000, 64], [1742900280000, 79], [1742900400000, 95], [1742900520000,
+        76], [1742900640000, 89], [1742900760000, 103], [1742900880000, 92], [1742901000000,
+        99], [1742901120000, 90], [1742901240000, 90], [1742901360000, 73], [1742901480000,
+        63], [1742901600000, 61], [1742901720000, 80], [1742901840000, 104], [1742901960000,
+        72], [1742902080000, 74], [1742902200000, 71], [1742902320000, 90], [1742902440000,
+        64], [1742902560000, 58], [1742902680000, 58], [1742902800000, 59], [1742902920000,
+        82], [1742903040000, 78], [1742903160000, 79], [1742903280000, 71], [1742903400000,
+        68], [1742903520000, 70], [1742903640000, 70], [1742903760000, 71], [1742903880000,
+        68], [1742904000000, 72], [1742904120000, 69], [1742904240000, 68], [1742904360000,
+        66], [1742904480000, 66], [1742904600000, 73], [1742904720000, 82], [1742904840000,
+        79], [1742904960000, 70], [1742905080000, 70], [1742905200000, 67], [1742905320000,
+        66], [1742905440000, 72], [1742905560000, 75], [1742905680000, 66], [1742905800000,
+        65], [1742905920000, 73], [1742906040000, 67], [1742906160000, 67], [1742906280000,
+        87], [1742906400000, 85], [1742906520000, 102], [1742906640000, 88], [1742906760000,
+        87], [1742906880000, 92], [1742907000000, 63], [1742907120000, 67], [1742907240000,
+        66], [1742907360000, 70], [1742907480000, 106], [1742907600000, 103], [1742907720000,
+        93], [1742907840000, 98], [1742907960000, 100], [1742908080000, 91], [1742908200000,
+        81], [1742908320000, 74], [1742908440000, 78], [1742908560000, 75], [1742908680000,
+        78], [1742908800000, 96], [1742908920000, 93], [1742909040000, 74], [1742909160000,
+        66], [1742909280000, 70], [1742909400000, 91], [1742909520000, 97], [1742909640000,
+        103], [1742909760000, 78], [1742909880000, 65], [1742910000000, 66], [1742910120000,
+        65], [1742910240000, 81], [1742910360000, 85], [1742910480000, 88], [1742910600000,
+        94], [1742910720000, 72], [1742910840000, 66], [1742910960000, 73], [1742911080000,
+        65], [1742911200000, 85], [1742911320000, 83], [1742911440000, 78], [1742911560000,
+        73], [1742911680000, 87], [1742911800000, 89], [1742911920000, 75], [1742912040000,
+        82], [1742912160000, 85], [1742912280000, 86], [1742912400000, 69], [1742912520000,
+        61], [1742912640000, 61], [1742912760000, 72], [1742912880000, 83], [1742913000000,
+        82], [1742913120000, 75], [1742913240000, 96], [1742913360000, 89], [1742913480000,
+        86], [1742913600000, 62], [1742913720000, 57], [1742913840000, 72], [1742913960000,
+        85], [1742914080000, 96], [1742914200000, 86], [1742914320000, 83], [1742914440000,
+        59], [1742914560000, 60], [1742914680000, 60], [1742914800000, 60], [1742914920000,
+        59], [1742915040000, 58], [1742915160000, 60], [1742915280000, 60], [1742915400000,
+        60], [1742915520000, 61], [1742915640000, 65], [1742915760000, 61], [1742915880000,
+        54], [1742916000000, 57], [1742916120000, 56], [1742916240000, 55], [1742916360000,
+        56], [1742916480000, 54], [1742916600000, 54], [1742916720000, 58], [1742916840000,
+        58], [1742916960000, 57], [1742917080000, 55], [1742917200000, 62], [1742917320000,
+        57], [1742917440000, 54], [1742917560000, 53], [1742917680000, 50], [1742917800000,
+        53], [1742917920000, 49], [1742918040000, 55], [1742918160000, 58], [1742918280000,
+        52], [1742918400000, 54], [1742918520000, 53], [1742918640000, 53], [1742918760000,
+        56], [1742918880000, 55], [1742919000000, 76], [1742919120000, 57], [1742919240000,
+        57], [1742919360000, 58], [1742919480000, 53], [1742919600000, 58], [1742919720000,
+        61], [1742919840000, 54], [1742919960000, 54], [1742920080000, 61], [1742920200000,
+        73], [1742920320000, 77], [1742920440000, 75], [1742920560000, null], [1742934960000,
+        70]]}, "successful": true}, "SleepTimes": {"currentDaySleepEndTimeGMT": null,
+        "currentDaySleepStartTimeGMT": null, "nextDaySleepEndTimeGMT": null, "nextDaySleepStartTimeGMT":
+        null}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 12:51:53 GMT
+      Server:
+      - cloudflare
+      content-length:
+      - '8026'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2025-04-18
+  response:
+    body:
+      string: '{"ActivitiesForDay": {"requestUrl": "/activitylist-service/activities/fordailysummary/3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "statusCode": 200, "headers": {}, "errorMessage": null, "payload": [{"activityId":
+        18861865288, "activityName": "Bergamo - 5x40s", "startTimeLocal": "2025-04-18T09:17:00.0",
+        "startTimeGMT": "2025-04-18T07:17:00.0", "activityType": {"typeId": 5, "typeKey":
+        "mountain_biking", "parentTypeId": 2, "isHidden": false, "trimmable": true,
+        "restricted": false}, "eventType": {"typeId": 9, "typeKey": "uncategorized",
+        "sortOrder": 10}, "distance": 39593.01953125, "duration": 8225.34765625, "activeSplitSummaryDuration":
+        5415.84716796875, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "calories": 1123.0, "bmrCalories": 199.16003815827548, "activeCalories": 923.8399618417245,
+        "privacy": {"typeId": 3, "typeKey": "subscribers"}, "requestorHasAccess":
+        true, "elapsedDuration": 11261.044921875, "minTemperature": 17.0, "lapCount":
+        16, "workoutId": 1190415244, "avgRespirationRate": 26.84000015258789, "averageHR":
+        93.0, "maxSpeed": 1.2699000358581545, "maxSplitDistance": 19819, "noOfSplits":
+        7, "totalAscent": 187.0, "moderateIntensityMinutes": 42, "vigorousIntensityMinutes":
+        55, "purposefull": false, "atpActivity": false, "favorite": false, "pr": false,
+        "parent": false}], "successful": true}, "AllDayHR": {"requestUrl": "/wellness-service/wellness/dailyHeartRate",
+        "statusCode": 200, "headers": {}, "errorMessage": null, "payload": {"userProfilePK":
+        113739130, "calendarDate": "2025-04-18", "startTimestampGMT": "2025-04-17T22:00:00.0",
+        "endTimestampGMT": "2025-04-18T22:00:00.0", "startTimestampLocal": "2025-04-18T00:00:00.0",
+        "endTimestampLocal": "2025-04-19T00:00:00.0", "maxHeartRate": 135, "minHeartRate":
+        36, "restingHeartRate": 37, "lastSevenDaysAvgRestingHeartRate": 37, "heartRateValueDescriptors":
+        [{"key": "timestamp", "index": 0}, {"key": "heartrate", "index": 1}], "heartRateValues":
+        [[1744927200000, 44], [1744927320000, 40], [1744927440000, 41], [1744927560000,
+        38], [1744927680000, 38], [1744927800000, 41], [1744927920000, 38], [1744928040000,
+        37], [1744928160000, 38], [1744928280000, 37], [1744928400000, 37], [1744928520000,
+        38], [1744928640000, 38], [1744928760000, 37], [1744928880000, 38], [1744929000000,
+        37], [1744929120000, 37], [1744929240000, 37], [1744929360000, 37], [1744929480000,
+        38], [1744929600000, 38], [1744929720000, 38], [1744929840000, 38], [1744929960000,
+        42], [1744930080000, 40], [1744930200000, 40], [1744930320000, 46], [1744930440000,
+        46], [1744930560000, 42], [1744930680000, 42], [1744930800000, 42], [1744930920000,
+        40], [1744931040000, 40], [1744931160000, 40], [1744931280000, 38], [1744931400000,
+        38], [1744931520000, 38], [1744931640000, 38], [1744931760000, 37], [1744931880000,
+        38], [1744932000000, 38], [1744932120000, 38], [1744932240000, 38], [1744932360000,
+        38], [1744932480000, 37], [1744932600000, 37], [1744932720000, 38], [1744932840000,
+        38], [1744932960000, 38], [1744933080000, 37], [1744933200000, 37], [1744933320000,
+        38], [1744933440000, 37], [1744933560000, 38], [1744933680000, 38], [1744933800000,
+        40], [1744933920000, 41], [1744934040000, 38], [1744934160000, 38], [1744934280000,
+        40], [1744934400000, 38], [1744934520000, 38], [1744934640000, 39], [1744934760000,
+        43], [1744934880000, 46], [1744935000000, 49], [1744935120000, 41], [1744935240000,
+        44], [1744935360000, 45], [1744935480000, 49], [1744935600000, 39], [1744935720000,
+        40], [1744935840000, 40], [1744935960000, 40], [1744936080000, 38], [1744936200000,
+        38], [1744936320000, 38], [1744936440000, 42], [1744936560000, 39], [1744936680000,
+        38], [1744936800000, 40], [1744936920000, 38], [1744937040000, 38], [1744937160000,
+        37], [1744937280000, 36], [1744937400000, 38], [1744937520000, 38], [1744937640000,
+        38], [1744937760000, 37], [1744937880000, 38], [1744938000000, 39], [1744938120000,
+        37], [1744938240000, 38], [1744938360000, 37], [1744938480000, 42], [1744938600000,
+        40], [1744938720000, 38], [1744938840000, 37], [1744938960000, 39], [1744939080000,
+        41], [1744939200000, 44], [1744939320000, 43], [1744939440000, 41], [1744939560000,
+        43], [1744939680000, 42], [1744939800000, 42], [1744939920000, 42], [1744940040000,
+        41], [1744940160000, 38], [1744940280000, 37], [1744940400000, 40], [1744940520000,
+        37], [1744940640000, 37], [1744940760000, 37], [1744940880000, 37], [1744941000000,
+        37], [1744941120000, 38], [1744941240000, 37], [1744941360000, 38], [1744941480000,
+        38], [1744941600000, 38], [1744941720000, 39], [1744941840000, 39], [1744941960000,
+        39], [1744942080000, 39], [1744942200000, 38], [1744942320000, 38], [1744942440000,
+        39], [1744942560000, 42], [1744942680000, 42], [1744942800000, 42], [1744942920000,
+        42], [1744943040000, 46], [1744943160000, 42], [1744943280000, 42], [1744943400000,
+        41], [1744943520000, 40], [1744943640000, 39], [1744943760000, 42], [1744943880000,
+        42], [1744944000000, 41], [1744944120000, 39], [1744944240000, 41], [1744944360000,
+        39], [1744944480000, 37], [1744944600000, 37], [1744944720000, 37], [1744944840000,
+        37], [1744944960000, 37], [1744945080000, 37], [1744945200000, 38], [1744945320000,
+        37], [1744945440000, 38], [1744945560000, 38], [1744945680000, 38], [1744945800000,
+        38], [1744945920000, 38], [1744946040000, 38], [1744946160000, 38], [1744946280000,
+        38], [1744946400000, 38], [1744946520000, 39], [1744946640000, 38], [1744946760000,
+        38], [1744946880000, 39], [1744947000000, 42], [1744947120000, 40], [1744947240000,
+        39], [1744947360000, 39], [1744947480000, 40], [1744947600000, 39], [1744947720000,
+        37], [1744947840000, 38], [1744947960000, 40], [1744948080000, 43], [1744948200000,
+        41], [1744948320000, 41], [1744948440000, 45], [1744948560000, 39], [1744948680000,
+        40], [1744948800000, 40], [1744948920000, 41], [1744949040000, 40], [1744949160000,
+        42], [1744949280000, 39], [1744949400000, 37], [1744949520000, 37], [1744949640000,
+        39], [1744949760000, 38], [1744949880000, 40], [1744950000000, 38], [1744950120000,
+        39], [1744950240000, 40], [1744950360000, 38], [1744950480000, 37], [1744950600000,
+        38], [1744950720000, 38], [1744950840000, 37], [1744950960000, 37], [1744951080000,
+        37], [1744951200000, 38], [1744951320000, 38], [1744951440000, 38], [1744951560000,
+        38], [1744951680000, 38], [1744951800000, 38], [1744951920000, 38], [1744952040000,
+        38], [1744952160000, 38], [1744952280000, 38], [1744952400000, 38], [1744952520000,
+        48], [1744952640000, 41], [1744952760000, 46], [1744952880000, 60], [1744953000000,
+        55], [1744953120000, 55], [1744953240000, 50], [1744953360000, 50], [1744953480000,
+        57], [1744953600000, 58], [1744953720000, 55], [1744953840000, 50], [1744953960000,
+        47], [1744954080000, 46], [1744954200000, 49], [1744954320000, 50], [1744954440000,
+        51], [1744954560000, 53], [1744954680000, 57], [1744954800000, 52], [1744954920000,
+        53], [1744955040000, 57], [1744955160000, 55], [1744955280000, 54], [1744955400000,
+        54], [1744955520000, 63], [1744955640000, 63], [1744955760000, 61], [1744955880000,
+        66], [1744956000000, 73], [1744956120000, 71], [1744956240000, 77], [1744956360000,
+        78], [1744956480000, 54], [1744956600000, 60], [1744956720000, 55], [1744956840000,
+        63], [1744956960000, 73], [1744957080000, 57], [1744957200000, 54], [1744957320000,
+        52], [1744957440000, 54], [1744957560000, 52], [1744957680000, 53], [1744957800000,
+        55], [1744957920000, 52], [1744958040000, 54], [1744958160000, 53], [1744958280000,
+        57], [1744958400000, 51], [1744958520000, 49], [1744958640000, 53], [1744958760000,
+        53], [1744958880000, 51], [1744959000000, 51], [1744959120000, 51], [1744959240000,
+        51], [1744959360000, 51], [1744959480000, 53], [1744959600000, 56], [1744959720000,
+        62], [1744959840000, 62], [1744959960000, 70], [1744960080000, 59], [1744960200000,
+        56], [1744960320000, 54], [1744960440000, 51], [1744960560000, 54], [1744960680000,
+        67], [1744960800000, 71], [1744960920000, 76], [1744961040000, 68], [1744961160000,
+        84], [1744961280000, 78], [1744961400000, 76], [1744961520000, 71], [1744961640000,
+        76], [1744961760000, 69], [1744961880000, 81], [1744962000000, 73], [1744962120000,
+        80], [1744962240000, 76], [1744962360000, 77], [1744962480000, 76], [1744962600000,
+        74], [1744962720000, 65], [1744962840000, 74], [1744962960000, 63], [1744963080000,
+        59], [1744963200000, 70], [1744963320000, 102], [1744963440000, 114], [1744963560000,
+        123], [1744963680000, 121], [1744963800000, 125], [1744963920000, 125], [1744964040000,
+        118], [1744964160000, 125], [1744964280000, 121], [1744964400000, 121], [1744964520000,
+        125], [1744964640000, 91], [1744964760000, 123], [1744964880000, 125], [1744965000000,
+        127], [1744965120000, 130], [1744965240000, 129], [1744965360000, 128], [1744965480000,
+        126], [1744965600000, 130], [1744965720000, 126], [1744965840000, 132], [1744965960000,
+        129], [1744966080000, 131], [1744966200000, 135], [1744966320000, 132], [1744966440000,
+        135], [1744966560000, 91], [1744966680000, 79], [1744966800000, 77], [1744966920000,
+        75], [1744967040000, 72], [1744967160000, 70], [1744967280000, 70], [1744967400000,
+        70], [1744967520000, 68], [1744967640000, 68], [1744967760000, 65], [1744967880000,
+        64], [1744968000000, 63], [1744968120000, 64], [1744968240000, 61], [1744968360000,
+        62], [1744968480000, 66], [1744968600000, 69], [1744968720000, 65], [1744968840000,
+        61], [1744968960000, 62], [1744969080000, 61], [1744969200000, 63], [1744969320000,
+        64], [1744969440000, 62], [1744969560000, 62], [1744969680000, 62], [1744969800000,
+        61], [1744969920000, 59], [1744970040000, 67], [1744970160000, 71], [1744970280000,
+        73], [1744970400000, 72], [1744970520000, 70], [1744970640000, 70], [1744970760000,
+        74], [1744970880000, 74], [1744971000000, 88], [1744971120000, 78], [1744971240000,
+        85], [1744971360000, 80], [1744971480000, 78], [1744971600000, 70], [1744971720000,
+        98], [1744971840000, 99], [1744971960000, 84], [1744972080000, 68], [1744972200000,
+        72], [1744972320000, 71], [1744972440000, 103], [1744972560000, 95], [1744972680000,
+        71], [1744972800000, 66], [1744972920000, 64], [1744973040000, 64], [1744973160000,
+        53], [1744973280000, 56], [1744973400000, 54], [1744973520000, 64], [1744973640000,
+        56], [1744973760000, 53], [1744973880000, 58], [1744974000000, 55], [1744974120000,
+        55], [1744974240000, 50], [1744974360000, 52], [1744974480000, 50], [1744974600000,
+        52], [1744974720000, 53], [1744974840000, 54], [1744974960000, 53], [1744975080000,
+        55], [1744975200000, 55], [1744975320000, 56], [1744975440000, 67], [1744975560000,
+        64], [1744975680000, 66], [1744975800000, 65], [1744975920000, 55], [1744976040000,
+        69], [1744976160000, 75], [1744976280000, null], [1744992480000, 80], [1744992600000,
+        75], [1744992720000, 60], [1744992840000, 63], [1744992960000, null], [1744998120000,
+        69], [1744998240000, 54], [1744998360000, 51], [1744998480000, 54], [1744998600000,
+        54], [1744998720000, 52], [1744998840000, 51], [1744998960000, 52], [1744999080000,
+        51], [1744999200000, 56], [1744999320000, 72], [1744999440000, 75], [1744999560000,
+        78], [1744999680000, null], [1745008200000, 79], [1745008320000, 83], [1745008440000,
+        58], [1745008560000, 59], [1745008680000, 47], [1745008800000, 41], [1745008920000,
+        39], [1745009040000, 44], [1745009160000, 53], [1745009280000, 46], [1745009400000,
+        47], [1745009520000, 47], [1745009640000, 48], [1745009760000, 48], [1745009880000,
+        46], [1745010000000, 50], [1745010120000, 48], [1745010240000, 50], [1745010360000,
+        50], [1745010480000, 47], [1745010600000, 42], [1745010720000, 45], [1745010840000,
+        48], [1745010960000, 48], [1745011080000, 46], [1745011200000, 46], [1745011320000,
+        47], [1745011440000, 53], [1745011560000, 62], [1745011680000, 62], [1745011800000,
+        55], [1745011920000, 49], [1745012040000, 46], [1745012160000, 46], [1745012280000,
+        47], [1745012400000, 46], [1745012520000, 47], [1745012640000, 46], [1745012760000,
+        45], [1745012880000, 47], [1745013000000, 47], [1745013120000, 45], [1745013240000,
+        45], [1745013360000, 47], [1745013480000, 43]]}, "successful": true}, "SleepTimes":
+        {"currentDaySleepEndTimeGMT": 1744952518000, "currentDaySleepStartTimeGMT":
+        1744926718000, "nextDaySleepEndTimeGMT": 1745045973000, "nextDaySleepStartTimeGMT":
+        1745017773000}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 12:51:57 GMT
+      Server:
+      - cloudflare
+      content-length:
+      - '11058'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2025-03-22
+  response:
+    body:
+      string: '{"ActivitiesForDay": {"requestUrl": "/activitylist-service/activities/fordailysummary/3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "statusCode": 200, "headers": {}, "errorMessage": null, "payload": [{"activityId":
+        18603794245, "activityName": "Strength", "startTimeLocal": "2025-03-22T12:06:14.0",
+        "startTimeGMT": "2025-03-22T11:06:14.0", "activityType": {"typeId": 13, "typeKey":
+        "strength_training", "parentTypeId": 29, "isHidden": false, "restricted":
+        false, "trimmable": false}, "eventType": {"typeId": 9, "typeKey": "uncategorized",
+        "sortOrder": 10}, "distance": 0.0, "duration": 5267.6572265625, "ownerId":
+        113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "calories":
+        410.0, "bmrCalories": 126.81397026909723, "activeCalories": 283.18602973090276,
+        "steps": 428, "privacy": {"typeId": 2, "typeKey": "private"}, "requestorHasAccess":
+        true, "elapsedDuration": 5267.6572265625, "minTemperature": 31.0, "lapCount":
+        1, "averageHR": 72.0, "activeSets": 21, "moderateIntensityMinutes": 38, "vigorousIntensityMinutes":
+        3, "purposefull": false, "pr": false, "parent": false, "favorite": false,
+        "atpActivity": false}, {"activityId": 18606916834, "activityName": "Limone
+        Piemonte Trail Running", "startTimeLocal": "2025-03-22T17:04:36.0", "startTimeGMT":
+        "2025-03-22T16:04:36.0", "activityType": {"typeId": 6, "typeKey": "trail_running",
+        "parentTypeId": 1, "isHidden": false, "restricted": false, "trimmable": true},
+        "eventType": {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "distance":
+        10803.7001953125, "duration": 4177.955078125, "activeSplitSummaryDuration":
+        4177.955078125, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "calories": 951.0, "bmrCalories": 100.58040002893519, "activeCalories": 850.4195999710648,
+        "steps": 11150, "privacy": {"typeId": 2, "typeKey": "private"}, "requestorHasAccess":
+        true, "elapsedDuration": 4177.955078125, "minTemperature": 12.0, "lapCount":
+        11, "averageHR": 121.0, "maxSpeed": 0.440399980545044, "maxSplitDistance":
+        10803, "noOfSplits": 1, "totalAscent": 514.0, "moderateIntensityMinutes":
+        1, "vigorousIntensityMinutes": 44, "purposefull": false, "pr": false, "parent":
+        false, "favorite": false, "atpActivity": false}], "successful": true}, "AllDayHR":
+        {"requestUrl": "/wellness-service/wellness/dailyHeartRate", "statusCode":
+        200, "headers": {}, "errorMessage": null, "payload": {"userProfilePK": 113739130,
+        "calendarDate": "2025-03-22", "startTimestampGMT": "2025-03-21T23:00:00.0",
+        "endTimestampGMT": "2025-03-22T23:00:00.0", "startTimestampLocal": "2025-03-22T00:00:00.0",
+        "endTimestampLocal": "2025-03-23T00:00:00.0", "maxHeartRate": 137, "minHeartRate":
+        53, "restingHeartRate": 50, "lastSevenDaysAvgRestingHeartRate": 47, "heartRateValueDescriptors":
+        [{"key": "timestamp", "index": 0}, {"key": "heartrate", "index": 1}], "heartRateValues":
+        [[1742598000000, null], [1742624040000, 77], [1742624160000, 92], [1742624280000,
+        95], [1742624400000, 63], [1742624520000, 63], [1742624640000, 59], [1742624760000,
+        57], [1742624880000, 67], [1742625000000, 59], [1742625120000, 61], [1742625240000,
+        61], [1742625360000, 59], [1742625480000, 61], [1742625600000, 60], [1742625720000,
+        61], [1742625840000, 57], [1742625960000, 74], [1742626080000, 68], [1742626200000,
+        60], [1742626320000, 62], [1742626440000, 67], [1742626560000, 65], [1742626680000,
+        64], [1742626800000, 64], [1742626920000, 58], [1742627040000, 58], [1742627160000,
+        58], [1742627280000, 56], [1742627400000, 64], [1742627520000, 71], [1742627640000,
+        65], [1742627760000, 56], [1742627880000, 57], [1742628000000, 58], [1742628120000,
+        56], [1742628240000, 56], [1742628360000, 57], [1742628480000, 58], [1742628600000,
+        58], [1742628720000, 57], [1742628840000, 56], [1742628960000, 55], [1742629080000,
+        58], [1742629200000, 56], [1742629320000, 60], [1742629440000, 59], [1742629560000,
+        56], [1742629680000, 55], [1742629800000, 58], [1742629920000, 57], [1742630040000,
+        56], [1742630160000, 57], [1742630280000, 56], [1742630400000, 58], [1742630520000,
+        63], [1742630640000, 62], [1742630760000, 56], [1742630880000, 63], [1742631000000,
+        72], [1742631120000, 67], [1742631240000, 64], [1742631360000, 59], [1742631480000,
+        55], [1742631600000, 54], [1742631720000, 55], [1742631840000, 56], [1742631960000,
+        57], [1742632080000, 53], [1742632200000, 53], [1742632320000, 55], [1742632440000,
+        56], [1742632560000, 62], [1742632680000, 55], [1742632800000, 55], [1742632920000,
+        63], [1742633040000, 70], [1742633160000, 59], [1742633280000, 59], [1742633400000,
+        55], [1742633520000, 56], [1742633640000, 67], [1742633760000, 65], [1742633880000,
+        58], [1742634000000, 61], [1742634120000, 62], [1742634240000, 65], [1742634360000,
+        63], [1742634480000, 69], [1742634600000, 68], [1742634720000, 62], [1742634840000,
+        69], [1742634960000, 73], [1742635080000, 69], [1742635200000, 71], [1742635320000,
+        78], [1742635440000, 77], [1742635560000, 78], [1742635680000, 77], [1742635800000,
+        77], [1742635920000, 71], [1742636040000, 74], [1742636160000, 83], [1742636280000,
+        85], [1742636400000, 64], [1742636520000, 74], [1742636640000, 79], [1742636760000,
+        97], [1742636880000, 74], [1742637000000, 70], [1742637120000, 67], [1742637240000,
+        70], [1742637360000, 77], [1742637480000, 79], [1742637600000, 76], [1742637720000,
+        59], [1742637840000, 62], [1742637960000, 66], [1742638080000, 64], [1742638200000,
+        67], [1742638320000, 80], [1742638440000, 78], [1742638560000, 62], [1742638680000,
+        73], [1742638800000, 61], [1742638920000, 57], [1742639040000, 56], [1742639160000,
+        61], [1742639280000, 59], [1742639400000, 55], [1742639520000, 55], [1742639640000,
+        54], [1742639760000, 56], [1742639880000, 75], [1742640000000, 84], [1742640120000,
+        77], [1742640240000, 81], [1742640360000, 87], [1742640480000, 87], [1742640600000,
+        67], [1742640720000, 69], [1742640840000, 62], [1742640960000, 60], [1742641080000,
+        63], [1742641200000, 72], [1742641320000, 72], [1742641440000, 66], [1742641560000,
+        61], [1742641680000, 79], [1742641800000, 97], [1742641920000, 59], [1742642040000,
+        65], [1742642160000, 66], [1742642280000, 64], [1742642400000, 56], [1742642520000,
+        70], [1742642640000, 71], [1742642760000, 68], [1742642880000, 73], [1742643000000,
+        72], [1742643120000, 76], [1742643240000, 68], [1742643360000, 77], [1742643480000,
+        62], [1742643600000, 77], [1742643720000, 76], [1742643840000, 65], [1742643960000,
+        80], [1742644080000, 70], [1742644200000, 78], [1742644320000, 77], [1742644440000,
+        74], [1742644560000, 83], [1742644680000, 66], [1742644800000, 70], [1742644920000,
+        80], [1742645040000, 66], [1742645160000, 65], [1742645280000, 81], [1742645400000,
+        70], [1742645520000, 81], [1742645640000, 72], [1742645760000, 67], [1742645880000,
+        73], [1742646000000, 81], [1742646120000, 72], [1742646240000, 77], [1742646360000,
+        62], [1742646480000, 70], [1742646600000, 82], [1742646720000, 68], [1742646840000,
+        71], [1742646960000, 77], [1742647080000, 71], [1742647200000, 76], [1742647320000,
+        70], [1742647440000, 77], [1742647560000, 74], [1742647680000, 69], [1742647800000,
+        66], [1742647920000, 69], [1742648040000, 70], [1742648160000, 72], [1742648280000,
+        70], [1742648400000, 68], [1742648520000, 84], [1742648640000, 76], [1742648760000,
+        61], [1742648880000, 65], [1742649000000, 64], [1742649120000, 62], [1742649240000,
+        63], [1742649360000, 76], [1742649480000, 86], [1742649600000, 76], [1742649720000,
+        65], [1742649840000, 67], [1742649960000, 75], [1742650080000, 70], [1742650200000,
+        61], [1742650320000, 60], [1742650440000, 69], [1742650560000, 80], [1742650680000,
+        76], [1742650800000, 79], [1742650920000, 86], [1742651040000, 78], [1742651160000,
+        75], [1742651280000, 73], [1742651400000, 83], [1742651520000, 79], [1742651640000,
+        61], [1742651760000, 69], [1742651880000, 73], [1742652000000, 77], [1742652120000,
+        74], [1742652240000, 76], [1742652360000, 74], [1742652480000, 70], [1742652600000,
+        69], [1742652720000, 65], [1742652840000, 58], [1742652960000, 63], [1742653080000,
+        69], [1742653200000, 62], [1742653320000, 55], [1742653440000, 74], [1742653560000,
+        80], [1742653680000, 79], [1742653800000, 79], [1742653920000, 79], [1742654040000,
+        68], [1742654160000, 70], [1742654280000, 74], [1742654400000, 73], [1742654520000,
+        70], [1742654640000, 77], [1742654760000, 70], [1742654880000, 70], [1742655000000,
+        92], [1742655120000, 95], [1742655240000, 97], [1742655360000, 102], [1742655480000,
+        108], [1742655600000, 99], [1742655720000, 91], [1742655840000, 94], [1742655960000,
+        107], [1742656080000, 82], [1742656200000, 111], [1742656320000, 123], [1742656440000,
+        137], [1742656560000, 120], [1742656680000, 108], [1742656800000, 95], [1742656920000,
+        85], [1742657040000, 86], [1742657160000, 129], [1742657280000, 129], [1742657400000,
+        98], [1742657520000, 100], [1742657640000, 112], [1742657760000, 109], [1742657880000,
+        120], [1742658000000, 90], [1742658120000, 92], [1742658240000, 90], [1742658360000,
+        88], [1742658480000, 92], [1742658600000, 93], [1742658720000, 103], [1742658840000,
+        111], [1742658960000, 112], [1742659080000, 105], [1742659200000, 111], [1742659320000,
+        110], [1742659440000, 100], [1742659560000, 113], [1742659680000, 131], [1742659800000,
+        131], [1742659920000, 128], [1742660040000, 124], [1742660160000, 123], [1742660280000,
+        121], [1742660400000, 119], [1742660520000, 119], [1742660640000, 118], [1742660760000,
+        119], [1742660880000, 117], [1742661000000, 120], [1742661120000, 120], [1742661240000,
+        129], [1742661360000, 124], [1742661480000, 122], [1742661600000, 117], [1742661720000,
+        125], [1742661840000, 123], [1742661960000, 93], [1742662080000, 93], [1742662200000,
+        93], [1742662320000, 93], [1742662440000, 93], [1742662560000, 93], [1742662680000,
+        93], [1742662800000, 93], [1742662920000, 93], [1742663040000, 93], [1742663160000,
+        93], [1742663280000, 93], [1742663400000, 93], [1742663520000, 93], [1742663640000,
+        93], [1742663760000, 93], [1742663880000, 93], [1742664000000, 93], [1742664120000,
+        93], [1742664240000, 93], [1742664360000, 93], [1742664480000, 93], [1742664600000,
+        93], [1742664720000, 93], [1742664840000, 93], [1742664960000, 93], [1742665080000,
+        93], [1742665200000, 93], [1742665320000, 93], [1742665440000, 93], [1742665560000,
+        93], [1742665680000, 93], [1742665800000, 93], [1742665920000, 93], [1742666040000,
+        93], [1742666160000, 93], [1742666280000, 93], [1742666400000, 93], [1742666520000,
+        93], [1742666640000, 84], [1742666760000, 76], [1742666880000, 73], [1742667000000,
+        69], [1742667120000, 68], [1742667240000, 73], [1742667360000, 83], [1742667480000,
+        85], [1742667600000, 95], [1742667720000, 95], [1742667840000, 94], [1742667960000,
+        86], [1742668080000, 86], [1742668200000, 91], [1742668320000, 100], [1742668440000,
+        103], [1742668560000, 105], [1742668680000, 104], [1742668800000, 90], [1742668920000,
+        92], [1742669040000, 95], [1742669160000, 96], [1742669280000, 93], [1742669400000,
+        83], [1742669520000, 87], [1742669640000, 90], [1742669760000, 85], [1742669880000,
+        91], [1742670000000, 90], [1742670120000, 95], [1742670240000, 97], [1742670360000,
+        87], [1742670480000, 82], [1742670600000, 87], [1742670720000, 87], [1742670840000,
+        86], [1742670960000, 88], [1742671080000, 91], [1742671200000, 79], [1742671320000,
+        74], [1742671440000, 76], [1742671560000, 65], [1742671680000, 63], [1742671800000,
+        63], [1742671920000, 67], [1742672040000, 67], [1742672160000, 69], [1742672280000,
+        73], [1742672400000, 78], [1742672520000, 69], [1742672640000, 67], [1742672760000,
+        64], [1742672880000, 64], [1742673000000, 66], [1742673120000, 69], [1742673240000,
+        64], [1742673360000, 76], [1742673480000, 73], [1742673600000, 62], [1742673720000,
+        58], [1742673840000, 58], [1742673960000, 60], [1742674080000, 61], [1742674200000,
+        64], [1742674320000, 59], [1742674440000, 60], [1742674560000, 61], [1742674680000,
+        56], [1742674800000, 60], [1742674920000, 60], [1742675040000, 70], [1742675160000,
+        61], [1742675280000, 53], [1742675400000, 57], [1742675520000, 59], [1742675640000,
+        57], [1742675760000, 60], [1742675880000, 60], [1742676000000, 60], [1742676120000,
+        61], [1742676240000, 63], [1742676360000, 63], [1742676480000, 57], [1742676600000,
+        55], [1742676720000, 61], [1742676840000, 57], [1742676960000, 56], [1742677080000,
+        59], [1742677200000, 61], [1742677320000, 56], [1742677440000, 54], [1742677560000,
+        56], [1742677680000, 57], [1742677800000, 56], [1742677920000, 61], [1742678040000,
+        56], [1742678160000, 61], [1742678280000, 62], [1742678400000, 63], [1742678520000,
+        64], [1742678640000, 78], [1742678760000, 86], [1742678880000, 94], [1742679000000,
+        105], [1742679120000, 104], [1742679240000, 104], [1742679360000, 96], [1742679480000,
+        100], [1742679600000, 91], [1742679720000, 91], [1742679840000, 90], [1742679960000,
+        90], [1742680080000, 89], [1742680200000, 91], [1742680320000, 92], [1742680440000,
+        92], [1742680560000, 87], [1742680680000, 76], [1742680800000, 79], [1742680920000,
+        85], [1742681040000, 86], [1742681160000, 86], [1742681280000, 88], [1742681400000,
+        91], [1742681520000, 89], [1742681640000, 83], [1742681760000, 79], [1742681880000,
+        76], [1742682000000, 81], [1742682120000, 88], [1742682240000, 86], [1742682360000,
+        86], [1742682480000, 94], [1742682600000, 93], [1742682720000, 93], [1742682840000,
+        89], [1742682960000, 90], [1742683080000, 90], [1742683200000, 89], [1742683320000,
+        92], [1742683440000, 88], [1742683560000, 88], [1742683680000, 85], [1742683800000,
+        88], [1742683920000, 101], [1742684040000, 98], [1742684160000, 89], [1742684280000,
+        80]]}, "successful": true}, "SleepTimes": {"currentDaySleepEndTimeGMT": null,
+        "currentDaySleepStartTimeGMT": null, "nextDaySleepEndTimeGMT": null, "nextDaySleepStartTimeGMT":
+        null}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Apr 2025 12:52:02 GMT
+      Server:
+      - cloudflare
+      content-length:
+      - '12430'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/activity-service/activity/18689027868
+  response:
+    body:
+      string: '{"activityId": 18689027868, "activityUUID": {"uuid": "c452ba30-c095-4cd8-9a97-a9366b088295"},
+        "activityName": "Bergamo Mountain Biking", "userProfileId": 113739130, "isMultiSportParent":
+        false, "activityTypeDTO": {"typeId": 5, "typeKey": "mountain_biking", "parentTypeId":
+        2, "isHidden": false, "restricted": false, "trimmable": true}, "eventTypeDTO":
+        {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "accessControlRuleDTO":
+        {"typeId": 2, "typeKey": "private"}, "timeZoneUnitDTO": {"unitId": 124, "unitKey":
+        "Europe/Paris", "factor": 0.0, "timeZone": "Europe/Paris"}, "metadataDTO":
+        {"isOriginal": true, "deviceApplicationInstallationId": 991290, "agentApplicationInstallationId":
+        null, "agentString": null, "fileFormat": {"formatId": 7, "formatKey": "fit"},
+        "associatedCourseId": null, "lastUpdateDate": "2025-03-31T13:02:40.0", "uploadedDate":
+        "2025-03-31T13:02:39.0", "videoUrl": null, "hasPolyline": true, "hasChartData":
+        true, "hasHrTimeInZones": true, "hasPowerTimeInZones": false, "userInfoDto":
+        {"userProfilePk": 113739130, "displayname": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "fullname": "Paolo", "profileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "userPro": false}, "childIds": [], "childActivityTypes": [], "sensors": null,
+        "activityImages": [], "manufacturer": "GARMIN", "diveNumber": null, "lapCount":
+        13, "associatedWorkoutId": null, "isAtpActivity": null, "deviceMetaDataDTO":
+        {"deviceId": "3444001964", "deviceTypePk": 37086, "deviceVersionPk": 991290},
+        "hasIntensityIntervals": false, "hasSplits": false, "eBikeMaxAssistModes":
+        null, "eBikeBatteryUsage": null, "eBikeBatteryRemaining": null, "eBikeAssistModeInfoDTOList":
+        null, "hasRunPowerWindData": null, "calendarEventInfo": null, "groupRideUUID":
+        null, "hasHeatMap": false, "trimmed": false, "gcj02": false, "runPowerWindDataEnabled":
+        null, "autoCalcCalories": false, "favorite": false, "personalRecord": false,
+        "manualActivity": false, "elevationCorrected": false}, "summaryDTO": {"startTimeLocal":
+        "2025-03-31T09:29:56.0", "startTimeGMT": "2025-03-31T07:29:56.0", "startLatitude":
+        45.72029381990433, "startLongitude": 9.684466095641255, "distance": 60436.88,
+        "duration": 14023.06, "movingDuration": 13871.828, "elapsedDuration": 19900.066,
+        "elevationGain": 1405.0, "elevationLoss": 1399.0, "maxElevation": 1104.6,
+        "minElevation": 254.2, "averageSpeed": 4.309999942779541, "averageMovingSpeed":
+        4.356807093309369, "maxSpeed": 15.6850004196167, "calories": 1972.0, "bmrCalories":
+        338.0, "averageHR": 96.0, "maxHR": 147.0, "minHR": 46.0, "averageTemperature":
+        24.376506693351562, "maxTemperature": 31.0, "minTemperature": 21.0, "trainingEffect":
+        3.4000000953674316, "anaerobicTrainingEffect": 2.9000000953674316, "aerobicTrainingEffectMessage":
+        "IMPROVING_AEROBIC_BASE_8", "anaerobicTrainingEffectMessage": "MAINTAINING_ANAEROBIC_BASE_1",
+        "endLatitude": 45.72030019015074, "endLongitude": 9.684445895254612, "maxVerticalSpeed":
+        1.7999877929687502, "grit": 145.0265655517578, "waterEstimated": 2364.0, "trainingEffectLabel":
+        "AEROBIC_BASE", "activityTrainingLoad": 195.61366271972656, "avgFlow": 3.0469846725463867,
+        "minActivityLapDuration": 84.441, "directWorkoutFeel": 75, "directWorkoutRpe":
+        80, "moderateIntensityMinutes": 53, "vigorousIntensityMinutes": 123, "beginPotentialStamina":
+        100.0, "endPotentialStamina": 26.0, "minAvailableStamina": 13.0, "differenceBodyBattery":
+        -38}, "locationName": "Bergamo"}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 24 Apr 2025 12:54:40 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3501'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/activity-service/activity/15974223178
+  response:
+    body:
+      string: '{"activityId": 15974223178, "activityUUID": {"uuid": "6ddab73a-aacb-4a04-899c-0ef8449c9ba6"},
+        "activityName": "Bergamo Cycling", "userProfileId": 113739130, "isMultiSportParent":
+        false, "activityTypeDTO": {"typeId": 2, "typeKey": "cycling", "parentTypeId":
+        17, "isHidden": false, "restricted": false, "trimmable": true}, "eventTypeDTO":
+        {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "accessControlRuleDTO":
+        {"typeId": 2, "typeKey": "private"}, "timeZoneUnitDTO": {"unitId": 124, "unitKey":
+        "Europe/Paris", "factor": 0.0, "timeZone": "Europe/Paris"}, "metadataDTO":
+        {"isOriginal": true, "deviceApplicationInstallationId": 979472, "agentApplicationInstallationId":
+        null, "agentString": null, "fileFormat": {"formatId": 7, "formatKey": "fit"},
+        "associatedCourseId": null, "lastUpdateDate": "2024-06-18T14:53:18.0", "uploadedDate":
+        "2024-06-18T14:53:17.0", "videoUrl": null, "hasPolyline": true, "hasChartData":
+        true, "hasHrTimeInZones": true, "hasPowerTimeInZones": false, "userInfoDto":
+        {"userProfilePk": 113739130, "displayname": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "fullname": "Paolo", "profileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "userPro": false}, "childIds": [], "childActivityTypes": [], "sensors": [{"manufacturer":
+        "GARMIN", "serialNumber": 3433673746, "sku": "006-B3299-00", "fitProductNumber":
+        3299, "sourceType": "ANTPLUS", "antplusDeviceType": "HEART_RATE", "softwareVersion":
+        2.5, "batteryStatus": "OK"}], "activityImages": [], "manufacturer": "GARMIN",
+        "diveNumber": null, "lapCount": 13, "associatedWorkoutId": null, "isAtpActivity":
+        null, "deviceMetaDataDTO": {"deviceId": "3444001964", "deviceTypePk": 37086,
+        "deviceVersionPk": 979472}, "hasIntensityIntervals": false, "hasSplits": false,
+        "eBikeMaxAssistModes": null, "eBikeBatteryUsage": null, "eBikeBatteryRemaining":
+        null, "eBikeAssistModeInfoDTOList": null, "hasRunPowerWindData": null, "calendarEventInfo":
+        null, "groupRideUUID": null, "hasHeatMap": false, "trimmed": false, "personalRecord":
+        false, "manualActivity": false, "runPowerWindDataEnabled": null, "autoCalcCalories":
+        false, "favorite": false, "gcj02": false, "elevationCorrected": false}, "summaryDTO":
+        {"startTimeLocal": "2024-06-18T10:24:51.0", "startTimeGMT": "2024-06-18T08:24:51.0",
+        "startLatitude": 45.720340171828866, "startLongitude": 9.684629710391164,
+        "distance": 62270.12, "duration": 13562.379, "movingDuration": 13293.0, "elapsedDuration":
+        23251.449, "elevationGain": 1343.0, "elevationLoss": 1348.0, "maxElevation":
+        1105.2, "minElevation": 254.4, "averageSpeed": 4.591000080108643, "averageMovingSpeed":
+        4.684429481211916, "maxSpeed": 13.119000434875488, "calories": 1597.0, "bmrCalories":
+        322.0, "averageHR": 98.0, "maxHR": 146.0, "minHR": 65.0, "averageTemperature":
+        31.25813287096002, "maxTemperature": 36.0, "minTemperature": 25.0, "trainingEffect":
+        3.0, "anaerobicTrainingEffect": 0.0, "aerobicTrainingEffectMessage": "IMPROVING_AEROBIC_BASE_8",
+        "anaerobicTrainingEffectMessage": "NO_ANAEROBIC_BENEFIT_0", "endLatitude":
+        45.72038191370666, "endLongitude": 9.68452351167798, "maxVerticalSpeed": 1.199951171875,
+        "waterEstimated": 2562.0, "minRespirationRate": 12.640000343322754, "maxRespirationRate":
+        41.779998779296875, "avgRespirationRate": 25.040000915527344, "trainingEffectLabel":
+        "AEROBIC_BASE", "activityTrainingLoad": 63.23213195800781, "minActivityLapDuration":
+        493.895, "directWorkoutFeel": 100, "directWorkoutRpe": 70, "moderateIntensityMinutes":
+        72, "vigorousIntensityMinutes": 80, "recoveryHeartRate": 6, "beginPotentialStamina":
+        100.0, "endPotentialStamina": 66.0, "minAvailableStamina": 66.0, "differenceBodyBattery":
+        -38}, "locationName": "Bergamo", "splitSummaries": [{"distance": 62270.11,
+        "duration": 13562.379, "movingDuration": 13293.0, "elapsedDuration": 23251.45,
+        "elevationGain": 1342.0, "elevationLoss": 1349.0, "averageSpeed": 4.591385466906244,
+        "averageMovingSpeed": 4.6844286547372205, "maxSpeed": 13.119000434875488,
+        "calories": 1598.0, "averageHR": 98.0, "maxHR": 146.0, "minHR": 65.0, "averageTemperature":
+        31.25813287096002, "maxTemperature": 36.0, "minTemperature": 25.0, "totalExerciseReps":
+        0, "splitType": "INTERVAL_ACTIVE", "noOfSplits": 0, "maxElevationGain": 1342.0,
+        "averageElevationGain": 1342.0, "maxDistance": 62270, "maxDistanceWithPrecision":
+        62270.11}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 24 Apr 2025 12:54:41 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4314'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/activity-service/activity/12877651519
+  response:
+    body:
+      string: '{"activityId": 12877651519, "activityUUID": {"uuid": "bd30b1ea-0cd8-40ec-873f-00ababe4a8b7"},
+        "activityName": "Milan Running", "userProfileId": 113739130, "isMultiSportParent":
+        false, "activityTypeDTO": {"typeId": 1, "typeKey": "running", "parentTypeId":
+        17, "isHidden": false, "restricted": false, "trimmable": true}, "eventTypeDTO":
+        {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "accessControlRuleDTO":
+        {"typeId": 2, "typeKey": "private"}, "timeZoneUnitDTO": {"unitId": 124, "unitKey":
+        "Europe/Paris", "factor": 0.0, "timeZone": "Europe/Paris"}, "metadataDTO":
+        {"isOriginal": true, "deviceApplicationInstallationId": 972527, "agentApplicationInstallationId":
+        null, "agentString": null, "fileFormat": {"formatId": 7, "formatKey": "fit"},
+        "associatedCourseId": null, "lastUpdateDate": "2023-11-26T09:37:49.0", "uploadedDate":
+        "2023-11-26T09:37:48.0", "videoUrl": null, "hasPolyline": true, "hasChartData":
+        true, "hasHrTimeInZones": true, "hasPowerTimeInZones": true, "userInfoDto":
+        {"userProfilePk": 113739130, "displayname": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "fullname": "Paolo", "profileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "userPro": false}, "childIds": [], "childActivityTypes": [], "sensors": [{"manufacturer":
+        "GARMIN", "serialNumber": 3433673746, "sku": "006-B3299-00", "fitProductNumber":
+        3299, "sourceType": "ANTPLUS", "antplusDeviceType": "HEART_RATE", "softwareVersion":
+        2.5, "batteryStatus": "OK"}], "activityImages": [], "manufacturer": "GARMIN",
+        "diveNumber": null, "lapCount": 22, "associatedWorkoutId": null, "isAtpActivity":
+        null, "deviceMetaDataDTO": {"deviceId": "3444001964", "deviceTypePk": 37086,
+        "deviceVersionPk": 972527}, "hasIntensityIntervals": false, "hasSplits": true,
+        "eBikeMaxAssistModes": null, "eBikeBatteryUsage": null, "eBikeBatteryRemaining":
+        null, "eBikeAssistModeInfoDTOList": null, "hasRunPowerWindData": true, "calendarEventInfo":
+        null, "groupRideUUID": null, "hasHeatMap": false, "trimmed": false, "gcj02":
+        false, "runPowerWindDataEnabled": true, "autoCalcCalories": false, "favorite":
+        false, "personalRecord": false, "manualActivity": false, "elevationCorrected":
+        false}, "summaryDTO": {"startTimeLocal": "2023-11-26T09:00:56.0", "startTimeGMT":
+        "2023-11-26T08:00:56.0", "startLatitude": 45.48202355392277, "startLongitude":
+        9.157638670876622, "distance": 21460.82, "duration": 5762.33, "movingDuration":
+        5757.675, "elapsedDuration": 5762.33, "elevationGain": 34.0, "elevationLoss":
+        28.0, "maxElevation": 133.8, "minElevation": 121.6, "averageSpeed": 3.7239999771118164,
+        "averageMovingSpeed": 3.727341354018925, "maxSpeed": 5.235000133514404, "calories":
+        1443.0, "bmrCalories": 137.0, "averageHR": 148.0, "maxHR": 159.0, "minHR":
+        106.0, "averageRunCadence": 172.8125, "maxRunCadence": 183.0, "averageTemperature":
+        17.773532416925526, "maxTemperature": 19.0, "minTemperature": 17.0, "averagePower":
+        408.0, "maxPower": 577.0, "minPower": 0.0, "normalizedPower": 412.0, "totalWork":
+        561.3338361153408, "groundContactTime": 241.8000030517578, "strideLength":
+        128.60999755859376, "verticalOscillation": 9.450000000000001, "trainingEffect":
+        4.800000190734863, "anaerobicTrainingEffect": 0.0, "aerobicTrainingEffectMessage":
+        "HIGHLY_IMPROVING_LACTATE_THRESHOLD_13", "anaerobicTrainingEffectMessage":
+        "NO_ANAEROBIC_BENEFIT_0", "verticalRatio": 7.369999885559082, "endLatitude":
+        45.482225473970175, "endLongitude": 9.157881075516343, "maxVerticalSpeed":
+        0.40000152587890625, "waterEstimated": 1600.0, "minRespirationRate": 23.6200008392334,
+        "maxRespirationRate": 48.63999938964844, "avgRespirationRate": 35.900001525878906,
+        "trainingEffectLabel": "LACTATE_THRESHOLD", "activityTrainingLoad": 202.9248046875,
+        "minActivityLapDuration": 114.111, "directWorkoutFeel": 50, "directWorkoutRpe":
+        80, "moderateIntensityMinutes": 0, "vigorousIntensityMinutes": 92, "steps":
+        16554, "beginPotentialStamina": 99.0, "endPotentialStamina": 38.0, "minAvailableStamina":
+        34.0, "avgGradeAdjustedSpeed": 3.7149999141693115, "differenceBodyBattery":
+        -26}, "locationName": "Milan", "splitSummaries": [{"distance": 21460.79, "duration":
+        5762.33, "movingDuration": 5760.0, "elevationGain": 34.0, "elevationLoss":
+        28.0, "averageSpeed": 3.7239999771118164, "averageMovingSpeed": 3.725831434461806,
+        "maxSpeed": 5.235000133514404, "calories": 1443.0, "bmrCalories": 137.0, "averageHR":
+        148.0, "maxHR": 159.0, "averageRunCadence": 172.796875, "maxRunCadence": 183.0,
+        "averageTemperature": 18.0, "maxTemperature": 19.0, "minTemperature": 17.0,
+        "averagePower": 408.0, "maxPower": 577.0, "normalizedPower": 412.0, "groundContactTime":
+        241.8000030517578, "strideLength": 128.60999755859376, "verticalOscillation":
+        9.450000000000001, "verticalRatio": 7.369999885559082, "totalExerciseReps":
+        0, "avgVerticalSpeed": 0.0010000000474974513, "avgGradeAdjustedSpeed": 3.7149999141693115,
+        "splitType": "INTERVAL_ACTIVE", "noOfSplits": 1, "maxElevationGain": 34.0,
+        "averageElevationGain": 34.0, "maxDistance": 21460, "maxDistanceWithPrecision":
+        21460.79}, {"distance": 31.76, "duration": 21.0, "movingDuration": 16.0, "elevationGain":
+        0.0, "elevationLoss": 0.0, "averageSpeed": 1.5119999647140503, "averageMovingSpeed":
+        2.840222234574575, "maxSpeed": 2.183000087738037, "calories": 2.0, "bmrCalories":
+        0.0, "averageHR": 123.0, "maxHR": 133.0, "averageRunCadence": 39.9375, "maxRunCadence":
+        161.0, "averageTemperature": 18.0, "maxTemperature": 19.0, "minTemperature":
+        18.0, "averagePower": 24.0, "maxPower": 90.0, "normalizedPower": 226.0, "strideLength":
+        227.0175503795401, "verticalOscillation": 5.470000076293946, "totalExerciseReps":
+        0, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 1.1030000448226929, "splitType":
+        "RWD_WALK", "noOfSplits": 2, "maxElevationGain": 0.0, "averageElevationGain":
+        0.0, "maxDistance": 23, "maxDistanceWithPrecision": 23.51}, {"distance": 21429.05,
+        "duration": 5745.315, "movingDuration": 5738.0, "elevationGain": 34.0, "elevationLoss":
+        28.0, "averageSpeed": 3.7300000190734863, "averageMovingSpeed": 3.7345129595745576,
+        "maxSpeed": 5.235000133514404, "calories": 1442.0, "bmrCalories": 137.0, "averageHR":
+        148.0, "maxHR": 159.0, "averageRunCadence": 173.28125, "maxRunCadence": 183.0,
+        "averageTemperature": 18.0, "maxTemperature": 19.0, "minTemperature": 17.0,
+        "averagePower": 410.0, "maxPower": 577.0, "normalizedPower": 413.0, "groundContactTime":
+        241.8000030517578, "strideLength": 128.60999755859376, "verticalOscillation":
+        9.450000000000001, "verticalRatio": 7.369999885559082, "totalExerciseReps":
+        0, "avgVerticalSpeed": 0.0010000000474974513, "avgGradeAdjustedSpeed": 3.724999904632569,
+        "splitType": "RWD_RUN", "noOfSplits": 2, "maxElevationGain": 20.0, "averageElevationGain":
+        17.0, "maxDistance": 12935, "maxDistanceWithPrecision": 12935.16}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 24 Apr 2025 12:54:41 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '6576'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/activity-service/activity/11313479371
+  response:
+    body:
+      string: '{"activityId": 11313479371, "activityUUID": {"uuid": "e3d5c00c-1889-4172-8771-f50be0605754"},
+        "activityName": "Selva di Val Gardena Mountain Biking", "userProfileId": 113739130,
+        "isMultiSportParent": false, "activityTypeDTO": {"typeId": 5, "typeKey": "mountain_biking",
+        "parentTypeId": 2, "isHidden": false, "restricted": false, "trimmable": true},
+        "eventTypeDTO": {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10},
+        "accessControlRuleDTO": {"typeId": 2, "typeKey": "private"}, "timeZoneUnitDTO":
+        {"unitId": 124, "unitKey": "Europe/Paris", "factor": 0.0, "timeZone": "Europe/Paris"},
+        "metadataDTO": {"isOriginal": true, "deviceApplicationInstallationId": 918883,
+        "agentApplicationInstallationId": null, "agentString": null, "fileFormat":
+        {"formatId": 7, "formatKey": "fit"}, "associatedCourseId": null, "lastUpdateDate":
+        "2023-09-29T18:35:32.0", "uploadedDate": "2023-06-10T16:20:59.0", "videoUrl":
+        null, "hasPolyline": true, "hasChartData": true, "hasHrTimeInZones": true,
+        "hasPowerTimeInZones": false, "userInfoDto": {"userProfilePk": 113739130,
+        "displayname": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "fullname": "Paolo",
+        "profileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "userPro": false}, "childIds": [], "childActivityTypes": [], "sensors": [{"manufacturer":
+        "GARMIN", "serialNumber": 3433673746, "sku": "006-B3299-00", "fitProductNumber":
+        3299, "sourceType": "ANTPLUS", "antplusDeviceType": "HEART_RATE", "softwareVersion":
+        2.5, "batteryStatus": "OK"}], "activityImages": [], "manufacturer": "GARMIN",
+        "diveNumber": null, "lapCount": 10, "associatedWorkoutId": null, "isAtpActivity":
+        null, "deviceMetaDataDTO": {"deviceId": "3444001964", "deviceTypePk": 37086,
+        "deviceVersionPk": 918883}, "hasIntensityIntervals": false, "hasSplits": false,
+        "eBikeMaxAssistModes": null, "eBikeBatteryUsage": null, "eBikeBatteryRemaining":
+        null, "eBikeAssistModeInfoDTOList": null, "hasRunPowerWindData": null, "calendarEventInfo":
+        null, "groupRideUUID": null, "hasHeatMap": false, "manualActivity": false,
+        "runPowerWindDataEnabled": null, "personalRecord": false, "autoCalcCalories":
+        false, "favorite": false, "gcj02": false, "trimmed": false, "elevationCorrected":
+        false}, "summaryDTO": {"startTimeLocal": "2023-06-10T08:31:11.0", "startTimeGMT":
+        "2023-06-10T06:31:11.0", "startLatitude": 46.53290349058807, "startLongitude":
+        11.77172552794218, "distance": 46988.65, "duration": 13600.13, "movingDuration":
+        11608.0, "elapsedDuration": 20814.65, "elevationGain": 1598.0, "elevationLoss":
+        1462.0, "maxElevation": 2250.6, "minElevation": 1533.6, "averageSpeed": 3.4549999237060547,
+        "averageMovingSpeed": 4.047953862637836, "maxSpeed": 16.81399917602539, "calories":
+        2071.0, "bmrCalories": 324.0, "averageHR": 121.0, "maxHR": 161.0, "minHR":
+        71.0, "averageTemperature": 26.26374849587644, "maxTemperature": 35.0, "minTemperature":
+        20.0, "trainingEffect": 4.400000095367432, "anaerobicTrainingEffect": 0.4000000059604645,
+        "aerobicTrainingEffectMessage": "HIGHLY_IMPROVING_AEROBIC_ENDURANCE_10", "anaerobicTrainingEffectMessage":
+        "NO_ANAEROBIC_BENEFIT_0", "endLatitude": 46.53645716607571, "endLongitude":
+        11.779345516115427, "maxVerticalSpeed": 0.8000488281250001, "grit": 167.18203735351562,
+        "waterEstimated": 2691.0, "minRespirationRate": 14.210000038146973, "maxRespirationRate":
+        43.7599983215332, "avgRespirationRate": 29.549999237060547, "trainingEffectLabel":
+        "AEROBIC_BASE", "activityTrainingLoad": 172.9921112060547, "avgFlow": 2.2038307189941406,
+        "minActivityLapDuration": 435.953, "directWorkoutFeel": 100, "directWorkoutRpe":
+        100, "moderateIntensityMinutes": 49, "vigorousIntensityMinutes": 141, "recoveryHeartRate":
+        5, "beginPotentialStamina": 100.0, "endPotentialStamina": 1.0, "minAvailableStamina":
+        1.0, "avgGradeAdjustedSpeed": 3.6549999713897705}, "locationName": "Selva
+        di Val Gardena", "splitSummaries": [{"distance": 46988.64, "duration": 13600.13,
+        "movingDuration": 11608.0, "elapsedDuration": 20814.65, "elevationGain": 1598.0,
+        "elevationLoss": 1462.0, "averageSpeed": 3.455014040543503, "averageMovingSpeed":
+        4.047953137030362, "maxSpeed": 16.81399917602539, "calories": 2070.0, "averageHR":
+        121.0, "maxHR": 161.0, "minHR": 71.0, "averageTemperature": 26.26374849587644,
+        "maxTemperature": 35.0, "minTemperature": 20.0, "totalExerciseReps": 0, "grit":
+        167.18203282356262, "avgFlow": 2.2446606547283463, "splitType": "INTERVAL_ACTIVE",
+        "noOfSplits": 0, "maxElevationGain": 1598.0, "averageElevationGain": 1598.0,
+        "maxDistance": 46988, "maxDistanceWithPrecision": 46988.64}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 24 Apr 2025 12:54:41 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4523'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/activity-service/activity/18633237715
+  response:
+    body:
+      string: '{"activityId": 18633237715, "activityUUID": {"uuid": "8a051ed3-55d6-4ef9-9964-69a4d1110fcb"},
+        "activityName": "Colere Snowboard", "userProfileId": 113739130, "isMultiSportParent":
+        false, "activityTypeDTO": {"typeId": 252, "typeKey": "resort_snowboarding",
+        "parentTypeId": 165, "isHidden": false, "restricted": false, "trimmable":
+        true}, "eventTypeDTO": {"typeId": 9, "typeKey": "uncategorized", "sortOrder":
+        10}, "accessControlRuleDTO": {"typeId": 2, "typeKey": "private"}, "timeZoneUnitDTO":
+        {"unitId": 124, "unitKey": "Europe/Paris", "factor": 0.0, "timeZone": "Europe/Paris"},
+        "metadataDTO": {"isOriginal": true, "deviceApplicationInstallationId": 991290,
+        "agentApplicationInstallationId": null, "agentString": null, "fileFormat":
+        {"formatId": 7, "formatKey": "fit"}, "associatedCourseId": null, "lastUpdateDate":
+        "2025-03-25T14:59:35.0", "uploadedDate": "2025-03-25T14:59:34.0", "videoUrl":
+        null, "hasPolyline": true, "hasChartData": true, "hasHrTimeInZones": true,
+        "hasPowerTimeInZones": false, "userInfoDto": {"userProfilePk": 113739130,
+        "displayname": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "fullname": "Paolo",
+        "profileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "userPro": false}, "childIds": [], "childActivityTypes": [], "sensors": null,
+        "activityImages": [], "manufacturer": "GARMIN", "diveNumber": null, "lapCount":
+        16, "associatedWorkoutId": null, "isAtpActivity": null, "deviceMetaDataDTO":
+        {"deviceId": "3444001964", "deviceTypePk": 37086, "deviceVersionPk": 991290},
+        "hasIntensityIntervals": false, "hasSplits": true, "eBikeMaxAssistModes":
+        null, "eBikeBatteryUsage": null, "eBikeBatteryRemaining": null, "eBikeAssistModeInfoDTOList":
+        null, "hasRunPowerWindData": null, "calendarEventInfo": null, "groupRideUUID":
+        null, "hasHeatMap": false, "personalRecord": false, "trimmed": false, "manualActivity":
+        false, "runPowerWindDataEnabled": null, "gcj02": false, "autoCalcCalories":
+        false, "favorite": false, "elevationCorrected": false}, "summaryDTO": {"startTimeLocal":
+        "2025-03-25T09:33:05.0", "startTimeGMT": "2025-03-25T08:33:05.0", "startLatitude":
+        45.971264094114304, "startLongitude": 10.041545229032636, "distance": 52362.03,
+        "duration": 23167.193, "movingDuration": 15549.0, "elapsedDuration": 23167.193,
+        "elevationGain": 5694.0, "elevationLoss": 6778.0, "maxElevation": 2182.8,
+        "minElevation": 1002.2, "averageSpeed": 2.259999990463257, "averageMovingSpeed":
+        3.367549762042575, "maxSpeed": 15.864999771118164, "calories": 2083.0, "bmrCalories":
+        558.0, "averageHR": 80.0, "maxHR": 150.0, "minHR": 48.0, "averageTemperature":
+        28.854579236076116, "maxTemperature": 34.0, "minTemperature": 24.0, "trainingEffect":
+        2.0, "anaerobicTrainingEffect": 2.5999999046325684, "aerobicTrainingEffectMessage":
+        "MAINTAINING_AEROBIC_BASE_7", "anaerobicTrainingEffectMessage": "MAINTAINING_FAST_FORCE_PRODUCTION_6",
+        "endLatitude": 45.971470875665545, "endLongitude": 10.09776659309864, "maxVerticalSpeed":
+        3.0000000000000004, "waterEstimated": 4053.0, "trainingEffectLabel": "SPEED",
+        "activityTrainingLoad": 94.87702941894531, "minActivityLapDuration": 3.4,
+        "moderateIntensityMinutes": 130, "vigorousIntensityMinutes": 59, "differenceBodyBattery":
+        -30}, "locationName": "Colere", "splitSummaries": [{"distance": 35453.23,
+        "duration": 15984.165, "movingDuration": 8950.019, "elevationGain": 85.0,
+        "elevationLoss": 6765.0, "averageSpeed": 2.2179999351501465, "averageMovingSpeed":
+        3.649051167372034, "maxSpeed": 15.842000007629395, "calories": 1693.0, "bmrCalories":
+        385.0, "averageHR": 85.0, "maxHR": 150.0, "averageTemperature": 29.0, "maxTemperature":
+        34.0, "minTemperature": 24.0, "totalExerciseReps": 0, "avgVerticalSpeed":
+        0.0, "splitType": "SKI_RUN_SPLIT", "noOfSplits": 15, "maxElevationGain": 14.0,
+        "averageElevationGain": 6.0, "maxDistance": 6376, "maxDistanceWithPrecision":
+        6376.63}, {"distance": 17020.19, "duration": 7182.996, "movingDuration": 6927.603,
+        "elevationGain": 5610.0, "elevationLoss": 13.0, "averageSpeed": 2.369999885559082,
+        "averageMovingSpeed": 2.322845882709735, "maxSpeed": 15.864999771118164, "calories":
+        390.0, "bmrCalories": 173.0, "averageHR": 69.0, "maxHR": 124.0, "averageTemperature":
+        29.0, "maxTemperature": 34.0, "minTemperature": 25.0, "totalExerciseReps":
+        0, "avgVerticalSpeed": 0.7789999842643738, "splitType": "SKI_LIFT_SPLIT",
+        "noOfSplits": 16, "maxElevationGain": 536.0, "averageElevationGain": 351.0,
+        "maxDistance": 1443, "maxDistanceWithPrecision": 1443.41}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 24 Apr 2025 12:54:41 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '4438'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/activity-service/activity/18861865288
+  response:
+    body:
+      string: '{"activityId": 18861865288, "activityUUID": {"uuid": "f0152238-ff62-4fb0-b661-a3e9adb0cee0"},
+        "activityName": "Bergamo - 5x40s", "userProfileId": 113739130, "isMultiSportParent":
+        false, "activityTypeDTO": {"typeId": 5, "typeKey": "mountain_biking", "parentTypeId":
+        2, "isHidden": false, "restricted": false, "trimmable": true}, "eventTypeDTO":
+        {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "accessControlRuleDTO":
+        {"typeId": 3, "typeKey": "subscribers"}, "timeZoneUnitDTO": {"unitId": 124,
+        "unitKey": "Europe/Paris", "factor": 0.0, "timeZone": "Europe/Paris"}, "metadataDTO":
+        {"isOriginal": false, "deviceApplicationInstallationId": 993117, "agentApplicationInstallationId":
+        null, "agentString": null, "fileFormat": {"formatId": 7, "formatKey": "fit"},
+        "associatedCourseId": null, "lastUpdateDate": "2025-04-18T19:18:34.0", "uploadedDate":
+        "2025-04-18T10:25:45.0", "videoUrl": null, "hasPolyline": true, "hasChartData":
+        true, "hasHrTimeInZones": true, "hasPowerTimeInZones": false, "userInfoDto":
+        {"userProfilePk": 113739130, "displayname": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "fullname": "Paolo", "profileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "userPro": false}, "childIds": [], "childActivityTypes": [], "sensors": [{"manufacturer":
+        "GARMIN", "serialNumber": 3511385941, "sku": "006-B4606-00", "fitProductNumber":
+        4606, "sourceType": "ANTPLUS", "antplusDeviceType": "HEART_RATE", "softwareVersion":
+        3.9, "batteryStatus": "OK"}], "activityImages": [], "manufacturer": "GARMIN",
+        "diveNumber": null, "lapCount": 16, "associatedWorkoutId": 1190415244, "isAtpActivity":
+        null, "deviceMetaDataDTO": {"deviceId": "3444001964", "deviceTypePk": 37086,
+        "deviceVersionPk": 993117}, "hasIntensityIntervals": true, "hasSplits": false,
+        "eBikeMaxAssistModes": null, "eBikeBatteryUsage": null, "eBikeBatteryRemaining":
+        null, "eBikeAssistModeInfoDTOList": null, "hasRunPowerWindData": null, "calendarEventInfo":
+        null, "groupRideUUID": null, "hasHeatMap": false, "gcj02": false, "runPowerWindDataEnabled":
+        null, "autoCalcCalories": false, "favorite": false, "trimmed": false, "manualActivity":
+        false, "personalRecord": false, "elevationCorrected": false}, "summaryDTO":
+        {"startTimeLocal": "2025-04-18T09:17:00.0", "startTimeGMT": "2025-04-18T07:17:00.0",
+        "startLatitude": 45.72040337137878, "startLongitude": 9.684541951864958, "distance":
+        39593.02, "duration": 8225.348, "movingDuration": 8197.229, "elapsedDuration":
+        11261.045, "elevationGain": 734.0, "elevationLoss": 746.0, "maxElevation":
+        923.2, "minElevation": 278.0, "averageSpeed": 4.814000129699707, "averageMovingSpeed":
+        4.830049225913211, "maxSpeed": 12.699000358581545, "calories": 1123.0, "bmrCalories":
+        199.0, "averageHR": 93.0, "maxHR": 145.0, "minHR": 53.0, "averageTemperature":
+        20.54385273915097, "maxTemperature": 26.0, "minTemperature": 17.0, "trainingEffect":
+        4.199999809265137, "anaerobicTrainingEffect": 2.0, "aerobicTrainingEffectMessage":
+        "HIGHLY_IMPROVING_AEROBIC_FITNESS_3", "anaerobicTrainingEffectMessage": "MAINTAINING_ANAEROBIC_BASE_1",
+        "endLatitude": 45.72028610855341, "endLongitude": 9.684451008215547, "avgVerticalSpeed":
+        8.9236345988036, "maxVerticalSpeed": 0.800018310546875, "grit": 75.13594055175781,
+        "caloriesConsumed": 0.0, "waterEstimated": 1169.0, "waterConsumed": 0.0, "minRespirationRate":
+        11.239999771118164, "maxRespirationRate": 44.959999084472656, "avgRespirationRate":
+        26.84000015258789, "trainingEffectLabel": "TEMPO", "activityTrainingLoad":
+        221.68333435058594, "avgFlow": 2.7538955211639404, "minActivityLapDuration":
+        4.329, "directWorkoutFeel": 75, "directWorkoutRpe": 70, "directWorkoutComplianceScore":
+        81, "moderateIntensityMinutes": 42, "vigorousIntensityMinutes": 55, "beginPotentialStamina":
+        99.0, "endPotentialStamina": 66.0, "minAvailableStamina": 48.0, "avgElapsedDurationVerticalSpeed":
+        0.06518045172539494, "differenceBodyBattery": -24}, "locationName": "Bergamo",
+        "splitSummaries": [{"distance": 35499.45, "duration": 6969.187, "movingDuration":
+        6941.529, "elapsedDuration": 10004.884, "elevationGain": 498.0, "elevationLoss":
+        746.0, "averageSpeed": 5.093772056912807, "averageMovingSpeed": 5.114067808403593,
+        "maxSpeed": 12.699000358581545, "calories": 811.0000000000001, "averageHR":
+        86.0, "maxHR": 145.0, "minHR": 53.0, "averageTemperature": 20.88114036830982,
+        "maxTemperature": 26.0, "minTemperature": 17.0, "totalExerciseReps": 0, "grit":
+        51.7640621419996, "avgFlow": 3.007640552712036, "splitType": "INTERVAL_ACTIVE",
+        "noOfSplits": 0}, {"distance": 4093.57, "duration": 1256.161, "movingDuration":
+        1255.7, "elapsedDuration": 1256.161, "elevationGain": 238.0, "elevationLoss":
+        0.0, "averageSpeed": 3.25879405585749, "averageMovingSpeed": 3.2599904435772875,
+        "maxSpeed": 4.8520002365112305, "calories": 312.0, "averageHR": 130.0, "maxHR":
+        139.0, "minHR": 119.0, "averageTemperature": 18.672579390699124, "maxTemperature":
+        20.0, "minTemperature": 17.0, "totalExerciseReps": 0, "grit": 23.371874809265137,
+        "avgFlow": 1.3599590359035032, "splitType": "INTERVAL_RECOVERY", "noOfSplits":
+        0}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 24 Apr 2025 12:54:42 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '5004'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/activity-service/activity/18606916834
+  response:
+    body:
+      string: '{"activityId": 18606916834, "activityUUID": {"uuid": "56e0a3b9-1e01-41fd-9706-969ddc783154"},
+        "activityName": "Limone Piemonte Trail Running", "userProfileId": 113739130,
+        "isMultiSportParent": false, "activityTypeDTO": {"typeId": 6, "typeKey": "trail_running",
+        "parentTypeId": 1, "isHidden": false, "restricted": false, "trimmable": true},
+        "eventTypeDTO": {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10},
+        "accessControlRuleDTO": {"typeId": 2, "typeKey": "private"}, "timeZoneUnitDTO":
+        {"unitId": 124, "unitKey": "Europe/Paris", "factor": 0.0, "timeZone": "Europe/Paris"},
+        "metadataDTO": {"isOriginal": true, "deviceApplicationInstallationId": 991290,
+        "agentApplicationInstallationId": null, "agentString": null, "fileFormat":
+        {"formatId": 7, "formatKey": "fit"}, "associatedCourseId": null, "lastUpdateDate":
+        "2025-03-22T17:29:36.0", "uploadedDate": "2025-03-22T17:29:35.0", "videoUrl":
+        null, "hasPolyline": true, "hasChartData": true, "hasHrTimeInZones": true,
+        "hasPowerTimeInZones": true, "userInfoDto": {"userProfilePk": 113739130, "displayname":
+        "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "fullname": "Paolo", "profileImageUrlLarge":
+        "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "userPro": false}, "childIds": [], "childActivityTypes": [], "sensors": null,
+        "activityImages": [], "manufacturer": "GARMIN", "diveNumber": null, "lapCount":
+        11, "associatedWorkoutId": null, "isAtpActivity": null, "deviceMetaDataDTO":
+        {"deviceId": "3444001964", "deviceTypePk": 37086, "deviceVersionPk": 991290},
+        "hasIntensityIntervals": false, "hasSplits": true, "eBikeMaxAssistModes":
+        null, "eBikeBatteryUsage": null, "eBikeBatteryRemaining": null, "eBikeAssistModeInfoDTOList":
+        null, "hasRunPowerWindData": true, "calendarEventInfo": null, "groupRideUUID":
+        null, "hasHeatMap": false, "trimmed": false, "gcj02": false, "runPowerWindDataEnabled":
+        true, "autoCalcCalories": false, "favorite": false, "manualActivity": false,
+        "personalRecord": false, "elevationCorrected": false}, "summaryDTO": {"startTimeLocal":
+        "2025-03-22T17:04:36.0", "startTimeGMT": "2025-03-22T16:04:36.0", "startLatitude":
+        44.16586736217141, "startLongitude": 7.569181434810162, "distance": 10803.7,
+        "duration": 4177.955, "movingDuration": 4173.44, "elapsedDuration": 4177.955,
+        "elevationGain": 514.0, "elevationLoss": 508.0, "maxElevation": 1803.6, "minElevation":
+        1396.8, "averageSpeed": 2.5859999656677246, "averageMovingSpeed": 2.5886798967979896,
+        "maxSpeed": 4.4039998054504395, "calories": 951.0, "bmrCalories": 101.0, "averageHR":
+        121.0, "maxHR": 146.0, "minHR": 98.0, "averageRunCadence": 159.359375, "maxRunCadence":
+        236.0, "averageTemperature": 15.536073508039488, "maxTemperature": 19.0, "minTemperature":
+        12.0, "averagePower": 333.0, "maxPower": 473.0, "minPower": 0.0, "normalizedPower":
+        353.0, "totalWork": 331.74065994911723, "groundContactTime": 277.20001220703125,
+        "strideLength": 97.27000122070314, "verticalOscillation": 8.34000015258789,
+        "trainingEffect": 3.700000047683716, "anaerobicTrainingEffect": 2.0, "aerobicTrainingEffectMessage":
+        "IMPROVING_AEROBIC_ENDURANCE_9", "anaerobicTrainingEffectMessage": "MAINTAINING_ANAEROBIC_BASE_1",
+        "verticalRatio": 8.930000305175781, "endLatitude": 44.1658887360245, "endLongitude":
+        7.569096609950066, "maxVerticalSpeed": 0.8000488281250001, "waterEstimated":
+        1025.0, "trainingEffectLabel": "AEROBIC_BASE", "activityTrainingLoad": 189.7177276611328,
+        "minActivityLapDuration": 205.186, "directWorkoutFeel": 75, "directWorkoutRpe":
+        80, "moderateIntensityMinutes": 1, "vigorousIntensityMinutes": 44, "steps":
+        11150, "beginPotentialStamina": 81.0, "endPotentialStamina": 56.0, "minAvailableStamina":
+        50.0, "avgGradeAdjustedSpeed": 2.947999954223633, "differenceBodyBattery":
+        -10}, "locationName": "Limone Piemonte", "splitSummaries": [{"distance": 10803.7,
+        "duration": 4177.955, "movingDuration": 4174.0, "elevationGain": 514.0, "elevationLoss":
+        508.0, "averageSpeed": 2.5859999656677246, "averageMovingSpeed": 2.588332581531504,
+        "maxSpeed": 4.4039998054504395, "calories": 951.0, "bmrCalories": 101.0, "averageHR":
+        121.0, "maxHR": 146.0, "averageRunCadence": 159.34375, "maxRunCadence": 236.0,
+        "averageTemperature": 16.0, "maxTemperature": 19.0, "minTemperature": 12.0,
+        "averagePower": 333.0, "maxPower": 473.0, "normalizedPower": 353.0, "groundContactTime":
+        277.20001220703125, "strideLength": 97.27000122070314, "verticalOscillation":
+        8.34000015258789, "verticalRatio": 8.930000305175781, "totalExerciseReps":
+        0, "avgVerticalSpeed": 0.0020000000949949026, "avgGradeAdjustedSpeed": 2.947999954223633,
+        "splitType": "INTERVAL_ACTIVE", "noOfSplits": 1, "maxElevationGain": 514.0,
+        "averageElevationGain": 171.0, "maxDistance": 10803, "maxDistanceWithPrecision":
+        10803.7}, {"distance": 10347.36, "duration": 3794.001, "movingDuration": 3787.0,
+        "elevationGain": 417.0, "elevationLoss": 508.0, "averageSpeed": 2.726999998092651,
+        "averageMovingSpeed": 2.732226274747084, "maxSpeed": 4.4039998054504395, "calories":
+        908.0, "bmrCalories": 91.0, "averageHR": 123.0, "maxHR": 146.0, "averageRunCadence":
+        164.515625, "maxRunCadence": 236.0, "averageTemperature": 16.0, "maxTemperature":
+        19.0, "minTemperature": 12.0, "averagePower": 339.0, "maxPower": 473.0, "normalizedPower":
+        359.0, "groundContactTime": 277.20001220703125, "strideLength": 98.37999877929688,
+        "verticalOscillation": 8.60999984741211, "verticalRatio": 8.979999542236328,
+        "totalExerciseReps": 0, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        2.9760000705718994, "splitType": "RWD_RUN", "noOfSplits": 3, "maxElevationGain":
+        389.0, "averageElevationGain": 139.0, "maxDistance": 5502, "maxDistanceWithPrecision":
+        5502.33}, {"distance": 456.34, "duration": 383.864, "movingDuration": 381.0,
+        "elevationGain": 98.0, "elevationLoss": 0.0, "averageSpeed": 1.1890000104904175,
+        "averageMovingSpeed": 1.2028619904103344, "maxSpeed": 1.791000008583069, "calories":
+        43.0, "bmrCalories": 9.0, "averageHR": 108.0, "maxHR": 128.0, "averageRunCadence":
+        108.453125, "maxRunCadence": 236.0, "averageTemperature": 15.0, "maxTemperature":
+        16.0, "minTemperature": 12.0, "averagePower": 270.0, "maxPower": 337.0, "normalizedPower":
+        269.0, "groundContactTime": 277.5, "strideLength": 74.62999877929688, "verticalOscillation":
+        5.70999984741211, "verticalRatio": 7.849999904632568, "totalExerciseReps":
+        0, "avgVerticalSpeed": 0.2540000081062317, "avgGradeAdjustedSpeed": 2.6710000038146973,
+        "splitType": "RWD_WALK", "noOfSplits": 4, "maxElevationGain": 98.0, "averageElevationGain":
+        33.0, "maxDistance": 450, "maxDistanceWithPrecision": 450.73}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 24 Apr 2025 12:54:42 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '6368'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+version: 1

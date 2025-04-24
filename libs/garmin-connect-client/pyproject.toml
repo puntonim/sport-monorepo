@@ -12,6 +12,9 @@ dependencies = [
     #"datetime-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=datetime-utils",
     #"log-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=log-utils",
     "garminconnect (>=0.2.26,<0.3.0)",
+    # `garmin-fit-sdk` could actually be an extra dependency as it is only used in
+    #  download_fit_content(<id>) which is not a recommended method.
+    "garmin-fit-sdk (>=21.158.0,<22.0.0)",
 ]
 
 [build-system]

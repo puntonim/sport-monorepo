@@ -1,4 +1,4 @@
-```pycon
+```py
 activity_id = 18606916834
 summary = garmin.get_activity(activity_id)
     
