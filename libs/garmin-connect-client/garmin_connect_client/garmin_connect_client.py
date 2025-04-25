@@ -15,13 +15,13 @@ Use the same email and password that you use in Garmin Connect website.
 NOTABLE DATA
 ------------
 - HR avg, min and max
-    are in the response to: client.get_activity_summary(<id>)
+    are in the response to: client.get_activity_summary(<activity id>)
     I tested that those value are very close to the one I computed from the HR stream.
 
 - The data streams (hr, distance, altitude, etc)
     are in both responses to:
-        client.get_activity_details(<id>)
-        client.download_activity(<id>)
+        client.get_activity_details(<activity id>)
+        client.download_activity(<activity id>)
     They contain the same datasets, and I recommend to use `client.get_activity_details`
      because it includes some extra info, like:
         response.original_dataset_size
@@ -29,10 +29,14 @@ NOTABLE DATA
      and it also you to request a subset of the original dataset.
     I verified that they both return the same dataset.
 
+- The splits executed during a workout, when pressing the lap button, can be retrieved
+   with client.get_activity_splits(<activity id>)
+   and they include: distance, elapsedDuration, averageHR, maxHR
+
 - Name, start date, type, distance, duration, average HR, max speed
     are in both responses to:
         client.list_activities(<date>)
-        client.get_activity_summary(<id>)
+        client.get_activity_summary(<activity id>)
     I tested that the average HR returned in both methods are the same.
 
 EXAMPLE
@@ -78,6 +82,7 @@ from .garmin_connect_token_managers import (
 )
 from .responses import (
     ActivityDetailsResponse,
+    ActivitySplitsResponse,
     ActivitySummaryResponse,
     DownloadFitContentResponse,
     ListActivitiesResponse,
@@ -172,7 +177,7 @@ class GarminConnectClient:
                 ...
             }
         I tested that `averageHR` returned here is the same as the one
-         return in client.get_activity_summary(<id>).
+         return in client.get_activity_summary(<activity id>).
         """
         if isinstance(day, date) or isinstance(day, datetime):
             date_str = day.isoformat()
@@ -513,12 +518,80 @@ class GarminConnectClient:
         )
         return ActivityDetailsResponse(response, do_keep_raw_data)
 
+    def get_activity_splits(self, activity_id: int) -> ActivitySplitsResponse:
+        """
+        Get the splits for the given activity.
+        Splits can be automatic or started when the lap button is pressed (like during
+         a 6x300m workout). The splits started with a lap button press have:
+         "type": "INTERVAL_ACTIVE".
+        You can get them with: response.get_interval_active_splits()
+        However, some activities, when I never pressed the lap button, still have
+         1 single INTERVAL_ACTIVE split which is the whole activity.
+
+        Args:
+            activity_id: eg. 18923007987  # 6x300m..
+
+        Raw response data format: see `docs/splits.md`.
+
+        Example:
+            client = GarminConnectClient()
+            response = client.get_activity_splits(18923007987)
+            for active_split in response.get_interval_active_splits():
+                print(active_split["elapsedDuration"])
+
+        The split is a dict with these attrs:
+            {
+                "startTimeLocal": "2025-04-24T16:59:55.0",
+                "startTimeGMT": "2025-04-24T14:59:55.0",
+                "startLatitude": 45.62512510456145,
+                "startLongitude": 9.63120530359447,
+                "distance": 300.0,
+                "duration": 49.99,
+                "movingDuration": 46.0,
+                "elapsedDuration": 49.99,
+                "elevationGain": 0.0,
+                "elevationLoss": 1.0,
+                "averageSpeed": 6.000999927520752,
+                "averageMovingSpeed": 6.521739130434782,
+                "maxSpeed": 6.625000000000001,
+                "calories": 12.0,
+                "bmrCalories": 1.0,
+                "averageHR": 134.0,
+                "maxHR": 160.0,
+                "averageRunCadence": 182.046875,
+                "maxRunCadence": 220.0,
+                "averageTemperature": 25.0,
+                "maxTemperature": 26.0,
+                "minTemperature": 25.0,
+                "averagePower": 556.0,
+                "maxPower": 727.0,
+                "normalizedPower": 524.0,
+                "groundContactTime": 168.3000030517578,
+                "strideLength": 178.8,
+                "verticalOscillation": 7.540000152587891,
+                "verticalRatio": 4.21999979019165,
+                "totalExerciseReps": 0,
+                "endLatitude": 45.623174300417304,
+                "endLongitude": 9.62955859489739,
+                "avgVerticalSpeed": -0.019999999552965164,
+                "avgGradeAdjustedSpeed": 5.619999885559082,
+                "avgElapsedDurationVerticalSpeed": -0.02399993896484375,
+                "type": "INTERVAL_ACTIVE",
+                "messageIndex": 8,
+                "lapIndexes": [4],
+                "endTimeGMT": "2025-04-24T15:00:45.0",
+                "startElevation": 187.4,
+            }
+        """
+        data: dict = self.garmin.get_activity_typed_splits(activity_id)
+        return ActivitySplitsResponse(data)
+
     def download_fit_content(self, activity_id: int) -> DownloadFitContentResponse:
         """
         Download the original .fit file content.
 
-        IMP: do not use this method, but use client.get_activity_details(<id>) instead,
-         because its response includes some extra info, like:
+        IMP: do not use this method, but use client.get_activity_details(<activity id>)
+         instead, because its response includes some extra info, like:
             response.original_dataset_size
             response.streams_size
         And also it allows you to download a subset of the original dataset.

@@ -42,6 +42,8 @@ TEST_ACTIVITIES = [
         garmin_activity_id=18633237715,
         start_date="2025-03-25",
     ),
+    # It was a 5x40s but I messed up with the first interval, pressing the
+    #  lap button by mistake, so I pressed it again.
     dict(
         title="Bike - Selvino 5x40s",
         # strava_activity_id=14211292173,
@@ -318,3 +320,59 @@ class TestDownloadFitContent:
             )
 
             assert fit_hr_stream == details_hr_stream
+
+
+class TestGetActivitySplits:
+    def setup_method(self):
+        self.token_mgr = (
+            # Use the regular file token manager when recording vcr episodes.
+            FileGarminConnectTokenManager()
+            if is_vcr_record_mode()
+            # And using a fake test token (expiration in 3999) when replaying episodes.
+            else FakeTestGarminConnectTokenManager()
+        )
+
+    def test_happy_flow(self):
+        client = GarminConnectClient(self.token_mgr)
+        activity_id = 18923007987  # 6x300m.
+
+        response = client.get_activity_splits(activity_id)
+
+        active_splits = list(response.get_interval_active_splits())
+
+        assert len(active_splits) == 6
+
+        assert active_splits[0]["distance"] == 300
+        assert active_splits[0]["elapsedDuration"] == 49.99
+        assert active_splits[0]["averageHR"] == 134.0
+        assert active_splits[0]["maxHR"] == 160.0
+
+        assert active_splits[5]["distance"] == 300
+        assert active_splits[5]["elapsedDuration"] == 54.165
+        assert active_splits[5]["averageHR"] == 134.0
+        assert active_splits[5]["maxHR"] == 155.0
+
+    def test_count_active_splits(self):
+        """
+        The goal of this test is to ensure that for some activities, when I never
+         pressed the lap button, still have 1 single INTERVAL_ACTIVE split which is
+          the whole activity.
+        """
+        client = GarminConnectClient(self.token_mgr)
+
+        lengths = []
+        for activity in TEST_ACTIVITIES:
+            response = client.get_activity_splits(activity["garmin_activity_id"])
+
+            active_splits = list(response.get_interval_active_splits())
+            lengths.append(len(active_splits))
+
+        assert lengths[0] == 0
+        assert lengths[1] == 1
+        assert lengths[2] == 1
+        assert lengths[3] == 1
+        assert lengths[4] == 0
+        # It was a 5x40s but I messed up with the first interval, pressing the
+        #  lap button by mistake, so I pressed it again.
+        assert lengths[5] == 4
+        assert lengths[6] == 1

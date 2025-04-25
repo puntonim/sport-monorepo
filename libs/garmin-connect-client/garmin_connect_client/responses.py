@@ -12,6 +12,7 @@ __all__ = [
     "ListActivitiesResponse",
     "ActivitySummaryResponse",
     "DownloadFitContentResponse",
+    "ActivitySplitsResponse",
 ]
 
 
@@ -28,7 +29,7 @@ class ListActivitiesResponse(BaseGarminResponse):
 
     # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
     #  annotations. If you assign values they become CLASS attrs.
-    data: [str, dict]
+    data: dict[str, dict]
 
     @lru_cache
     def get_activities(self) -> Generator[dict]:
@@ -44,7 +45,7 @@ class ActivitySummaryResponse(BaseGarminResponse):
 
     # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
     #  annotations. If you assign values they become CLASS attrs.
-    data: [str, Any]
+    data: dict[str, Any]
 
     @property
     def summary(self) -> dict:
@@ -256,6 +257,39 @@ class ActivityDetailsResponse(BaseGarminResponse):
             )
 
 
+class ActivitySplitsResponse(BaseGarminResponse):
+    """
+    See docstring in GarminConnectClient.get_activity_splits().
+    """
+
+    # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
+    #  annotations. If you assign values they become CLASS attrs.
+    data: dict[str, Any]
+
+    @property
+    def splits(self) -> dict:
+        """
+        Splits can be automatic or started when the lap button is pressed (like during
+         a 6x300m workout). The splits started with a lap button press have:
+         "type": "INTERVAL_ACTIVE".
+        However, some activities, when I never pressed the lap button, still have
+         1 single INTERVAL_ACTIVE split which is the whole activity.
+        """
+        return self.data["splits"]
+
+    def get_interval_active_splits(self) -> Generator[dict]:
+        """
+        Get the splits started with a lap button press
+        They have:
+         "type": "INTERVAL_ACTIVE".
+        However, some activities, when I never pressed the lap button, still have
+         1 single INTERVAL_ACTIVE split which is the whole activity.
+        """
+        for split in self.splits:
+            if split["type"] == "INTERVAL_ACTIVE":
+                yield split
+
+
 class DownloadFitContentResponse(BaseGarminResponse):
     # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
     #  annotations. If you assign values they become CLASS attrs.
@@ -296,7 +330,7 @@ class DownloadFitContentResponse(BaseGarminResponse):
             with zip_file.open(file_name) as fit_file:
                 content = fit_file.read()
 
-        # stream = Stream.from_file("/Users/nimiq/Desktop/18606916834_ACTIVITY.fit")
+        # stream = Stream.from_file("~/Desktop/18606916834_ACTIVITY.fit")
         stream = Stream.from_bytes_io(io.BytesIO(content))
         decoder = Decoder(stream)
 
