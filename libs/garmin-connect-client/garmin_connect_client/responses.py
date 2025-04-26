@@ -13,6 +13,7 @@ __all__ = [
     "ActivitySummaryResponse",
     "DownloadFitContentResponse",
     "ActivitySplitsResponse",
+    "SearchActivitiesResponse",
 ]
 
 
@@ -288,6 +289,16 @@ class ActivitySplitsResponse(BaseGarminResponse):
         for split in self.splits:
             if split["type"] == "INTERVAL_ACTIVE":
                 yield split
+
+
+class SearchActivitiesResponse(BaseGarminResponse):
+    """
+    See docstring in GarminConnectClient.search_activity().
+    """
+
+    # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
+    #  annotations. If you assign values they become CLASS attrs.
+    data: list[dict[str, Any]]
 
 
 class DownloadFitContentResponse(BaseGarminResponse):

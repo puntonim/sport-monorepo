@@ -39,6 +39,8 @@ NOTABLE DATA
         client.get_activity_summary(<activity id>)
     I tested that the average HR returned in both methods are the same.
 
+- You can search activities by text, date, type, etc with client.search_activities(...)
+
 EXAMPLE
 -------
 ```py
@@ -86,6 +88,7 @@ from .responses import (
     ActivitySummaryResponse,
     DownloadFitContentResponse,
     ListActivitiesResponse,
+    SearchActivitiesResponse,
 )
 
 __all__ = [
@@ -586,6 +589,243 @@ class GarminConnectClient:
         data: dict = self.garmin.get_activity_typed_splits(activity_id)
         return ActivitySplitsResponse(data)
 
+    def search_activities(
+        self,
+        text: str | None = None,
+        day_start: date | datetime | str | None = None,
+        day_end: date | datetime | str | None = None,
+        activity_type: str | None = None,
+        start_offset: int = 0,
+        n_results: int = 20,
+    ) -> SearchActivitiesResponse:
+        """
+        Search activities.
+        IMP: more filter can be implemented (eg. on distance, duration, activity subtype).
+         See comments down here in the code.
+
+        Args:
+            day_start: optional, eg. datetime.date(2023, 5, 1) or
+             datetime.datetime(2023, 5, 1, 0, 0) or "2023-05-01".
+            day_end: optional, eg. datetime.date(2023, 5, 1) or
+             datetime.datetime(2023, 5, 1, 0, 0) or "2023-05-01".
+            activity_type: optional; a single string, possible values are: "cycling",
+             "running", "swimming", "multi_sport", "fitness_equipment", "hiking",
+             "walking", "other".
+            start_offset: starting activity offset, where 0 means the most recent activity.
+            n_results: number of activities to return.
+
+        Raw response data format: see `docs/search activities.md`.
+
+        Example:
+            client = GarminConnectClient()
+            response = client.search_activities(text="6x300m")
+            for activity in response.data:
+                print(active["activityId"])
+                print(active["activityName"])
+
+        Each activity is a dict with these notable attrs, and others:
+            {
+                "activityId": 18923007987,
+                "activityName": "Verdellino - 6x300m",
+                "startTimeLocal": "2025-04-24 16:42:20",
+                "startTimeGMT": "2025-04-24 14:42:20",
+                "activityType": {
+                    "typeId": 1,
+                    "typeKey": "running",
+                    "parentTypeId": 17,
+                    "isHidden": False,
+                    "trimmable": True,
+                    "restricted": False,
+                },
+                "eventType": {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10},
+                "distance": 9621.26953125,
+                "duration": 3951.35400390625,
+                "elapsedDuration": 4060.751953125,
+                "movingDuration": 3598.522994995117,
+                "elevationGain": 38.0,
+                "elevationLoss": 35.0,
+                "averageSpeed": 2.434999942779541,
+                "maxSpeed": 7.250000000000001,
+                "startLatitude": 45.6090556550771,
+                "startLongitude": 9.61661584675312,
+                "hasPolyline": True,
+                "hasImages": False,
+                "ownerId": 113739130,
+                "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+                "ownerFullName": "Paolo",
+                "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+                "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+                "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+                "calories": 801.0,
+                "bmrCalories": 96.0,
+                "averageHR": 123.0,
+                "maxHR": 164.0,
+                "averageRunningCadenceInStepsPerMinute": 129.90625,
+                "maxRunningCadenceInStepsPerMinute": 220.0,
+                "steps": 8946,
+                "userRoles": [
+                    ...
+                ],
+                "privacy": {"typeId": 3, "typeKey": "subscribers"},
+                "userPro": False,
+                "hasVideo": False,
+                "timeZoneId": 124,
+                "beginTimestamp": 1745505740000,
+                "sportTypeId": 1,
+                "avgPower": 264.0,
+                "maxPower": 812.0,
+                "aerobicTrainingEffect": 3.700000047683716,
+                "anaerobicTrainingEffect": 4.400000095367432,
+                "normPower": 364.0,
+                "avgVerticalOscillation": 8.20999984741211,
+                "avgGroundContactTime": 264.0,
+                "avgStrideLength": 110.3699951171875,
+                "vO2MaxValue": 48.0,
+                "avgVerticalRatio": 8.119999885559082,
+                "workoutId": 1090297018,
+                "deviceId": 3444001964,
+                "minTemperature": 24.0,
+                "maxTemperature": 29.0,
+                "minElevation": 172.1999969482422,
+                "maxElevation": 190.39999389648438,
+                "maxDoubleCadence": 220.0,
+                "summarizedDiveInfo": {"summarizedDiveGases": []},
+                "maxVerticalSpeed": 0.600006103515625,
+                "manufacturer": "GARMIN",
+                "locationName": "Verdellino",
+                "lapCount": 18,
+                "endLatitude": 45.609086751937866,
+                "endLongitude": 9.616676112636924,
+                "waterEstimated": 1014.0,
+                "minRespirationRate": 22.670000076293945,
+                "maxRespirationRate": 50.2599983215332,
+                "avgRespirationRate": 37.65999984741211,
+                "trainingEffectLabel": "ANAEROBIC_CAPACITY",
+                "activityTrainingLoad": 384.4158630371094,
+                "minActivityLapDuration": 48.29399871826172,
+                "aerobicTrainingEffectMessage": "IMPROVING_AEROBIC_FITNESS_2",
+                "anaerobicTrainingEffectMessage": "HIGHLY_IMPROVING_ANAEROBIC_CAPACITY_AND_POWER_3",
+                "splitSummaries": [
+                    {
+                        "noOfSplits": 25,
+                        "totalAscent": 0.0,
+                        "duration": 264.6090087890625,
+                        "splitType": "RWD_STAND",
+                        "numClimbSends": 0,
+                        "maxElevationGain": 0.0,
+                        "averageElevationGain": 0.0,
+                        "maxDistance": 9,
+                        "distance": 83.02999877929688,
+                        "averageSpeed": 0.3140000104904175,
+                        "maxSpeed": 0.0,
+                        "numFalls": 0,
+                        "elevationLoss": 0.0,
+                    },
+                    # Note: they are automatic splits that are not interesting.
+                ],
+                "hasSplits": True,
+                "moderateIntensityMinutes": 13,
+                "vigorousIntensityMinutes": 51,
+                "avgGradeAdjustedSpeed": 2.446000099182129,
+                "differenceBodyBattery": -11,
+                "hasHeatMap": False,
+                "fastestSplit_1000": 305.4330139160156,
+                "fastestSplit_1609": 503.88800048828125,
+                "fastestSplit_5000": 2021.7840576171875,
+                "hrTimeInZone_1": 45.688,
+                "hrTimeInZone_2": 652.065,
+                "hrTimeInZone_3": 563.297,
+                "hrTimeInZone_4": 1753.023,
+                "hrTimeInZone_5": 933.908,
+                "powerTimeInZone_1": 516.993,
+                "powerTimeInZone_2": 1099.002,
+                "powerTimeInZone_3": 416.009,
+                "powerTimeInZone_4": 51.998,
+                "powerTimeInZone_5": 277.935,
+                "pr": False,
+                "purposeful": False,
+                "manualActivity": False,
+                "autoCalcCalories": False,
+                "elevationCorrected": False,
+                "atpActivity": False,
+                "favorite": False,
+                "decoDive": False,
+                "parent": False,
+            }
+        """
+        # IMP: the lib garminconnect (https://github.com/cyberjunky/python-garminconnect/blob/master/example.py)
+        #  does not include a method to search for activities, despite Garmin Connect
+        #  backend-for-frontend has it. So I implemented it myself, following the same
+        #  pattern as the other methods, see for instance: self.garmin.get_activities_by_date()
+        #
+        # The original request supports more filters. You can inspect the request
+        #  done by Garmin Connect website.
+        # https://connect.garmin.com/activitylist-service/activities/search/activities?
+        #  activityType=running
+        #  &search=6x300m
+        #  &activitySubType=track_running
+        #  &minDistance=1
+        #  &maxDistance=100
+        #  &minDuration=3602
+        #  &maxDuration=9356
+        #  &minElevation=1
+        #  &maxElevation=2500
+        #  &startDate=2023-01-01
+        #  &endDate=2024-12-31
+        #  &eventType=race
+        #  &limit=20
+        #  &start=0
+        #  &excludeChildren=false
+
+        # Parse day start and end dates.
+        if isinstance(day_start, date) or isinstance(day_start, datetime):
+            day_start_str = day_start.isoformat()
+        elif isinstance(day_start, str):
+            try:
+                datetime.fromisoformat(day_start)
+            except ValueError as exc:
+                raise InvalidDate(day_start) from exc
+            day_start_str = day_start
+        elif day_start:
+            raise InvalidDate(day_start)
+        if isinstance(day_end, date) or isinstance(day_end, datetime):
+            day_end_str = day_end.isoformat()
+        elif isinstance(day_end, str):
+            try:
+                datetime.fromisoformat(day_end)
+            except ValueError as exc:
+                raise InvalidDate(day_end) from exc
+            day_end_str = day_end
+        elif day_end:
+            raise InvalidDate(day_end)
+
+        # Validate activity_type.
+        if activity_type and activity_type.lower() not in (
+            "cycling",
+            "running",
+            "swimming",
+            "multi_sport",
+            "fitness_equipment",
+            "hiking",
+            "walking",
+            "other",
+        ):
+            raise ActivityTypeUnknown(activity_type)
+
+        url = self.garmin.garmin_connect_activities
+        params = dict(start=start_offset, limit=n_results)
+        if text:
+            params["search"] = text
+        if day_start:
+            params["startDate"] = day_start_str
+        if day_end:
+            params["endDate"] = day_end_str
+        if activity_type:
+            params["activityType"] = activity_type
+
+        data: list[dict[str, Any]] = self.garmin.connectapi(url, params=params)
+        return SearchActivitiesResponse(data)
+
     def download_fit_content(self, activity_id: int) -> DownloadFitContentResponse:
         """
         Download the original .fit file content.
@@ -612,3 +852,8 @@ class BaseGarminConnectClientException(Exception):
 class InvalidDate(BaseGarminConnectClientException):
     def __init__(self, value):
         self.value = value
+
+
+class ActivityTypeUnknown(BaseGarminConnectClientException):
+    def __init__(self, activity_type):
+        self.activity_type = activity_type

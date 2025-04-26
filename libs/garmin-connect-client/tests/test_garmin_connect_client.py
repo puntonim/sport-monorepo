@@ -376,3 +376,40 @@ class TestGetActivitySplits:
         #  lap button by mistake, so I pressed it again.
         assert lengths[5] == 4
         assert lengths[6] == 1
+
+
+class TestSearchActivities:
+    def setup_method(self):
+        self.token_mgr = (
+            # Use the regular file token manager when recording vcr episodes.
+            FileGarminConnectTokenManager()
+            if is_vcr_record_mode()
+            # And using a fake test token (expiration in 3999) when replaying episodes.
+            else FakeTestGarminConnectTokenManager()
+        )
+
+    def test_happy_flow(self):
+        client = GarminConnectClient(self.token_mgr)
+        response = client.search_activities(
+            text="6x300m",
+            day_start="2024-01-01",
+            day_end="2025-04-26",
+            activity_type="running",
+            start_offset=0,
+            n_results=10,
+        )
+        assert len(response.data) == 6
+
+    def test_no_params(self):
+        client = GarminConnectClient(self.token_mgr)
+        response = client.search_activities()
+        assert len(response.data) == 20
+
+    def test_n_results(self):
+        client = GarminConnectClient(self.token_mgr)
+        response = client.search_activities(
+            activity_type="running",
+            start_offset=0,
+            n_results=33,
+        )
+        assert len(response.data) == 33
