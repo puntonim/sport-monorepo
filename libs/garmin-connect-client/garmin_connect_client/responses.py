@@ -52,6 +52,24 @@ class ActivitySummaryResponse(BaseGarminResponse):
     def summary(self) -> dict:
         return self.data["summaryDTO"]
 
+    def has_heart_rate_monitor(self):
+        for sensor in self.data["metadataDTO"].get("sensors") or []:
+            # Sensor is a dict like:
+            # {
+            #     "manufacturer": "GARMIN",
+            #     "serialNumber": 3511385941,
+            #     "sku": "006-B4606-00",
+            #     "fitProductNumber": 4606,
+            #     "sourceType": "ANTPLUS",
+            #     "antplusDeviceType": "HEART_RATE",
+            #     "softwareVersion": 3.9,
+            #     "batteryStatus": "OK",
+            # }
+            for val in sensor.values():
+                if isinstance(val, str) and "HEART_RATE".lower() in val.lower():
+                    return True
+        return False
+
 
 class ActivityDetailsResponse(BaseGarminResponse):
     """

@@ -12,36 +12,42 @@ from garmin_connect_client.garmin_connect_token_managers import (
 from .conftest import is_vcr_record_mode
 
 TEST_ACTIVITIES = [
+    # 0.
     dict(
         title="Bike, Selvino and Salmezza",
         # strava_activity_id=14038286532,
         garmin_activity_id=18689027868,
         start_date="2025-03-31",
     ),
+    # 1.
     dict(
         title="Bike, Selvino and Salmezza - Selvino record with road bike",
         # strava_activity_id=11681601053,
         garmin_activity_id=15974223178,
         start_date="2024-06-18",
     ),
+    # 2.
     dict(
         title="Run, Milano21",
         # strava_activity_id=10283002244,
         garmin_activity_id=12877651519,
         start_date="2023-11-26",
     ),
+    # 3.
     dict(
-        title="Bike, 1st Sellaronda - long activity with many pauses",
+        title="Bike, 1st Sellaronda - long activity with many pauses, with HRM dual",
         # strava_activity_id=9240064780,
         garmin_activity_id=11313479371,
         start_date="2023-06-10",
     ),
+    # 4.
     dict(
         title="Snowboarding - never paused the watch, but many not moving times",
         # strava_activity_id=13983015686,
         garmin_activity_id=18633237715,
         start_date="2025-03-25",
     ),
+    # 5.
     # It was a 5x40s but I messed up with the first interval, pressing the
     #  lap button by mistake, so I pressed it again.
     dict(
@@ -50,11 +56,19 @@ TEST_ACTIVITIES = [
         garmin_activity_id=18861865288,
         start_date="2025-04-18",
     ),
+    # 6.
     dict(
         title="Run - Limone Sunset Running Race",
         # strava_activity_id=13956710205,
         garmin_activity_id=18606916834,
         start_date="2025-03-22",
+    ),
+    # 7.
+    dict(
+        title="Run - 6x300m con HRM 200",
+        # strava_activity_id=0,
+        garmin_activity_id=18923007987,
+        start_date="2025-04-24",
     ),
 ]
 
@@ -97,7 +111,7 @@ class TestListActivities:
          is the same as the one in client.get_activity_summary(<id>).
         """
         client = GarminConnectClient(self.token_mgr)
-        for test_activity in TEST_ACTIVITIES:
+        for test_activity in TEST_ACTIVITIES[:7]:
             response = client.list_activities(test_activity["start_date"])
             activities = list(response.get_activities())
             found = False
@@ -136,7 +150,7 @@ class TestGetActivitySummary:
          are very close to the one I can compute directly from the HR stream dataset.
         """
         client = GarminConnectClient(self.token_mgr)
-        for test_activity in TEST_ACTIVITIES:
+        for test_activity in TEST_ACTIVITIES[:7]:
             activity_id = test_activity["garmin_activity_id"]
 
             response = client.get_activity_summary(activity_id)
@@ -160,6 +174,21 @@ class TestGetActivitySummary:
             assert abs(avg_hr_summary - avg_hr_computed) < 6
             assert abs(max_hr_summary - max_hr_computed) <= 1
             assert min_hr_summary == min_hr_computed
+
+    def test_has_heart_rate_monitor_new_hrm_200(self):
+        client = GarminConnectClient(self.token_mgr)
+        response = client.get_activity_summary(TEST_ACTIVITIES[7]["garmin_activity_id"])
+        assert response.has_heart_rate_monitor() is True
+
+    def test_has_heart_rate_monitor_old_hrm_dual(self):
+        client = GarminConnectClient(self.token_mgr)
+        response = client.get_activity_summary(TEST_ACTIVITIES[3]["garmin_activity_id"])
+        assert response.has_heart_rate_monitor() is True
+
+    def test_has_NOT_heart_rate_monitor(self):
+        client = GarminConnectClient(self.token_mgr)
+        response = client.get_activity_summary(TEST_ACTIVITIES[0]["garmin_activity_id"])
+        assert response.has_heart_rate_monitor() is False
 
 
 class TestGetActivityDetails:
@@ -213,7 +242,7 @@ class TestGetActivityDetails:
             lng_stream
         """
         client = GarminConnectClient(self.token_mgr)
-        for test_activity in TEST_ACTIVITIES:
+        for test_activity in TEST_ACTIVITIES[:7]:
             activity_id = test_activity["garmin_activity_id"]
             response = client.get_activity_details(
                 activity_id,
@@ -241,7 +270,7 @@ class TestGetActivityDetails:
 
     def test_ensure_stream_data_size_match_original_data_size(self):
         client = GarminConnectClient(self.token_mgr)
-        for test_activity in TEST_ACTIVITIES:
+        for test_activity in TEST_ACTIVITIES[:7]:
             activity_id = test_activity["garmin_activity_id"]
             response = client.get_activity_details(
                 activity_id,
@@ -361,7 +390,7 @@ class TestGetActivitySplits:
         client = GarminConnectClient(self.token_mgr)
 
         lengths = []
-        for activity in TEST_ACTIVITIES:
+        for activity in TEST_ACTIVITIES[:7]:
             response = client.get_activity_splits(activity["garmin_activity_id"])
 
             active_splits = list(response.get_interval_active_splits())

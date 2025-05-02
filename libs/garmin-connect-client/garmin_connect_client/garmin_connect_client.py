@@ -14,11 +14,11 @@ Use the same email and password that you use in Garmin Connect website.
 
 NOTABLE DATA
 ------------
-- HR avg, min and max
+- **HR avg**, **min** and **max**
     are in the response to: client.get_activity_summary(<activity id>)
     I tested that those value are very close to the one I computed from the HR stream.
 
-- The data streams (hr, distance, altitude, etc)
+- The **data streams** (**hr**, **distance**, **altitude**, etc)
     are in both responses to:
         client.get_activity_details(<activity id>)
         client.download_activity(<activity id>)
@@ -29,17 +29,21 @@ NOTABLE DATA
      and it also you to request a subset of the original dataset.
     I verified that they both return the same dataset.
 
-- The splits executed during a workout, when pressing the lap button, can be retrieved
-   with client.get_activity_splits(<activity id>)
-   and they include: distance, elapsedDuration, averageHR, maxHR
+- The **splits** executed during a workout, when pressing the lap button, can be
+   retrieved with client.get_activity_splits(<activity id>)
+   and they include: **distance**, **elapsedDuration**, **averageHR**, **maxHR**
 
-- Name, start date, type, distance, duration, average HR, max speed
-    are in both responses to:
+- **Name**, **start date**, **type**, **distance**, **duration**, **average HR**,
+   **max speed** are in both responses to:
         client.list_activities(<date>)
         client.get_activity_summary(<activity id>)
     I tested that the average HR returned in both methods are the same.
 
-- You can search activities by text, date, type, etc with client.search_activities(...)
+- You can **search** activities by text, date, type, etc with
+   client.search_activities(...)
+
+- **Sensors** (like **HRM 200** heart rate monitor) are in the response to:
+        client.get_activity_summary(<activity id>)
 
 EXAMPLE
 -------
@@ -396,7 +400,7 @@ class GarminConnectClient:
             assert response.activity_id == 18606916834
             assert response.original_dataset_size == 4179
             assert response.streams_size == 4179
-            assert response.elapsed_time_stream[3] == 17.0
+            assert response.get_elapsed_time_stream()[3] == 17.0
 
         The detail is a dict with these notable attrs, and others:
             {
