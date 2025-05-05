@@ -428,6 +428,56 @@ class TestSearchActivities:
             n_results=10,
         )
         assert len(response.data) == 6
+        for activity in response.data:
+            assert activity["activityType"]["typeKey"] in ("running", "trail_running")
+
+    def test_distance(self):
+        client = GarminConnectClient(self.token_mgr)
+        response = client.search_activities(
+            distance_min=15000,
+            distance_max=22000,
+        )
+        assert len(response.data) == 20
+        for activity in response.data:
+            assert activity["distance"] > 15000
+            assert activity["distance"] < 22000
+
+    def test_long_distance_run(self):
+        client = GarminConnectClient(self.token_mgr)
+        response = client.search_activities(
+            distance_min=27000,
+            activity_type="running",
+        )
+        assert len(response.data) == 1
+        for activity in response.data:
+            assert activity["distance"] > 27000
+            assert activity["activityType"]["typeKey"] == "running"
+
+    def test_duration(self):
+        client = GarminConnectClient(self.token_mgr)
+        response = client.search_activities(
+            duration_min=9000,
+            duration_max=10200,
+            activity_type="running",
+        )
+        assert len(response.data) == 2
+        for activity in response.data:
+            assert activity["duration"] > 9000
+            assert activity["duration"] < 10200
+            assert activity["activityType"]["typeKey"] in ("running", "trail_running")
+
+    def test_elevation(self):
+        client = GarminConnectClient(self.token_mgr)
+        response = client.search_activities(
+            elevation_min=1000,
+            elevation_max=1300,
+            activity_type="running",
+        )
+        assert len(response.data) == 2
+        for activity in response.data:
+            assert activity["elevationGain"] > 1000
+            assert activity["elevationGain"] < 1300
+            assert activity["activityType"]["typeKey"] in ("running", "trail_running")
 
     def test_no_params(self):
         client = GarminConnectClient(self.token_mgr)

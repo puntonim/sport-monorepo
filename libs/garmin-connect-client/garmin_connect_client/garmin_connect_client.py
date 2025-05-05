@@ -599,12 +599,18 @@ class GarminConnectClient:
         day_start: date | datetime | str | None = None,
         day_end: date | datetime | str | None = None,
         activity_type: str | None = None,
+        distance_min: int | None = None,
+        distance_max: int | None = None,
+        duration_min: int | None = None,
+        duration_max: int | None = None,
+        elevation_min: int | None = None,
+        elevation_max: int | None = None,
         start_offset: int = 0,
         n_results: int = 20,
     ) -> SearchActivitiesResponse:
         """
         Search activities.
-        IMP: more filter can be implemented (eg. on distance, duration, activity subtype).
+        IMP: more filters can be implemented (eg. on activity subtype).
          See comments down here in the code.
 
         Args:
@@ -826,6 +832,18 @@ class GarminConnectClient:
             params["endDate"] = day_end_str
         if activity_type:
             params["activityType"] = activity_type
+        if distance_min is not None:
+            params["minDistance"] = distance_min
+        if distance_max is not None:
+            params["maxDistance"] = distance_max
+        if duration_min is not None:
+            params["minDuration"] = duration_min
+        if duration_max is not None:
+            params["maxDuration"] = duration_max
+        if elevation_min is not None:
+            params["minElevation"] = elevation_min
+        if elevation_max is not None:
+            params["maxElevation"] = elevation_max
 
         data: list[dict[str, Any]] = self.garmin.connectapi(url, params=params)
         return SearchActivitiesResponse(data)

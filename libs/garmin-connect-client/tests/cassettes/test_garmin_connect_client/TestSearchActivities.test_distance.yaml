@@ -1,0 +1,1212 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/userprofile-service/socialProfile
+  response:
+    body:
+      string: '{"id": 408106091, "profileId": 113739130, "garminGUID": "036d4457-1523-4d57-a237-43de978cd7cc",
+        "displayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "fullName": "Paolo",
+        "userName": "puntonim@gmail.com", "profileImageType": "UPLOADED_PHOTO", "profileImageUrlLarge":
+        "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "hasPremiumSocialIcon": false, "location": "Verdellino, Italy", "facebookUrl":
+        null, "twitterUrl": null, "personalWebsite": null, "motivation": 2, "bio":
+        null, "primaryActivity": "other", "favoriteActivityTypes": ["running", "cycling",
+        "weight_training", "snow_sports"], "runningTrainingSpeed": 0.0, "cyclingTrainingSpeed":
+        0.0, "favoriteCyclingActivityTypes": ["road", "mountain"], "cyclingClassification":
+        null, "cyclingMaxAvgPower": 0.0, "swimmingTrainingSpeed": 0.0, "profileVisibility":
+        "following", "activityStartVisibility": "public", "activityMapVisibility":
+        "public", "courseVisibility": "public", "activityHeartRateVisibility": "public",
+        "activityPowerVisibility": "public", "badgeVisibility": "private", "showAge":
+        false, "showWeight": false, "showHeight": false, "showWeightClass": false,
+        "showAgeRange": false, "showGender": false, "showActivityClass": false, "showVO2Max":
+        false, "showPersonalRecords": true, "showLast12Months": true, "showLifetimeTotals":
+        true, "showUpcomingEvents": true, "showRecentFavorites": true, "showRecentDevice":
+        true, "showRecentGear": false, "showBadges": true, "otherActivity": null,
+        "otherPrimaryActivity": null, "otherMotivation": null, "userRoles": ["SCOPE_ATP_READ",
+        "SCOPE_ATP_WRITE", "SCOPE_COMMUNITY_COURSE_READ", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_CONNECT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_DIVE_API_READ", "SCOPE_DI_OAUTH_2_AUTHORIZATION_CODE_CREATE",
+        "SCOPE_DT_CLIENT_ANALYTICS_WRITE", "SCOPE_GARMINPAY_READ", "SCOPE_GARMINPAY_WRITE",
+        "SCOPE_GCOFFER_READ", "SCOPE_GCOFFER_WRITE", "SCOPE_GHS_SAMD", "SCOPE_GHS_UPLOAD",
+        "SCOPE_GOLF_API_READ", "SCOPE_GOLF_API_WRITE", "SCOPE_INSIGHTS_READ", "SCOPE_INSIGHTS_WRITE",
+        "SCOPE_OMT_CAMPAIGN_READ", "SCOPE_OMT_SUBSCRIPTION_READ", "SCOPE_PRODUCT_SEARCH_READ",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "nameApproved": true, "userProfileFullName": "Paolo", "makeGolfScorecardsPrivate":
+        true, "allowGolfLiveScoring": false, "allowGolfScoringByConnections": true,
+        "userLevel": 3, "userPoint": 101, "levelUpdateDate": "2023-06-11T20:10:14.0",
+        "levelIsViewed": false, "levelPointThreshold": 140, "userPointOffset": 0,
+        "userPro": false}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Mon, 05 May 2025 09:16:31 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2660'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/userprofile-service/userprofile/user-settings
+  response:
+    body:
+      string: '{"id": 113739130, "userData": {"gender": "MALE", "weight": 81000.0,
+        "height": 180.0, "timeFormat": "time_twenty_four_hr", "birthDate": "1980-01-18",
+        "measurementSystem": "metric", "activityLevel": 7, "handedness": "RIGHT",
+        "powerFormat": {"formatId": 30, "formatKey": "watt", "minFraction": 0, "maxFraction":
+        0, "groupingUsed": true, "displayFormat": null}, "heartRateFormat": {"formatId":
+        21, "formatKey": "bpm", "minFraction": 0, "maxFraction": 0, "groupingUsed":
+        false, "displayFormat": null}, "firstDayOfWeek": {"dayId": 3, "dayName": "monday",
+        "sortOrder": 3, "isPossibleFirstDay": true}, "vo2MaxRunning": 49.0, "vo2MaxCycling":
+        null, "lactateThresholdSpeed": 0.37777672, "lactateThresholdHeartRate": 160,
+        "diveNumber": null, "intensityMinutesCalcMethod": "AUTO", "moderateIntensityMinutesHrZone":
+        3, "vigorousIntensityMinutesHrZone": 4, "hydrationMeasurementUnit": "cup",
+        "hydrationContainers": [], "hydrationAutoGoalEnabled": true, "firstbeatMaxStressScore":
+        null, "firstbeatCyclingLtTimestamp": null, "firstbeatRunningLtTimestamp":
+        1115147309, "thresholdHeartRateAutoDetected": true, "ftpAutoDetected": true,
+        "trainingStatusPausedDate": null, "weatherLocation": {"useFixedLocation":
+        null, "latitude": null, "longitude": null, "locationName": null, "isoCountryCode":
+        null, "postalCode": null}, "golfDistanceUnit": "statute_us", "golfElevationUnit":
+        null, "golfSpeedUnit": null, "externalBottomTime": null, "availableTrainingDays":
+        ["SATURDAY", "TUESDAY", "THURSDAY", "WEDNESDAY", "MONDAY", "SUNDAY", "FRIDAY"],
+        "preferredLongTrainingDays": ["SATURDAY", "SUNDAY"]}, "userSleep": {"sleepTime":
+        0, "defaultSleepTime": false, "wakeTime": 28800, "defaultWakeTime": false},
+        "connectDate": null, "sourceType": null, "userSleepWindows": [{"sleepWindowFrequency":
+        "SUNDAY", "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "MONDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "TUESDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "WEDNESDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "THURSDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "FRIDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "SATURDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "DAILY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Mon, 05 May 2025 09:16:32 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2507'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/activitylist-service/activities/search/activities?start=0&limit=20&minDistance=15000&maxDistance=22000
+  response:
+    body:
+      string: '[{"activityId": 18891426764, "activityName": "Verdellino Running",
+        "startTimeLocal": "2025-04-21 12:35:00", "startTimeGMT": "2025-04-21 10:35:00",
+        "activityType": {"typeId": 1, "typeKey": "running", "parentTypeId": 17, "isHidden":
+        false, "restricted": false, "trimmable": true}, "eventType": {"typeId": 9,
+        "typeKey": "uncategorized", "sortOrder": 10}, "distance": 21117.830078125,
+        "duration": 6332.43115234375, "elapsedDuration": 6425.55078125, "movingDuration":
+        6325.236022949219, "elevationGain": 75.0, "elevationLoss": 73.0, "averageSpeed":
+        3.3350000381469727, "maxSpeed": 4.703000068664551, "startLatitude": 45.60910846106708,
+        "startLongitude": 9.616695223376155, "hasPolyline": true, "hasImages": false,
+        "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1683.0, "bmrCalories": 153.0, "averageHR": 138.0, "maxHR": 162.0,
+        "averageRunningCadenceInStepsPerMinute": 168.03125, "maxRunningCadenceInStepsPerMinute":
+        179.0, "steps": 17662, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ",
+        "SCOPE_DIVE_API_WRITE", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "privacy": {"typeId": 3, "typeKey": "subscribers"}, "userPro": false, "hasVideo":
+        false, "timeZoneId": 124, "beginTimestamp": 1745231700000, "sportTypeId":
+        1, "avgPower": 388.0, "maxPower": 610.0, "aerobicTrainingEffect": 5.0, "anaerobicTrainingEffect":
+        2.4000000953674316, "normPower": 391.0, "avgVerticalOscillation": 9.419999694824218,
+        "avgGroundContactTime": 257.8999938964844, "avgStrideLength": 119.66999511718751,
+        "vO2MaxValue": 48.0, "avgVerticalRatio": 7.880000114440918, "deviceId": 3444001964,
+        "minTemperature": 23.0, "maxTemperature": 27.0, "minElevation": 170.1999969482422,
+        "maxElevation": 189.0, "maxDoubleCadence": 179.0, "summarizedDiveInfo": {"summarizedDiveGases":
+        []}, "maxVerticalSpeed": 0.600006103515625, "manufacturer": "GARMIN", "locationName":
+        "Verdellino", "lapCount": 22, "endLatitude": 45.608706967905164, "endLongitude":
+        9.616325329989195, "waterEstimated": 1758.0, "minRespirationRate": 17.290000915527344,
+        "maxRespirationRate": 55.31999969482422, "avgRespirationRate": 42.66999816894531,
+        "trainingEffectLabel": "AEROBIC_BASE", "activityTrainingLoad": 656.4812622070312,
+        "minActivityLapDuration": 32.766998291015625, "aerobicTrainingEffectMessage":
+        "OVERREACHING_11", "anaerobicTrainingEffectMessage": "MAINTAINING_ANAEROBIC_BASE_1",
+        "splitSummaries": [{"noOfSplits": 1, "totalAscent": 75.0, "duration": 6332.43115234375,
+        "splitType": "INTERVAL_ACTIVE", "numClimbSends": 0, "maxElevationGain": 75.0,
+        "averageElevationGain": 75.0, "maxDistance": 21117, "distance": 21117.810546875,
+        "averageSpeed": 3.3350000381469727, "maxSpeed": 4.703000068664551, "numFalls":
+        0, "elevationLoss": 73.0}, {"noOfSplits": 4, "totalAscent": 75.0, "duration":
+        6317.52294921875, "splitType": "RWD_RUN", "numClimbSends": 0, "maxElevationGain":
+        32.0, "averageElevationGain": 19.0, "maxDistance": 10085, "distance": 21080.109375,
+        "averageSpeed": 3.3369998931884766, "maxSpeed": 4.703000068664551, "numFalls":
+        0, "elevationLoss": 73.0}, {"noOfSplits": 5, "totalAscent": 0.0, "duration":
+        14.892999649047852, "splitType": "RWD_WALK", "numClimbSends": 0, "maxElevationGain":
+        0.0, "averageElevationGain": 0.0, "maxDistance": 26, "distance": 37.720001220703125,
+        "averageSpeed": 2.5329999923706055, "maxSpeed": 2.2109999656677246, "numFalls":
+        0, "elevationLoss": 0.0}, {"noOfSplits": 2, "duration": 0.0, "splitType":
+        "RWD_STAND", "numClimbSends": 0, "numFalls": 0}], "hasSplits": true, "moderateIntensityMinutes":
+        0, "vigorousIntensityMinutes": 107, "avgGradeAdjustedSpeed": 3.351999998092652,
+        "differenceBodyBattery": -32, "hasHeatMap": false, "fastestSplit_1000": 269.8500061035156,
+        "fastestSplit_1609": 441.64300537109375, "fastestSplit_5000": 1429.822021484375,
+        "fastestSplit_10000": 2905.97998046875, "fastestSplit_21098": 6332.43115234375,
+        "hrTimeInZone_1": 10.909, "hrTimeInZone_2": 33.679, "hrTimeInZone_3": 92.0,
+        "hrTimeInZone_4": 1914.123, "hrTimeInZone_5": 4281.47, "powerTimeInZone_1":
+        143.99, "powerTimeInZone_2": 2357.921, "powerTimeInZone_3": 3151.706, "powerTimeInZone_4":
+        578.977, "powerTimeInZone_5": 53.998, "endTimeGMT": "2025-04-21 12:22:05",
+        "qualifyingDive": false, "autoCalcCalories": false, "elevationCorrected":
+        false, "atpActivity": false, "decoDive": false, "favorite": false, "purposeful":
+        false, "pr": false, "manualActivity": false, "parent": false}, {"activityId":
+        18843799124, "activityName": "Verdellino Running", "startTimeLocal": "2025-04-16
+        12:01:39", "startTimeGMT": "2025-04-16 10:01:39", "activityType": {"typeId":
+        1, "typeKey": "running", "parentTypeId": 17, "isHidden": false, "restricted":
+        false, "trimmable": true}, "eventType": {"typeId": 9, "typeKey": "uncategorized",
+        "sortOrder": 10}, "distance": 18016.2109375, "duration": 5390.59716796875,
+        "elapsedDuration": 5390.59716796875, "movingDuration": 5387.574981689453,
+        "elevationGain": 122.0, "elevationLoss": 123.0, "averageSpeed": 3.3420000076293945,
+        "maxSpeed": 4.105999946594238, "startLatitude": 45.608644019812346, "startLongitude":
+        9.616222903132439, "hasPolyline": true, "hasImages": false, "ownerId": 113739130,
+        "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "ownerFullName":
+        "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1462.0, "bmrCalories": 131.0, "averageHR": 140.0, "maxHR": 163.0,
+        "averageRunningCadenceInStepsPerMinute": 168.515625, "maxRunningCadenceInStepsPerMinute":
+        176.0, "steps": 15134, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ",
+        "SCOPE_DIVE_API_WRITE", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "privacy": {"typeId": 3, "typeKey": "subscribers"}, "userPro": false, "hasVideo":
+        false, "timeZoneId": 124, "beginTimestamp": 1744797699000, "sportTypeId":
+        1, "avgPower": 398.0, "maxPower": 561.0, "aerobicTrainingEffect": 5.0, "anaerobicTrainingEffect":
+        3.0, "normPower": 402.0, "avgVerticalOscillation": 9.419999694824218, "avgGroundContactTime":
+        258.0, "avgStrideLength": 119.60000000000001, "vO2MaxValue": 49.0, "avgVerticalRatio":
+        7.900000095367432, "deviceId": 3444001964, "minTemperature": 25.0, "maxTemperature":
+        30.0, "minElevation": 170.1999969482422, "maxElevation": 190.60000610351562,
+        "maxDoubleCadence": 176.0, "summarizedDiveInfo": {"summarizedDiveGases": []},
+        "maxVerticalSpeed": 1.600006103515625, "manufacturer": "GARMIN", "locationName":
+        "Verdellino", "lapCount": 19, "endLatitude": 45.6089174374938, "endLongitude":
+        9.616558263078332, "waterEstimated": 1497.0, "minRespirationRate": 23.6200008392334,
+        "maxRespirationRate": 54.79999923706055, "avgRespirationRate": 43.900001525878906,
+        "trainingEffectLabel": "AEROBIC_BASE", "activityTrainingLoad": 620.394775390625,
+        "minActivityLapDuration": 4.333000183105469, "aerobicTrainingEffectMessage":
+        "OVERREACHING_11", "anaerobicTrainingEffectMessage": "IMPROVING_ANAEROBIC_BASE_2",
+        "splitSummaries": [{"noOfSplits": 1, "totalAscent": 122.0, "duration": 5390.59716796875,
+        "splitType": "INTERVAL_ACTIVE", "numClimbSends": 0, "maxElevationGain": 122.0,
+        "averageElevationGain": 122.0, "maxDistance": 18016, "distance": 18016.19921875,
+        "averageSpeed": 3.3420000076293945, "maxSpeed": 4.105999946594238, "numFalls":
+        0, "elevationLoss": 123.0}, {"noOfSplits": 1, "totalAscent": 122.0, "duration":
+        5390.5830078125, "splitType": "RWD_RUN", "numClimbSends": 0, "maxElevationGain":
+        122.0, "averageElevationGain": 122.0, "maxDistance": 18016, "distance": 18016.19921875,
+        "averageSpeed": 3.3420000076293945, "maxSpeed": 4.105999946594238, "numFalls":
+        0, "elevationLoss": 123.0}], "hasSplits": true, "moderateIntensityMinutes":
+        0, "vigorousIntensityMinutes": 89, "avgGradeAdjustedSpeed": 3.365000009536743,
+        "differenceBodyBattery": -33, "hasHeatMap": false, "fastestSplit_1000": 268.1830139160156,
+        "fastestSplit_1609": 441.9700012207031, "fastestSplit_5000": 1417.385986328125,
+        "fastestSplit_10000": 2913.7470703125, "hrTimeInZone_1": 5.438, "hrTimeInZone_2":
+        11.998, "hrTimeInZone_3": 73.0, "hrTimeInZone_4": 1451.972, "hrTimeInZone_5":
+        3847.975, "powerTimeInZone_1": 310.996, "powerTimeInZone_2": 1753.968, "powerTimeInZone_3":
+        2265.912, "powerTimeInZone_4": 948.102, "powerTimeInZone_5": 44.968, "endTimeGMT":
+        "2025-04-16 11:31:29", "qualifyingDive": false, "autoCalcCalories": false,
+        "elevationCorrected": false, "atpActivity": false, "decoDive": false, "favorite":
+        false, "purposeful": false, "pr": false, "manualActivity": false, "parent":
+        false}, {"activityId": 18480727776, "activityName": "Run for Life Monza",
+        "startTimeLocal": "2025-03-09 09:12:17", "startTimeGMT": "2025-03-09 08:12:17",
+        "activityType": {"typeId": 1, "typeKey": "running", "parentTypeId": 17, "isHidden":
+        false, "restricted": false, "trimmable": true}, "eventType": {"typeId": 9,
+        "typeKey": "uncategorized", "sortOrder": 10}, "distance": 21212.060546875,
+        "duration": 5622.18408203125, "elapsedDuration": 5622.18408203125, "movingDuration":
+        5616.623962402344, "elevationGain": 77.0, "elevationLoss": 75.0, "averageSpeed":
+        3.7730000019073486, "maxSpeed": 4.591000080108643, "startLatitude": 45.618999944999814,
+        "startLongitude": 9.281218014657497, "hasPolyline": true, "hasImages": false,
+        "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1444.0, "bmrCalories": 135.0, "averageHR": 124.0, "maxHR": 136.0,
+        "averageRunningCadenceInStepsPerMinute": 172.328125, "maxRunningCadenceInStepsPerMinute":
+        183.0, "steps": 16110, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ",
+        "SCOPE_DIVE_API_WRITE", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "privacy": {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo":
+        false, "timeZoneId": 124, "beginTimestamp": 1741507937000, "sportTypeId":
+        1, "avgPower": 429.0, "maxPower": 619.0, "aerobicTrainingEffect": 5.0, "anaerobicTrainingEffect":
+        1.7000000476837158, "normPower": 433.0, "avgVerticalOscillation": 9.51999969482422,
+        "avgGroundContactTime": 241.8000030517578, "avgStrideLength": 130.85, "vO2MaxValue":
+        52.0, "avgVerticalRatio": 7.289999961853027, "deviceId": 3444001964, "minTemperature":
+        15.0, "maxTemperature": 20.0, "minElevation": 170.0, "maxElevation": 196.0,
+        "maxDoubleCadence": 183.0, "summarizedDiveInfo": {"summarizedDiveGases": []},
+        "maxVerticalSpeed": 0.600006103515625, "manufacturer": "GARMIN", "locationName":
+        "Monza", "lapCount": 22, "endLatitude": 45.61905509792268, "endLongitude":
+        9.281057501211762, "waterEstimated": 1561.0, "trainingEffectLabel": "LACTATE_THRESHOLD",
+        "activityTrainingLoad": 372.6371765136719, "minActivityLapDuration": 49.6150016784668,
+        "aerobicTrainingEffectMessage": "OVERREACHING_14", "anaerobicTrainingEffectMessage":
+        "MINOR_ANAEROBIC_BENEFIT_15", "splitSummaries": [{"noOfSplits": 4, "totalAscent":
+        1.0, "duration": 19.0, "splitType": "RWD_WALK", "numClimbSends": 0, "maxElevationGain":
+        1.0, "averageElevationGain": 0.0, "maxDistance": 26, "distance": 31.350000381469727,
+        "averageSpeed": 1.649999976158142, "maxSpeed": 2.127000093460083, "numFalls":
+        0, "elevationLoss": 0.0}, {"noOfSplits": 1, "totalAscent": 77.0, "duration":
+        5622.18408203125, "splitType": "INTERVAL_ACTIVE", "numClimbSends": 0, "maxElevationGain":
+        77.0, "averageElevationGain": 26.0, "maxDistance": 21212, "distance": 21212.05078125,
+        "averageSpeed": 3.7730000019073486, "maxSpeed": 4.591000080108643, "numFalls":
+        0, "elevationLoss": 75.0}, {"noOfSplits": 4, "totalAscent": 76.0, "duration":
+        5603.16796875, "splitType": "RWD_RUN", "numClimbSends": 0, "maxElevationGain":
+        43.0, "averageElevationGain": 19.0, "maxDistance": 15036, "distance": 21180.7109375,
+        "averageSpeed": 3.7799999713897705, "maxSpeed": 4.591000080108643, "numFalls":
+        0, "elevationLoss": 75.0}], "hasSplits": true, "moderateIntensityMinutes":
+        1, "vigorousIntensityMinutes": 91, "avgGradeAdjustedSpeed": 3.7730000019073486,
+        "differenceBodyBattery": -19, "hasHeatMap": false, "fastestSplit_1000": 243.82400512695312,
+        "fastestSplit_1609": 395.34698486328125, "fastestSplit_5000": 1286.81298828125,
+        "fastestSplit_10000": 2633.5849609375, "fastestSplit_21098": 5622.18408203125,
+        "hrTimeInZone_1": 2.291, "hrTimeInZone_2": 17.0, "hrTimeInZone_3": 384.99,
+        "hrTimeInZone_4": 5103.658, "hrTimeInZone_5": 114.005, "powerTimeInZone_1":
+        48.291, "powerTimeInZone_2": 126.996, "powerTimeInZone_3": 2913.886, "powerTimeInZone_4":
+        2330.872, "powerTimeInZone_5": 156.894, "endTimeGMT": "2025-03-09 09:45:59",
+        "qualifyingDive": false, "autoCalcCalories": false, "elevationCorrected":
+        false, "atpActivity": false, "decoDive": false, "favorite": false, "purposeful":
+        false, "pr": true, "manualActivity": false, "parent": false}, {"activityId":
+        18445875799, "activityName": "Santa Cristina Valgardena Cross Country Classic
+        Skiing", "startTimeLocal": "2025-03-05 12:12:39", "startTimeGMT": "2025-03-05
+        11:12:39", "activityType": {"typeId": 171, "typeKey": "cross_country_skiing_ws",
+        "parentTypeId": 165, "isHidden": false, "restricted": false, "trimmable":
+        true}, "eventType": {"typeId": 9, "typeKey": "uncategorized", "sortOrder":
+        10}, "distance": 16016.08984375, "duration": 8483.9541015625, "elapsedDuration":
+        10709.7392578125, "movingDuration": 7797.0, "elevationGain": 415.0, "elevationLoss":
+        432.0, "averageSpeed": 1.888000011444092, "maxSpeed": 8.076000213623047, "startLatitude":
+        46.54919162392616, "startLongitude": 11.713835326954722, "hasPolyline": true,
+        "hasImages": false, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1146.0, "bmrCalories": 204.0, "averageHR": 97.0, "maxHR": 178.0,
+        "steps": 5402, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ", "SCOPE_DIVE_API_WRITE",
+        "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ", "SCOPE_DI_OAUTH_2_CLIENT_READ",
+        "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_MESSAGE_GENERATION_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN", "SCOPE_CONNECT_WEB_TEMPLATE_RENDER",
+        "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ", "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ",
+        "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN", "ROLE_CONNECTUSER",
+        "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"], "privacy":
+        {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo": false,
+        "timeZoneId": 124, "beginTimestamp": 1741173159000, "sportTypeId": 12, "aerobicTrainingEffect":
+        2.9000000953674316, "anaerobicTrainingEffect": 3.700000047683716, "deviceId":
+        3444001964, "minElevation": 1651.0, "maxElevation": 1747.4000244140625, "summarizedDiveInfo":
+        {"summarizedDiveGases": []}, "maxVerticalSpeed": 1.800048828125, "manufacturer":
+        "GARMIN", "locationName": "Santa Cristina Valgardena", "lapCount": 18, "endLatitude":
+        46.54913496226072, "endLongitude": 11.71364120207727, "waterEstimated": 1344.0,
+        "trainingEffectLabel": "SPEED", "activityTrainingLoad": 247.90614318847656,
+        "minActivityLapDuration": 1.565000057220459, "aerobicTrainingEffectMessage":
+        "MAINTAINING_AEROBIC_FITNESS_1", "anaerobicTrainingEffectMessage": "IMPROVING_ANAEROBIC_CAPACITY_AND_SPEED_12",
+        "splitSummaries": [], "hasSplits": false, "moderateIntensityMinutes": 49,
+        "vigorousIntensityMinutes": 62, "differenceBodyBattery": -18, "hasHeatMap":
+        false, "hrTimeInZone_1": 1802.745, "hrTimeInZone_2": 2502.476, "hrTimeInZone_3":
+        2200.986, "hrTimeInZone_4": 747.001, "hrTimeInZone_5": 92.996, "endTimeGMT":
+        "2025-03-05 14:11:08", "qualifyingDive": false, "autoCalcCalories": false,
+        "elevationCorrected": false, "atpActivity": false, "decoDive": false, "favorite":
+        false, "purposeful": false, "pr": false, "manualActivity": false, "parent":
+        false}, {"activityId": 18416327144, "activityName": "Gravellona Toce Running",
+        "startTimeLocal": "2025-03-02 10:00:13", "startTimeGMT": "2025-03-02 09:00:13",
+        "activityType": {"typeId": 1, "typeKey": "running", "parentTypeId": 17, "isHidden":
+        false, "restricted": false, "trimmable": true}, "eventType": {"typeId": 9,
+        "typeKey": "uncategorized", "sortOrder": 10}, "distance": 21112.0390625, "duration":
+        5739.421875, "elapsedDuration": 5759.4208984375, "movingDuration": 5730.114990234375,
+        "elevationGain": 72.0, "elevationLoss": 70.0, "averageSpeed": 3.677999973297119,
+        "maxSpeed": 4.2829999923706055, "startLatitude": 45.93554679304361, "startLongitude":
+        8.43273245729506, "hasPolyline": true, "hasImages": false, "ownerId": 113739130,
+        "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "ownerFullName":
+        "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1570.0, "bmrCalories": 138.0, "averageHR": 137.0, "maxHR": 148.0,
+        "averageRunningCadenceInStepsPerMinute": 168.96875, "maxRunningCadenceInStepsPerMinute":
+        181.0, "steps": 16156, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ",
+        "SCOPE_DIVE_API_WRITE", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "privacy": {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo":
+        false, "timeZoneId": 124, "beginTimestamp": 1740906013000, "sportTypeId":
+        1, "avgPower": 421.0, "maxPower": 577.0, "aerobicTrainingEffect": 5.0, "anaerobicTrainingEffect":
+        3.5999999046325684, "normPower": 426.0, "avgVerticalOscillation": 9.65999984741211,
+        "avgGroundContactTime": 246.10000610351562, "avgStrideLength": 130.58000488281252,
+        "vO2MaxValue": 50.0, "avgVerticalRatio": 7.420000076293945, "deviceId": 3444001964,
+        "minTemperature": 14.0, "maxTemperature": 23.0, "minElevation": 198.1999969482422,
+        "maxElevation": 218.60000610351562, "maxDoubleCadence": 181.0, "summarizedDiveInfo":
+        {"summarizedDiveGases": []}, "maxVerticalSpeed": 0.600006103515625, "manufacturer":
+        "GARMIN", "locationName": "Gravellona Toce", "lapCount": 22, "endLatitude":
+        45.93543472699821, "endLongitude": 8.433643653988838, "waterEstimated": 1594.0,
+        "trainingEffectLabel": "LACTATE_THRESHOLD", "activityTrainingLoad": 654.5516357421875,
+        "minActivityLapDuration": 28.426000595092773, "aerobicTrainingEffectMessage":
+        "OVERREACHING_14", "anaerobicTrainingEffectMessage": "IMPROVING_ANAEROBIC_BASE_2",
+        "splitSummaries": [{"noOfSplits": 1, "totalAscent": 0.0, "duration": 5.113999843597412,
+        "splitType": "RWD_STAND", "numClimbSends": 0, "maxElevationGain": 0.0, "averageElevationGain":
+        0.0, "maxDistance": 0, "distance": 0.0, "averageSpeed": 0.0, "maxSpeed": 0.0,
+        "numFalls": 0, "elevationLoss": 0.0}, {"noOfSplits": 1, "totalAscent": 72.0,
+        "duration": 5739.421875, "splitType": "INTERVAL_ACTIVE", "numClimbSends":
+        0, "maxElevationGain": 72.0, "averageElevationGain": 24.0, "maxDistance":
+        21112, "distance": 21112.0390625, "averageSpeed": 3.677999973297119, "maxSpeed":
+        4.2829999923706055, "numFalls": 0, "elevationLoss": 70.0}, {"noOfSplits":
+        5, "totalAscent": 69.0, "duration": 5661.40576171875, "splitType": "RWD_RUN",
+        "numClimbSends": 0, "maxElevationGain": 42.0, "averageElevationGain": 14.0,
+        "maxDistance": 10181, "distance": 20991.5, "averageSpeed": 3.7079999446868896,
+        "maxSpeed": 4.2829999923706055, "numFalls": 0, "elevationLoss": 70.0}, {"noOfSplits":
+        5, "totalAscent": 2.0, "duration": 72.88700103759766, "splitType": "RWD_WALK",
+        "numClimbSends": 0, "maxElevationGain": 2.0, "averageElevationGain": 1.0,
+        "maxDistance": 67, "distance": 120.55000305175781, "averageSpeed": 1.6540000438690186,
+        "maxSpeed": 2.062000036239624, "numFalls": 0, "elevationLoss": 0.0}], "hasSplits":
+        true, "moderateIntensityMinutes": 1, "vigorousIntensityMinutes": 94, "avgGradeAdjustedSpeed":
+        3.694999933242798, "differenceBodyBattery": -32, "hasHeatMap": false, "fastestSplit_1000":
+        256.2139892578125, "fastestSplit_1609": 412.97698974609375, "fastestSplit_5000":
+        1302.25, "fastestSplit_10000": 2661.94091796875, "fastestSplit_21098": 5739.421875,
+        "hrTimeInZone_1": 1.13, "hrTimeInZone_2": 9.0, "hrTimeInZone_3": 32.0, "hrTimeInZone_4":
+        945.99, "hrTimeInZone_5": 4751.249, "powerTimeInZone_1": 25.001, "powerTimeInZone_2":
+        118.998, "powerTimeInZone_3": 3128.95, "powerTimeInZone_4": 2166.994, "powerTimeInZone_5":
+        168.29, "endTimeGMT": "2025-03-02 10:36:12", "qualifyingDive": false, "autoCalcCalories":
+        false, "elevationCorrected": false, "atpActivity": false, "decoDive": false,
+        "favorite": false, "purposeful": false, "pr": false, "manualActivity": false,
+        "parent": false}, {"activityId": 18352844373, "activityName": "Treviglio Running",
+        "startTimeLocal": "2025-02-23 09:30:04", "startTimeGMT": "2025-02-23 08:30:04",
+        "activityType": {"typeId": 1, "typeKey": "running", "parentTypeId": 17, "isHidden":
+        false, "restricted": false, "trimmable": true}, "eventType": {"typeId": 9,
+        "typeKey": "uncategorized", "sortOrder": 10}, "distance": 21262.419921875,
+        "duration": 5790.884765625, "elapsedDuration": 5799.884765625, "movingDuration":
+        5782.3809814453125, "elevationGain": 40.0, "elevationLoss": 41.0, "averageSpeed":
+        3.671999931335449, "maxSpeed": 4.992000102996826, "startLatitude": 45.51838508807123,
+        "startLongitude": 9.582962924614549, "hasPolyline": true, "hasImages": false,
+        "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1578.0, "bmrCalories": 139.0, "averageHR": 140.0, "maxHR": 161.0,
+        "averageRunningCadenceInStepsPerMinute": 170.09375, "maxRunningCadenceInStepsPerMinute":
+        244.0, "steps": 16360, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ",
+        "SCOPE_DIVE_API_WRITE", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "privacy": {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo":
+        false, "timeZoneId": 124, "beginTimestamp": 1740299404000, "sportTypeId":
+        1, "avgPower": 417.0, "maxPower": 563.0, "aerobicTrainingEffect": 5.0, "anaerobicTrainingEffect":
+        3.299999952316284, "normPower": 422.0, "avgVerticalOscillation": 9.600000000000001,
+        "avgGroundContactTime": 246.6999969482422, "avgStrideLength": 129.1699951171875,
+        "vO2MaxValue": 51.0, "avgVerticalRatio": 7.460000038146973, "deviceId": 3444001964,
+        "minTemperature": 16.0, "maxTemperature": 22.0, "minElevation": 123.19999694824219,
+        "maxElevation": 145.8000030517578, "maxDoubleCadence": 244.0, "summarizedDiveInfo":
+        {"summarizedDiveGases": []}, "maxVerticalSpeed": 0.4000091552734375, "manufacturer":
+        "GARMIN", "locationName": "Treviglio", "lapCount": 22, "endLatitude": 45.52101943641901,
+        "endLongitude": 9.592242194339633, "waterEstimated": 1606.0, "trainingEffectLabel":
+        "VO2MAX", "activityTrainingLoad": 619.051025390625, "minActivityLapDuration":
+        69.33499908447266, "aerobicTrainingEffectMessage": "OVERREACHING_17", "anaerobicTrainingEffectMessage":
+        "IMPROVING_ANAEROBIC_BASE_2", "splitSummaries": [{"noOfSplits": 1, "totalAscent":
+        40.0, "duration": 5790.884765625, "splitType": "INTERVAL_ACTIVE", "numClimbSends":
+        0, "maxElevationGain": 40.0, "averageElevationGain": 13.0, "maxDistance":
+        21262, "distance": 21262.400390625, "averageSpeed": 3.671999931335449, "maxSpeed":
+        4.992000102996826, "numFalls": 0, "elevationLoss": 41.0}, {"noOfSplits": 8,
+        "totalAscent": 40.0, "duration": 5759.8701171875, "splitType": "RWD_RUN",
+        "numClimbSends": 0, "maxElevationGain": 26.0, "averageElevationGain": 10.0,
+        "maxDistance": 10135, "distance": 21205.23046875, "averageSpeed": 3.681999921798706,
+        "maxSpeed": 4.992000102996826, "numFalls": 0, "elevationLoss": 41.0}, {"noOfSplits":
+        22, "totalAscent": 0.0, "duration": 31.000999450683594, "splitType": "RWD_WALK",
+        "numClimbSends": 0, "maxElevationGain": 0.0, "averageElevationGain": 0.0,
+        "maxDistance": 26, "distance": 57.20000076293945, "averageSpeed": 1.8450000286102295,
+        "maxSpeed": 2.0429999828338623, "numFalls": 0, "elevationLoss": 0.0}], "hasSplits":
+        true, "moderateIntensityMinutes": 0, "vigorousIntensityMinutes": 93, "avgGradeAdjustedSpeed":
+        3.6700000762939453, "differenceBodyBattery": -31, "hasHeatMap": false, "fastestSplit_1000":
+        240.25999450683594, "fastestSplit_1609": 390.6109924316406, "fastestSplit_5000":
+        1282.635986328125, "fastestSplit_10000": 2629.528076171875, "fastestSplit_21098":
+        5790.884765625, "hrTimeInZone_1": 12.0, "hrTimeInZone_2": 35.0, "hrTimeInZone_3":
+        226.001, "hrTimeInZone_4": 1520.99, "hrTimeInZone_5": 3978.954, "powerTimeInZone_1":
+        63.002, "powerTimeInZone_2": 489.001, "powerTimeInZone_3": 2524.963, "powerTimeInZone_4":
+        2499.971, "powerTimeInZone_5": 125.002, "endTimeGMT": "2025-02-23 10:06:43",
+        "qualifyingDive": false, "autoCalcCalories": false, "elevationCorrected":
+        false, "atpActivity": false, "decoDive": false, "favorite": false, "purposeful":
+        false, "pr": false, "manualActivity": false, "parent": false}, {"activityId":
+        17980307757, "activityName": "Bergamo Trail Running", "startTimeLocal": "2025-01-12
+        08:59:37", "startTimeGMT": "2025-01-12 07:59:37", "activityType": {"typeId":
+        6, "typeKey": "trail_running", "parentTypeId": 1, "isHidden": false, "restricted":
+        false, "trimmable": true}, "eventType": {"typeId": 9, "typeKey": "uncategorized",
+        "sortOrder": 10}, "distance": 21330.75, "duration": 7639.3017578125, "elapsedDuration":
+        8152.93017578125, "movingDuration": 7539.700012207031, "elevationGain": 431.0,
+        "elevationLoss": 424.0, "averageSpeed": 2.79200005531311, "maxSpeed": 4.35699987411499,
+        "startLatitude": 45.68462211638689, "startLongitude": 9.67715254984796, "hasPolyline":
+        true, "hasImages": false, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1752.0, "bmrCalories": 185.0, "averageHR": 117.0, "maxHR": 146.0,
+        "averageRunningCadenceInStepsPerMinute": 159.640625, "maxRunningCadenceInStepsPerMinute":
+        231.0, "steps": 20524, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ",
+        "SCOPE_DIVE_API_WRITE", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "privacy": {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo":
+        false, "timeZoneId": 124, "beginTimestamp": 1736668777000, "sportTypeId":
+        1, "avgPower": 336.0, "maxPower": 543.0, "aerobicTrainingEffect": 4.5, "anaerobicTrainingEffect":
+        2.299999952316284, "normPower": 356.0, "avgVerticalOscillation": 8.9, "avgGroundContactTime":
+        275.29998779296875, "avgStrideLength": 104.6300048828125, "vO2MaxValue": 55.0,
+        "avgVerticalRatio": 8.630000114440918, "deviceId": 3444001964, "minTemperature":
+        10.0, "maxTemperature": 24.0, "minElevation": 243.60000610351562, "maxElevation":
+        464.20001220703125, "maxDoubleCadence": 231.0, "summarizedDiveInfo": {"summarizedDiveGases":
+        []}, "maxVerticalSpeed": 0.79998779296875, "manufacturer": "GARMIN", "locationName":
+        "Bergamo", "lapCount": 22, "endLatitude": 45.68593271076679, "endLongitude":
+        9.677559239789844, "waterEstimated": 1939.0, "trainingEffectLabel": "TEMPO",
+        "activityTrainingLoad": 247.34913635253906, "minActivityLapDuration": 104.83999633789062,
+        "aerobicTrainingEffectMessage": "HIGHLY_IMPROVING_AEROBIC_FITNESS_3", "anaerobicTrainingEffectMessage":
+        "MAINTAINING_ANAEROBIC_BASE_1", "splitSummaries": [{"noOfSplits": 17, "totalAscent":
+        0.0, "duration": 68.52999877929688, "splitType": "RWD_STAND", "numClimbSends":
+        0, "maxElevationGain": 0.0, "averageElevationGain": 0.0, "maxDistance": 9,
+        "distance": 51.08000183105469, "averageSpeed": 0.7450000047683716, "maxSpeed":
+        2.0899999141693115, "numFalls": 0, "elevationLoss": 0.0}, {"noOfSplits": 1,
+        "totalAscent": 431.0, "duration": 7639.3017578125, "splitType": "INTERVAL_ACTIVE",
+        "numClimbSends": 0, "maxElevationGain": 431.0, "averageElevationGain": 144.0,
+        "maxDistance": 21330, "distance": 21330.779296875, "averageSpeed": 2.7920000553131104,
+        "maxSpeed": 4.35699987411499, "numFalls": 0, "elevationLoss": 424.0}, {"noOfSplits":
+        17, "totalAscent": 431.0, "duration": 7264.4638671875, "splitType": "RWD_RUN",
+        "numClimbSends": 0, "maxElevationGain": 144.0, "averageElevationGain": 27.0,
+        "maxDistance": 3965, "distance": 20809.6796875, "averageSpeed": 2.865000009536743,
+        "maxSpeed": 4.35699987411499, "numFalls": 0, "elevationLoss": 412.0}, {"noOfSplits":
+        25, "totalAscent": 0.0, "duration": 306.2919921875, "splitType": "RWD_WALK",
+        "numClimbSends": 0, "maxElevationGain": 0.0, "averageElevationGain": 0.0,
+        "maxDistance": 165, "distance": 469.989990234375, "averageSpeed": 1.534000039100647,
+        "maxSpeed": 2.183000087738037, "numFalls": 0, "elevationLoss": 12.0}], "hasSplits":
+        true, "moderateIntensityMinutes": 3, "vigorousIntensityMinutes": 127, "avgGradeAdjustedSpeed":
+        2.9179999828338623, "differenceBodyBattery": -32, "hasHeatMap": false, "fastestSplit_1000":
+        287.052001953125, "fastestSplit_1609": 477.7149963378906, "fastestSplit_5000":
+        1647.6600341796875, "fastestSplit_10000": 3562.7958984375, "fastestSplit_21098":
+        7639.3017578125, "hrTimeInZone_1": 98.318, "hrTimeInZone_2": 1002.993, "hrTimeInZone_3":
+        2913.254, "hrTimeInZone_4": 2641.79, "hrTimeInZone_5": 950.966, "powerTimeInZone_1":
+        1507.017, "powerTimeInZone_2": 2948.135, "powerTimeInZone_3": 1585.948, "powerTimeInZone_4":
+        304.991, "powerTimeInZone_5": 47.999, "endTimeGMT": "2025-01-12 10:15:29",
+        "qualifyingDive": false, "autoCalcCalories": false, "elevationCorrected":
+        false, "atpActivity": false, "decoDive": false, "favorite": false, "purposeful":
+        false, "pr": false, "manualActivity": false, "parent": false}, {"activityId":
+        17963818738, "activityName": "Castione della Presolana Resort Snowboarding
+        1/2", "startTimeLocal": "2025-01-10 09:40:08", "startTimeGMT": "2025-01-10
+        08:40:08", "activityType": {"typeId": 252, "typeKey": "resort_snowboarding",
+        "parentTypeId": 165, "isHidden": false, "restricted": false, "trimmable":
+        true}, "eventType": {"typeId": 9, "typeKey": "uncategorized", "sortOrder":
+        10}, "distance": 21949.380859375, "duration": 7737.0810546875, "elapsedDuration":
+        7737.0810546875, "movingDuration": 6311.0, "elevationGain": 2248.0, "elevationLoss":
+        2479.0, "averageSpeed": 2.8369998931884766, "maxSpeed": 15.781000137329102,
+        "startLatitude": 45.88581947609782, "startLongitude": 10.108519066125154,
+        "hasPolyline": true, "hasImages": false, "ownerId": 113739130, "ownerDisplayName":
+        "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "ownerFullName": "Paolo", "ownerProfileImageUrlSmall":
+        "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 848.0, "bmrCalories": 187.0, "averageHR": 82.0, "maxHR": 145.0,
+        "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ", "SCOPE_DIVE_API_WRITE",
+        "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ", "SCOPE_DI_OAUTH_2_CLIENT_READ",
+        "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_MESSAGE_GENERATION_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN", "SCOPE_CONNECT_WEB_TEMPLATE_RENDER",
+        "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ", "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ",
+        "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN", "ROLE_CONNECTUSER",
+        "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"], "privacy":
+        {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo": false,
+        "timeZoneId": 124, "beginTimestamp": 1736498408000, "sportTypeId": 14, "aerobicTrainingEffect":
+        2.0, "anaerobicTrainingEffect": 3.200000047683716, "deviceId": 3444001964,
+        "minTemperature": 14.0, "maxTemperature": 21.0, "minElevation": 1434.4000244140625,
+        "maxElevation": 1879.800048828125, "summarizedDiveInfo": {"summarizedDiveGases":
+        []}, "maxVerticalSpeed": 2.800048828125, "manufacturer": "GARMIN", "locationName":
+        "Castione della Presolana", "lapCount": 9, "endLatitude": 45.88285429403186,
+        "endLongitude": 10.093687791377306, "waterEstimated": 916.0, "trainingEffectLabel":
+        "SPEED", "activityTrainingLoad": 109.853515625, "minActivityLapDuration":
+        467.0, "aerobicTrainingEffectMessage": "MAINTAINING_AEROBIC_BASE_7", "anaerobicTrainingEffectMessage":
+        "IMPROVING_ANAEROBIC_CAPACITY_AND_SPEED_12", "splitSummaries": [{"noOfSplits":
+        9, "totalAscent": 61.0, "duration": 3961.594970703125, "splitType": "SKI_RUN_SPLIT",
+        "numClimbSends": 0, "maxElevationGain": 11.0, "averageElevationGain": 7.0,
+        "maxDistance": 2763, "distance": 14146.830078125, "averageSpeed": 3.571000099182129,
+        "maxSpeed": 15.781000137329102, "numFalls": 0, "elevationLoss": 2473.0}, {"noOfSplits":
+        9, "totalAscent": 2187.0, "duration": 3775.47412109375, "splitType": "SKI_LIFT_SPLIT",
+        "numClimbSends": 0, "maxElevationGain": 413.0, "averageElevationGain": 243.0,
+        "maxDistance": 1218, "distance": 7836.3701171875, "averageSpeed": 2.0759999752044678,
+        "maxSpeed": 4.144000053405762, "numFalls": 0, "elevationLoss": 7.0}], "hasSplits":
+        true, "moderateIntensityMinutes": 48, "vigorousIntensityMinutes": 35, "differenceBodyBattery":
+        -14, "hasHeatMap": false, "hrTimeInZone_1": 2454.467, "hrTimeInZone_2": 1670.984,
+        "hrTimeInZone_3": 574.906, "hrTimeInZone_4": 64.015, "hrTimeInZone_5": 36.002,
+        "endTimeGMT": "2025-01-10 10:49:05", "qualifyingDive": false, "autoCalcCalories":
+        false, "elevationCorrected": false, "atpActivity": false, "decoDive": false,
+        "favorite": false, "purposeful": false, "pr": false, "manualActivity": false,
+        "parent": false}, {"activityId": 17928572610, "activityName": "Dalmine Running",
+        "startTimeLocal": "2025-01-06 09:01:13", "startTimeGMT": "2025-01-06 08:01:13",
+        "activityType": {"typeId": 1, "typeKey": "running", "parentTypeId": 17, "isHidden":
+        false, "restricted": false, "trimmable": true}, "eventType": {"typeId": 9,
+        "typeKey": "uncategorized", "sortOrder": 10}, "distance": 21308.419921875,
+        "duration": 6219.3291015625, "elapsedDuration": 6254.3291015625, "movingDuration":
+        6213.278991699219, "elevationGain": 88.0, "elevationLoss": 87.0, "averageSpeed":
+        3.4260001182556152, "maxSpeed": 3.99399995803833, "startLatitude": 45.646539526060224,
+        "startLongitude": 9.600972114130855, "hasPolyline": true, "hasImages": false,
+        "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1593.0, "bmrCalories": 150.0, "averageHR": 117.0, "maxHR": 129.0,
+        "averageRunningCadenceInStepsPerMinute": 170.8125, "maxRunningCadenceInStepsPerMinute":
+        183.0, "steps": 17670, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ",
+        "SCOPE_DIVE_API_WRITE", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "privacy": {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo":
+        false, "timeZoneId": 124, "beginTimestamp": 1736150473000, "sportTypeId":
+        1, "avgPower": 391.0, "maxPower": 569.0, "aerobicTrainingEffect": 4.900000095367432,
+        "anaerobicTrainingEffect": 0.0, "normPower": 396.0, "avgVerticalOscillation":
+        9.259999847412109, "avgGroundContactTime": 252.39999389648438, "avgStrideLength":
+        120.04000244140626, "vO2MaxValue": 56.0, "avgVerticalRatio": 7.730000019073486,
+        "deviceId": 3444001964, "minTemperature": 9.0, "maxTemperature": 15.0, "minElevation":
+        172.60000610351562, "maxElevation": 214.60000610351562, "maxDoubleCadence":
+        183.0, "summarizedDiveInfo": {"summarizedDiveGases": []}, "maxVerticalSpeed":
+        0.600006103515625, "manufacturer": "GARMIN", "locationName": "Dalmine", "lapCount":
+        22, "endLatitude": 45.65045915544033, "endLongitude": 9.600444557145238, "waterEstimated":
+        1708.0, "trainingEffectLabel": "AEROBIC_BASE", "activityTrainingLoad": 236.73056030273438,
+        "minActivityLapDuration": 80.4280014038086, "aerobicTrainingEffectMessage":
+        "HIGHLY_IMPROVING_AEROBIC_ENDURANCE_10", "anaerobicTrainingEffectMessage":
+        "NO_ANAEROBIC_BENEFIT_0", "splitSummaries": [{"noOfSplits": 1, "totalAscent":
+        88.0, "duration": 6219.3291015625, "splitType": "INTERVAL_ACTIVE", "numClimbSends":
+        0, "maxElevationGain": 88.0, "averageElevationGain": 29.0, "maxDistance":
+        21308, "distance": 21308.400390625, "averageSpeed": 3.4260001182556152, "maxSpeed":
+        3.99399995803833, "numFalls": 0, "elevationLoss": 87.0}, {"noOfSplits": 3,
+        "totalAscent": 88.0, "duration": 6205.48388671875, "splitType": "RWD_RUN",
+        "numClimbSends": 0, "maxElevationGain": 48.0, "averageElevationGain": 29.0,
+        "maxDistance": 13977, "distance": 21291.130859375, "averageSpeed": 3.430999994277954,
+        "maxSpeed": 3.99399995803833, "numFalls": 0, "elevationLoss": 87.0}, {"noOfSplits":
+        3, "totalAscent": 0.0, "duration": 13.831000328063965, "splitType": "RWD_WALK",
+        "numClimbSends": 0, "maxElevationGain": 0.0, "averageElevationGain": 0.0,
+        "maxDistance": 17, "distance": 17.270000457763672, "averageSpeed": 1.2489999532699585,
+        "maxSpeed": 1.902999997138977, "numFalls": 0, "elevationLoss": 0.0}, {"noOfSplits":
+        1, "duration": 0.0, "splitType": "RWD_STAND", "numClimbSends": 0, "numFalls":
+        0}], "hasSplits": true, "moderateIntensityMinutes": 1, "vigorousIntensityMinutes":
+        102, "avgGradeAdjustedSpeed": 3.434999942779541, "differenceBodyBattery":
+        -26, "hasHeatMap": false, "fastestSplit_1000": 257.5740051269531, "fastestSplit_1609":
+        431.97100830078125, "fastestSplit_5000": 1407.0379638671875, "fastestSplit_10000":
+        2869.443115234375, "fastestSplit_21098": 6219.3291015625, "hrTimeInZone_1":
+        0.0, "hrTimeInZone_2": 0.0, "hrTimeInZone_3": 3537.82, "hrTimeInZone_4": 2680.513,
+        "hrTimeInZone_5": 0.0, "powerTimeInZone_1": 169.995, "powerTimeInZone_2":
+        1718.984, "powerTimeInZone_3": 3801.442, "powerTimeInZone_4": 302.063, "powerTimeInZone_5":
+        77.0, "endTimeGMT": "2025-01-06 09:45:27", "qualifyingDive": false, "autoCalcCalories":
+        false, "elevationCorrected": false, "atpActivity": false, "decoDive": false,
+        "favorite": false, "purposeful": false, "pr": false, "manualActivity": false,
+        "parent": false}, {"activityId": 17813115420, "activityName": "Almenno San
+        Salvatore Running", "startTimeLocal": "2024-12-22 09:30:15", "startTimeGMT":
+        "2024-12-22 08:30:15", "activityType": {"typeId": 1, "typeKey": "running",
+        "parentTypeId": 17, "isHidden": false, "restricted": false, "trimmable": true},
+        "eventType": {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "distance":
+        21109.9296875, "duration": 6180.60205078125, "elapsedDuration": 6310.93408203125,
+        "movingDuration": 6175.9329833984375, "elevationGain": 275.0, "elevationLoss":
+        283.0, "averageSpeed": 3.4159998893737797, "maxSpeed": 4.208000183105469,
+        "startLatitude": 45.749991154298186, "startLongitude": 9.595070080831647,
+        "hasPolyline": true, "hasImages": false, "ownerId": 113739130, "ownerDisplayName":
+        "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "ownerFullName": "Paolo", "ownerProfileImageUrlSmall":
+        "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1518.0, "bmrCalories": 149.0, "averageHR": 130.0, "maxHR": 147.0,
+        "averageRunningCadenceInStepsPerMinute": 170.59375, "maxRunningCadenceInStepsPerMinute":
+        240.0, "steps": 17528, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ",
+        "SCOPE_DIVE_API_WRITE", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "privacy": {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo":
+        false, "timeZoneId": 124, "beginTimestamp": 1734856215000, "sportTypeId":
+        1, "avgPower": 401.0, "maxPower": 598.0, "aerobicTrainingEffect": 4.300000190734863,
+        "anaerobicTrainingEffect": 0.0, "normPower": 410.0, "avgVerticalOscillation":
+        9.290000152587892, "avgGroundContactTime": 253.60000610351562, "avgStrideLength":
+        120.20999755859376, "vO2MaxValue": 56.0, "avgVerticalRatio": 7.769999980926514,
+        "deviceId": 3444001964, "minTemperature": 10.0, "maxTemperature": 15.0, "minElevation":
+        239.60000610351562, "maxElevation": 304.20001220703125, "maxDoubleCadence":
+        240.0, "summarizedDiveInfo": {"summarizedDiveGases": []}, "maxVerticalSpeed":
+        0.79998779296875, "manufacturer": "GARMIN", "locationName": "Almenno San Salvatore",
+        "lapCount": 22, "endLatitude": 45.74938405305147, "endLongitude": 9.594529615715146,
+        "waterEstimated": 1716.0, "trainingEffectLabel": "TEMPO", "activityTrainingLoad":
+        186.31118774414062, "minActivityLapDuration": 36.69300079345703, "aerobicTrainingEffectMessage":
+        "HIGHLY_IMPACTING_TEMPO_23", "anaerobicTrainingEffectMessage": "NO_ANAEROBIC_BENEFIT_0",
+        "splitSummaries": [{"noOfSplits": 1, "duration": 0.0, "splitType": "RWD_STAND",
+        "numClimbSends": 0, "numFalls": 0}, {"noOfSplits": 1, "totalAscent": 275.0,
+        "duration": 6180.60205078125, "splitType": "INTERVAL_ACTIVE", "numClimbSends":
+        0, "maxElevationGain": 275.0, "averageElevationGain": 92.0, "maxDistance":
+        21109, "distance": 21109.91015625, "averageSpeed": 3.4159998893737793, "maxSpeed":
+        4.208000183105469, "numFalls": 0, "elevationLoss": 283.0}, {"noOfSplits":
+        5, "totalAscent": 275.0, "duration": 6169.5888671875, "splitType": "RWD_RUN",
+        "numClimbSends": 0, "maxElevationGain": 143.0, "averageElevationGain": 69.0,
+        "maxDistance": 10779, "distance": 21085.0703125, "averageSpeed": 3.4179999828338623,
+        "maxSpeed": 4.208000183105469, "numFalls": 0, "elevationLoss": 283.0}, {"noOfSplits":
+        6, "totalAscent": 0.0, "duration": 10.99899959564209, "splitType": "RWD_WALK",
+        "numClimbSends": 0, "maxElevationGain": 0.0, "averageElevationGain": 0.0,
+        "maxDistance": 18, "distance": 24.860000610351562, "averageSpeed": 2.259999990463257,
+        "maxSpeed": 2.118000030517578, "numFalls": 0, "elevationLoss": 0.0}], "hasSplits":
+        true, "moderateIntensityMinutes": 0, "vigorousIntensityMinutes": 102, "avgGradeAdjustedSpeed":
+        3.4800000190734863, "differenceBodyBattery": -27, "hasHeatMap": false, "fastestSplit_1000":
+        255.08700561523438, "fastestSplit_1609": 424.1919860839844, "fastestSplit_5000":
+        1393.4100341796875, "fastestSplit_10000": 2832.376953125, "fastestSplit_21098":
+        6180.60205078125, "hrTimeInZone_1": 26.71, "hrTimeInZone_2": 2055.705, "hrTimeInZone_3":
+        3957.133, "hrTimeInZone_4": 140.999, "hrTimeInZone_5": 0.0, "powerTimeInZone_1":
+        501.997, "powerTimeInZone_2": 1221.168, "powerTimeInZone_3": 2346.963, "powerTimeInZone_4":
+        1512.931, "powerTimeInZone_5": 484.726, "endTimeGMT": "2024-12-22 10:15:25",
+        "qualifyingDive": false, "autoCalcCalories": false, "elevationCorrected":
+        false, "atpActivity": false, "decoDive": false, "favorite": false, "purposeful":
+        false, "pr": false, "manualActivity": false, "parent": false}, {"activityId":
+        17609495568, "activityName": "Bonate Sotto Running", "startTimeLocal": "2024-11-24
+        08:51:29", "startTimeGMT": "2024-11-24 07:51:29", "activityType": {"typeId":
+        1, "typeKey": "running", "parentTypeId": 17, "isHidden": false, "restricted":
+        false, "trimmable": true}, "eventType": {"typeId": 9, "typeKey": "uncategorized",
+        "sortOrder": 10}, "distance": 16389.5703125, "duration": 5250.2509765625,
+        "elapsedDuration": 5768.24609375, "movingDuration": 5236.174957275391, "elevationGain":
+        121.0, "elevationLoss": 119.0, "averageSpeed": 3.1219999790191655, "maxSpeed":
+        3.7790000438690186, "startLatitude": 45.666417460888624, "startLongitude":
+        9.549180418252945, "hasPolyline": true, "hasImages": false, "ownerId": 113739130,
+        "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "ownerFullName":
+        "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1259.0, "bmrCalories": 125.0, "averageHR": 137.0, "maxHR": 157.0,
+        "averageRunningCadenceInStepsPerMinute": 168.859375, "maxRunningCadenceInStepsPerMinute":
+        185.0, "steps": 14826, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ",
+        "SCOPE_DIVE_API_WRITE", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "privacy": {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo":
+        false, "timeZoneId": 124, "beginTimestamp": 1732434689000, "sportTypeId":
+        1, "avgPower": 354.0, "maxPower": 552.0, "aerobicTrainingEffect": 4.199999809265137,
+        "anaerobicTrainingEffect": 0.0, "normPower": 363.0, "avgVerticalOscillation":
+        8.95999984741211, "avgGroundContactTime": 258.5, "avgStrideLength": 111.66999511718751,
+        "vO2MaxValue": 57.0, "avgVerticalRatio": 8.050000190734863, "deviceId": 3444001964,
+        "minTemperature": 15.0, "maxTemperature": 25.0, "minElevation": 168.60000610351562,
+        "maxElevation": 220.0, "maxDoubleCadence": 185.0, "summarizedDiveInfo": {"summarizedDiveGases":
+        []}, "maxVerticalSpeed": 0.600006103515625, "manufacturer": "GARMIN", "locationName":
+        "Bonate Sotto", "lapCount": 17, "endLatitude": 45.66628955304623, "endLongitude":
+        9.549206737428904, "waterEstimated": 1458.0, "trainingEffectLabel": "TEMPO",
+        "activityTrainingLoad": 155.1605224609375, "minActivityLapDuration": 109.48100280761719,
+        "aerobicTrainingEffectMessage": "HIGHLY_IMPACTING_TEMPO_23", "anaerobicTrainingEffectMessage":
+        "NO_ANAEROBIC_BENEFIT_0", "splitSummaries": [{"noOfSplits": 11, "duration":
+        0.0, "splitType": "RWD_STAND", "numClimbSends": 0, "numFalls": 0}, {"noOfSplits":
+        1, "totalAscent": 121.0, "duration": 5250.2509765625, "splitType": "INTERVAL_ACTIVE",
+        "numClimbSends": 0, "maxElevationGain": 121.0, "averageElevationGain": 40.0,
+        "maxDistance": 16389, "distance": 16389.560546875, "averageSpeed": 3.121999979019165,
+        "maxSpeed": 3.7790000438690186, "numFalls": 0, "elevationLoss": 119.0}, {"noOfSplits":
+        6, "totalAscent": 121.0, "duration": 5180.6767578125, "splitType": "RWD_RUN",
+        "numClimbSends": 0, "maxElevationGain": 43.0, "averageElevationGain": 20.0,
+        "maxDistance": 4312, "distance": 16316.3798828125, "averageSpeed": 3.1489999294281006,
+        "maxSpeed": 3.7790000438690186, "numFalls": 0, "elevationLoss": 118.0}, {"noOfSplits":
+        12, "totalAscent": 0.0, "duration": 69.55999755859375, "splitType": "RWD_WALK",
+        "numClimbSends": 0, "maxElevationGain": 0.0, "averageElevationGain": 0.0,
+        "maxDistance": 69, "distance": 73.19000244140625, "averageSpeed": 1.0520000457763672,
+        "maxSpeed": 1.847000002861023, "numFalls": 0, "elevationLoss": 1.0}], "hasSplits":
+        true, "moderateIntensityMinutes": 4, "vigorousIntensityMinutes": 88, "avgGradeAdjustedSpeed":
+        3.186000108718872, "differenceBodyBattery": -26, "hasHeatMap": false, "fastestSplit_1000":
+        271.7489929199219, "fastestSplit_1609": 443.2669982910156, "fastestSplit_5000":
+        1504.5830078125, "fastestSplit_10000": 3159.81396484375, "endTimeGMT": "2024-11-24
+        09:27:37", "qualifyingDive": false, "autoCalcCalories": false, "elevationCorrected":
+        false, "atpActivity": false, "decoDive": false, "favorite": false, "purposeful":
+        false, "pr": false, "manualActivity": false, "parent": false}, {"activityId":
+        17556781321, "activityName": "Verdellino Running", "startTimeLocal": "2024-11-17
+        08:35:59", "startTimeGMT": "2024-11-17 07:35:59", "activityType": {"typeId":
+        1, "typeKey": "running", "parentTypeId": 17, "isHidden": false, "restricted":
+        false, "trimmable": true}, "eventType": {"typeId": 9, "typeKey": "uncategorized",
+        "sortOrder": 10}, "distance": 15528.83984375, "duration": 4825.50390625, "elapsedDuration":
+        4825.50390625, "movingDuration": 4819.9840087890625, "elevationGain": 49.0,
+        "elevationLoss": 46.0, "averageSpeed": 3.2179999351501465, "maxSpeed": 3.686000108718872,
+        "startLatitude": 45.60930577106774, "startLongitude": 9.616763452067971, "hasPolyline":
+        true, "hasImages": false, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1174.0, "bmrCalories": 115.0, "averageHR": 142.0, "maxHR": 155.0,
+        "averageRunningCadenceInStepsPerMinute": 168.78125, "maxRunningCadenceInStepsPerMinute":
+        244.0, "steps": 13512, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ",
+        "SCOPE_DIVE_API_WRITE", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "privacy": {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo":
+        false, "timeZoneId": 124, "beginTimestamp": 1731828959000, "sportTypeId":
+        1, "avgPower": 359.0, "maxPower": 500.0, "aerobicTrainingEffect": 4.300000190734863,
+        "anaerobicTrainingEffect": 0.0, "normPower": 362.0, "avgVerticalOscillation":
+        9.200000000000001, "avgGroundContactTime": 260.79998779296875, "avgStrideLength":
+        114.7699951171875, "vO2MaxValue": 56.0, "avgVerticalRatio": 8.039999961853027,
+        "deviceId": 3444001964, "minTemperature": 18.0, "maxTemperature": 26.0, "minElevation":
+        172.0, "maxElevation": 212.0, "maxDoubleCadence": 244.0, "summarizedDiveInfo":
+        {"summarizedDiveGases": []}, "maxVerticalSpeed": 0.4000091552734375, "manufacturer":
+        "GARMIN", "locationName": "Verdellino", "lapCount": 16, "endLatitude": 45.60905456542969,
+        "endLongitude": 9.61667938157916, "waterEstimated": 1340.0, "trainingEffectLabel":
+        "TEMPO", "activityTrainingLoad": 162.36602783203125, "minActivityLapDuration":
+        158.92999267578125, "aerobicTrainingEffectMessage": "HIGHLY_IMPACTING_TEMPO_23",
+        "anaerobicTrainingEffectMessage": "NO_ANAEROBIC_BENEFIT_0", "splitSummaries":
+        [{"noOfSplits": 1, "totalAscent": 49.0, "duration": 4825.50390625, "splitType":
+        "INTERVAL_ACTIVE", "numClimbSends": 0, "maxElevationGain": 49.0, "averageElevationGain":
+        16.0, "maxDistance": 15528, "distance": 15528.830078125, "averageSpeed": 3.2179999351501465,
+        "maxSpeed": 3.686000108718872, "numFalls": 0, "elevationLoss": 46.0}, {"noOfSplits":
+        3, "totalAscent": 0.0, "duration": 45.0, "splitType": "RWD_WALK", "numClimbSends":
+        0, "maxElevationGain": 0.0, "averageElevationGain": 0.0, "maxDistance": 67,
+        "distance": 75.98999786376953, "averageSpeed": 1.6890000104904175, "maxSpeed":
+        2.1649999618530273, "numFalls": 0, "elevationLoss": 0.0}, {"noOfSplits": 3,
+        "totalAscent": 49.0, "duration": 4780.48583984375, "splitType": "RWD_RUN",
+        "numClimbSends": 0, "maxElevationGain": 32.0, "averageElevationGain": 16.0,
+        "maxDistance": 5933, "distance": 15452.83984375, "averageSpeed": 3.2320001125335693,
+        "maxSpeed": 3.686000108718872, "numFalls": 0, "elevationLoss": 46.0}], "hasSplits":
+        true, "moderateIntensityMinutes": 1, "vigorousIntensityMinutes": 79, "avgGradeAdjustedSpeed":
+        3.2290000915527344, "differenceBodyBattery": -26, "hasHeatMap": false, "fastestSplit_1000":
+        279.0469970703125, "fastestSplit_1609": 455.739013671875, "fastestSplit_5000":
+        1478.967041015625, "fastestSplit_10000": 3025.041015625, "endTimeGMT": "2024-11-17
+        08:56:24", "qualifyingDive": false, "autoCalcCalories": false, "elevationCorrected":
+        false, "atpActivity": false, "decoDive": false, "favorite": false, "purposeful":
+        false, "pr": false, "manualActivity": false, "parent": false}, {"activityId":
+        16717064687, "activityName": "Selva di Val Gardena Mountain Biking", "startTimeLocal":
+        "2024-08-09 13:23:20", "startTimeGMT": "2024-08-09 11:23:20", "activityType":
+        {"typeId": 5, "typeKey": "mountain_biking", "parentTypeId": 2, "isHidden":
+        false, "restricted": false, "trimmable": true}, "eventType": {"typeId": 9,
+        "typeKey": "uncategorized", "sortOrder": 10}, "distance": 20661.029296875,
+        "duration": 6590.0908203125, "elapsedDuration": 9238.1767578125, "movingDuration":
+        6539.0, "elevationGain": 820.0, "elevationLoss": 802.0, "averageSpeed": 3.134999990463257,
+        "maxSpeed": 15.927000045776367, "startLatitude": 46.556293023750186, "startLongitude":
+        11.751317102462053, "hasPolyline": true, "hasImages": false, "ownerId": 113739130,
+        "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "ownerFullName":
+        "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 888.0, "bmrCalories": 156.0, "averageHR": 111.0, "maxHR": 153.0,
+        "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ", "SCOPE_DIVE_API_WRITE",
+        "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ", "SCOPE_DI_OAUTH_2_CLIENT_READ",
+        "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_MESSAGE_GENERATION_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN", "SCOPE_CONNECT_WEB_TEMPLATE_RENDER",
+        "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ", "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ",
+        "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN", "ROLE_CONNECTUSER",
+        "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"], "privacy":
+        {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo": false,
+        "timeZoneId": 124, "beginTimestamp": 1723202600000, "sportTypeId": 2, "aerobicTrainingEffect":
+        2.200000047683716, "anaerobicTrainingEffect": 0.8999999761581421, "deviceId":
+        3444001964, "minTemperature": 27.0, "maxTemperature": 39.0, "minElevation":
+        1544.4000244140625, "maxElevation": 2258.800048828125, "summarizedDiveInfo":
+        {"summarizedDiveGases": []}, "maxVerticalSpeed": 0.8000488281250001, "manufacturer":
+        "GARMIN", "locationName": "Selva di Val Gardena", "lapCount": 5, "endLatitude":
+        46.5563356038183, "endLongitude": 11.751301093026996, "grit": 83.3343734741211,
+        "waterEstimated": 1396.0, "trainingEffectLabel": "AEROBIC_BASE", "activityTrainingLoad":
+        39.50788879394531, "avgFlow": 2.691190004348755, "minActivityLapDuration":
+        67.95700073242188, "aerobicTrainingEffectMessage": "MAINTAINING_AEROBIC_BASE_7",
+        "anaerobicTrainingEffectMessage": "NO_ANAEROBIC_BENEFIT_0", "splitSummaries":
+        [], "hasSplits": false, "moderateIntensityMinutes": 43, "vigorousIntensityMinutes":
+        61, "differenceBodyBattery": -17, "hasHeatMap": false, "endTimeGMT": "2024-08-09
+        13:57:18", "qualifyingDive": false, "autoCalcCalories": false, "elevationCorrected":
+        false, "atpActivity": false, "decoDive": false, "favorite": false, "purposeful":
+        false, "pr": false, "manualActivity": false, "parent": false}, {"activityId":
+        15824551444, "activityName": "Santa Cristina Valgardena Mountain Biking",
+        "startTimeLocal": "2024-06-09 12:25:56", "startTimeGMT": "2024-06-09 10:25:56",
+        "activityType": {"typeId": 5, "typeKey": "mountain_biking", "parentTypeId":
+        2, "isHidden": false, "restricted": false, "trimmable": true}, "eventType":
+        {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "distance": 19637.26953125,
+        "duration": 7873.04296875, "elapsedDuration": 10816.26171875, "movingDuration":
+        7623.0, "elevationGain": 865.0, "elevationLoss": 872.0, "averageSpeed": 2.49399995803833,
+        "maxSpeed": 13.930999755859377, "startLatitude": 46.55512743629515, "startLongitude":
+        11.722329715266824, "hasPolyline": true, "hasImages": false, "ownerId": 113739130,
+        "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "ownerFullName":
+        "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1000.0, "bmrCalories": 187.0, "averageHR": 107.0, "maxHR": 152.0,
+        "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ", "SCOPE_DIVE_API_WRITE",
+        "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ", "SCOPE_DI_OAUTH_2_CLIENT_READ",
+        "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_MESSAGE_GENERATION_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN", "SCOPE_CONNECT_WEB_TEMPLATE_RENDER",
+        "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ", "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ",
+        "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN", "ROLE_CONNECTUSER",
+        "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"], "privacy":
+        {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo": false,
+        "timeZoneId": 124, "beginTimestamp": 1717928756000, "sportTypeId": 2, "aerobicTrainingEffect":
+        2.200000047683716, "anaerobicTrainingEffect": 0.0, "deviceId": 3444001964,
+        "minTemperature": 22.0, "maxTemperature": 35.0, "minElevation": 1499.800048828125,
+        "maxElevation": 2202.199951171875, "summarizedDiveInfo": {"summarizedDiveGases":
+        []}, "maxVerticalSpeed": 1.199951171875, "manufacturer": "GARMIN", "locationName":
+        "Santa Cristina Valgardena", "lapCount": 4, "endLatitude": 46.5551249217242,
+        "endLongitude": 11.72233248129487, "grit": 90.6234359741211, "waterEstimated":
+        1484.0, "minRespirationRate": 12.619999885559082, "maxRespirationRate": 45.72999954223633,
+        "avgRespirationRate": 28.219999313354492, "trainingEffectLabel": "AEROBIC_BASE",
+        "activityTrainingLoad": 31.522247314453125, "avgFlow": 3.7118093967437744,
+        "minActivityLapDuration": 1071.7659912109375, "aerobicTrainingEffectMessage":
+        "MAINTAINING_AEROBIC_BASE_7", "anaerobicTrainingEffectMessage": "NO_ANAEROBIC_BENEFIT_0",
+        "splitSummaries": [{"totalAscent": 866.0, "duration": 7873.04296875, "splitType":
+        "INTERVAL_ACTIVE", "numClimbSends": 0, "maxElevationGain": 866.0, "averageElevationGain":
+        866.0, "maxDistance": 19637, "distance": 19637.27001953125, "averageSpeed":
+        2.494241438472557, "maxSpeed": 13.930999755859375, "numFalls": 0, "elevationLoss":
+        873.0}], "hasSplits": false, "moderateIntensityMinutes": 50, "vigorousIntensityMinutes":
+        61, "differenceBodyBattery": -16, "hasHeatMap": false, "endTimeGMT": "2024-06-09
+        13:26:12", "qualifyingDive": false, "autoCalcCalories": false, "elevationCorrected":
+        false, "atpActivity": false, "decoDive": false, "favorite": false, "purposeful":
+        false, "pr": false, "manualActivity": false, "parent": false}, {"activityId":
+        15789967060, "activityName": "Castelrotto Mountain Biking", "startTimeLocal":
+        "2024-06-07 12:02:55", "startTimeGMT": "2024-06-07 10:02:55", "activityType":
+        {"typeId": 5, "typeKey": "mountain_biking", "parentTypeId": 2, "isHidden":
+        false, "restricted": false, "trimmable": true}, "eventType": {"typeId": 9,
+        "typeKey": "uncategorized", "sortOrder": 10}, "distance": 19072.619140625,
+        "duration": 6554.85205078125, "elapsedDuration": 10798.712890625, "movingDuration":
+        6367.0, "elevationGain": 760.0, "elevationLoss": 754.0, "averageSpeed": 2.9100000858306885,
+        "maxSpeed": 13.071999549865723, "startLatitude": 46.567785954102874, "startLongitude":
+        11.561229703947902, "hasPolyline": true, "hasImages": false, "ownerId": 113739130,
+        "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "ownerFullName":
+        "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 790.0, "bmrCalories": 156.0, "averageHR": 101.0, "maxHR": 140.0,
+        "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ", "SCOPE_DIVE_API_WRITE",
+        "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ", "SCOPE_DI_OAUTH_2_CLIENT_READ",
+        "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_MESSAGE_GENERATION_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN", "SCOPE_CONNECT_WEB_TEMPLATE_RENDER",
+        "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ", "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ",
+        "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN", "ROLE_CONNECTUSER",
+        "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"], "privacy":
+        {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo": false,
+        "timeZoneId": 124, "beginTimestamp": 1717754575000, "sportTypeId": 2, "aerobicTrainingEffect":
+        2.200000047683716, "anaerobicTrainingEffect": 0.0, "deviceId": 3444001964,
+        "minTemperature": 31.0, "maxTemperature": 36.0, "minElevation": 590.2000122070312,
+        "maxElevation": 1138.0, "summarizedDiveInfo": {"summarizedDiveGases": []},
+        "maxVerticalSpeed": 1.20001220703125, "manufacturer": "GARMIN", "locationName":
+        "Castelrotto", "lapCount": 4, "endLatitude": 46.568948440253735, "endLongitude":
+        11.562325805425644, "grit": 78.7359390258789, "waterEstimated": 1429.0, "minRespirationRate":
+        13.420000076293945, "maxRespirationRate": 38.79999923706055, "avgRespirationRate":
+        27.530000686645508, "trainingEffectLabel": "AEROBIC_BASE", "activityTrainingLoad":
+        28.700836181640625, "avgFlow": 3.5985965728759766, "minActivityLapDuration":
+        1176.0050048828125, "aerobicTrainingEffectMessage": "MAINTAINING_AEROBIC_BASE_7",
+        "anaerobicTrainingEffectMessage": "NO_ANAEROBIC_BENEFIT_0", "splitSummaries":
+        [{"totalAscent": 759.0, "duration": 6554.85205078125, "splitType": "INTERVAL_ACTIVE",
+        "numClimbSends": 0, "maxElevationGain": 759.0, "averageElevationGain": 759.0,
+        "maxDistance": 19072, "distance": 19072.6201171875, "averageSpeed": 2.909694981584565,
+        "maxSpeed": 13.071999549865723, "numFalls": 0, "elevationLoss": 754.0}], "hasSplits":
+        false, "moderateIntensityMinutes": 57, "vigorousIntensityMinutes": 34, "differenceBodyBattery":
+        -17, "hasHeatMap": false, "endTimeGMT": "2024-06-07 13:02:53", "qualifyingDive":
+        false, "autoCalcCalories": false, "elevationCorrected": false, "atpActivity":
+        false, "decoDive": false, "favorite": false, "purposeful": false, "pr": false,
+        "manualActivity": false, "parent": false}, {"activityId": 15704533067, "activityName":
+        "Bormio Mountain Biking", "startTimeLocal": "2024-06-02 11:06:43", "startTimeGMT":
+        "2024-06-02 09:06:43", "activityType": {"typeId": 5, "typeKey": "mountain_biking",
+        "parentTypeId": 2, "isHidden": false, "restricted": false, "trimmable": true},
+        "eventType": {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "distance":
+        21543.740234375, "duration": 7376.0419921875, "elapsedDuration": 11516.208984375,
+        "movingDuration": 7326.0, "elevationGain": 717.0, "elevationLoss": 810.0,
+        "averageSpeed": 2.921000003814697, "maxSpeed": 15.227999687194824, "startLatitude":
+        46.477236254140735, "startLongitude": 10.367696061730385, "hasPolyline": true,
+        "hasImages": false, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 908.0, "bmrCalories": 175.0, "averageHR": 108.0, "maxHR": 148.0,
+        "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ", "SCOPE_DIVE_API_WRITE",
+        "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ", "SCOPE_DI_OAUTH_2_CLIENT_READ",
+        "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_MESSAGE_GENERATION_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN", "SCOPE_CONNECT_WEB_TEMPLATE_RENDER",
+        "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ", "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ",
+        "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN", "ROLE_CONNECTUSER",
+        "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"], "privacy":
+        {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo": false,
+        "timeZoneId": 124, "beginTimestamp": 1717319203000, "sportTypeId": 2, "aerobicTrainingEffect":
+        2.200000047683716, "anaerobicTrainingEffect": 0.10000000149011612, "deviceId":
+        3444001964, "minTemperature": 24.0, "maxTemperature": 30.0, "minElevation":
+        1197.199951171875, "maxElevation": 1745.0, "summarizedDiveInfo": {"summarizedDiveGases":
+        []}, "maxVerticalSpeed": 0.8000488281250001, "manufacturer": "GARMIN", "locationName":
+        "Bormio", "lapCount": 5, "endLatitude": 46.46482843905687, "endLongitude":
+        10.366617981344461, "grit": 76.57499694824219, "waterEstimated": 1275.0, "trainingEffectLabel":
+        "AEROBIC_BASE", "activityTrainingLoad": 30.643157958984375, "avgFlow": 4.445012092590332,
+        "minActivityLapDuration": 362.2860107421875, "aerobicTrainingEffectMessage":
+        "MAINTAINING_AEROBIC_BASE_7", "anaerobicTrainingEffectMessage": "NO_ANAEROBIC_BENEFIT_0",
+        "splitSummaries": [{"totalAscent": 716.0, "duration": 7376.042053222656, "splitType":
+        "INTERVAL_ACTIVE", "numClimbSends": 0, "maxElevationGain": 716.0, "averageElevationGain":
+        716.0, "maxDistance": 21543, "distance": 21543.739990234375, "averageSpeed":
+        2.9207723918577346, "maxSpeed": 15.227999687194824, "numFalls": 0, "elevationLoss":
+        810.0}], "hasSplits": false, "moderateIntensityMinutes": 54, "vigorousIntensityMinutes":
+        48, "differenceBodyBattery": -21, "hasHeatMap": false, "endTimeGMT": "2024-06-02
+        12:18:39", "qualifyingDive": false, "autoCalcCalories": false, "elevationCorrected":
+        false, "atpActivity": false, "decoDive": false, "favorite": false, "purposeful":
+        false, "pr": false, "manualActivity": false, "parent": false}, {"activityId":
+        14527437062, "activityName": "Bergamo Cycling", "startTimeLocal": "2024-03-22
+        10:06:49", "startTimeGMT": "2024-03-22 09:06:49", "activityType": {"typeId":
+        2, "typeKey": "cycling", "parentTypeId": 17, "isHidden": false, "restricted":
+        false, "trimmable": true}, "eventType": {"typeId": 9, "typeKey": "uncategorized",
+        "sortOrder": 10}, "distance": 16962.419921875, "duration": 5004.36181640625,
+        "elapsedDuration": 5950.27490234375, "movingDuration": 4970.0, "elevationGain":
+        424.0, "elevationLoss": 432.0, "averageSpeed": 3.390000104904175, "maxSpeed":
+        10.888999938964844, "startLatitude": 45.72020740248263, "startLongitude":
+        9.684392418712378, "hasPolyline": true, "hasImages": false, "ownerId": 113739130,
+        "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "ownerFullName":
+        "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 552.0, "bmrCalories": 119.0, "averageHR": 99.0, "maxHR": 152.0,
+        "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ", "SCOPE_DIVE_API_WRITE",
+        "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ", "SCOPE_DI_OAUTH_2_CLIENT_READ",
+        "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_MESSAGE_GENERATION_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN", "SCOPE_CONNECT_WEB_TEMPLATE_RENDER",
+        "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ", "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ",
+        "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN", "ROLE_CONNECTUSER",
+        "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"], "privacy":
+        {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo": false,
+        "timeZoneId": 124, "beginTimestamp": 1711098409000, "sportTypeId": 2, "aerobicTrainingEffect":
+        1.600000023841858, "anaerobicTrainingEffect": 1.2000000476837158, "deviceId":
+        3444001964, "minTemperature": 24.0, "maxTemperature": 30.0, "minElevation":
+        275.3999938964844, "maxElevation": 485.6000061035156, "summarizedDiveInfo":
+        {"summarizedDiveGases": []}, "maxVerticalSpeed": 0.600006103515625, "manufacturer":
+        "GARMIN", "locationName": "Bergamo", "lapCount": 4, "endLatitude": 45.72032826952636,
+        "endLongitude": 9.684441788122058, "waterEstimated": 728.0, "trainingEffectLabel":
+        "AEROBIC_BASE", "activityTrainingLoad": 28.680267333984375, "minActivityLapDuration":
+        487.9419860839844, "aerobicTrainingEffectMessage": "MINOR_AEROBIC_BENEFIT_6",
+        "anaerobicTrainingEffectMessage": "MINOR_ANAEROBIC_BENEFIT_15", "splitSummaries":
+        [{"totalAscent": 425.0, "duration": 5004.361907958984, "splitType": "INTERVAL_ACTIVE",
+        "numClimbSends": 0, "maxElevationGain": 425.0, "averageElevationGain": 425.0,
+        "maxDistance": 16962, "distance": 16962.420043945312, "averageSpeed": 3.389527047787675,
+        "maxSpeed": 10.888999938964844, "numFalls": 0, "elevationLoss": 432.0}], "hasSplits":
+        false, "moderateIntensityMinutes": 47, "vigorousIntensityMinutes": 18, "differenceBodyBattery":
+        -15, "hasHeatMap": false, "endTimeGMT": "2024-03-22 10:45:59", "qualifyingDive":
+        false, "autoCalcCalories": false, "elevationCorrected": false, "atpActivity":
+        false, "decoDive": false, "favorite": false, "purposeful": false, "pr": false,
+        "manualActivity": false, "parent": false}, {"activityId": 14355179292, "activityName":
+        "Verdellino Running", "startTimeLocal": "2024-03-11 12:04:55", "startTimeGMT":
+        "2024-03-11 11:04:55", "activityType": {"typeId": 1, "typeKey": "running",
+        "parentTypeId": 17, "isHidden": false, "restricted": false, "trimmable": true},
+        "eventType": {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "distance":
+        18046.69921875, "duration": 5447.7529296875, "elapsedDuration": 5760.9560546875,
+        "movingDuration": 5439.491058349609, "elevationGain": 59.0, "elevationLoss":
+        58.0, "averageSpeed": 3.312999963760376, "maxSpeed": 3.871999979019165, "startLatitude":
+        45.6090088840574, "startLongitude": 9.616569243371487, "hasPolyline": true,
+        "hasImages": false, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1265.0, "bmrCalories": 129.0, "averageHR": 135.0, "maxHR": 151.0,
+        "averageRunningCadenceInStepsPerMinute": 166.390625, "maxRunningCadenceInStepsPerMinute":
+        196.0, "steps": 15120, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ",
+        "SCOPE_DIVE_API_WRITE", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "privacy": {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo":
+        false, "timeZoneId": 124, "beginTimestamp": 1710155095000, "sportTypeId":
+        1, "avgPower": 367.0, "maxPower": 483.0, "aerobicTrainingEffect": 3.700000047683716,
+        "anaerobicTrainingEffect": 0.0, "normPower": 370.0, "avgVerticalOscillation":
+        9.55999984741211, "avgGroundContactTime": 260.20001220703125, "avgStrideLength":
+        119.6300048828125, "vO2MaxValue": 60.0, "avgVerticalRatio": 8.010000228881836,
+        "deviceId": 3444001964, "minTemperature": 20.0, "maxTemperature": 25.0, "minElevation":
+        172.1999969482422, "maxElevation": 191.8000030517578, "maxDoubleCadence":
+        196.0, "summarizedDiveInfo": {"summarizedDiveGases": []}, "maxVerticalSpeed":
+        0.8000030517578125, "manufacturer": "GARMIN", "locationName": "Verdellino",
+        "lapCount": 19, "endLatitude": 45.60931666754186, "endLongitude": 9.616764960810542,
+        "waterEstimated": 1513.0, "trainingEffectLabel": "AEROBIC_BASE", "activityTrainingLoad":
+        117.65190124511719, "minActivityLapDuration": 13.8100004196167, "aerobicTrainingEffectMessage":
+        "IMPROVING_AEROBIC_ENDURANCE_9", "anaerobicTrainingEffectMessage": "NO_ANAEROBIC_BENEFIT_0",
+        "splitSummaries": [{"noOfSplits": 2, "totalAscent": 0.0, "duration": 6.039999961853027,
+        "splitType": "RWD_WALK", "numClimbSends": 0, "maxElevationGain": 0.0, "averageElevationGain":
+        0.0, "maxDistance": 6, "distance": 10.380000114440918, "averageSpeed": 1.718999981880188,
+        "maxSpeed": 2.015000104904175, "numFalls": 0, "elevationLoss": 0.0}, {"noOfSplits":
+        1, "totalAscent": 59.0, "duration": 5447.7529296875, "splitType": "INTERVAL_ACTIVE",
+        "numClimbSends": 0, "maxElevationGain": 59.0, "averageElevationGain": 59.0,
+        "maxDistance": 18046, "distance": 18046.7109375, "averageSpeed": 3.312999963760376,
+        "maxSpeed": 3.871999979019165, "numFalls": 0, "elevationLoss": 58.0}, {"noOfSplits":
+        5, "totalAscent": 59.0, "duration": 5441.533203125, "splitType": "RWD_RUN",
+        "numClimbSends": 0, "maxElevationGain": 26.0, "averageElevationGain": 12.0,
+        "maxDistance": 9386, "distance": 18036.330078125, "averageSpeed": 3.315000057220459,
+        "maxSpeed": 3.871999979019165, "numFalls": 0, "elevationLoss": 58.0}], "hasSplits":
+        true, "moderateIntensityMinutes": 2, "vigorousIntensityMinutes": 89, "avgGradeAdjustedSpeed":
+        3.322000026702881, "differenceBodyBattery": -25, "hasHeatMap": false, "endTimeGMT":
+        "2024-03-11 12:40:55", "qualifyingDive": false, "autoCalcCalories": false,
+        "elevationCorrected": false, "atpActivity": false, "decoDive": false, "favorite":
+        false, "purposeful": false, "pr": false, "manualActivity": false, "parent":
+        false}, {"activityId": 14228732150, "activityName": "Lecco Trail Running",
+        "startTimeLocal": "2024-03-03 10:01:24", "startTimeGMT": "2024-03-03 09:01:24",
+        "activityType": {"typeId": 6, "typeKey": "trail_running", "parentTypeId":
+        1, "isHidden": false, "restricted": false, "trimmable": true}, "eventType":
+        {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "distance": 21409.099609375,
+        "duration": 5941.40478515625, "elapsedDuration": 5941.40478515625, "movingDuration":
+        5935.909973144531, "elevationGain": 49.0, "elevationLoss": 47.0, "averageSpeed":
+        3.6029999256134038, "maxSpeed": 4.385000228881836, "startLatitude": 45.85389817133546,
+        "startLongitude": 9.388695638626814, "hasPolyline": true, "hasImages": false,
+        "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1578.0, "bmrCalories": 141.0, "averageHR": 170.0, "maxHR": 191.0,
+        "averageRunningCadenceInStepsPerMinute": 171.09375, "maxRunningCadenceInStepsPerMinute":
+        182.0, "steps": 16906, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ",
+        "SCOPE_DIVE_API_WRITE", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "privacy": {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo":
+        false, "timeZoneId": 124, "beginTimestamp": 1709456484000, "sportTypeId":
+        1, "avgPower": 401.0, "maxPower": 578.0, "aerobicTrainingEffect": 5.0, "anaerobicTrainingEffect":
+        0.0, "normPower": 404.0, "avgVerticalOscillation": 9.540000152587892, "avgGroundContactTime":
+        247.8000030517578, "avgStrideLength": 126.25, "vO2MaxValue": 60.0, "avgVerticalRatio":
+        7.559999942779541, "deviceId": 3444001964, "minTemperature": 21.0, "maxTemperature":
+        26.0, "minElevation": 202.8000030517578, "maxElevation": 213.0, "maxDoubleCadence":
+        182.0, "summarizedDiveInfo": {"summarizedDiveGases": []}, "maxVerticalSpeed":
+        0.4000091552734375, "manufacturer": "GARMIN", "locationName": "Lecco", "lapCount":
+        22, "endLatitude": 45.85305729880929, "endLongitude": 9.389717811718583, "waterEstimated":
+        1650.0, "minRespirationRate": 28.34000015258789, "maxRespirationRate": 42.70000076293945,
+        "avgRespirationRate": 36.66999816894531, "trainingEffectLabel": "LACTATE_THRESHOLD",
+        "activityTrainingLoad": 240.75054931640625, "minActivityLapDuration": 102.73200225830078,
+        "aerobicTrainingEffectMessage": "OVERREACHING_14", "anaerobicTrainingEffectMessage":
+        "NO_ANAEROBIC_BENEFIT_0", "splitSummaries": [{"noOfSplits": 1, "totalAscent":
+        49.0, "duration": 5941.40478515625, "splitType": "INTERVAL_ACTIVE", "numClimbSends":
+        0, "maxElevationGain": 49.0, "averageElevationGain": 49.0, "maxDistance":
+        21409, "distance": 21409.08984375, "averageSpeed": 3.6029999256134033, "maxSpeed":
+        4.385000228881836, "numFalls": 0, "elevationLoss": 47.0}, {"noOfSplits": 1,
+        "totalAscent": 0.0, "duration": 1.0010000467300415, "splitType": "RWD_WALK",
+        "numClimbSends": 0, "maxElevationGain": 0.0, "averageElevationGain": 0.0,
+        "maxDistance": 0, "distance": 0.0, "averageSpeed": 0.0, "maxSpeed": 2.1740000247955322,
+        "numFalls": 0, "elevationLoss": 0.0}, {"noOfSplits": 1, "totalAscent": 49.0,
+        "duration": 5941.3828125, "splitType": "RWD_RUN", "numClimbSends": 0, "maxElevationGain":
+        49.0, "averageElevationGain": 49.0, "maxDistance": 21409, "distance": 21409.08984375,
+        "averageSpeed": 3.6029999256134033, "maxSpeed": 4.385000228881836, "numFalls":
+        0, "elevationLoss": 47.0}], "hasSplits": true, "moderateIntensityMinutes":
+        1, "vigorousIntensityMinutes": 97, "avgGradeAdjustedSpeed": 3.6019999980926514,
+        "differenceBodyBattery": -31, "hasHeatMap": false, "endTimeGMT": "2024-03-03
+        10:40:25", "qualifyingDive": false, "autoCalcCalories": false, "elevationCorrected":
+        false, "atpActivity": false, "decoDive": false, "favorite": false, "purposeful":
+        false, "pr": false, "manualActivity": false, "parent": false}, {"activityId":
+        14122179409, "activityName": "Treviglio Running", "startTimeLocal": "2024-02-25
+        09:31:44", "startTimeGMT": "2024-02-25 08:31:44", "activityType": {"typeId":
+        1, "typeKey": "running", "parentTypeId": 17, "isHidden": false, "restricted":
+        false, "trimmable": true}, "eventType": {"typeId": 9, "typeKey": "uncategorized",
+        "sortOrder": 10}, "distance": 21324.900390625, "duration": 6066.5859375, "elapsedDuration":
+        6066.5859375, "movingDuration": 6061.857940673828, "elevationGain": 48.0,
+        "elevationLoss": 43.0, "averageSpeed": 3.515000104904175, "maxSpeed": 4.067999839782715,
+        "startLatitude": 45.518419705331326, "startLongitude": 9.583078427240252,
+        "hasPolyline": true, "hasImages": false, "ownerId": 113739130, "ownerDisplayName":
+        "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "ownerFullName": "Paolo", "ownerProfileImageUrlSmall":
+        "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1553.0, "bmrCalories": 144.0, "averageHR": 149.0, "maxHR": 163.0,
+        "averageRunningCadenceInStepsPerMinute": 170.375, "maxRunningCadenceInStepsPerMinute":
+        200.0, "steps": 17218, "userRoles": ["SCOPE_GOLF_API_READ", "SCOPE_ATP_READ",
+        "SCOPE_DIVE_API_WRITE", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_COMMUNITY_COURSE_WRITE",
+        "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_CONNECT_READ", "SCOPE_DI_OAUTH_2_TOKEN_ADMIN",
+        "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER"],
+        "privacy": {"typeId": 2, "typeKey": "private"}, "userPro": false, "hasVideo":
+        false, "timeZoneId": 124, "beginTimestamp": 1708849904000, "sportTypeId":
+        1, "avgPower": 386.0, "maxPower": 509.0, "aerobicTrainingEffect": 4.800000190734863,
+        "anaerobicTrainingEffect": 0.0, "normPower": 388.0, "avgVerticalOscillation":
+        9.5, "avgGroundContactTime": 251.0, "avgStrideLength": 123.6300048828125,
+        "vO2MaxValue": 59.0, "avgVerticalRatio": 7.690000057220459, "deviceId": 3444001964,
+        "minTemperature": 19.0, "maxTemperature": 24.0, "minElevation": 122.5999984741211,
+        "maxElevation": 146.60000610351562, "maxDoubleCadence": 200.0, "summarizedDiveInfo":
+        {"summarizedDiveGases": []}, "maxVerticalSpeed": 0.4000091552734375, "manufacturer":
+        "GARMIN", "locationName": "Treviglio", "lapCount": 22, "endLatitude": 45.521080708131194,
+        "endLongitude": 9.592244708910584, "waterEstimated": 1685.0, "minRespirationRate":
+        27.75, "maxRespirationRate": 46.43000030517578, "avgRespirationRate": 36.33000183105469,
+        "trainingEffectLabel": "TEMPO", "activityTrainingLoad": 199.8745880126953,
+        "minActivityLapDuration": 87.9229965209961, "aerobicTrainingEffectMessage":
+        "HIGHLY_IMPACTING_TEMPO_23", "anaerobicTrainingEffectMessage": "NO_ANAEROBIC_BENEFIT_0",
+        "splitSummaries": [{"noOfSplits": 1, "totalAscent": 48.0, "duration": 6066.5859375,
+        "splitType": "INTERVAL_ACTIVE", "numClimbSends": 0, "maxElevationGain": 48.0,
+        "averageElevationGain": 48.0, "maxDistance": 21324, "distance": 21324.939453125,
+        "averageSpeed": 3.515000104904175, "maxSpeed": 4.067999839782715, "numFalls":
+        0, "elevationLoss": 43.0}, {"noOfSplits": 1, "totalAscent": 0.0, "duration":
+        2.0, "splitType": "RWD_STAND", "numClimbSends": 0, "maxElevationGain": 0.0,
+        "averageElevationGain": 0.0, "maxDistance": 3, "distance": 3.0799999237060547,
+        "averageSpeed": 1.5399999618530273, "maxSpeed": 2.556999921798706, "numFalls":
+        0, "elevationLoss": 0.0}, {"noOfSplits": 1, "totalAscent": 48.0, "duration":
+        6066.47705078125, "splitType": "RWD_RUN", "numClimbSends": 0, "maxElevationGain":
+        48.0, "averageElevationGain": 48.0, "maxDistance": 21321, "distance": 21321.859375,
+        "averageSpeed": 3.515000104904175, "maxSpeed": 4.067999839782715, "numFalls":
+        0, "elevationLoss": 43.0}], "hasSplits": true, "moderateIntensityMinutes":
+        0, "vigorousIntensityMinutes": 98, "avgGradeAdjustedSpeed": 3.515000104904175,
+        "differenceBodyBattery": -25, "hasHeatMap": false, "endTimeGMT": "2024-02-25
+        10:12:50", "qualifyingDive": false, "autoCalcCalories": false, "elevationCorrected":
+        false, "atpActivity": false, "decoDive": false, "favorite": false, "purposeful":
+        false, "pr": false, "manualActivity": false, "parent": false}]'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Mon, 05 May 2025 09:16:33 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '83739'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+version: 1
