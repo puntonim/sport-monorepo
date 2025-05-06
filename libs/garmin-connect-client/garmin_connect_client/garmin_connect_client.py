@@ -88,6 +88,7 @@ from .garmin_connect_token_managers import (
 )
 from .responses import (
     ActivityDetailsResponse,
+    ActivitySplitsResponse,
     ActivitySummaryResponse,
     ActivityTypedSplitsResponse,
     DownloadFitContentResponse,
@@ -530,10 +531,16 @@ class GarminConnectClient:
     ) -> ActivityTypedSplitsResponse:
         """
         Get the ** TYPED ** splits for the given activity.
-        Typed splits are useful when the activity is a workout with:
-         - automatica laps: eg. run for 2 mins at a certain pace;
+        Regular splits are defined automatically with the Auto Lap feature: eg. every
+         1km in a run and 3km in a ride.
+        TYPED splits are the more detailed version of regular splits.
+        They are useful when the activity is a Garmin ** workout ** with:
+         - automatic laps defined by time or distance: eg. run for 2 mins at
+            a certain pace;
          - or laps started by the athlete the lap button is pressed: eg. during
             a 6x300m run.
+        With such a workout activity, there would be ~10 regular splits
+         and ~50 typed splits.
 
         I verified that the splits started with a lap button press have:
          "type": "INTERVAL_ACTIVE".
@@ -543,17 +550,17 @@ class GarminConnectClient:
          1 single INTERVAL_ACTIVE split which is the whole activity.
 
         Args:
-            activity_id: eg. 18923007987  # 6x300m..
+            activity_id: eg. 18923007987  # 6x300m.
 
-        Raw response data format: see `docs/splits.md`.
+        Raw response data format: see `docs/typed splits.md`.
 
         Example:
             client = GarminConnectClient()
-            response = client.get_activity_splits(18923007987)
+            response = client.get_activity_typed_splits(18923007987)
             for active_split in response.get_interval_active_splits():
                 print(active_split["elapsedDuration"])
 
-        The split is a dict with these attrs:
+        Each TYPED split is a dict with these attrs:
             {
                 "startTimeLocal": "2025-04-24T16:59:55.0",
                 "startTimeGMT": "2025-04-24T14:59:55.0",
@@ -599,6 +606,75 @@ class GarminConnectClient:
         """
         data: dict = self.garmin.get_activity_typed_splits(activity_id)
         return ActivityTypedSplitsResponse(data)
+
+    def get_activity_splits(self, activity_id: int) -> ActivitySplitsResponse:
+        """
+        Get the (regular) splits for the given activity.
+        Regular splits are defined automatically with the Auto Lap feature: eg. every
+         1km in a run and 3km in a ride.
+        (TYPED splits are the more detailed version of regular splits, see
+          get_activity_splits())
+
+        Args:
+            activity_id: eg. 18948270166  # Sarnico-Lovere run.
+
+        Raw response data format: see `docs/splits.md`.
+
+        Example:
+            client = GarminConnectClient()
+            response = client.get_activity_splits(18948270166)
+            for split in response.splits:
+                print(split["averageHR"])
+
+        Each split is a dict with these attrs:
+            {
+                "startTimeGMT": "2025-04-27T07:32:59.0",
+                "startLatitude": 45.66644126549363,
+                "startLongitude": 9.956494476646185,
+                "distance": 1000.0,
+                "duration": 300.983,
+                "movingDuration": 300.983,
+                "elapsedDuration": 300.983,
+                "elevationGain": 6.0,
+                "elevationLoss": 0.0,
+                "maxElevation": 199.0,
+                "minElevation": 191.2,
+                "averageSpeed": 3.322000026702881,
+                "averageMovingSpeed": 3.322446763843774,
+                "maxSpeed": 5.3460001945495605,
+                "calories": 73.0,
+                "bmrCalories": 7.0,
+                "averageHR": 137.0,
+                "maxHR": 157.0,
+                "averageRunCadence": 163.984375,
+                "maxRunCadence": 192.0,
+                "averageTemperature": 27.0,
+                "maxTemperature": 28.0,
+                "minTemperature": 25.0,
+                "averagePower": 394.0,
+                "maxPower": 665.0,
+                "minPower": 0.0,
+                "normalizedPower": 430.0,
+                "totalWork": 28.400819089169026,
+                "groundContactTime": 250.60000610351562,
+                "strideLength": 119.44000244140625,
+                "verticalOscillation": 8.94000015258789,
+                "verticalRatio": 7.670000076293945,
+                "endLatitude": 45.66989134065807,
+                "endLongitude": 9.965008646249771,
+                "maxVerticalSpeed": 0.4000091552734375,
+                "maxRespirationRate": 45.380001068115234,
+                "avgRespirationRate": 36.70000076293945,
+                "avgGradeAdjustedSpeed": 3.322000026702881,
+                "lapIndex": 1,
+                "lengthDTOs": [],
+                "connectIQMeasurement": [],
+                "intensityType": "INTERVAL",
+                "messageIndex": 0,
+            }
+        """
+        data: dict = self.garmin.get_activity_splits(activity_id)
+        return ActivitySplitsResponse(data)
 
     def search_activities(
         self,

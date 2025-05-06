@@ -14,6 +14,7 @@ __all__ = [
     "DownloadFitContentResponse",
     "ActivityTypedSplitsResponse",
     "SearchActivitiesResponse",
+    "ActivitySplitsResponse",
 ]
 
 
@@ -278,7 +279,7 @@ class ActivityDetailsResponse(BaseGarminResponse):
 
 class ActivityTypedSplitsResponse(BaseGarminResponse):
     """
-    See docstring in GarminConnectClient.get_activity_splits().
+    See docstring in GarminConnectClient.get_activity_typed_splits().
     """
 
     # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
@@ -288,10 +289,16 @@ class ActivityTypedSplitsResponse(BaseGarminResponse):
     @property
     def splits(self) -> dict:
         """
-        ** Typed ** splits are useful when the activity is a workout with:
-         - automatica laps: eg. run for 2 mins at a certain pace;
+        Regular splits are defined automatically with the Auto Lap feature: eg. every
+         1km in a run and 3km in a ride.
+        ** TYPED ** splits are the more detailed version of regular splits.
+        They are useful when the activity is a Garmin ** workout ** with:
+         - automatic laps defined by time or distance: eg. run for 2 mins at
+            a certain pace;
          - or laps started by the athlete the lap button is pressed: eg. during
             a 6x300m run.
+        With such a workout activity, there would be ~10 regular splits
+         and ~50 typed splits.
 
         I verified that the splits started with a lap button press have:
          "type": "INTERVAL_ACTIVE".
@@ -314,6 +321,26 @@ class ActivityTypedSplitsResponse(BaseGarminResponse):
         for split in self.splits:
             if split["type"] == "INTERVAL_ACTIVE":
                 yield split
+
+
+class ActivitySplitsResponse(BaseGarminResponse):
+    """
+    See docstring in GarminConnectClient.get_activity_splits().
+    """
+
+    # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
+    #  annotations. If you assign values they become CLASS attrs.
+    data: dict[str, Any]
+
+    @property
+    def splits(self) -> dict:
+        """
+        Regular splits are defined automatically with the Auto Lap feature: eg. every
+         1km in a run and 3km in a ride.
+        (TYPED splits are the more detailed version of regular splits, see
+          get_activity_splits())
+        """
+        return self.data["lapDTOs"]
 
 
 class SearchActivitiesResponse(BaseGarminResponse):

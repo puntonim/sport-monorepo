@@ -363,7 +363,7 @@ class TestGetActivityTypedSplits:
 
     def test_happy_flow(self):
         client = GarminConnectClient(self.token_mgr)
-        activity_id = 18923007987  # 6x300m.
+        activity_id = 18923007987  # 6x300m run.
 
         response = client.get_activity_typed_splits(activity_id)
 
@@ -405,6 +405,58 @@ class TestGetActivityTypedSplits:
         #  lap button by mistake, so I pressed it again.
         assert lengths[5] == 4
         assert lengths[6] == 1
+
+
+class TestGetActivitySplits:
+    def setup_method(self):
+        self.token_mgr = (
+            # Use the regular file token manager when recording vcr episodes.
+            FileGarminConnectTokenManager()
+            if is_vcr_record_mode()
+            # And using a fake test token (expiration in 3999) when replaying episodes.
+            else FakeTestGarminConnectTokenManager()
+        )
+
+    def test_sarnico_lovere_with_auto_lap_feature(self):
+        # This was a long run when I did not press any lap button, so the auto lap
+        #  feature defined a split every 1km automatically.
+        client = GarminConnectClient(self.token_mgr)
+        activity_id = 18948270166  # Sarnico-Lover run.
+
+        response = client.get_activity_splits(activity_id)
+
+        assert len(response.splits) == 25
+        for split in response.splits[:-2]:
+            assert split["distance"] == 1000
+        assert response.splits[-1]["distance"] == 811.69
+
+    def test_6x300m_with_lap_button_press(self):
+        # This was a 6x300m workout, so I pressed the lap button at the beginning of
+        #  every 600m.
+        client = GarminConnectClient(self.token_mgr)
+        activity_id = 18923007987  # 6x300m run.
+
+        response = client.get_activity_splits(activity_id)
+
+        assert len(response.splits) == 18
+
+        # Warm-up with the 1km auto laps.
+        assert response.splits[0]["distance"] == 1000
+        assert response.splits[1]["distance"] == 1000
+        assert 500 < response.splits[2]["distance"] < 1000
+
+        # 5x600m with my lap button press.
+        for i in range(3, 12, 2):
+            assert response.splits[i]["distance"] == 300
+            assert 290 < response.splits[i + 1]["distance"] < 350
+
+        # The 6th 600m with my lap button press.
+        assert response.splits[13]["distance"] == 300
+        # The cooldown with the 1km auto laps.
+        assert response.splits[14]["distance"] == 1000
+        assert response.splits[15]["distance"] == 1000
+        assert response.splits[16]["distance"] == 1000
+        assert 100 < response.splits[17]["distance"] < 1000
 
 
 class TestSearchActivities:
