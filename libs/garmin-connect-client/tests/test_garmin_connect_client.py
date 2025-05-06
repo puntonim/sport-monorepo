@@ -351,7 +351,7 @@ class TestDownloadFitContent:
             assert fit_hr_stream == details_hr_stream
 
 
-class TestGetActivitySplits:
+class TestGetActivityTypedSplits:
     def setup_method(self):
         self.token_mgr = (
             # Use the regular file token manager when recording vcr episodes.
@@ -365,7 +365,7 @@ class TestGetActivitySplits:
         client = GarminConnectClient(self.token_mgr)
         activity_id = 18923007987  # 6x300m.
 
-        response = client.get_activity_splits(activity_id)
+        response = client.get_activity_typed_splits(activity_id)
 
         active_splits = list(response.get_interval_active_splits())
 
@@ -391,7 +391,7 @@ class TestGetActivitySplits:
 
         lengths = []
         for activity in TEST_ACTIVITIES[:7]:
-            response = client.get_activity_splits(activity["garmin_activity_id"])
+            response = client.get_activity_typed_splits(activity["garmin_activity_id"])
 
             active_splits = list(response.get_interval_active_splits())
             lengths.append(len(active_splits))

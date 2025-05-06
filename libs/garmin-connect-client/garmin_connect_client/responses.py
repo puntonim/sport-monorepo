@@ -12,7 +12,7 @@ __all__ = [
     "ListActivitiesResponse",
     "ActivitySummaryResponse",
     "DownloadFitContentResponse",
-    "ActivitySplitsResponse",
+    "ActivityTypedSplitsResponse",
     "SearchActivitiesResponse",
 ]
 
@@ -276,7 +276,7 @@ class ActivityDetailsResponse(BaseGarminResponse):
             )
 
 
-class ActivitySplitsResponse(BaseGarminResponse):
+class ActivityTypedSplitsResponse(BaseGarminResponse):
     """
     See docstring in GarminConnectClient.get_activity_splits().
     """
@@ -288,9 +288,15 @@ class ActivitySplitsResponse(BaseGarminResponse):
     @property
     def splits(self) -> dict:
         """
-        Splits can be automatic or started when the lap button is pressed (like during
-         a 6x300m workout). The splits started with a lap button press have:
+        ** Typed ** splits are useful when the activity is a workout with:
+         - automatica laps: eg. run for 2 mins at a certain pace;
+         - or laps started by the athlete the lap button is pressed: eg. during
+            a 6x300m run.
+
+        I verified that the splits started with a lap button press have:
          "type": "INTERVAL_ACTIVE".
+        And you can get them with: response.get_interval_active_splits()
+
         However, some activities, when I never pressed the lap button, still have
          1 single INTERVAL_ACTIVE split which is the whole activity.
         """
@@ -298,7 +304,8 @@ class ActivitySplitsResponse(BaseGarminResponse):
 
     def get_interval_active_splits(self) -> Generator[dict]:
         """
-        Get the splits started with a lap button press
+        Get the splits started with a lap button press.
+
         They have:
          "type": "INTERVAL_ACTIVE".
         However, some activities, when I never pressed the lap button, still have

@@ -1,6 +1,6 @@
 ```py
 activity_id = 18923007987  # 6x300m.
-details = garmin.get_activity_splits(activity_id)
+details = garmin.get_activity_typed_splits(activity_id)
 
 {
     "activityId": 18923007987,
