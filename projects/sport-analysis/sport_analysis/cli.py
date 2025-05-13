@@ -1,0 +1,24 @@
+"""
+Entrypoint for the CLI.
+To be run (after a `poetry install`) from the root dir with:
+$ analysis --help
+"""
+
+import click
+
+from .health_cli_view import health_cli_view
+from .search.search_matching_activity_api import (
+    search_garmin_activity_matching_strava_activity_api_cli_view,
+    search_strava_activity_matching_garmin_activity_api_cli_view,
+)
+
+
+@click.group(help="Sport Analysis CLI.")
+def cli() -> None:
+    pass
+
+
+# Register all sub-commands.
+cli.add_command(health_cli_view)
+cli.add_command(search_garmin_activity_matching_strava_activity_api_cli_view)
+cli.add_command(search_strava_activity_matching_garmin_activity_api_cli_view)

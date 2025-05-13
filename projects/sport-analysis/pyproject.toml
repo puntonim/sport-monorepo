@@ -1,0 +1,60 @@
+[project]
+name = "sport-analysis"
+description = "Sport Analysis"
+version = "0.1.0"
+authors = [
+    {name = "puntonim",email = "puntonim@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "log-utils[rich-adapter] @ git+https://github.com/puntonim/utils-monorepo#subdirectory=log-utils",
+    "checksum-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=checksum-utils",
+    "datetime-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=datetime-utils",
+    "json-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=json-utils",
+    "text-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=text-utils",
+    "number-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=number-utils",
+    "speed-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=speed-utils",
+    "peewee-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=peewee-utils",
+    "strava-db-models @ ../../libs/strava-db-models",
+    "strava-client[aws-parameter-store] @ ../../libs/strava-client",
+    "garmin-connect-client @ ../../libs/garmin-connect-client",
+    "matplotlib (>=3.10.1,<4.0.0)",
+    "pandas (>=2.2.3,<3.0.0)",
+    "click (>=8.2.0,<9.0.0)",
+    "rich (==13.9.4)",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
+isort = "^5.13.2"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.4"
+pytest-xdist = {extras = ["psutil"], version = "^3.6.1"}
+# VCR.py integration with pytest.
+pytest-recording = "^0.13.2"
+
+[tool.black]  # See: https://black.readthedocs.io/en/stable/pyproject_toml.html
+line-length = 88  # Default.
+# skip-string-normalization = true  # Only for old projects.
+target-version = ["py313"]
+include = '\.py?$'
+extend-exclude = '''  # It automatically excludes all files in .gitignore by default.
+/(
+    \.git
+  # Project-specific:
+  | docs
+)/
+'''
+
+[tool.isort]
+profile = "black"  # See: https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html#profile
+skip_gitignore = true  # Skip all files in .gitignore.
+
+[project.scripts]
+analysis = "sport_analysis.cli:cli"
