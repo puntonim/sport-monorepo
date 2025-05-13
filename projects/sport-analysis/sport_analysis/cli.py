@@ -7,6 +7,8 @@ $ analysis --help
 import click
 
 from .health_cli_view import health_cli_view
+from .plot.plot_run.plot_10km_run_api import plot_10km_run_api_cli_view
+from .plot.plot_run.plot_21km_run_api import plot_21km_run_api_cli_view
 from .search.search_matching_activity_api import (
     search_garmin_activity_matching_strava_activity_api_cli_view,
     search_strava_activity_matching_garmin_activity_api_cli_view,
@@ -22,3 +24,5 @@ def cli() -> None:
 cli.add_command(health_cli_view)
 cli.add_command(search_garmin_activity_matching_strava_activity_api_cli_view)
 cli.add_command(search_strava_activity_matching_garmin_activity_api_cli_view)
+cli.add_command(plot_10km_run_api_cli_view)
+cli.add_command(plot_21km_run_api_cli_view)

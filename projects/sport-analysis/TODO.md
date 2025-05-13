@@ -1,4 +1,6 @@
-- CLI
+- Porta di qui con nuove CLI:
+  - plot_run
+  - plot_interval_run
 
 - Esporta features anche per half marathon:
    - aggiungi plot pace per km al Fosso?
