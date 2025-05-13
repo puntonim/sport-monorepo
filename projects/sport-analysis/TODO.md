@@ -1,9 +1,7 @@
-- Porta di qui con nuove CLI:
-  - plot_run
-  - plot_interval_run
+- Plot intervals: se c'è un num diverso di intervalli in un'attivita di confronto
+   allora bug. Forse devo inserire i valori mancanti come 0.
 
-- Esporta features anche per half marathon:
-   - aggiungi plot pace per km al Fosso?
+- aggiungi plot pace per km al Fosso?
 
 - plot_half_marathon_api.py
   - hr histogram tot, con indicaz di avg, min, max
