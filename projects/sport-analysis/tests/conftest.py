@@ -3,7 +3,9 @@ import os
 import re
 from typing import Iterator
 
+import peewee_utils
 import pytest
+import strava_db_models
 from _pytest.fixtures import SubRequest
 from _pytest.unittest import TestCaseFunction
 from vcr.cassette import Cassette
@@ -249,3 +251,23 @@ def monkeysession(request):
 #         monkeypatch.setenv("AWS_SECURITY_TOKEN", "testing")
 #         monkeypatch.setenv("AWS_SESSION_TOKEN", "testing")
 #         monkeypatch.setenv("AWS_DEFAULT_REGION", "eu-south-1")
+
+
+@pytest.fixture(scope="function")
+def create_db_fixture(test_settings_fixture, monkeypatch, request):
+    # Note that the signature includes `test_settings_fixture` because we need that
+    #  fixture to be executed before this one.
+
+    # Configure peewee_utils with the SQLite DB path.
+    peewee_utils.configure(sqlite_db_path=settings.DB_PATH)
+
+    # Register all default tables, triggers and sql_functions.
+    strava_db_models.register_default_tables_and_triggers_and_sql_functions()
+
+    # To achieve tests isolation we create a new (in-memory) database (invoking db_init()
+    #  a new time) for every test method, and then we create all tables.
+    peewee_utils.peewee_utils._db_init()
+    peewee_utils.create_all_tables()
+    yield
+    if peewee_utils.db and not peewee_utils.db.is_closed():
+        peewee_utils.db.close()
