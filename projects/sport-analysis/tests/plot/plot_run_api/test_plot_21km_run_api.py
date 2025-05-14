@@ -4,7 +4,7 @@ from garmin_connect_client.garmin_connect_token_managers import (
 )
 
 from sport_analysis.conf.settings_module import ROOT_DIR
-from sport_analysis.plot.plot_run.plot_21km_run_api import Plot21KmRunApi
+from sport_analysis.plot.plot_run_api.plot_21km_run_api import Plot21KmRunApi
 from tests.conftest import is_vcr_enabled, is_vcr_record_mode
 
 TEST_ACTIVITIES = [

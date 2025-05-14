@@ -9,7 +9,7 @@ from strava_client.strava_token_managers import (
 
 from sport_analysis.conf import settings
 from sport_analysis.conf.settings_module import ROOT_DIR
-from sport_analysis.plot.plot_like_garmin_and_strava_websites.plot_like_garmin_and_strava_websites import (
+from sport_analysis.plot.plot_like_garmin_and_strava_websites_api.plot_like_garmin_and_strava_websites import (
     plot_like_garmin_and_strava_websites_api,
 )
 from tests.conftest import is_vcr_enabled, is_vcr_record_mode

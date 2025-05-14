@@ -4,23 +4,21 @@ from garmin_connect_client.garmin_connect_token_managers import (
 )
 
 from sport_analysis.conf.settings_module import ROOT_DIR
-from sport_analysis.plot.plot_interval_run.plot_interval_1000m_run_api import (
-    PlotInterval1000mRunApi,
-)
+from sport_analysis.plot.plot_run_api.plot_10km_run_api import Plot10KmRunApi
 from tests.conftest import is_vcr_enabled, is_vcr_record_mode
 
 TEST_ACTIVITIES = [
     # 0.
     dict(
-        title="Run - 4x1000m",
-        strava_activity_id=14395836152,
-        garmin_activity_id=19042748874,
-        start_date="2025-05-06",
+        title="Run - Fosso 1 Cologno",
+        strava_activity_id=14357511465,
+        garmin_activity_id=19005790234,
+        start_date="2025-05-02",
     ),
 ]
 
 
-class TestPlotInterval1000mRunApi:
+class TestPlot10KmRunApi:
     def setup_method(self):
         self.garmin_token_mgr = (
             # Use the regular file token manager when recording vcr episodes.
@@ -35,12 +33,15 @@ class TestPlotInterval1000mRunApi:
 
     def test_happy_flow(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotInterval1000mRunApi(
+        plot_half_marathon_api = Plot10KmRunApi(
             garmin_activity_id,
-            n_previous_activities_to_compare=0,
+            activity_ids_to_compare=[
+                19074660632,
+            ],
+            title="Fosso Bergamasco: Cologno al Serio, 1a tappa",
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        p.plot(
+        plot_half_marathon_api.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlotInterval1000mRunApi-test_happy_flow.png",
+            / "TestPlot10KmRunApi-test_happy_flow.png",
         )
