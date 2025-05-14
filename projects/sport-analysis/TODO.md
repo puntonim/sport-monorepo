@@ -1,3 +1,5 @@
+- port: db functions
+
 - Plot intervals: se c'è un num diverso di intervalli in un'attivita di confronto
    allora bug. Forse devo inserire i valori mancanti come 0.
 

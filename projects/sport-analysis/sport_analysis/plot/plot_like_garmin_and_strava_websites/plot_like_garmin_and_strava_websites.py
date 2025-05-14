@@ -17,8 +17,8 @@ from strava_client.strava_token_managers import (
 from ...conf import settings
 from ...conf.settings_module import ROOT_DIR
 
-# IMP: this is NOT a cli command because it's more like a testing thing. I don't
-#  really see a use case for this function.
+# IMP: there is NOT a CLI command for this function because it's more like a testing
+#  thing. I don't really see a use case for it, so no need for a CLI.
 
 
 def plot_like_garmin_and_strava_websites_api(
