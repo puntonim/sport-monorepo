@@ -19,7 +19,11 @@ from ..conf import settings
 from ..conf.settings_module import ROOT_DIR
 
 
-@click.command(cls=BaseClickCommand, name="search-matching-garmin-activity")
+@click.command(
+    cls=BaseClickCommand,
+    name="search-matching-garmin-activity",
+    help="Search for the matching Garmin activity given a Strava activity id; eg. analysis search-matching-garmin-activity 14211292173",
+)
 @click.argument("strava-activity-id", nargs=1, type=int)
 def search_garmin_activity_matching_strava_activity_api_cli_view(
     strava_activity_id: int,
@@ -86,7 +90,11 @@ def search_garmin_activity_matching_strava_activity_api(
     raise ActivityNotFound("Matching Garmin activity not found")
 
 
-@click.command(cls=BaseClickCommand, name="search-matching-strava-activity")
+@click.command(
+    cls=BaseClickCommand,
+    name="search-matching-strava-activity",
+    help="Search for the matching Strava activity given a Garmin activity id; eg. analysis search-matching-strava-activity 18606916834",
+)
 @click.argument("garmin-activity-id", nargs=1, type=int)
 def search_strava_activity_matching_garmin_activity_api_cli_view(
     garmin_activity_id: int,

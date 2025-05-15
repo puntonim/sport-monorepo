@@ -112,7 +112,7 @@ class MixinBarHPlot(BasePlot):
          avg and max values are close and the bar labels overlaps. This method
          is meant to fix this issue.
 
-        Screenshot: fix-overlapping-bar-labels.png
+        Screenshot: docs/fix-overlapping-bar-labels.png
 
         Note: invoke this method as late as possible, as the figure changes every
          time you add new things, and so the position of the bar labels also changes.

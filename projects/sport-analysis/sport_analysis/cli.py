@@ -6,6 +6,7 @@ $ analysis --help
 
 import click
 
+from .count.count_activities_db import count_activities_db_cli_view
 from .health_cli_view import health_cli_view
 from .plot.plot_interval_run_api.plot_interval_300m_run_api import (
     plot_interval_300m_run_api_cli_view,
@@ -36,3 +37,4 @@ cli.add_command(plot_21km_run_api_cli_view)
 cli.add_command(plot_interval_300m_run_api_cli_view)
 cli.add_command(plot_interval_1000m_run_api_cli_view)
 cli.add_command(search_text_db_cli_view)
+cli.add_command(count_activities_db_cli_view)

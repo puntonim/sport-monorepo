@@ -15,26 +15,17 @@ peewee_utils.configure(sqlite_db_path=settings.DB_PATH)
 strava_db_models.register_default_tables_and_triggers_and_sql_functions()
 
 
-@click.command(cls=BaseClickCommand, name="db-search-text")
+@click.command(
+    cls=BaseClickCommand,
+    name="db-search-text",
+    help="Search for text in activities' titles and description in the DB; eg. analysis db-search-text 'del mortirolo'",
+)
 @click.argument("text", nargs=1, type=str)
 @peewee_utils.use_db
 def search_text_db_cli_view(text: str):
-    """
-    CLI view.
-    """
     for activity in search_text_db(text):
         activity: strava_db_models.Activity
         logger.info(f"https://www.strava.com/activities/{activity.strava_id}")
-
-
-@peewee_utils.use_db
-def search_text_db_view(text: str) -> Generator[strava_db_models.Activity]:
-    """
-    View to be used in tests and invoked by other objects.
-    Note that this fn can't be used in the CLI view otherwise the @peewee_utils.use_db
-     decorator would close the DB connection too early (at decorator exit).
-    """
-    return search_text_db(text)
 
 
 def search_text_db(text: str) -> Generator[strava_db_models.Activity]:
