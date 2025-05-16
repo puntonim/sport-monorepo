@@ -1,8 +1,3 @@
-- port: db functions
-
-- Plot intervals: se c'è un num diverso di intervalli in un'attivita di confronto
-   allora bug. Forse devo inserire i valori mancanti come 0.
-
 - aggiungi plot pace per km al Fosso?
 
 - plot_half_marathon_api.py
@@ -13,8 +8,6 @@
     che cerca su strava e chiede conferma in modo interattivo
 
 - strava-client: stesa cosa che ho fatto in garmin: ensure data coherent
-- notebook: finisci compare_avg_hr_in_strava_vs_garmin_vs_computed()
-   e plot_hr_histogram()
 
 - aggiungi tests per le fz esistenti e get rid of notebook file 
 

@@ -25,7 +25,8 @@ COL_DARK_GRAY = "#3B3B3B"
 @dataclass
 class CollectedData:
     summary_resp: ActivitySummaryResponse = None
-    type_splits_resp: ActivityTypedSplitsResponse = None
+    typed_splits_resp: ActivityTypedSplitsResponse = None
+    splits: list[dict] = None
 
 
 # TODO
@@ -47,15 +48,20 @@ class BasePlotIntervalRunApi(
      optionally compared with previous activities.
     """
 
-    # IMP: TO BE DEFINED IN sub-classes. Mind that it's an exact match on activities'
-    #  titles.
+    # IMP: TO BE DEFINED IN sub-classes.
+    # Text used in the search for previous activities to compare. It's an exact match
+    #  on activities' titles.
     DEFAULT_TEXT_TO_SEARCH_FOR_PREVIOUS_ACTIVITIES: str | None = None
+    # List of all possible expected number of intervals: fi. for a 4x1000m it is [4],
+    #  but if you want to include also a 5x1000m then it is [4, 5].
+    DEFAULT_N_EXPECTED_INTERVALS: list[int] | None = None
 
     def __init__(
         self,
         garmin_activity_id: int,
         n_previous_activities_to_compare: int = 10,
         text_to_search_for_previous_activities: str | None = None,
+        n_expected_intervals: list[int] | None = None,
         title: str | None = None,
         figure_size: tuple[float, float] | None = None,
         garmin_connect_token_manager: (
@@ -69,6 +75,9 @@ class BasePlotIntervalRunApi(
              to the given activity. They are searched automatically.
             text_to_search_for_previous_activities: text used in the search for
              previous activities to compare. It's an exact match on activities' titles.
+            n_expected_intervals list[int]: list of all possible expected number of
+             intervals: fi. for a 4x1000m it is [4], but if you want to include also
+             a 5x1000m then it is [4, 5].
             title: figure title.
             figure_size: customize the figure size, eg. (3.0, 5.5).
             garmin_connect_token_manager: use FakeTestGarminConnectTokenManager when
@@ -82,20 +91,26 @@ class BasePlotIntervalRunApi(
             or self.DEFAULT_TEXT_TO_SEARCH_FOR_PREVIOUS_ACTIVITIES
         )
         self.garmin_activity_id = garmin_activity_id
+        self.n_expected_intervals = (
+            n_expected_intervals or self.DEFAULT_N_EXPECTED_INTERVALS
+        )
         self.title = title
         self.figure_size = figure_size
 
         # The store used for Garmin Connect API responses collected for all activities.
         self._s: list[CollectedData] = []
 
+        # Max number of splits in all activities (MAIN and SECONDARY).
+        self._max_n_splits: int
+
+        # Start date of the main activity.
+        self._start_date_str: str | None = None
+
         # Matplotlib axes mosaic. This figure is made of 3 charts in 2 rows and 1 col.
         #  These _axes_mosaic represent these 2 rows and 1 col.
         #  Each item in the _axes_mosaic dict is an Axes instance: the x-axis and y-axis
         #  of an actual chart.
         self._axes_mosaic: dict[str, Axes]
-
-        # Start date of the main activity.
-        self._start_date_str: str | None = None
 
         # In a horizontal bars plot there are bar GROUPS, where one group matches
         #  one y data.
@@ -115,7 +130,8 @@ class BasePlotIntervalRunApi(
         To be reimplemented in sub-classe.
         Extract the splits in the response with:
          for split in response.get_interval_active_splits()
-        and make sure they are what you want, fi. their distance is 300m.
+        and make sure they are what you want, fi. their distance is 300m
+        and their number is in `n_expected_intervals` list[int], if given.
         """
         pass
 
@@ -124,11 +140,12 @@ class BasePlotIntervalRunApi(
 
         ## MAIN activity.
         # X and y data.
-        splits = self._get_splits_for_activity_typed_splits_response(
-            self._s[0].type_splits_resp
-        )
-        xdata_times = [_["elapsedDuration"] for _ in splits]
-        xdata_times.append(mean(xdata_times))  # Add avg time.
+        xdata_times = [_["elapsedDuration"] for _ in self._s[0].splits]
+        avg = mean(xdata_times)
+        # Add zeros if this n of splits is less than the max n splits found in any activity.
+        while len(xdata_times) < self._max_n_splits:
+            xdata_times.append(0)
+        xdata_times.append(avg)  # Add avg time.
         ydata_range = np.arange(len(xdata_times))
 
         # Keep track of the max time, so we can use it later on to set the lim for
@@ -156,11 +173,12 @@ class BasePlotIntervalRunApi(
         ## SECONDARY activities.
         for i in range(1, len(self._s)):
             # X data.
-            splits = self._get_splits_for_activity_typed_splits_response(
-                self._s[i].type_splits_resp
-            )
-            xdata_times = [_["elapsedDuration"] for _ in splits]
-            xdata_times.append(mean(xdata_times))  # Add avg time.
+            xdata_times = [_["elapsedDuration"] for _ in self._s[i].splits]
+            avg = mean(xdata_times)
+            # Add zeros if this n of splits is less than the max n splits found in any activity.
+            while len(xdata_times) < self._max_n_splits:
+                xdata_times.append(0)
+            xdata_times.append(avg)  # Add avg time.
 
             # Update the max time.
             max_time = max(xdata_times) if max(xdata_times) > max_time else max_time
@@ -211,13 +229,20 @@ class BasePlotIntervalRunApi(
 
         ## MAIN activity.
         # X and y data.
-        splits = self._get_splits_for_activity_typed_splits_response(
-            self._s[0].type_splits_resp
-        )
-        xdata_pace_avgs: list[float] = [_["averageMovingSpeed"] for _ in splits]
-        xdata_pace_avgs.append(mean(xdata_pace_avgs))  # Add avg of all avgs pace.
-        xdata_pace_maxs: list[float] = [_["maxSpeed"] for _ in splits]
-        xdata_pace_maxs.append(mean(xdata_pace_maxs))  # Add avg of all maxes pace.
+        xdata_pace_avgs: list[float] = [
+            _["averageMovingSpeed"] for _ in self._s[0].splits
+        ]
+        avg = mean(xdata_pace_avgs)
+        # Add zeros if this n of splits is less than the max n splits found in any activity.
+        while len(xdata_pace_avgs) < self._max_n_splits:
+            xdata_pace_avgs.append(0)
+        xdata_pace_avgs.append(avg)  # Add avg of all avgs pace.
+        xdata_pace_maxs: list[float] = [_["maxSpeed"] for _ in self._s[0].splits]
+        avg = mean(xdata_pace_maxs)
+        # Add zeros if this n of splits is less than the max n splits found in any activity.
+        while len(xdata_pace_maxs) < self._max_n_splits:
+            xdata_pace_maxs.append(0)
+        xdata_pace_maxs.append(avg)  # Add avg of all maxes pace.
         ydata_range = np.arange(len(xdata_pace_avgs))
 
         # Keep track of the max pace, so we can use it later on to set the lim for
@@ -251,15 +276,21 @@ class BasePlotIntervalRunApi(
 
         ## SECONDARY activities.
         for i in range(1, len(self._s)):
-            splits = self._get_splits_for_activity_typed_splits_response(
-                self._s[i].type_splits_resp
-            )
-
             # X and y data.
-            xdata_pace_avgs: list[float] = [_["averageMovingSpeed"] for _ in splits]
-            xdata_pace_avgs.append(mean(xdata_pace_avgs))  # Add avg of all avgs pace.
-            xdata_pace_maxs: list[int] = [_["maxSpeed"] for _ in splits]
-            xdata_pace_maxs.append(mean(xdata_pace_maxs))  # Add avg of all maxes pace.
+            xdata_pace_avgs: list[float] = [
+                _["averageMovingSpeed"] for _ in self._s[i].splits
+            ]
+            avg = mean(xdata_pace_avgs)
+            # Add zeros if this n of splits is less than the max n splits found in any activity.
+            while len(xdata_pace_avgs) < self._max_n_splits:
+                xdata_pace_avgs.append(0)
+            xdata_pace_avgs.append(avg)  # Add avg of all avgs pace.
+            xdata_pace_maxs: list[int] = [_["maxSpeed"] for _ in self._s[i].splits]
+            avg = mean(xdata_pace_maxs)
+            # Add zeros if this n of splits is less than the max n splits found in any activity.
+            while len(xdata_pace_maxs) < self._max_n_splits:
+                xdata_pace_maxs.append(0)
+            xdata_pace_maxs.append(avg)  # Add avg of all maxes pace.
 
             # Update max_pace.
             max_pace = (
@@ -322,15 +353,24 @@ class BasePlotIntervalRunApi(
 
         ## MAIN activity.
         # X and y data.
-        splits = self._get_splits_for_activity_typed_splits_response(
-            self._s[0].type_splits_resp
-        )
-        xdata_cadence_avgs: list[float] = [_["averageRunCadence"] for _ in splits]
+        xdata_cadence_avgs: list[float] = [
+            _["averageRunCadence"] for _ in self._s[0].splits
+        ]
+        avg = mean(xdata_cadence_avgs)
+        # Add zeros if this n of splits is less than the max n splits found in any activity.
+        while len(xdata_cadence_avgs) < self._max_n_splits:
+            xdata_cadence_avgs.append(0)
         # Add avg of all avgs cadence.
-        xdata_cadence_avgs.append(mean(xdata_cadence_avgs))
-        xdata_cadence_maxs: list[float] = [_["maxRunCadence"] for _ in splits]
+        xdata_cadence_avgs.append(avg)
+        xdata_cadence_maxs: list[float] = [
+            _["maxRunCadence"] for _ in self._s[0].splits
+        ]
+        avg = mean(xdata_cadence_maxs)
+        # Add zeros if this n of splits is less than the max n splits found in any activity.
+        while len(xdata_cadence_maxs) < self._max_n_splits:
+            xdata_cadence_maxs.append(0)
         # Add avg of all maxes cadence.
-        xdata_cadence_maxs.append(mean(xdata_cadence_maxs))
+        xdata_cadence_maxs.append(avg)
         ydata_range = np.arange(len(xdata_cadence_avgs))
 
         # Keep track of the max cadence, so we can use it later on to set the lim for
@@ -364,17 +404,25 @@ class BasePlotIntervalRunApi(
 
         ## SECONDARY activities.
         for i in range(1, len(self._s)):
-            splits = self._get_splits_for_activity_typed_splits_response(
-                self._s[i].type_splits_resp
-            )
-
             # X and y data.
-            xdata_cadence_avgs: list[float] = [_["averageRunCadence"] for _ in splits]
+            xdata_cadence_avgs: list[float] = [
+                _["averageRunCadence"] for _ in self._s[i].splits
+            ]
+            avg = mean(xdata_cadence_avgs)
+            # Add zeros if this n of splits is less than the max n splits found in any activity.
+            while len(xdata_cadence_avgs) < self._max_n_splits:
+                xdata_cadence_avgs.append(0)
             # Add avg of all avgs cadence.
-            xdata_cadence_avgs.append(mean(xdata_cadence_avgs))
-            xdata_cadence_maxs: list[int] = [_["maxRunCadence"] for _ in splits]
+            xdata_cadence_avgs.append(avg)
+            xdata_cadence_maxs: list[int] = [
+                _["maxRunCadence"] for _ in self._s[i].splits
+            ]
+            avg = mean(xdata_cadence_maxs)
+            # Add zeros if this n of splits is less than the max n splits found in any activity.
+            while len(xdata_cadence_maxs) < self._max_n_splits:
+                xdata_cadence_maxs.append(0)
             # Add avg of all maxes cadence.
-            xdata_cadence_maxs.append(mean(xdata_cadence_maxs))
+            xdata_cadence_maxs.append(avg)
 
             # Update max_cadence.
             max_cadence = (
@@ -439,13 +487,18 @@ class BasePlotIntervalRunApi(
 
         ## MAIN activity.
         # X and y data.
-        splits = self._get_splits_for_activity_typed_splits_response(
-            self._s[0].type_splits_resp
-        )
-        xdata_hr_avgs: list[float] = [_["averageHR"] for _ in splits]
-        xdata_hr_avgs.append(mean(xdata_hr_avgs))  # Add avg of all HR avgs.
-        xdata_hr_maxs: list[int] = [_["maxHR"] for _ in splits]
-        xdata_hr_maxs.append(mean(xdata_hr_maxs))  # Add avg of all HR maxes.
+        xdata_hr_avgs: list[float] = [_["averageHR"] for _ in self._s[0].splits]
+        avg = mean(xdata_hr_avgs)
+        # Add zeros if this n of splits is less than the max n splits found in any activity.
+        while len(xdata_hr_avgs) < self._max_n_splits:
+            xdata_hr_avgs.append(0)
+        xdata_hr_avgs.append(avg)  # Add avg of all HR avgs.
+        xdata_hr_maxs: list[int] = [_["maxHR"] for _ in self._s[0].splits]
+        avg = mean(xdata_hr_maxs)
+        # Add zeros if this n of splits is less than the max n splits found in any activity.
+        while len(xdata_hr_maxs) < self._max_n_splits:
+            xdata_hr_maxs.append(0)
+        xdata_hr_maxs.append(avg)  # Add avg of all HR maxes.
         ydata_range = np.arange(len(xdata_hr_avgs))
 
         # Keep track of the max hr, so we can use it later on to set the lim for
@@ -485,15 +538,19 @@ class BasePlotIntervalRunApi(
             if not self._s[i].summary_resp.has_heart_rate_monitor():
                 continue
 
-            splits = self._get_splits_for_activity_typed_splits_response(
-                self._s[i].type_splits_resp
-            )
-
             # X and y data.
-            xdata_hr_avgs: list[float] = [_["averageHR"] for _ in splits]
-            xdata_hr_avgs.append(mean(xdata_hr_avgs))  # Add avg of all avgs HR.
-            xdata_hr_maxs: list[int] = [_["maxHR"] for _ in splits]
-            xdata_hr_maxs.append(mean(xdata_hr_maxs))  # Add avg of all maxes HR.
+            xdata_hr_avgs: list[float] = [_["averageHR"] for _ in self._s[i].splits]
+            avg = mean(xdata_hr_avgs)
+            # Add zeros if this n of splits is less than the max n splits found in any activity.
+            while len(xdata_hr_avgs) < self._max_n_splits:
+                xdata_hr_avgs.append(0)
+            xdata_hr_avgs.append(avg)  # Add avg of all avgs HR.
+            xdata_hr_maxs: list[int] = [_["maxHR"] for _ in self._s[i].splits]
+            avg = mean(xdata_hr_maxs)
+            # Add zeros if this n of splits is less than the max n splits found in any activity.
+            while len(xdata_hr_maxs) < self._max_n_splits:
+                xdata_hr_maxs.append(0)
+            xdata_hr_maxs.append(avg)  # Add avg of all maxes HR.
 
             # Update max_hr.
             max_hr = max(xdata_hr_maxs) if max(xdata_hr_maxs) > max_hr else max_hr
@@ -554,7 +611,7 @@ class BasePlotIntervalRunApi(
         self._s.append(
             CollectedData(
                 summary_resp=self._api_get_activity_summary(self.garmin_activity_id),
-                type_splits_resp=self._api_get_activity_typed_splits(
+                typed_splits_resp=self._api_get_activity_typed_splits(
                     self.garmin_activity_id
                 ),
             )
@@ -594,9 +651,17 @@ class BasePlotIntervalRunApi(
                     summary_resp = None
                 self._s.append(
                     CollectedData(
-                        summary_resp=summary_resp, type_splits_resp=splits_resp
+                        summary_resp=summary_resp, typed_splits_resp=splits_resp
                     )
                 )
+
+        ## Extract all splits from all responses.
+        for i in range(len(self._s)):
+            splits = self._get_splits_for_activity_typed_splits_response(
+                self._s[i].typed_splits_resp
+            )
+            self._s[i].splits = splits
+        self._max_n_splits = max([len(_.splits) for _ in self._s])
 
         # Figure.
         self._n_bars_per_group = len(self._s)
@@ -685,6 +750,8 @@ class BasePlotIntervalRunApi(
         return legend_label
 
     def _fmt_pace(self, pace_mps: float):
+        if pace_mps == 0:
+            return 0
         x = speed_utils.mps_to_minpkm_base10(pace_mps)
         return speed_utils.minpkm_base10_to_base60(x)
 

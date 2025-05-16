@@ -91,8 +91,12 @@ class PlotInterval300mRunApi(BasePlotIntervalRunApi):
      optionally compared with previous activities.
     """
 
-    # Mind that it's an exact match on activities' titles.
+    # Text used in the search for previous activities to compare. It's an exact match
+    #  on activities' titles.
     DEFAULT_TEXT_TO_SEARCH_FOR_PREVIOUS_ACTIVITIES = "6x300m"
+    # List of all possible expected number of intervals: fi. for a 4x1000m it is [4],
+    #  but if you want to include also a 5x1000m then it is [4, 5].
+    DEFAULT_N_EXPECTED_INTERVALS = [6]
 
     def _get_splits_for_activity_typed_splits_response(
         self, response: ActivityTypedSplitsResponse
@@ -101,9 +105,9 @@ class PlotInterval300mRunApi(BasePlotIntervalRunApi):
         for split in response.get_interval_active_splits():
             if abs(split["distance"] - 300) < 3:
                 splits.append(split)
-        if not len(splits) == 6:
+        if len(splits) not in self.n_expected_intervals:
             raise BasePlotInterval300mRunApiException(
-                f"Expected 6 splits, found {len(splits)}"
+                f"Expected {'or '.join(self.n_expected_intervals)} splits but found {len(splits)}"
             )
 
         return splits
