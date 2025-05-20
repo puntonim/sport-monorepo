@@ -14,7 +14,9 @@ from strava_client import (
     StravaApiRateLimitExceeded,
     StravaClient,
 )
-from strava_client.token_managers import AwsParameterStoreTokenManager
+from strava_client.strava_token_managers.aws_parameter_store_strava_token_manager import (
+    AwsParameterStoreStravaTokenManager,
+)
 
 from .console import console
 from .data_models import Activity, RawActivityDetails, RawActivitySummary
@@ -88,7 +90,7 @@ class ExporterToDb:
             if d and _is_naive(d):
                 raise NaiveDatetime(d)
 
-        self._token_mgr = AwsParameterStoreTokenManager(
+        self._token_mgr = AwsParameterStoreStravaTokenManager(
             TOKEN_JSON_PARAMETER_STORE_KEY_PATH,
             CLIENT_ID_PARAMETER_STORE_KEY_PATH,
             CLIENT_SECRET_PARAMETER_STORE_KEY_PATH,
@@ -270,7 +272,7 @@ class ExporterToDb:
             total_elevation_gain=data["total_elevation_gain"],
             type=data["type"],
             sport_type=data["sport_type"],
-            start_date=datetime_utils.iso_string_to_date(data["start_date"]),
+            start_date=datetime_utils.iso_string_to_datetime(data["start_date"]),
             start_date_local_str=data["start_date_local"],
             timezone=data["timezone"],
             utc_offset=data["utc_offset"],
