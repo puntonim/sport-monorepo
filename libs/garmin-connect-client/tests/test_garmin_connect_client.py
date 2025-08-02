@@ -289,6 +289,111 @@ class TestGetActivityDetails:
                     == response.streams_size
                 )
 
+    def test_streams_segment_by_distance(self):
+        client = GarminConnectClient(self.token_mgr)
+        activity_id = 18606916834
+        response = client.get_activity_details(
+            activity_id,
+            max_metrics_data_count=50,
+            do_include_polyline=False,
+            # max_polyline_count: int = 4000,
+            do_keep_raw_data=False,
+        )
+        assert response.activity_id == activity_id
+        assert response.original_dataset_size == 4179
+        assert response.streams_size == 75
+
+        assert len(response.get_ts_stream()) == 75
+        assert (
+            len(
+                response.get_ts_stream(
+                    segment_start_meters=500, segment_end_meters=5000
+                )
+            )
+            == 26
+        )
+        assert len(response.get_elapsed_time_stream()) == 75
+        assert (
+            len(
+                response.get_elapsed_time_stream(
+                    segment_start_meters=500, segment_end_meters=5000
+                )
+            )
+            == 26
+        )
+        assert len(response.get_non_paused_time_stream()) == 75
+        assert (
+            len(
+                response.get_non_paused_time_stream(
+                    segment_start_meters=500, segment_end_meters=5000
+                )
+            )
+            == 26
+        )
+        assert len(response.get_moving_time_stream()) == 75
+        assert (
+            len(
+                response.get_moving_time_stream(
+                    segment_start_meters=500, segment_end_meters=5000
+                )
+            )
+            == 26
+        )
+        assert len(response.get_distance_stream()) == 75
+        assert (
+            len(
+                response.get_distance_stream(
+                    segment_start_meters=500, segment_end_meters=5000
+                )
+            )
+            == 26
+        )
+        assert len(response.get_speed_stream()) == 75
+        assert (
+            len(
+                response.get_speed_stream(
+                    segment_start_meters=500, segment_end_meters=5000
+                )
+            )
+            == 26
+        )
+        assert len(response.get_lat_stream()) == 75
+        assert (
+            len(
+                response.get_lat_stream(
+                    segment_start_meters=500, segment_end_meters=5000
+                )
+            )
+            == 26
+        )
+        assert len(response.get_lng_stream()) == 75
+        assert (
+            len(
+                response.get_lng_stream(
+                    segment_start_meters=500, segment_end_meters=5000
+                )
+            )
+            == 26
+        )
+        assert len(response.get_altitude_stream()) == 75
+        assert (
+            len(
+                response.get_altitude_stream(
+                    segment_start_meters=500, segment_end_meters=5000
+                )
+            )
+            == 26
+        )
+        assert len(response.get_heartrate_stream()) == 75
+        assert (
+            len(
+                response.get_heartrate_stream(
+                    segment_start_meters=500, segment_end_meters=5000
+                )
+            )
+            == 26
+        )
+
 
 class TestDownloadFitContent:
     def setup_method(self):

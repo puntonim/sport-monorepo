@@ -146,53 +146,213 @@ class ActivityDetailsResponse(BaseGarminResponse):
         else:
             super().__init__(data)
 
-    def get_ts_stream(self) -> list:
+    def get_ts_stream(
+        self,
+        segment_start_meters: int | None = None,
+        segment_end_meters: int | None = None,
+    ) -> list:
+        """
+        Args:
+            segment_start_meters: extract a segment by distance, by meters, eg. 0.
+            segment_end_meters: extract a segment by distance, by meters, eg. 21000.
+        """
         # I've never found None values in this stream.
-        return self._ts_stream
+        return self._get_stream(
+            self._ts_stream,
+            False,
+            segment_start_meters,
+            segment_end_meters,
+        )
 
-    def get_elapsed_time_stream(self) -> list:
+    def get_elapsed_time_stream(
+        self,
+        segment_start_meters: int | None = None,
+        segment_end_meters: int | None = None,
+    ) -> list:
+        """
+        Args:
+            segment_start_meters: extract a segment by distance, by meters, eg. 0.
+            segment_end_meters: extract a segment by distance, by meters, eg. 21000.
+        """
         # I've never found None values in this stream.
-        return self._elapsed_time_stream
+        return self._get_stream(
+            self._elapsed_time_stream,
+            False,
+            segment_start_meters,
+            segment_end_meters,
+        )
 
-    def get_non_paused_time_stream(self) -> list:
+    def get_non_paused_time_stream(
+        self,
+        segment_start_meters: int | None = None,
+        segment_end_meters: int | None = None,
+    ) -> list:
+        """
+        Args:
+            segment_start_meters: extract a segment by distance, by meters, eg. 0.
+            segment_end_meters: extract a segment by distance, by meters, eg. 21000.
+        """
         # I've never found None values in this stream.
-        return self._non_paused_time_stream
+        return self._get_stream(
+            self._non_paused_time_stream,
+            False,
+            segment_start_meters,
+            segment_end_meters,
+        )
 
-    def get_moving_time_stream(self) -> list:
+    def get_moving_time_stream(
+        self,
+        segment_start_meters: int | None = None,
+        segment_end_meters: int | None = None,
+    ) -> list:
+        """
+        Args:
+            segment_start_meters: extract a segment by distance, by meters, eg. 0.
+            segment_end_meters: extract a segment by distance, by meters, eg. 21000.
+        """
         # I've never found None values in this stream.
-        return self._moving_time_stream
+        return self._get_stream(
+            self._moving_time_stream,
+            False,
+            segment_start_meters,
+            segment_end_meters,
+        )
 
-    def get_distance_stream(self) -> list:
+    def get_distance_stream(
+        self,
+        segment_start_meters: int | None = None,
+        segment_end_meters: int | None = None,
+    ) -> list:
+        """
+        Args:
+            segment_start_meters: extract a segment by distance, by meters, eg. 0.
+            segment_end_meters: extract a segment by distance, by meters, eg. 21000.
+        """
         # I've never found None values in this stream.
-        return self._distance_stream
+        return self._get_stream(
+            self._distance_stream,
+            False,
+            segment_start_meters,
+            segment_end_meters,
+        )
 
-    def get_speed_stream(self, do_remove_none_values: bool = False) -> list:
+    def get_speed_stream(
+        self,
+        do_remove_none_values: bool = False,
+        segment_start_meters: int | None = None,
+        segment_end_meters: int | None = None,
+    ) -> list:
+        """
+        Args:
+            do_remove_none_values: filter out None values.
+            segment_start_meters: extract a segment by distance, by meters, eg. 0.
+            segment_end_meters: extract a segment by distance, by meters, eg. 21000.
+        """
         # I found None values in this stream.
-        if do_remove_none_values:
-            return [x for x in self._speed_stream if x is not None]
-        return self._speed_stream
+        return self._get_stream(
+            self._speed_stream,
+            do_remove_none_values,
+            segment_start_meters,
+            segment_end_meters,
+        )
 
-    def get_lat_stream(self, do_remove_none_values: bool = False) -> list:
+    def get_lat_stream(
+        self,
+        do_remove_none_values: bool = False,
+        segment_start_meters: int | None = None,
+        segment_end_meters: int | None = None,
+    ) -> list:
+        """
+        Args:
+            do_remove_none_values: filter out None values.
+            segment_start_meters: extract a segment by distance, by meters, eg. 0.
+            segment_end_meters: extract a segment by distance, by meters, eg. 21000.
+        """
         # I found None values in this stream.
-        if do_remove_none_values:
-            return [x for x in self._lat_stream if x is not None]
-        return self._lat_stream
+        return self._get_stream(
+            self._lat_stream,
+            do_remove_none_values,
+            segment_start_meters,
+            segment_end_meters,
+        )
 
-    def get_lng_stream(self, do_remove_none_values: bool = False) -> list:
+    def get_lng_stream(
+        self,
+        do_remove_none_values: bool = False,
+        segment_start_meters: int | None = None,
+        segment_end_meters: int | None = None,
+    ) -> list:
         # I found None values in this stream.
-        if do_remove_none_values:
-            return [x for x in self._lng_stream if x is not None]
-        return self._lng_stream
+        """
+        Args:
+            do_remove_none_values: filter out None values.
+            segment_start_meters: extract a segment by distance, by meters, eg. 0.
+            segment_end_meters: extract a segment by distance, by meters, eg. 21000.
+        """
+        # I found None values in this stream.
+        return self._get_stream(
+            self._lng_stream,
+            do_remove_none_values,
+            segment_start_meters,
+            segment_end_meters,
+        )
 
-    def get_altitude_stream(self) -> list:
+    def get_altitude_stream(
+        self,
+        segment_start_meters: int | None = None,
+        segment_end_meters: int | None = None,
+    ) -> list:
+        """
+        Args:
+            segment_start_meters: extract a segment by distance, by meters, eg. 0.
+            segment_end_meters: extract a segment by distance, by meters, eg. 21000.
+        """
         # I've never found None values in this stream.
-        return self._altitude_stream
+        return self._get_stream(
+            self._altitude_stream,
+            False,
+            segment_start_meters,
+            segment_end_meters,
+        )
 
-    def get_heartrate_stream(self, do_remove_none_values: bool = False) -> list:
+    def get_heartrate_stream(
+        self,
+        do_remove_none_values: bool = False,
+        segment_start_meters: int | None = None,
+        segment_end_meters: int | None = None,
+    ) -> list:
+        """
+        Args:
+            do_remove_none_values: filter out None values.
+            segment_start_meters: extract a segment by distance, by meters, eg. 0.
+            segment_end_meters: extract a segment by distance, by meters, eg. 21000.
+        """
         # I found None values in this stream.
+        return self._get_stream(
+            self._heartrate_stream,
+            do_remove_none_values,
+            segment_start_meters,
+            segment_end_meters,
+        )
+
+    def _get_stream(
+        self,
+        stream: list,
+        do_remove_none_values: bool = False,
+        segment_start_meters: int | None = None,
+        segment_end_meters: int | None = None,
+    ) -> list:
+        data = stream
+
         if do_remove_none_values:
-            return [x for x in self._heartrate_stream if x is not None]
-        return self._heartrate_stream
+            data = [x for x in data if x is not None]
+
+        if segment_start_meters or segment_end_meters:
+            data = self._extract_segment_by_distance(
+                data, segment_start_meters, segment_end_meters
+            )
+
+        return data
 
     def _parse_raw_data(self, data: dict[str, Any]):
         ## Parse basic attrs.
@@ -275,6 +435,47 @@ class ActivityDetailsResponse(BaseGarminResponse):
             self._heartrate_stream.append(
                 x[self._relevant_metric_descriptors["heartrate_stream"]]
             )
+
+    def _extract_segment_by_distance(
+        self,
+        stream: list,
+        segment_start_meters: int | None = None,
+        segment_end_meters: int | None = None,
+    ) -> list:
+        """
+        Given a stream, extract a segment by distance.
+        """
+        ix_start, ix_end = self._get_streams_indices_for_distance_segment(
+            segment_start_meters, segment_end_meters
+        )
+        return stream[ix_start:ix_end]
+
+    def _get_streams_indices_for_distance_segment(
+        self,
+        segment_start_meters: int | None = None,
+        segment_end_meters: int | None = None,
+    ) -> tuple[int, int]:
+        """
+        Get the start and end indices to be used on any stream to extract a segment
+         by distance.
+        """
+        distance = self.get_distance_stream()
+
+        if segment_start_meters is None:
+            segment_start_meters = distance[0]
+        if segment_end_meters is None:
+            segment_end_meters = distance[-1]
+
+        ix_start = None
+        ix_end = None
+        for i in range(len(distance)):
+            if ix_start is None and distance[i] >= segment_start_meters:
+                ix_start = i
+            if ix_end is None and distance[i] >= segment_end_meters:
+                ix_end = i
+            if ix_start is not None and ix_end is not None:
+                break
+        return ix_start, ix_end
 
 
 class ActivityTypedSplitsResponse(BaseGarminResponse):
