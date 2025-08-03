@@ -1,7 +1,7 @@
 """
 Entrypoint for the CLI.
 To be run (after a `poetry install`) from the root dir with:
-$ analysis --help
+$ san --help
 """
 
 import click
@@ -25,7 +25,15 @@ from .search.search_matching_activity_api import (
 from .search.search_text_db import search_text_db_cli_view
 
 
-@click.group(help="Sport Analysis CLI.")
+@click.group(
+    # The single line with \b disables the wrapping:
+    #  https://click.palletsprojects.com/en/latest/documentation/#escaping-click-s-wrapping
+    help="""Sport Analysis CLI.
+    
+    \b
+    Docs: https://github.com/puntonim/sport-monorepo/blob/main/projects/sport-analysis/README.md
+    """
+)
 def cli() -> None:
     pass
 

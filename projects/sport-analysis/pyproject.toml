@@ -57,4 +57,4 @@ profile = "black"  # See: https://black.readthedocs.io/en/stable/guides/using_bl
 skip_gitignore = true  # Skip all files in .gitignore.
 
 [project.scripts]
-analysis = "sport_analysis.cli:cli"
+san = "sport_analysis.cli:cli"

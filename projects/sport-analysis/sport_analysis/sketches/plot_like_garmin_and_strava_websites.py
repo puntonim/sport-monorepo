@@ -14,8 +14,8 @@ from strava_client.strava_token_managers import (
     FileStravaTokenManager,
 )
 
-from ...conf import settings
-from ...conf.settings_module import ROOT_DIR
+from ..conf import settings
+from ..conf.settings_module import ROOT_DIR
 
 # IMP: there is NOT a CLI command for this function because it's more like a testing
 #  thing. I don't really see a use case for it, so no need for a CLI.

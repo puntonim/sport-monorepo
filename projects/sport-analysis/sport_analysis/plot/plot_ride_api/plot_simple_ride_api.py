@@ -22,7 +22,7 @@ from .. import base_api, base_plot
 @click.command(
     cls=BaseClickCommand,
     name="plot-simple-ride",
-    help='Plot a simple bike ride; eg: analysis plot-simple-ride 19795436851 --title "Verdellino - Adda 20km" --figure-size 5.0 6.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/',
+    help='Plot a simple bike ride; eg: san plot-simple-ride 19795436851 --title "Verdellino - Adda 20km" --figure-size 5.0 6.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/',
 )
 @click.argument("garmin-activity-id", nargs=1, type=int)
 @click.option("--title", type=str)

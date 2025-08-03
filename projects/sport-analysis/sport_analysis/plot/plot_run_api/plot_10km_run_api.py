@@ -11,7 +11,7 @@ from .base_plot_run_api import BasePlotRunApi
 @click.command(
     cls=BaseClickCommand,
     name="plot-10km-run",
-    help='Plot a 10km run; eg: analysis plot-10km-run 19005790234 -vs 19074660632 -vs 18797516250 --title "Fosso BG" --figure-size 5.0 6.5 --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 3.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/',
+    help='Plot a 10km run; eg: san plot-10km-run 19005790234 -vs 19074660632 -vs 18797516250 --title "Fosso BG" --figure-size 5.0 6.5 --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 3.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/',
 )
 @click.argument("garmin-activity-id", nargs=1, type=int)
 @click.option(

@@ -18,7 +18,7 @@ strava_db_models.register_default_tables_and_triggers_and_sql_functions()
 @click.command(
     cls=BaseClickCommand,
     name="db-search-text",
-    help="Search for text in activities' titles and description in the DB; eg. analysis db-search-text 'del mortirolo'",
+    help="Search for text in activities' titles and description in the DB; eg. san db-search-text 'del mortirolo'",
 )
 @click.argument("text", nargs=1, type=str)
 @peewee_utils.use_db

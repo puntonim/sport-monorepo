@@ -12,7 +12,7 @@ from .base_plot_interval_run_api import BasePlotIntervalRunApi
 @click.command(
     cls=BaseClickCommand,
     name="plot-interval-1000m-run",
-    help='Plot an interval 1000m run; eg: analysis plot-interval-1000m-run 19042748874 --vs-n 3 --text "4x1000m" --title "4x1000m a Verdellino" --figure-size 5.0 8.2 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/',
+    help='Plot an interval 1000m run; eg: san plot-interval-1000m-run 19042748874 --vs-n 3 --text "4x1000m" --title "4x1000m a Verdellino" --figure-size 5.0 8.2 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/',
 )
 @click.argument("garmin-activity-id", nargs=1, type=int)
 @click.option(

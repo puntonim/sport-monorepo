@@ -34,7 +34,7 @@ ACTIVITY_TYPES = (
 @click.command(
     cls=BaseClickCommand,
     name="db-count",
-    help="Count activities in the DB; eg. analysis db-count --start-date-after 2024-01-01T00:00:01+01:00 --start-date-before 2024-12-31T23:59:59+01:00 --activity-type ride",
+    help="Count activities in the DB; eg. san db-count --start-date-after 2024-01-01T00:00:01+01:00 --start-date-before 2024-12-31T23:59:59+01:00 --activity-type ride",
 )
 @click.option(
     "--start-date-after",

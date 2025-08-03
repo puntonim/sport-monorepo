@@ -23,7 +23,7 @@ from .. import base_api, base_plot
 @click.command(
     cls=BaseClickCommand,
     name="plot-climb-ride",
-    help='Plot a climb ride; eg: analysis plot-climb-ride 19792668968 --title "Re Stelvio Mapei" --segment-start-meters 0 --segment-end-meters 21110 --segment-title "Climb segment only" --figure-size 5.0 6.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/',
+    help='Plot a climb ride; eg: san plot-climb-ride 19792668968 --title "Re Stelvio Mapei" --segment-start-meters 0 --segment-end-meters 21110 --segment-title "Climb segment only" --figure-size 5.0 6.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/',
 )
 @click.argument("garmin-activity-id", nargs=1, type=int)
 @click.option("--title", type=str)
