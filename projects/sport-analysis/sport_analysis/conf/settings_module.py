@@ -61,6 +61,10 @@ class settings:
         "/strava-facade-api/production/strava-api-client-secret"
     )
 
+    HR_MIN = 46
+    HR_MAX_EVER_RIDE = 149
+    HR_MAX_EVER_RUN = 173
+
 
 class test_settings:
     IS_TEST = True

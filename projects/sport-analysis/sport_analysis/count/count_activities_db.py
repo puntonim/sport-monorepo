@@ -70,37 +70,11 @@ def count_activities_db(
         activity_type [str]: one of ACTIVITY_TYPES, case-insensitive; eg. ride.
     """
     # Parse start_date_after.
+    start_date_after = datetime_utils.parse_datetime_arg(start_date_after)
+    start_date_before = datetime_utils.parse_datetime_arg(start_date_before)
     if start_date_after:
-        if isinstance(start_date_after, str):
-            try:
-                start_date_after: datetime = datetime_utils.iso_string_to_date(
-                    start_date_after
-                )
-            except ValueError as exc:
-                raise InvalidDatetime(start_date_after) from exc
-
-        if isinstance(start_date_after, datetime):
-            if datetime_utils.is_naive(start_date_after):
-                raise NaiveDatetime(start_date_after)
-        else:
-            raise InvalidDatetime(start_date_after)
         logger.info(f"Filter: start-date-after = {start_date_after.isoformat()}")
-
-    # Parse start_date_before.
     if start_date_before:
-        if isinstance(start_date_before, str):
-            try:
-                start_date_before: datetime = datetime_utils.iso_string_to_date(
-                    start_date_before
-                )
-            except ValueError as exc:
-                raise InvalidDatetime(start_date_before) from exc
-
-        if isinstance(start_date_before, datetime):
-            if datetime_utils.is_naive(start_date_before):
-                raise NaiveDatetime(start_date_before)
-        else:
-            raise InvalidDatetime(start_date_before)
         logger.info(f"Filter: start-date-before = {start_date_before.isoformat()}")
 
     # Parse activity_type.
@@ -134,16 +108,6 @@ def count_activities_db(
 
 class BaseCountActivitiesDbException(Exception):
     pass
-
-
-class InvalidDatetime(BaseCountActivitiesDbException):
-    def __init__(self, value):
-        self.value = value
-
-
-class NaiveDatetime(BaseCountActivitiesDbException):
-    def __init__(self, value):
-        self.value = value
 
 
 class UnknownActivityType(BaseCountActivitiesDbException):

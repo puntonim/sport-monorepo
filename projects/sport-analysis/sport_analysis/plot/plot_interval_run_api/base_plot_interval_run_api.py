@@ -18,9 +18,6 @@ from matplotlib.figure import Figure
 
 from .. import base_api, base_plot
 
-COL_DARK_RED = "#9A2D2D"
-COL_DARK_GRAY = "#3B3B3B"
-
 
 @dataclass
 class CollectedData:
@@ -160,11 +157,12 @@ class BasePlotIntervalRunApi(
 
         # Plot main activity's times.
         bar = a.barh(
-            self._ydata_for_barh(ydata_range, 0, self._n_bars_per_group),
+            self._ydata_for_barh_mixin(ydata_range, 0, self._n_bars_per_group),
             xdata_times,
-            self._bar_height_for_barh(0, self._n_bars_per_group),
+            self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
             label=self._make_legend_label(0),
-            color=["red" for _ in range(len(ydata_range) - 1)] + [COL_DARK_GRAY],
+            color=["red" for _ in range(len(ydata_range) - 1)]
+            + [base_plot.COL_DARK_GRAY],
             alpha=0.6,
         )
         # Add the main activity's time values at the right of each bar.
@@ -185,9 +183,9 @@ class BasePlotIntervalRunApi(
 
             # Plot secondary activities' times.
             bar = a.barh(
-                self._ydata_for_barh(ydata_range, i, self._n_bars_per_group),
+                self._ydata_for_barh_mixin(ydata_range, i, self._n_bars_per_group),
                 xdata_times,
-                self._bar_height_for_barh(i, self._n_bars_per_group),
+                self._bar_height_for_barh_mixin(i, self._n_bars_per_group),
                 label=self._make_legend_label(i),
                 color="gray",
                 alpha=0.4,
@@ -252,9 +250,9 @@ class BasePlotIntervalRunApi(
 
         # Plot main activity's maxes pace.
         bar = a.barh(
-            self._ydata_for_barh(ydata_range, 0, self._n_bars_per_group),
+            self._ydata_for_barh_mixin(ydata_range, 0, self._n_bars_per_group),
             xdata_pace_maxs,
-            self._bar_height_for_barh(0, self._n_bars_per_group),
+            self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
             color=["red" for _ in range(len(ydata_range) - 1)] + ["dimgray"],
             # color="tab:blue",
             alpha=0.6,
@@ -264,11 +262,11 @@ class BasePlotIntervalRunApi(
 
         # Plot main activity's avgs pace, on top of the maxes.
         bar = a.barh(
-            self._ydata_for_barh(ydata_range, 0, self._n_bars_per_group),
+            self._ydata_for_barh_mixin(ydata_range, 0, self._n_bars_per_group),
             xdata_pace_avgs,
-            self._bar_height_for_barh(0, self._n_bars_per_group),
-            # color="#084266",
-            color=[COL_DARK_RED for _ in range(len(ydata_range) - 1)] + [COL_DARK_GRAY],
+            self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
+            color=[base_plot.COL_DARK_RED for _ in range(len(ydata_range) - 1)]
+            + [base_plot.COL_DARK_GRAY],
             alpha=0.8,
         )
         # Add main activity's avgs pace values at the right of each bar.
@@ -299,9 +297,9 @@ class BasePlotIntervalRunApi(
 
             # Plot secondary activities' maxes pace.
             bar = a.barh(
-                self._ydata_for_barh(ydata_range, i, self._n_bars_per_group),
+                self._ydata_for_barh_mixin(ydata_range, i, self._n_bars_per_group),
                 xdata_pace_maxs,
-                self._bar_height_for_barh(i, self._n_bars_per_group),
+                self._bar_height_for_barh_mixin(i, self._n_bars_per_group),
                 color="gray",
                 alpha=0.4,
             )
@@ -311,9 +309,9 @@ class BasePlotIntervalRunApi(
             )
             # Plot secondary activities' avgs paces, on top of the maxes.
             bar = a.barh(
-                self._ydata_for_barh(ydata_range, i, self._n_bars_per_group),
+                self._ydata_for_barh_mixin(ydata_range, i, self._n_bars_per_group),
                 xdata_pace_avgs,
-                self._bar_height_for_barh(i, self._n_bars_per_group),
+                self._bar_height_for_barh_mixin(i, self._n_bars_per_group),
                 color="gray",
                 alpha=0.4,
             )
@@ -380,9 +378,9 @@ class BasePlotIntervalRunApi(
 
         # Plot main activity's maxes cadence.
         bar = a.barh(
-            self._ydata_for_barh(ydata_range, 0, self._n_bars_per_group),
+            self._ydata_for_barh_mixin(ydata_range, 0, self._n_bars_per_group),
             xdata_cadence_maxs,
-            self._bar_height_for_barh(0, self._n_bars_per_group),
+            self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
             color=["red" for _ in range(len(ydata_range) - 1)] + ["dimgray"],
             # color="tab:blue",
             alpha=0.6,
@@ -392,11 +390,12 @@ class BasePlotIntervalRunApi(
 
         # Plot main activity's avgs cadence, on top of the maxes.
         bar = a.barh(
-            self._ydata_for_barh(ydata_range, 0, self._n_bars_per_group),
+            self._ydata_for_barh_mixin(ydata_range, 0, self._n_bars_per_group),
             xdata_cadence_avgs,
-            self._bar_height_for_barh(0, self._n_bars_per_group),
+            self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
             # color="#084266",
-            color=[COL_DARK_RED for _ in range(len(ydata_range) - 1)] + [COL_DARK_GRAY],
+            color=[base_plot.COL_DARK_RED for _ in range(len(ydata_range) - 1)]
+            + [base_plot.COL_DARK_GRAY],
             alpha=0.8,
         )
         # Add main activity's avgs cadence values at the right of each bar.
@@ -433,9 +432,9 @@ class BasePlotIntervalRunApi(
 
             # Plot secondary activities' maxes cadence.
             bar = a.barh(
-                self._ydata_for_barh(ydata_range, i, self._n_bars_per_group),
+                self._ydata_for_barh_mixin(ydata_range, i, self._n_bars_per_group),
                 xdata_cadence_maxs,
-                self._bar_height_for_barh(i, self._n_bars_per_group),
+                self._bar_height_for_barh_mixin(i, self._n_bars_per_group),
                 color="gray",
                 alpha=0.4,
             )
@@ -445,9 +444,9 @@ class BasePlotIntervalRunApi(
             )
             # Plot secondary activities' avgs cadence, on top of the maxes.
             bar = a.barh(
-                self._ydata_for_barh(ydata_range, i, self._n_bars_per_group),
+                self._ydata_for_barh_mixin(ydata_range, i, self._n_bars_per_group),
                 xdata_cadence_avgs,
-                self._bar_height_for_barh(i, self._n_bars_per_group),
+                self._bar_height_for_barh_mixin(i, self._n_bars_per_group),
                 color="gray",
                 alpha=0.4,
             )
@@ -508,9 +507,9 @@ class BasePlotIntervalRunApi(
 
         # Plot main activity's maxes HR.
         bar = a.barh(
-            self._ydata_for_barh(ydata_range, 0, self._n_bars_per_group),
+            self._ydata_for_barh_mixin(ydata_range, 0, self._n_bars_per_group),
             xdata_hr_maxs,
-            self._bar_height_for_barh(0, self._n_bars_per_group),
+            self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
             color=["red" for _ in range(len(ydata_range) - 1)] + ["dimgray"],
             # color="tab:blue",
             alpha=0.6,
@@ -520,11 +519,12 @@ class BasePlotIntervalRunApi(
 
         # Plot main activity's avgs HR, on top of the maxes.
         bar = a.barh(
-            self._ydata_for_barh(ydata_range, 0, self._n_bars_per_group),
+            self._ydata_for_barh_mixin(ydata_range, 0, self._n_bars_per_group),
             xdata_hr_avgs,
-            self._bar_height_for_barh(0, self._n_bars_per_group),
+            self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
             # color="#084266",
-            color=[COL_DARK_RED for _ in range(len(ydata_range) - 1)] + [COL_DARK_GRAY],
+            color=[base_plot.COL_DARK_RED for _ in range(len(ydata_range) - 1)]
+            + [base_plot.COL_DARK_GRAY],
             alpha=0.8,
         )
         # Add main activity's avgs HR values at the right of each bar.
@@ -557,9 +557,9 @@ class BasePlotIntervalRunApi(
 
             # Plot secondary activities' maxes HR.
             bar = a.barh(
-                self._ydata_for_barh(ydata_range, i, self._n_bars_per_group),
+                self._ydata_for_barh_mixin(ydata_range, i, self._n_bars_per_group),
                 xdata_hr_maxs,
-                self._bar_height_for_barh(i, self._n_bars_per_group),
+                self._bar_height_for_barh_mixin(i, self._n_bars_per_group),
                 color="gray",
                 alpha=0.4,
             )
@@ -569,9 +569,9 @@ class BasePlotIntervalRunApi(
             )
             # Plot secondary activities' avgs HR, on top of the maxes.
             bar = a.barh(
-                self._ydata_for_barh(ydata_range, i, self._n_bars_per_group),
+                self._ydata_for_barh_mixin(ydata_range, i, self._n_bars_per_group),
                 xdata_hr_avgs,
-                self._bar_height_for_barh(i, self._n_bars_per_group),
+                self._bar_height_for_barh_mixin(i, self._n_bars_per_group),
                 color="gray",
                 alpha=0.4,
             )
@@ -687,7 +687,7 @@ class BasePlotIntervalRunApi(
         figure.legend(loc="outside lower left", ncol=1, frameon=False, fontsize=9)
 
         # Fix overlapping bar labels.
-        self._fix_overlapping_bar_labels(
+        self._fix_overlapping_bar_labels_mixin(
             [
                 self._axes_mosaic["hr"],
                 self._axes_mosaic["pace"],
