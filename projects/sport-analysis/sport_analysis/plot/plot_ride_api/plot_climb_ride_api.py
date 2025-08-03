@@ -213,9 +213,10 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         self._plot_hr_histogram_mixin(
             self._axes_mosaic["hr-hist"],
             hr_stream,
-            time_stream,
-            elevation_stream,
-            segment_title,
+            hr_max_ever=settings.HR_MAX_EVER_RIDE,
+            elevation_stream=elevation_stream,
+            time_stream=time_stream,
+            segment_title=segment_title,
         )
 
     def _plot_hr_zones(self):

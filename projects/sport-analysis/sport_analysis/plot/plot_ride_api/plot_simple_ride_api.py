@@ -121,7 +121,11 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         hr_stream = self._s[0].details_resp.get_heartrate_stream(
             do_remove_none_values=False
         )
-        self._plot_hr_histogram_mixin(self._axes_mosaic["hr-hist"], hr_stream)
+        self._plot_hr_histogram_mixin(
+            self._axes_mosaic["hr-hist"],
+            hr_stream,
+            hr_max_ever=settings.HR_MAX_EVER_RIDE,
+        )
 
     def _plot_hr_zones(self):
         hr_stream = self._s[0].details_resp.get_heartrate_stream(

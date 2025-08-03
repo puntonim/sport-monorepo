@@ -274,120 +274,27 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         )
 
     def _plot_hr_histogram(self):
-        a: Axes = self._axes_mosaic["hr-hist"]
-
-        ## MAIN activity.
-        # X data.
-        xdata_hr = self._s[0].details_resp.get_heartrate_stream(
+        main_hr_stream = self._s[0].details_resp.get_heartrate_stream(
             do_remove_none_values=False
         )
-        # Note: I tested that the HR avg|min|max return here are very close to the ones
-        #  computed directly from the HR stream.
-        hr_avg_main = self._s[0].summary_resp.summary["averageHR"]
-        hr_max_main = self._s[0].summary_resp.summary["maxHR"]
-        hr_min_all_activities = min(xdata_hr)
-
-        # Plot HR.
-        _n_bins = 10
-        a.hist(
-            xdata_hr,
-            bins=_n_bins,
-            weights=1 / len(xdata_hr) * np.ones(len(xdata_hr)),
-            color="red",
-            alpha=0.6,
-        )
-
-        ## Format axes based on the main activity only, so before plotting the
-        #   secondary activities.
-        # Ticks.
-        a.yaxis.set_major_formatter(mpl.ticker.PercentFormatter(xmax=1, decimals=0))
-        a.yaxis.grid(color="gray", alpha=0.2, linestyle="--")
-
-        # Force the max x value to be HR_MAX_EVER_RUN, add its tick and ensure that
-        #  there are no ticks too close to it (otherwise their labels overlap).
-        a.set_xlim(right=settings.HR_MAX_EVER_RUN)
-        xticks = list(a.get_xticks())
-        while xticks[-1] > (settings.HR_MAX_EVER_RUN - 9):
-            xticks[:] = xticks[:-1]
-        xticks.append(settings.HR_MAX_EVER_RUN)
-        a.set_xticks(xticks)
-
-        a.xaxis.set_major_formatter(
-            mpl.ticker.FuncFormatter(
-                # Set label ticks as bpm and as % of HR max.
-                lambda x, pos: f"{round(x)}\n{round(x*100/settings.HR_MAX_EVER_RUN)}%"
-            )
-        )
-
-        ## SECONDARY activities.
+        secondary_hr_streams = []
         for i in range(1, len(self._s)):
             details = self._s[i].details_resp
             summary = self._s[i].summary_resp
-
             # If the activity does not have a heart rate monitor, then I skip it.
             #  I chose this because data without HRM are unreliable and lower,
             #  so the effect on the chart is to visually reduce the differences.
             if not summary.has_heart_rate_monitor():
                 continue
-
-            # X data.
-            xdata_hr = details.get_heartrate_stream(do_remove_none_values=False)
-
-            if min(xdata_hr) < hr_min_all_activities:
-                hr_min_all_activities = min(xdata_hr)
-
-            # Plot HR.
-            a.hist(
-                xdata_hr,
-                bins=_n_bins,
-                weights=1 / len(xdata_hr) * np.ones(len(xdata_hr)),
-                # color="gray",
-                color=base_plot.COLS_SECONDARY[i - 1][0],
-                alpha=base_plot.COLS_SECONDARY[i - 1][1],
+            secondary_hr_streams.append(
+                details.get_heartrate_stream(do_remove_none_values=False)
             )
 
-        ## Format.
-        # Force the min x value to be hr_min_all_activities, add its tick and ensure
-        # that  there are no ticks too close to it (otherwise their labels overlap).
-        a.set_xlim(left=hr_min_all_activities)
-        xticks = list(a.get_xticks())
-        while (
-            xticks[0] < hr_min_all_activities
-            or abs(xticks[0] - hr_min_all_activities) < 9
-        ):
-            xticks[:] = xticks[1:]
-        xticks = [hr_min_all_activities] + xticks
-        a.set_xticks(xticks)
-
-        # Axes labels.
-        a.set_xlabel(f"heart rate [bpm, % of max ever {settings.HR_MAX_EVER_RUN}]")
-        a.set_ylabel("frequency")
-
-        # Draw HR avg vertical line.
-        a.axvline(
-            x=hr_avg_main,
-            color=base_plot.COL_DARK_RED,
-            alpha=0.5,
-            linestyle=":",
-        )
-        # Write text annotation for HR avg and max.
-        a.annotate(
-            f"avg\n{round(hr_avg_main)}\n{round(hr_avg_main*100/settings.HR_MAX_EVER_RUN)}%",
-            (hr_avg_main, a.get_ylim()[1]),
-            xytext=(-2.2, -3.2),
-            textcoords="offset fontsize",
-            color=base_plot.COL_DARK_RED,
-            fontsize=8,
-            fontweight="bold",
-        )
-        a.annotate(
-            f"max\n{round(hr_max_main)}",
-            (hr_max_main, a.get_ylim()[1]),
-            xytext=(-1.1, -2.2),
-            textcoords="offset fontsize",
-            color=base_plot.COL_DARK_RED,
-            fontsize=8,
-            fontweight="bold",
+        self._plot_hr_histogram_mixin(
+            self._axes_mosaic["hr-hist"],
+            main_hr_stream,
+            secondary_hr_streams=secondary_hr_streams,
+            hr_max_ever=settings.HR_MAX_EVER_RUN,
         )
 
     def plot(self, save_to_png_file_path: Path | None = None):

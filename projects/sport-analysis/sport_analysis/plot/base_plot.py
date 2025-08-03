@@ -177,15 +177,41 @@ class MixinHrPlot(BasePlot):
         self,
         axes: Axes,
         hr_stream: list,
-        time_stream: list | None = None,
+        secondary_hr_streams: list[list] | None = None,
+        hr_max_ever: int = settings.HR_MAX_EVER_RUN,
         elevation_stream: list | None = None,
+        time_stream: list | None = None,
         segment_title: str | None = None,
     ):
+        """
+        Plot the HR histogram.
+        The HR stream can be a segment.
+        Optionally, plot also secondary HR streams from other activities to compare.
+        Optionally, plot also elevation over time.
+
+        Args:
+            axes: the Axes.
+            hr_stream: the HR stream; it can be a segment like:
+             response.get_heartrate_stream(
+                do_remove_none_values=False,
+                segment_start_meters=0,
+                segment_end_meters=21110,
+            )
+            secondary_hr_streams: optional, secondary HR streams from other activities
+             to compare.
+            hr_max_ever: the max HR ever recorded for this type of activity.
+            elevation_stream: optional, to plot also elevation over time.
+            time_stream: optional, to plot also elevation over time.
+            segment_title: optional, if the hr_stream is a segment then you can
+             add a title to highlight that.
+        """
+        ## MAIN activity.
         ## Data.
         # Compute HR avg and max.
         hr_avg = mean(hr_stream)
         hr_max = max(hr_stream)
         hr_min = min(hr_stream)
+        hr_min_all_activities = hr_min
 
         ## Plot data.
         # Plot HR histogram.
@@ -228,25 +254,17 @@ class MixinHrPlot(BasePlot):
 
         # Force the max x value to be HR_MAX_EVER_RIDE, add its tick and ensure that
         #  there are no ticks too close to it (otherwise their labels overlap).
-        axes.set_xlim(right=settings.HR_MAX_EVER_RIDE)
+        axes.set_xlim(right=hr_max_ever)
         xticks = list(axes.get_xticks())
-        while xticks[-1] > (settings.HR_MAX_EVER_RIDE - 9):
+        while xticks[-1] > (hr_max_ever - 9):
             xticks[:] = xticks[:-1]
-        xticks.append(settings.HR_MAX_EVER_RIDE)
-        axes.set_xticks(xticks)
-
-        # Force the min x value to be min(), add its tick and ensure
-        #  that  there are no ticks too close to it (otherwise their labels overlap).
-        axes.set_xlim(left=hr_min)
-        while xticks[0] < hr_min or abs(xticks[0] - hr_min) < 9:
-            xticks[:] = xticks[1:]
-        xticks = [hr_min] + xticks
+        xticks.append(hr_max_ever)
         axes.set_xticks(xticks)
 
         axes.xaxis.set_major_formatter(
             mpl.ticker.FuncFormatter(
                 # Set ticks label as bpm and as % of HR max ever.
-                lambda x, pos: f"{round(x)}\n{round(x*100/settings.HR_MAX_EVER_RIDE)}%"
+                lambda x, pos: f"{round(x)}\n{round(x*100/hr_max_ever)}%"
             )
         )
         if elevation_stream and time_stream:
@@ -259,9 +277,43 @@ class MixinHrPlot(BasePlot):
                 )
             )
 
+        ## SECONDARY activities.
+        if secondary_hr_streams is None:
+            secondary_hr_streams = []
+        for i, secondary_hr_stream in enumerate(secondary_hr_streams):
+            if not secondary_hr_stream:
+                continue
+
+            if min(secondary_hr_stream) < hr_min_all_activities:
+                hr_min_all_activities = min(secondary_hr_stream)
+
+            # Plot HR.
+            axes.hist(
+                secondary_hr_stream,
+                bins=_n_bins,
+                weights=1
+                / len(secondary_hr_stream)
+                * np.ones(len(secondary_hr_stream)),
+                # color="gray",
+                color=COLS_SECONDARY[i][0],
+                alpha=COLS_SECONDARY[i][1],
+            )
+
         ## Format.
+        # Force the min x value to be hr_min_all_activities, add its tick and ensure
+        #  that  there are no ticks too close to it (otherwise their labels overlap).
+        axes.set_xlim(left=hr_min_all_activities)
+        xticks = list(axes.get_xticks())
+        while (
+            xticks[0] < hr_min_all_activities
+            or abs(xticks[0] - hr_min_all_activities) < 9
+        ):
+            xticks[:] = xticks[1:]
+        xticks = [hr_min_all_activities] + xticks
+        axes.set_xticks(xticks)
+
         # Axes labels.
-        axes.set_xlabel(f"Heart rate [bpm, % of max ever {settings.HR_MAX_EVER_RIDE}]")
+        axes.set_xlabel(f"Heart rate [bpm, % of max ever {hr_max_ever}]")
         axes.set_ylabel("Frequency")
         if elevation_stream and time_stream:
             a1.set_ylabel("Elevation [m]")
@@ -288,7 +340,7 @@ class MixinHrPlot(BasePlot):
         )
         # Write text annotation for HR avg and max.
         axes.annotate(
-            f"avg\n{round(hr_avg)}\n{round(hr_avg*100/settings.HR_MAX_EVER_RIDE)}%",
+            f"avg\n{round(hr_avg)}\n{round(hr_avg*100/hr_max_ever)}%",
             (hr_avg, axes.get_ylim()[1]),
             xytext=(-2.2, -3.2),
             textcoords="offset fontsize",
@@ -313,6 +365,15 @@ class MixinHrPlot(BasePlot):
         hr_min_ever: int = settings.HR_MIN,
         hr_max_ever: int = settings.HR_MAX_EVER_RUN,
     ):
+        """
+        Plot the HR zones.
+
+        Args:
+            axes: the Axes.
+            hr_stream: the HR stream.
+            hr_min_ever: the min HR ever recorded (the rest HR).
+            hr_max_ever: the max HR ever recorded for this type of activity.
+        """
         ## Data.
         # X data.
         res = np.histogram(
