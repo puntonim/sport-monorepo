@@ -121,7 +121,11 @@ class BasePlotIntervalRunApi(
 
     @abstractmethod
     def _get_splits_for_activity_typed_splits_response(
-        self, response: ActivityTypedSplitsResponse
+        self,
+        response: ActivityTypedSplitsResponse,
+        # Usually we want to check the n of extracted splits vs the expected one only
+        #  for the given activity, not for the old activity to compare.
+        do_raise_if_n_split_not_expected=True,
     ):
         """
         To be reimplemented in sub-classe.
@@ -624,11 +628,11 @@ class BasePlotIntervalRunApi(
                 text=self.text_to_search_for_previous_activities,
                 activity_type="running",
                 day_end=self._start_date_str,
-                # Add 1 because the results include the main activity,
-                #  and another 1 to account for the activity that was interrupted for a
-                #  false Incident Detection and ended up as 2 activities (as better
-                #  explained in MixinGarminRequestsApi._api_get_activity_splits()).
-                n_results=self.n_previous_activities_to_compare + 2,
+                # Add 1 because the results include the main activity.
+                #  You might also want to add another 1 to account for the activity that
+                #  was interrupted for a false Incident Detection and ended up as 2
+                #  activities (as better explained in MixinGarminRequestsApi._api_get_activity_splits()).
+                n_results=self.n_previous_activities_to_compare + 1,
             ):
                 ## Collect all SECONDARY activities time splits and summeries.
                 try:
@@ -658,7 +662,10 @@ class BasePlotIntervalRunApi(
         ## Extract all splits from all responses.
         for i in range(len(self._s)):
             splits = self._get_splits_for_activity_typed_splits_response(
-                self._s[i].typed_splits_resp
+                self._s[i].typed_splits_resp,
+                # Usually we want to check the n of extracted splits vs the expected
+                #  one only for the given activity, not for the old activity to compare.
+                do_raise_if_n_split_not_expected=True if i == 0 else False,
             )
             self._s[i].splits = splits
         self._max_n_splits = max([len(_.splits) for _ in self._s])
