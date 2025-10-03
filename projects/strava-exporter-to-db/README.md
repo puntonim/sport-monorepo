@@ -82,6 +82,8 @@ Development setup
 The target Python 3.13 as it is the latest available environment at AWS Lambda.\
 Install it with pyenv:
 ```sh
+# First, you might want to update pyenv:
+$ brew upgrade pyenv
 $ pyenv install -l  # List all available versions.
 $ pyenv install 3.13.1
 ```
