@@ -6,9 +6,10 @@ from typing import Iterator
 import pytest
 from _pytest.fixtures import SubRequest
 from _pytest.unittest import TestCaseFunction
-from strava_client.conf.settings_module import settings, test_settings
 from vcr.cassette import Cassette
 from vcr.errors import CannotOverwriteExistingCassetteException
+
+from strava_client.conf.settings_module import settings, test_settings
 
 IS_VCR_EPISODE_OR_ERROR = True  # False to record new cassettes.
 IS_VCR_ENABLED = True

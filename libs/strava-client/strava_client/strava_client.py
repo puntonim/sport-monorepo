@@ -111,13 +111,14 @@ class StravaClient:
     @handle_api_rate_limit_error
     def list_activities(
         self,
-        after_ts: datetime | int | float | None = None,
-        before_ts: datetime | int | float | None = None,
+        after_ts: datetime | int | float | None = None,  # Inclusive.
+        before_ts: datetime | int | float | None = None,  # Inclusive.
         n_results_per_page: int | None = None,
         page_n: int = 1,
     ) -> ListActivitiesResponse:
         """
         List all my activities and filter by date, as supported by Strava API.
+        The after_ts and before_ts are inclusive.
 
         Raw response data format: see "docs/activity summary.md"
 
@@ -164,9 +165,11 @@ class StravaClient:
         headers = {"Authorization": f"Bearer {self._access_token}"}
         payload = {}
         if before_ts:
-            payload["before"] = int(before_ts)
+            # Remove 1 second to make before_ts inclusive.
+            payload["before"] = int(before_ts) + 1
         if after_ts:
-            payload["after"] = int(after_ts)
+            # Remove 1 second to make after_ts inclusive.
+            payload["after"] = int(after_ts) - 1
         if n_results_per_page:
             payload["per_page"] = n_results_per_page
         if page_n != 1:
@@ -315,7 +318,7 @@ class StravaClient:
         # Parse start_date.
         if isinstance(start_date, str):
             try:
-                start_date = datetime_utils.iso_string_to_date(start_date)
+                start_date = datetime_utils.iso_string_to_datetime(start_date)
             except ValueError as exc:
                 raise InvalidDatetime(start_date) from exc
 

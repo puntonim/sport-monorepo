@@ -110,35 +110,83 @@ class TestListActivities:
     def test_after_ts(self):
         client = StravaClient(self.token_mgr.get_access_token())
         response = client.list_activities(
-            after_ts=datetime(2025, 1, 18, 6, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            after_ts=datetime(2025, 1, 18, 6, 0, 1, tzinfo=ZoneInfo("Europe/Rome")),
             n_results_per_page=2,
         )
         assert len(response.data) == 2
         assert response.data[0]["name"] == "Dobbiaco Winter Night Run 🦠"
         assert response.data[0]["id"] == 13389554554
 
+    def test_after_ts_inclusive_timestamp(self):
+        after_ts = 1759424400
+        activity_id = 16013371380
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=after_ts,
+            n_results_per_page=1,
+        )
+        assert len(response.data) == 1
+        assert response.data[0]["name"] == "Weight training: powerlifting"
+        assert response.data[0]["id"] == activity_id
+
+    def test_after_ts_inclusive_datetime(self):
+        after_ts = datetime(2025, 10, 2, 19, 0, tzinfo=ZoneInfo("Europe/Rome"))
+        activity_id = 16013371380
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=after_ts,
+            n_results_per_page=1,
+        )
+        assert len(response.data) == 1
+        assert response.data[0]["name"] == "Weight training: powerlifting"
+        assert response.data[0]["id"] == activity_id
+
     def test_after_ts_in_the_future(self):
         client = StravaClient(self.token_mgr.get_access_token())
         with pytest.raises(AfterTsInTheFuture):
             client.list_activities(
-                after_ts=datetime(2099, 1, 18, 6, 0, tzinfo=ZoneInfo("Europe/Rome")),
+                after_ts=datetime(2099, 1, 18, 6, 0, 1, tzinfo=ZoneInfo("Europe/Rome")),
                 n_results_per_page=2,
             )
 
     def test_before_ts(self):
         client = StravaClient(self.token_mgr.get_access_token())
         response = client.list_activities(
-            before_ts=datetime(2025, 1, 18, 6, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            before_ts=datetime(2025, 1, 18, 5, 59, 59, tzinfo=ZoneInfo("Europe/Rome")),
             n_results_per_page=2,
         )
         assert len(response.data) == 2
         assert response.data[0]["name"] == "Weight training: calisthenics"
         assert response.data[0]["id"] == 13381920990
 
+    def test_before_ts_inclusive_timestamp(self):
+        before_ts = 1759424400
+        activity_id = 16013371380
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=before_ts,
+            n_results_per_page=1,
+        )
+        assert len(response.data) == 1
+        assert response.data[0]["name"] == "Weight training: powerlifting"
+        assert response.data[0]["id"] == activity_id
+
+    def test_before_ts_inclusive_datetime(self):
+        before_ts = datetime(2025, 10, 2, 19, 0, tzinfo=ZoneInfo("Europe/Rome"))
+        activity_id = 16013371380
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=before_ts,
+            n_results_per_page=1,
+        )
+        assert len(response.data) == 1
+        assert response.data[0]["name"] == "Weight training: powerlifting"
+        assert response.data[0]["id"] == activity_id
+
     def test_before_ts_in_the_future(self):
         client = StravaClient(self.token_mgr.get_access_token())
         response = client.list_activities(
-            before_ts=datetime(2099, 1, 18, 6, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            before_ts=datetime(2099, 1, 18, 5, 59, 59, tzinfo=ZoneInfo("Europe/Rome")),
             n_results_per_page=2,
         )
         assert len(response.data) == 2
@@ -158,7 +206,7 @@ class TestListActivities:
     def test_page_n(self):
         client = StravaClient(self.token_mgr.get_access_token())
         response = client.list_activities(
-            before_ts=datetime(2025, 1, 18, 6, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            before_ts=datetime(2025, 1, 18, 5, 59, 59, tzinfo=ZoneInfo("Europe/Rome")),
             n_results_per_page=2,
             page_n=9,
         )
@@ -173,7 +221,7 @@ class TestListActivities:
         client = StravaClient(self.token_mgr.get_access_token())
         with pytest.raises(RequestedResultsPageDoesNotExist):
             client.list_activities(
-                after_ts=datetime(2025, 1, 18, 6, 0, tzinfo=ZoneInfo("Europe/Rome")),
+                after_ts=datetime(2025, 1, 18, 6, 0, 1, tzinfo=ZoneInfo("Europe/Rome")),
                 n_results_per_page=2,
                 page_n=99,
             )
@@ -495,6 +543,6 @@ class TestRateLimit:
         with pytest.raises(StravaApiRateLimitExceeded):
             # Any requests will fail after exceeding the API rate limit.
             client.list_activities(
-                after_ts=datetime(2025, 1, 18, 6, 0, tzinfo=ZoneInfo("Europe/Rome")),
+                after_ts=datetime(2025, 1, 18, 6, 0, 1, tzinfo=ZoneInfo("Europe/Rome")),
                 n_results_per_page=2,
             )

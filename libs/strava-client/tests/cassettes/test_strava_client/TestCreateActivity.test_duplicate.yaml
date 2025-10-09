@@ -9,7 +9,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://www.strava.com/api/v3/athlete/activities?before=1737911700&after=1737902700
+    uri: https://www.strava.com/api/v3/athlete/activities?before=1737911701&after=1737902699
   response:
     body:
       string: '[]'
@@ -167,7 +167,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://www.strava.com/api/v3/athlete/activities?before=1737915900&after=1737906900
+    uri: https://www.strava.com/api/v3/athlete/activities?before=1737915901&after=1737906899
   response:
     body:
       string: '[{"resource_state": 2, "athlete": {"id": 115890775, "resource_state":
