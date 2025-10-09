@@ -1,8 +1,9 @@
 from datetime import datetime
 from typing import Any
 
+from aws_utils.aws_lambda_utils import BadRequest400Response, Ok200Response
+
 from .. import domain, domain_exceptions
-from .http_response import BadRequest400Response, Ok200Response
 
 # Objects declared outside of the Lambda's handler method are part of Lambda's
 # *execution environment*. This execution environment is sometimes reused for subsequent
@@ -150,26 +151,30 @@ def lambda_handler(event: dict[str, Any], context) -> dict:
     page_n = qs.get("page-n")  # Eg.: 2.
 
     # Validate query string.
-    try:
-        datetime.fromtimestamp(int(before_ts))
-    except (ValueError, OverflowError) as exc:
-        return BadRequest400Response(
-            "before-ts is an invalid timestamp, eg: 1739374800"
-        ).to_dict()
-    try:
-        datetime.fromtimestamp(int(after_ts))
-    except (ValueError, OverflowError) as exc:
-        return BadRequest400Response(
-            "after-ts is an invalid timestamp, eg: 1739374800"
-        ).to_dict()
-    try:
-        n_results_per_page = int(n_results_per_page)
-    except ValueError as exc:
-        return BadRequest400Response("n_results_per_page is not an int").to_dict()
-    try:
-        page_n = int(page_n)
-    except ValueError as exc:
-        return BadRequest400Response("page_n is not an int").to_dict()
+    if before_ts is not None:
+        try:
+            datetime.fromtimestamp(int(before_ts))
+        except (ValueError, OverflowError) as exc:
+            return BadRequest400Response(
+                "before-ts is an invalid timestamp, eg: 1739374800"
+            ).to_dict()
+    if after_ts is not None:
+        try:
+            datetime.fromtimestamp(int(after_ts))
+        except (ValueError, OverflowError) as exc:
+            return BadRequest400Response(
+                "after-ts is an invalid timestamp, eg: 1739374800"
+            ).to_dict()
+    if n_results_per_page is not None:
+        try:
+            n_results_per_page = int(n_results_per_page)
+        except ValueError as exc:
+            return BadRequest400Response("n_results_per_page is not an int").to_dict()
+    if page_n is not None:
+        try:
+            page_n = int(page_n)
+        except ValueError as exc:
+            return BadRequest400Response("page_n is not an int").to_dict()
 
     try:
         activities = domain.list_activities(

@@ -3,8 +3,9 @@ import binascii
 import json
 from typing import Any
 
+from aws_utils.aws_lambda_utils import BadRequest400Response, Ok200Response
+
 from .. import domain, domain_exceptions
-from .http_response import BadRequest400Response, NotFound404Response, Ok200Response
 
 # Objects declared outside of the Lambda's handler method are part of Lambda's
 # *execution environment*. This execution environment is sometimes reused for subsequent

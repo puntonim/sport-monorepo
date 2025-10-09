@@ -1,8 +1,9 @@
 from datetime import datetime
 from typing import Any
 
+from aws_utils.aws_lambda_utils import NotFound404Response, Ok200Response
+
 from ..__version__ import __version__
-from .http_response import NotFound404Response, Ok200Response
 
 # Objects declared outside of the Lambda's handler method are part of Lambda's
 # *execution environment*. This execution environment is sometimes reused for subsequent

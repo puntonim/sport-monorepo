@@ -3,8 +3,13 @@ import binascii
 import json
 from typing import Any
 
+from aws_utils.aws_lambda_utils import (
+    BadRequest400Response,
+    NotFound404Response,
+    Ok200Response,
+)
+
 from .. import domain, domain_exceptions
-from .http_response import BadRequest400Response, NotFound404Response, Ok200Response
 
 # Objects declared outside of the Lambda's handler method are part of Lambda's
 # *execution environment*. This execution environment is sometimes reused for subsequent
@@ -34,7 +39,7 @@ def lambda_handler(event: dict[str, Any], context) -> dict:
     Example:
         $ curl -X POST https://s8afs561v2.execute-api.eu-south-1.amazonaws.com/update-activity-description \
          -H 'Authorization: XXX' \
-         -d '{"afterTs": 1707174000, "beforeTs": 1707260399, "description": "My new descr", "activityType": "WeightTraining", "name": "test1", "doStopIfDescriptionNotNull": "false"}'
+         -d '{"activityId": "10709853894", "description": "My new descr", "name": "test1", "doStopIfDescriptionNotNull": "false"}'
 
         {
           "resource_state": 3,
@@ -192,10 +197,9 @@ def lambda_handler(event: dict[str, Any], context) -> dict:
     name = body.get("name")
 
     do_stop_if_description_not_null = body.get("doStopIfDescriptionNotNull", True)
-    if (
-        do_stop_if_description_not_null is not True
-        and do_stop_if_description_not_null.lower() in ("false", "f", "no", "n")
-    ):
+    if do_stop_if_description_not_null is not True and str(
+        do_stop_if_description_not_null
+    ).lower() in ("false", "f", "no", "n"):
         do_stop_if_description_not_null = False
 
     try:

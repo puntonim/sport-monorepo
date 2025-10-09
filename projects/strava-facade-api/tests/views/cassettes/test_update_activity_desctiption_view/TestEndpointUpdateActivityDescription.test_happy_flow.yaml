@@ -1,0 +1,130 @@
+interactions:
+- request:
+    body: '{"Name": "/strava-facade-api/production/strava-api-token-json", "WithDecryption":
+      true}'
+    headers:
+      Content-Length:
+      - '87'
+      Content-Type:
+      - !!binary |
+        YXBwbGljYXRpb24veC1hbXotanNvbi0xLjE=
+    method: POST
+    uri: https://ssm.eu-south-1.amazonaws.com/
+  response:
+    body:
+      string: '{"Parameter": {"ARN": "arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/production/strava-api-token-json",
+        "DataType": "text", "LastModifiedDate": 1760003403.444, "Name": "/strava-facade-api/production/strava-api-token-json",
+        "Type": "SecureString", "Value": "{\"token_type\": \"Bearer\", \"access_token\":
+        \"**REDACTED**\", \"expires_at\": 4095215440, \"expires_in\": 21600, \"refresh_token\":
+        \"**REDACTED**\"}", "Version": 291}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '518'
+      Content-Type:
+      - application/x-amz-json-1.1
+      Date:
+      - Thu, 09 Oct 2025 12:44:58 GMT
+      Server:
+      - Server
+      x-amzn-RequestId:
+      - 9627c272-feb2-41d8-af87-443754898e8e
+    status:
+      code: 200
+      message: OK
+- request:
+    body: description=New+desc+rom+Pytest&name=New+name+from+pytest
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '57'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: PUT
+    uri: https://www.strava.com/api/v3/activities/16013371380
+  response:
+    body:
+      string: '{"resource_state": 3, "athlete": {"id": 115890775, "resource_state":
+        1}, "name": "New name from pytest", "distance": 0.0, "moving_time": 3600,
+        "elapsed_time": 3600, "total_elevation_gain": 0, "type": "WeightTraining",
+        "sport_type": "WeightTraining", "workout_type": 30, "id": 16013371380, "start_date":
+        "2025-10-02T17:00:00Z", "start_date_local": "2025-10-02T19:00:00Z", "timezone":
+        "(GMT+01:00) Europe/Rome", "utc_offset": 7200.0, "location_city": null, "location_state":
+        null, "location_country": null, "achievement_count": 0, "kudos_count": 0,
+        "comment_count": 0, "athlete_count": 1, "photo_count": 0, "map": {"id": "a16013371380",
+        "polyline": "", "resource_state": 3, "summary_polyline": ""}, "trainer": false,
+        "commute": false, "manual": true, "private": false, "visibility": "followers_only",
+        "flagged": false, "gear_id": null, "start_latlng": [], "end_latlng": [], "average_speed":
+        0.0, "max_speed": 0, "has_heartrate": false, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        false, "upload_id": null, "external_id": null, "from_accepted_tag": false,
+        "pr_count": 0, "total_photo_count": 0, "has_kudoed": false, "description":
+        "New desc rom Pytest", "calories": 0, "perceived_exertion": null, "prefer_perceived_exertion":
+        null, "segment_efforts": [], "photos": {"primary": null, "count": 0}, "stats_visibility":
+        [{"type": "heart_rate", "visibility": "everyone"}, {"type": "pace", "visibility":
+        "everyone"}, {"type": "power", "visibility": "everyone"}, {"type": "speed",
+        "visibility": "everyone"}, {"type": "calories", "visibility": "everyone"}],
+        "hide_from_home": false, "embed_token": "a6e5ae6cc2cec32da3e4b41592e1395376166906",
+        "private_note": "", "available_zones": []}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 09 Oct 2025 12:44:58 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 9ff32c4e1c4735348dfb697858376e08.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - kH1Sb2vgK3Z8yyubCiK8Lvka7NaZvDB1MXsZhhCobSDPBJqS-VTEVg==
+      X-Amz-Cf-Pop:
+      - MXP53-P6
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '1549'
+      etag:
+      - W/"68b3e0a79b91e73ceefc9b7cf02f4338"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '280'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 3,34
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 3,34
+      x-request-id:
+      - 84e54fe4-7dca-47bc-a636-012f1fed421d
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

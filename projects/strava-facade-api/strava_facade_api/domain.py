@@ -2,19 +2,23 @@ import functools
 from datetime import datetime
 
 from strava_client import (
+    ActivityDetailsResponse,
     ActivityNotFound,
     AfterTsInTheFuture,
+    CreatedActivity,
     InvalidDatetime,
+    ListActivitiesResponse,
     NaiveDatetime,
     PossibleDuplicatedActivity,
     RequestedResultsPageDoesNotExist,
     StravaApiRateLimitExceeded,
     StravaClient,
+    UpdatedActivity,
 )
-from strava_client.token_managers import (
-    AwsParameterStoreTokenManager,
-    AwsParameterStoreTokenManagerException,
-    BaseTokenManagerException,
+from strava_client.strava_token_managers import (
+    AwsParameterStoreStravaTokenManager,
+    AwsParameterStoreStravaTokenManagerException,
+    BaseStravaTokenManagerException,
 )
 
 from . import domain_exceptions as exceptions
@@ -63,24 +67,26 @@ def list_activities(
         n_results_per_page: number of results in each results page (eg. 100).
         page_n: result page number (eg. 2).
     """
-    token_mgr = AwsParameterStoreTokenManager(
+    token_mgr = AwsParameterStoreStravaTokenManager(
         "/strava-facade-api/production/strava-api-token-json",
         "/strava-facade-api/production/strava-api-client-id",
         "/strava-facade-api/production/strava-api-client-secret",
     )
     try:
         access_token = token_mgr.get_access_token()
-    except (AwsParameterStoreTokenManagerException, BaseTokenManagerException) as exc:
+    except (
+        AwsParameterStoreStravaTokenManagerException,
+        BaseStravaTokenManagerException,
+    ) as exc:
         raise exceptions.StravaAuthenticationError(str(exc)) from exc
 
     strava = StravaClient(access_token)
 
     # Get all activities of the given type for the given day.
     try:
-        activities: list[dict] = strava.list_activities(
+        response: ListActivitiesResponse = strava.list_activities(
             after_ts,
             before_ts,
-            activity_type,
             n_results_per_page,
             page_n,
         )
@@ -89,6 +95,11 @@ def list_activities(
         raise exceptions.RequestedResultsPageDoesNotExistInStravaApi(exc.page_n)
     except AfterTsInTheFuture as exc:
         raise exceptions.AfterTsInTheFutureInStravaApi(exc.after_ts)
+
+    if activity_type:
+        activities = list(response.filter_by_activity_type(activity_type))
+    else:
+        activities = list(response.data)
     return activities
 
 
@@ -109,14 +120,17 @@ def update_activity_description(
         do_stop_if_description_not_null: if True the update is not performed when
          the existing description is not null, defaults to True.
     """
-    token_mgr = AwsParameterStoreTokenManager(
+    token_mgr = AwsParameterStoreStravaTokenManager(
         "/strava-facade-api/production/strava-api-token-json",
         "/strava-facade-api/production/strava-api-client-id",
         "/strava-facade-api/production/strava-api-client-secret",
     )
     try:
         access_token = token_mgr.get_access_token()
-    except (AwsParameterStoreTokenManagerException, BaseTokenManagerException) as exc:
+    except (
+        AwsParameterStoreStravaTokenManagerException,
+        BaseStravaTokenManagerException,
+    ) as exc:
         raise exceptions.StravaAuthenticationError(str(exc)) from exc
 
     strava = StravaClient(access_token)
@@ -124,10 +138,10 @@ def update_activity_description(
     # Get the details and ensure it has no description.
     if do_stop_if_description_not_null:
         try:
-            activity_details = strava.get_activity_details(activity_id)
+            response: ActivityDetailsResponse = strava.get_activity_details(activity_id)
         except ActivityNotFound as exc:
             raise exceptions.ActivityNotFoundInStravaApi(activity_id) from exc
-        if existing_descr := activity_details.get("description"):
+        if existing_descr := response.data.get("description"):
             raise exceptions.ActivityAlreadyHasDescription(
                 activity_id=activity_id,
                 description=existing_descr,
@@ -138,8 +152,8 @@ def update_activity_description(
     # And the name if given.
     if name:
         data["name"] = name
-    updated_activity = strava.update_activity(activity_id, data)
-    return updated_activity
+    response: UpdatedActivity = strava.update_activity(activity_id, data)
+    return response.data
 
 
 @handle_strava_api_rate_limit_error
@@ -161,20 +175,23 @@ def create_activity(
         duration_seconds: in seconds.
         description: optional.
     """
-    token_mgr = AwsParameterStoreTokenManager(
+    token_mgr = AwsParameterStoreStravaTokenManager(
         "/strava-facade-api/production/strava-api-token-json",
         "/strava-facade-api/production/strava-api-client-id",
         "/strava-facade-api/production/strava-api-client-secret",
     )
     try:
         access_token = token_mgr.get_access_token()
-    except (AwsParameterStoreTokenManagerException, BaseTokenManagerException) as exc:
+    except (
+        AwsParameterStoreStravaTokenManagerException,
+        BaseStravaTokenManagerException,
+    ) as exc:
         raise exceptions.StravaAuthenticationError(str(exc)) from exc
 
     strava = StravaClient(access_token)
 
     try:
-        activity = strava.create_activity(
+        response: CreatedActivity = strava.create_activity(
             name,
             activity_type,
             start_date,
@@ -189,4 +206,4 @@ def create_activity(
     except PossibleDuplicatedActivity as exc:
         raise exceptions.PossibleDuplicatedActivityFound(exc.activity_id) from exc
 
-    return activity
+    return response.data

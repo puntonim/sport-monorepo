@@ -1,0 +1,198 @@
+interactions:
+- request:
+    body: '{"Name": "/strava-facade-api/production/strava-api-token-json", "WithDecryption":
+      true}'
+    headers:
+      Content-Length:
+      - '87'
+      Content-Type:
+      - !!binary |
+        YXBwbGljYXRpb24veC1hbXotanNvbi0xLjE=
+    method: POST
+    uri: https://ssm.eu-south-1.amazonaws.com/
+  response:
+    body:
+      string: '{"Parameter": {"ARN": "arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/production/strava-api-token-json",
+        "DataType": "text", "LastModifiedDate": 1760003403.444, "Name": "/strava-facade-api/production/strava-api-token-json",
+        "Type": "SecureString", "Value": "{\"token_type\": \"Bearer\", \"access_token\":
+        \"**REDACTED**\", \"expires_at\": 4095215440, \"expires_in\": 21600, \"refresh_token\":
+        \"**REDACTED**\"}", "Version": 291}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '518'
+      Content-Type:
+      - application/x-amz-json-1.1
+      Date:
+      - Thu, 09 Oct 2025 13:21:41 GMT
+      Server:
+      - Server
+      x-amzn-RequestId:
+      - 6a7fe197-623f-44f6-b40c-4ea1bae7bf8b
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/athlete/activities?before=1759994101&after=1759985099
+  response:
+    body:
+      string: '[]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 09 Oct 2025 13:21:42 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 2eb65a7c5b78b5f075af3c4aee8f8202.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - c-xKGHTTLwjQV_WlYC_U167LfCS-ul6gqAUkcChmq4kN-mnwUGy3QA==
+      X-Amz-Cf-Pop:
+      - MXP53-P6
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '2'
+      etag:
+      - W/"4f53cda18c2baa0c0354bb5f9a3ecbe5"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '69'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 1,37
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 1,36
+      x-request-id:
+      - 86dea112-958f-4f18-9bf7-b7d018c6fef1
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: name=Name+from+pytest&sport_type=WeightTraining&start_date_local=2025-10-09T08%3A00%3A00%2B02%3A00&elapsed_time=3660&description=Descr+from+pytest
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '146'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: POST
+    uri: https://www.strava.com/api/v3/activities
+  response:
+    body:
+      string: '{"resource_state": 3, "athlete": {"id": 115890775, "resource_state":
+        1}, "name": "Name from pytest", "distance": 0.0, "moving_time": 3660, "elapsed_time":
+        3660, "total_elevation_gain": 0, "type": "WeightTraining", "sport_type": "WeightTraining",
+        "workout_type": 30, "id": 16085346274, "start_date": "2025-10-09T06:00:00Z",
+        "start_date_local": "2025-10-09T08:00:00Z", "timezone": "(GMT+01:00) Europe/Rome",
+        "utc_offset": 7200.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a16085346274", "polyline": "", "resource_state":
+        3, "summary_polyline": ""}, "trainer": false, "commute": false, "manual":
+        true, "private": false, "visibility": "followers_only", "flagged": false,
+        "gear_id": null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0,
+        "max_speed": 0, "has_heartrate": false, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        false, "upload_id": null, "external_id": null, "from_accepted_tag": false,
+        "pr_count": 0, "total_photo_count": 0, "has_kudoed": false, "description":
+        "Descr from pytest", "calories": 0, "perceived_exertion": null, "prefer_perceived_exertion":
+        null, "segment_efforts": [], "photos": {"primary": null, "count": 0}, "stats_visibility":
+        [{"type": "heart_rate", "visibility": "everyone"}, {"type": "pace", "visibility":
+        "everyone"}, {"type": "power", "visibility": "everyone"}, {"type": "speed",
+        "visibility": "everyone"}, {"type": "calories", "visibility": "everyone"}],
+        "hide_from_home": false, "embed_token": "327b7cfb1ce4393c1350f6a2a3917cd7888887f9",
+        "available_zones": []}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 09 Oct 2025 13:21:42 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 e70cbe3d9840556c30e1c93cd33e1702.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - OhN-tr9Xv9twg5CVhucup7CcrOgB-JCHlQwwNlwqSUXCZC_2cOI2tQ==
+      X-Amz-Cf-Pop:
+      - MXP53-P6
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      etag:
+      - W/"7f0dcb2a173af7e17d09118fcdda40c5"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 201 Created
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '387'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 2,38
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - ','
+      x-request-id:
+      - b96430b3-f652-4345-91e1-fb30c9e53d73
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 201
+      message: Created
+version: 1
