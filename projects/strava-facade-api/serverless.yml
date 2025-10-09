@@ -2,7 +2,7 @@
 #  - Serverless for AWS full specs: https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml/
 #  - Python reqs: https://github.com/UnitedIncome/serverless-python-requirements
 #  - IAM: https://www.serverless.com/framework/docs/providers/aws/guide/iam
-#  - IAM Roles Per Function: https://www.serverless.com/plugins/serverless-iam-roles-per-function
+#  - IAM Roles Per Function: https://www.serverless.com/framework/docs/providers/aws/guide/iam
 
 service: strava-facade-api
 
@@ -55,7 +55,9 @@ functions:
     handler: strava_facade_api.views.authorizer_view.lambda_handler
     memorySize: 128
     timeout: 28 # Note: API Gateway current maximum is 29 seconds.
-    iamRoleStatements: []
+    iam:
+      role:
+        statements: []
 
   endpoint-introspection:
     handler: strava_facade_api.views.introspection_view.lambda_handler
@@ -71,7 +73,9 @@ functions:
       - httpApi:
           path: /unhealth
           method: GET
-    iamRoleStatements: []
+    iam:
+      role:
+        statements: []
 
   endpoint-list-activities:
     handler: strava_facade_api.views.list_activities_view.lambda_handler
@@ -83,13 +87,15 @@ functions:
           method: GET
           authorizer:
             name: tokenAuthorizer
-    iamRoleStatements:
-      - Effect: Allow
-        Action:
-          - ssm:GetParameter
-          - ssm:PutParameter
-        Resource:
-          - arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/${sls:stage}/*
+    iam:
+      role:
+        statements:
+          - Effect: Allow
+            Action:
+              - ssm:GetParameter
+              - ssm:PutParameter
+            Resource:
+              - arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/${sls:stage}/*
 
   endpoint-upd-activity-desc:
     handler: strava_facade_api.views.update_activity_description_view.lambda_handler
@@ -101,15 +107,17 @@ functions:
           method: POST
           authorizer:
             name: tokenAuthorizer
-    # Custom name because the auto generated one is too long.
-    iamRoleStatementsName: strava-facade-api-prod-upd-activity-desc-eu-south-1-lambdaRole
-    iamRoleStatements:
-      - Effect: Allow
-        Action:
-          - ssm:GetParameter
-          - ssm:PutParameter
-        Resource:
-          - arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/${sls:stage}/*
+    iam:
+      role:
+        # Custom name because the auto generated one is too long.
+        name: strava-facade-api-prod-upd-activity-desc-eu-south-1-lambdaRole
+        statements:
+          - Effect: Allow
+            Action:
+              - ssm:GetParameter
+              - ssm:PutParameter
+            Resource:
+              - arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/${sls:stage}/*
 
   endpoint-create-activity:
     handler: strava_facade_api.views.create_activity_view.lambda_handler
@@ -121,13 +129,15 @@ functions:
           method: POST
           authorizer:
             name: tokenAuthorizer
-    iamRoleStatements:
-      - Effect: Allow
-        Action:
-          - ssm:GetParameter
-          - ssm:PutParameter
-        Resource:
-          - arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/${sls:stage}/*
+    iam:
+      role:
+        statements:
+          - Effect: Allow
+            Action:
+              - ssm:GetParameter
+              - ssm:PutParameter
+            Resource:
+              - arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/${sls:stage}/*
 
 package:
   # Individually should only be used for a project with multiple modules each with their own specific dependencies.
@@ -143,7 +153,6 @@ package:
 
 plugins:
   - serverless-python-requirements
-  - serverless-iam-roles-per-function
 
 
 custom:
