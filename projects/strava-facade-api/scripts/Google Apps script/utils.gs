@@ -26,3 +26,12 @@ const dateToIsoString = (date) => {
     dif + pad(Math.floor(Math.abs(tzo) / 60)) +
     ':' + pad(Math.abs(tzo) % 60);
 }
+
+const dateToTimestamp = (date) => {
+  /**
+   * Convert a date like:
+   *   Mon Jul 29 2024 12:52:35 GMT+0200 (Central European Summer Time)
+   * to a Unix timestamp like 1.7590104E9.
+   */
+  return Math.round(date / 1000);
+}
