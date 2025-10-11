@@ -28,6 +28,13 @@ from .base_plot_interval_run_api import BasePlotIntervalRunApi
     type=str,
     help="Text used in the search for previous activities to compare; it's an exact match on activities' titles.",
 )
+@click.option(
+    "--n-expected-intervals",
+    "n_expected_intervals",
+    type=int,
+    default=10,
+    help="Number of expected intervals in the given activity; mind that some intervals in the given activity might have been skipped by accident (and thus they are shorted than 200m and automatically discarded).",
+)
 @click.option("--title", type=str)
 @click.option(
     "--figure-size",
@@ -55,6 +62,7 @@ def plot_interval_1000m_run_api_cli_view(
     garmin_activity_id: int,
     n_previous_activities_to_compare: int = 10,
     text_to_search_for_previous_activities: str | None = None,
+    n_expected_intervals: int = 4,
     title: str | None = None,
     figure_size: tuple[float, float] | None = None,
     dir_or_file_path: Path = ROOT_DIR / "output-images",
@@ -79,6 +87,7 @@ def plot_interval_1000m_run_api_cli_view(
         garmin_activity_id,
         n_previous_activities_to_compare=n_previous_activities_to_compare,
         text_to_search_for_previous_activities=text_to_search_for_previous_activities,
+        n_expected_intervals=[n_expected_intervals],
         title=title,
         figure_size=figure_size,
     )
@@ -96,16 +105,22 @@ class PlotInterval1000mRunApi(BasePlotIntervalRunApi):
     DEFAULT_TEXT_TO_SEARCH_FOR_PREVIOUS_ACTIVITIES = "4x1000m"
     # List of all possible expected number of intervals: fi. for a 4x1000m it is [4],
     #  but if you want to include also a 5x1000m then it is [4, 5].
-    DEFAULT_N_EXPECTED_INTERVALS = [3, 4, 5]
+    DEFAULT_N_EXPECTED_INTERVALS = range(3, 11)
 
     def _get_splits_for_activity_typed_splits_response(
-        self, response: ActivityTypedSplitsResponse
+        self,
+        response: ActivityTypedSplitsResponse,
+        # Usually we want to check the n of extracted splits vs the expected one only
+        #  for the given activity, not for the old activity to compare.
+        do_raise_if_n_split_not_expected=True,
     ):
         splits = list()
         for split in response.get_interval_active_splits():
             if abs(split["distance"] - 1000) < 10:
                 splits.append(split)
-        if len(splits) not in self.n_expected_intervals:
+        if do_raise_if_n_split_not_expected and (
+            len(splits) not in self.n_expected_intervals
+        ):
             raise BasePlotInterval1000mRunApiException(
                 f"Expected {'or '.join(self.n_expected_intervals)} splits but found {len(splits)}"
             )

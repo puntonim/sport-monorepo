@@ -700,7 +700,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/activitylist-service/activities/search/activities?start=0&limit=3&search=3x1000m&endDate=2025-05-06&activityType=running
+    uri: https://connectapi.garmin.com/activitylist-service/activities/search/activities?start=0&limit=2&search=3x1000m&endDate=2025-05-06&activityType=running
   response:
     body:
       string: '[{"activityId": 17800220528, "activityName": "Verdellino - 3x1000m",
