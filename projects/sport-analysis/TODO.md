@@ -1,3 +1,5 @@
+- Finish sketches/eoy_stats_db.py
+
 - Usa le nuove feature di datetime_utils in strava_client e garmin_client
    e rinomina tutto in start_date_after|before e start_day_after|before
 
