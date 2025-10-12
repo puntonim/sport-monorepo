@@ -65,7 +65,9 @@ class TestPlotInterval300mRunApi:
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
         plot_6x300m_api = PlotInterval300mRunApi(
             garmin_activity_id,
-            n_previous_activities_to_compare=2,
+            # Using 3 instead of 2 because the prev activity is the in-famous
+            #  interrupted one and automatically fixed with a fixture.
+            n_previous_activities_to_compare=3,
             # figure_size=(5, 8),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )

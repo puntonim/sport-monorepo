@@ -45,6 +45,18 @@ class TestPlotInterval1000mRunApi:
             / "TestPlotInterval1000mRunApi-test_happy_flow.png",
         )
 
+    def test_n_previous_activity_to_compare_2(self):
+        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
+        p = PlotInterval1000mRunApi(
+            garmin_activity_id,
+            n_previous_activities_to_compare=2,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / "TestPlotInterval1000mRunApi-test_happy_flow.png",
+        )
+
     def test_diff_n_intervals(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
         p = PlotInterval1000mRunApi(

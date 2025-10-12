@@ -102,7 +102,10 @@ class PlotInterval300mRunApi(BasePlotIntervalRunApi):
 
     # Text used in the search for previous activities to compare. It's an exact match
     #  on activities' titles.
-    DEFAULT_TEXT_TO_SEARCH_FOR_PREVIOUS_ACTIVITIES = "6x300m"
+    # "1x300m 2x300m ... 15x300m"
+    DEFAULT_TEXT_TO_SEARCH_FOR_PREVIOUS_ACTIVITIES = (
+        "x300m ".join((str(x) for x in range(1, 16))) + "x300m"
+    )
     # List of all possible expected number of intervals: fi. for a 4x1000m it is [4],
     #  but if you want to include also a 5x1000m then it is [4, 5].
     DEFAULT_N_EXPECTED_INTERVALS = range(3, 16)
