@@ -4,8 +4,8 @@ from garmin_connect_client.garmin_connect_token_managers import (
 )
 
 from sport_analysis.conf.settings_module import ROOT_DIR
-from sport_analysis.plot.plot_interval_run_api.plot_interval_1000m_run_api import (
-    PlotInterval1000mRunApi,
+from sport_analysis.plot.plot_interval_run_api.plot_interval_run_api_cmd import (
+    PlotIntervalRunApiCmd,
 )
 from tests.conftest import is_vcr_enabled, is_vcr_record_mode
 
@@ -35,8 +35,9 @@ class TestPlotInterval1000mRunApi:
 
     def test_happy_flow(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotInterval1000mRunApi(
+        p = PlotIntervalRunApiCmd(
             garmin_activity_id,
+            distance=1000,
             n_previous_activities_to_compare=0,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
@@ -47,8 +48,9 @@ class TestPlotInterval1000mRunApi:
 
     def test_n_previous_activity_to_compare_2(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotInterval1000mRunApi(
+        p = PlotIntervalRunApiCmd(
             garmin_activity_id,
+            distance=1000,
             n_previous_activities_to_compare=2,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
@@ -59,8 +61,9 @@ class TestPlotInterval1000mRunApi:
 
     def test_diff_n_intervals(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotInterval1000mRunApi(
+        p = PlotIntervalRunApiCmd(
             garmin_activity_id,
+            distance=1000,
             n_previous_activities_to_compare=1,
             text_to_search_for_previous_activities="3x1000m",
             n_expected_intervals=[3, 4],

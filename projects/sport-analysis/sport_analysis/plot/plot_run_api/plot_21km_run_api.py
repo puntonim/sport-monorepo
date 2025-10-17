@@ -86,6 +86,10 @@ def plot_21km_run_api_cli_view(
     return plot_21k.plot(save_to_png_file_path=save_to_png_file_path)
 
 
+# TODO abandon the base super class and join the 10km and 21km in BasePlotRunApi, like
+#  I did for plot_interval_run_api.
+
+
 class Plot21KmRunApi(BasePlotRunApi):
     DEFAULT_ACTIVITY_IDS_TO_COMPARE = [
         18891426764,  # Training on 21/04/2025 with HRM 200.

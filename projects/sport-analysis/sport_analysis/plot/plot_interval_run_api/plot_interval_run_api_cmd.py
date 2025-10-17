@@ -1,8 +1,10 @@
-from abc import ABC, abstractmethod
 from dataclasses import dataclass
+from enum import IntEnum
 from pathlib import Path
 from statistics import mean
+from typing import Sequence
 
+import datetime_utils
 import log_utils as logger
 import matplotlib.pyplot as plt
 import number_utils
@@ -26,6 +28,12 @@ class CollectedData:
     splits: list[dict] = None
 
 
+class DistanceEnum(IntEnum):
+    TWO_H = 200
+    THREE_H = 300
+    ONE_T = 1000
+
+
 # TODO
 #  - Consider removing the cadence graph and instead write, in the legend, the cadence
 #     avg and max for each activity (like we do for marathons). But mind that the
@@ -37,25 +45,32 @@ class CollectedData:
 #     in the cadence graph for the avg columns) in a small chart.
 
 
-class BasePlotIntervalRunApi(
-    ABC, base_api.MixinGarminRequestsApi, base_plot.MixinBarHPlot
-):
+class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarHPlot):
     """
     Plot charts to support the analysis of an interval run activity performance,
      optionally compared with previous activities.
     """
 
-    # IMP: TO BE DEFINED IN sub-classes.
     # Text used in the search for previous activities to compare. It's an exact match
     #  on activities' titles.
-    DEFAULT_TEXT_TO_SEARCH_FOR_PREVIOUS_ACTIVITIES: str | None = None
+    DEFAULT_TEXT_TO_SEARCH_FOR_PREVIOUS_ACTIVITIES: dict[DistanceEnum, str] = {
+        200: "x200m ".join((str(x) for x in range(1, 26))) + "x200m",
+        300: "x300m ".join((str(x) for x in range(1, 16))) + "x300m",
+        1000: "x1000m ".join((str(x) for x in range(1, 11))) + "x1000m",
+    }
     # List of all possible expected number of intervals: fi. for a 4x1000m it is [4],
-    #  but if you want to include also a 5x1000m then it is [4, 5].
-    DEFAULT_N_EXPECTED_INTERVALS: list[int] | None = None
+    #  but if you want to include also a 5x1000m then it is [4, 5]. Use range() to
+    #  include many values.
+    DEFAULT_N_EXPECTED_INTERVALS: dict[DistanceEnum, Sequence] = {
+        200: range(3, 26),
+        300: range(3, 16),
+        1000: range(3, 11),
+    }
 
     def __init__(
         self,
         garmin_activity_id: int,
+        distance: DistanceEnum | int,
         n_previous_activities_to_compare: int = 10,
         text_to_search_for_previous_activities: str | None = None,
         n_expected_intervals: list[int] | None = None,
@@ -82,14 +97,17 @@ class BasePlotIntervalRunApi(
         """
         super().__init__(garmin_connect_token_manager)
 
+        self.garmin_activity_id = garmin_activity_id
+        self.distance = distance
+        if distance not in DistanceEnum:
+            raise DistanceNotSupported(f"Distance not supported yet: {distance}")
         self.n_previous_activities_to_compare = n_previous_activities_to_compare
         self.text_to_search_for_previous_activities = (
             text_to_search_for_previous_activities
-            or self.DEFAULT_TEXT_TO_SEARCH_FOR_PREVIOUS_ACTIVITIES
+            or self.DEFAULT_TEXT_TO_SEARCH_FOR_PREVIOUS_ACTIVITIES[distance]
         )
-        self.garmin_activity_id = garmin_activity_id
         self.n_expected_intervals = (
-            n_expected_intervals or self.DEFAULT_N_EXPECTED_INTERVALS
+            n_expected_intervals or self.DEFAULT_N_EXPECTED_INTERVALS[distance]
         )
         self.title = title
         self.figure_size = figure_size
@@ -119,22 +137,26 @@ class BasePlotIntervalRunApi(
         # Secondary bars have the same height, the main bar has 2x height of sec bars.
         self._n_bars_per_group: int | None = None
 
-    @abstractmethod
     def _get_splits_for_activity_typed_splits_response(
         self,
         response: ActivityTypedSplitsResponse,
         # Usually we want to check the n of extracted splits vs the expected one only
-        #  for the given activity, not for the old activity to compare.
+        #  for the given activity, not for the old activities to compare.
         do_raise_if_n_split_not_expected=True,
     ):
-        """
-        To be reimplemented in sub-classe.
-        Extract the splits in the response with:
-         for split in response.get_interval_active_splits()
-        and make sure they are what you want, fi. their distance is 300m
-        and their number is in `n_expected_intervals` list[int], if given.
-        """
-        pass
+        max_distance_error = max(3, round(self.distance / 100))
+        splits = list()
+        for split in response.get_interval_active_splits():
+            if abs(split["distance"] - self.distance) < max_distance_error:
+                splits.append(split)
+        if do_raise_if_n_split_not_expected and (
+            len(splits) not in self.n_expected_intervals
+        ):
+            raise NumberOfExpectedIntervalsError(
+                f"Expected {' or '.join(str(x) for x in self.n_expected_intervals)} splits but found {len(splits)}"
+            )
+
+        return splits
 
     def _plot_time(self):
         a: Axes = self._axes_mosaic["time"]
@@ -763,8 +785,18 @@ class BasePlotIntervalRunApi(
         return speed_utils.minpkm_base10_to_base60(x)
 
     def _fmt_time(self, seconds: float):
+        if seconds > 60:
+            return datetime_utils.seconds_to_hh_mm_ss(round(seconds))[3:]
         return f"{seconds:.2f}"
 
 
 class BasePlotIntervalRunException(Exception):
+    pass
+
+
+class DistanceNotSupported(BasePlotIntervalRunException):
+    pass
+
+
+class NumberOfExpectedIntervalsError(BasePlotIntervalRunException):
     pass

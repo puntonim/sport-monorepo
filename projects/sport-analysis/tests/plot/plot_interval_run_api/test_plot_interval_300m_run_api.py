@@ -7,8 +7,8 @@ from garmin_connect_client.garmin_connect_token_managers import (
 )
 
 from sport_analysis.conf.settings_module import ROOT_DIR
-from sport_analysis.plot.plot_interval_run_api.plot_interval_300m_run_api import (
-    PlotInterval300mRunApi,
+from sport_analysis.plot.plot_interval_run_api.plot_interval_run_api_cmd import (
+    PlotIntervalRunApiCmd,
 )
 from tests.conftest import is_vcr_enabled, is_vcr_record_mode
 
@@ -38,8 +38,9 @@ class TestPlotInterval300mRunApi:
 
     def test_happy_flow(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        plot_6x300m_api = PlotInterval300mRunApi(
+        plot_6x300m_api = PlotIntervalRunApiCmd(
             garmin_activity_id,
+            distance=300,
             # n_previous_activities_to_compare=4,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
@@ -50,8 +51,9 @@ class TestPlotInterval300mRunApi:
 
     def test_n_previous_activity_to_compare_1(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        plot_6x300m_api = PlotInterval300mRunApi(
+        plot_6x300m_api = PlotIntervalRunApiCmd(
             garmin_activity_id,
+            distance=300,
             n_previous_activities_to_compare=1,
             # figure_size=(5, 7),
             garmin_connect_token_manager=self.garmin_token_mgr,
@@ -63,8 +65,9 @@ class TestPlotInterval300mRunApi:
 
     def test_n_previous_activity_to_compare_2(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        plot_6x300m_api = PlotInterval300mRunApi(
+        plot_6x300m_api = PlotIntervalRunApiCmd(
             garmin_activity_id,
+            distance=300,
             # Using 3 instead of 2 because the prev activity is the in-famous
             #  interrupted one and automatically fixed with a fixture.
             n_previous_activities_to_compare=3,
@@ -78,8 +81,9 @@ class TestPlotInterval300mRunApi:
 
     def test_n_previous_activity_to_compare_0(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        plot_6x300m_api = PlotInterval300mRunApi(
+        plot_6x300m_api = PlotIntervalRunApiCmd(
             garmin_activity_id,
+            distance=300,
             n_previous_activities_to_compare=0,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
