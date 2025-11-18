@@ -279,27 +279,8 @@ $ node -v > .nvmrc
 ```
 Follow the [install instructions](https://serverless.com/framework/docs/getting-started#install-as-a-standalone-binary)
 for Serverless, something like `curl -o- -L https://slss.io/install | bash`.
-We currently use version 3.12.0, if you have an older major version you can upgrade Serverless with: `sls upgrade --major`.
-
-Then to install the Serverless plugins required:
-```shell
-#$ sls upgrade  # Only if you are sure it will not install a major version.
-$ nvm install
-$ nvm use
-# You may need to restart your terminal before running the next command to avoid this warning:
-#  WARN serverless-python-requirements@5.4.0 requires a peer of serverless@^2.32 || 3 but none is installed.
-# The warning may eventually result in this error:
-#  Error: Cannot find module '/hdmap-web/projects/job-scheduler/node_modules/es5-ext/-e'
-$ sls plugin install -n serverless-python-requirements
-# If it fails again try with:
-$ npm install
-```
-
-Finally, you need to install `poetry-plugin-export` that allows poetry to run the
- `export` command that generates the classic requirements.txt file:
-```shell
-$ poetry self add poetry-plugin-export
-```
+We currently use version 3.12.0, if you have an older major version you can upgrade
+ Serverless with: `sls upgrade --major`.
 
 ### 2. Deployments steps
 

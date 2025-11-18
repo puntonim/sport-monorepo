@@ -1,11 +1,11 @@
 [project]
 name = "strava-facade-api"
-description = "Strava Facade API"
+description = "Sport Monorepo: Strava Facade API"
 authors = [
     {name = "puntonim",email = "puntonim@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"  # Latest AWS Lambda Python runtime.
+requires-python = ">=3.13,<4.0"  # <4 required by AWS utils (required by Lambda powertools, which is an extra optional).
 
 # Do not edit `version` directly or with `poetry version`, but instead run: `$ make version-bump/1.0.0`.
 # This is so we can write the version in __version__.py which is always included in
@@ -14,7 +14,6 @@ version = "1.2.0"
 
 dependencies = [
     "requests (>=2.32.3,<3.0.0)",
-    # "strava-client[aws-parameter-store] @ git+https://github.com/puntonim/sport-monorepo#subdirectory=libs/strava-client",
     "strava-client[aws-parameter-store] @ ../../libs/strava-client",
     "aws-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=aws-utils",
 ]
@@ -29,6 +28,10 @@ botocore = "1.30.1"  # Must be the same as in AWS Lambda Python runtime: https:/
 black = "24.10.0"  # Must be the same as in `.pre-commit-config.yaml`.
 isort = "5.13.2"  # Must be the same as in `.pre-commit-config.yaml`.
 ipdb = "^0.13.13"
+# Serverless with Python support uses `poetry export` command which is not available
+#  anymore in recent versions of Poetry. `poetry-plugin-export` solves this.
+# https://github.com/oss-review-toolkit/ort/issues/10642
+poetry-plugin-export = ">=1.9.0,<2.0.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.3.4"

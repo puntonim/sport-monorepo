@@ -1,6 +1,6 @@
 [project]
 name = "strava-exporter-to-db"
-description = "Strava Exporter to SQLite DB"
+description = "Sport Monorepo: Strava Exporter to SQLite DB"
 authors = [
     {name = "puntonim",email = "puntonim@gmail.com"}
 ]

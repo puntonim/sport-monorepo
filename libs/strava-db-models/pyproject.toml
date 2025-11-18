@@ -1,6 +1,6 @@
 [project]
 name = "strava-db-models"
-description = "Strava DB Models with Peewee ORM"
+description = "Sport Monorepo: Strava DB Models with Peewee ORM"
 version = "1.0.0"
 authors = [
     {name = "puntonim",email = "puntonim@gmail.com"}

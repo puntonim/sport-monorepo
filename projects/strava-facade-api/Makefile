@@ -68,7 +68,7 @@ deploy:
 
 .PHONY : test
 test:
-	poetry run pytest -s tests/ -v -n auto --durations=25
+	poetry run pytest -s tests/ -v -n auto --durations=3
 
 
 .PHONY : format

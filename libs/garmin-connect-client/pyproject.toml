@@ -1,6 +1,6 @@
 [project]
 name = "garmin-connect-client"
-description = "Garmin Connect Client"
+description = "Sport Monorepo: Garmin Connect Client"
 version = "1.0.0"
 authors = [
     {name = "puntonim",email = "puntonim@gmail.com"}

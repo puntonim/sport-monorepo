@@ -1,13 +1,12 @@
+# Serverless version 4.23.0.
+
 # Docs:
 #  - Serverless for AWS full specs: https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml/
-#  - Python reqs: https://github.com/UnitedIncome/serverless-python-requirements
+#  - Python reqs: https://www.serverless.com/framework/docs/providers/aws/guide/python
 #  - IAM: https://www.serverless.com/framework/docs/providers/aws/guide/iam
 #  - IAM Roles Per Function: https://www.serverless.com/framework/docs/providers/aws/guide/iam
 
 service: strava-facade-api
-
-
-frameworkVersion: "4"
 
 
 provider:
@@ -58,6 +57,13 @@ functions:
     iam:
       role:
         statements: []
+    # *Commented-out as this Lambda is with SYNC invocation (API Gateway).*
+    # DLQ only for ASYNC invocations: set, as DLQ, the SNS topic in aws-watchdog that
+    #  sends emails to me.
+    # Note: Lambda sync/async invocations examples:
+    #  - ASYNC: S3, SNS, SQS, CloudWatch Logs, EventBridge Scheduler, aws cli, etc.
+    #  - SYNC: API Gateway, etc.
+    # onError: arn:aws:sns:eu-south-1:477353422995:aws-watchdog-errors-prod
 
   endpoint-introspection:
     handler: strava_facade_api.views.introspection_view.lambda_handler
@@ -76,6 +82,13 @@ functions:
     iam:
       role:
         statements: []
+    # *Commented-out as this Lambda is with SYNC invocation (API Gateway).*
+    # DLQ only for ASYNC invocations: set, as DLQ, the SNS topic in aws-watchdog that
+    #  sends emails to me.
+    # Note: Lambda sync/async invocations examples:
+    #  - ASYNC: S3, SNS, SQS, CloudWatch Logs, EventBridge Scheduler, aws cli, etc.
+    #  - SYNC: API Gateway, etc.
+    # onError: arn:aws:sns:eu-south-1:477353422995:aws-watchdog-errors-prod
 
   endpoint-list-activities:
     handler: strava_facade_api.views.list_activities_view.lambda_handler
@@ -96,6 +109,13 @@ functions:
               - ssm:PutParameter
             Resource:
               - arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/${sls:stage}/*
+    # *Commented-out as this Lambda is with SYNC invocation (API Gateway).*
+    # DLQ only for ASYNC invocations: set, as DLQ, the SNS topic in aws-watchdog that
+    #  sends emails to me.
+    # Note: Lambda sync/async invocations examples:
+    #  - ASYNC: S3, SNS, SQS, CloudWatch Logs, EventBridge Scheduler, aws cli, etc.
+    #  - SYNC: API Gateway, etc.
+    # onError: arn:aws:sns:eu-south-1:477353422995:aws-watchdog-errors-prod
 
   endpoint-upd-activity-desc:
     handler: strava_facade_api.views.update_activity_description_view.lambda_handler
@@ -118,6 +138,13 @@ functions:
               - ssm:PutParameter
             Resource:
               - arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/${sls:stage}/*
+    # *Commented-out as this Lambda is with SYNC invocation (API Gateway).*
+    # DLQ only for ASYNC invocations: set, as DLQ, the SNS topic in aws-watchdog that
+    #  sends emails to me.
+    # Note: Lambda sync/async invocations examples:
+    #  - ASYNC: S3, SNS, SQS, CloudWatch Logs, EventBridge Scheduler, aws cli, etc.
+    #  - SYNC: API Gateway, etc.
+    # onError: arn:aws:sns:eu-south-1:477353422995:aws-watchdog-errors-prod
 
   endpoint-create-activity:
     handler: strava_facade_api.views.create_activity_view.lambda_handler
@@ -138,6 +165,13 @@ functions:
               - ssm:PutParameter
             Resource:
               - arn:aws:ssm:eu-south-1:477353422995:parameter/strava-facade-api/${sls:stage}/*
+    # *Commented-out as this Lambda is with SYNC invocation (API Gateway).*
+    # DLQ only for ASYNC invocations: set, as DLQ, the SNS topic in aws-watchdog that
+    #  sends emails to me.
+    # Note: Lambda sync/async invocations examples:
+    #  - ASYNC: S3, SNS, SQS, CloudWatch Logs, EventBridge Scheduler, aws cli, etc.
+    #  - SYNC: API Gateway, etc.
+    # onError: arn:aws:sns:eu-south-1:477353422995:aws-watchdog-errors-prod
 
 package:
   # Individually should only be used for a project with multiple modules each with their own specific dependencies.
@@ -151,15 +185,10 @@ package:
     - serverless.yml
 
 
-plugins:
-  - serverless-python-requirements
-
-
 custom:
   # Constants.
   source: https://github.com/puntonim/sport-monorepo/blob/main/projects/strava-facade-api/serverless.yml
 
-  # Plugin: serverless-python-requirements.
   pythonRequirements:
     # With the layer option, a new layer is created with the naming convention ${self:service}-${sls:stage}-python-requirements.
     layer: false

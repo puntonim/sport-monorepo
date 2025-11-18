@@ -1,6 +1,6 @@
 [project]
 name = "sport-analysis"
-description = "Sport Analysis"
+description = "Sport Monorepo: Sport Analysis"
 version = "0.1.0"
 authors = [
     {name = "puntonim",email = "puntonim@gmail.com"}

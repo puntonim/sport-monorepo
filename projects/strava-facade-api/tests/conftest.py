@@ -1,11 +1,11 @@
 import json
 import os
-import re
 from typing import Iterator
 
 import pytest
 from _pytest.fixtures import SubRequest
 from _pytest.unittest import TestCaseFunction
+from aws_parameter_store_client import aws_parameter_store_client
 from vcr.cassette import Cassette
 from vcr.errors import CannotOverwriteExistingCassetteException
 
@@ -227,6 +227,17 @@ def pytest_runtest_call():
             args[0] += "\nUse IS_VCR_EPISODE_OR_ERROR=no to record a new episode."
             exc.args = tuple(args)
         raise
+
+
+@pytest.fixture(autouse=True, scope="function")
+def clear_cache_for_aws_param_store_client():
+    """
+    Clear the Python in-memory cache (for time) used by AWS Param Store client.
+    Which is used in settings.py by `settings_utils.get_string_from_env_or_aws_parameter_store()`.
+    Without clearing the cache the HTTP interactions are not deterministic and vcr.py
+     raises exceptions for episodes not recorded or not played.
+    """
+    aws_parameter_store_client.cache.clear_cache()
 
 
 @pytest.fixture(scope="session")
