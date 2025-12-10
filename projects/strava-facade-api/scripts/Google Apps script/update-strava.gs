@@ -173,15 +173,17 @@ class UpdateStravaButton {
     this.__parsedExercises = [];
     if (!(this._isCalisthenicsClass())) {
       for (let col = 1; col <= this.activeRange.getWidth(); col++) {
-        const name = this.activeRange.getCell(2, col).getValue();
-        // Note: reps is not alwyas a number, it can be a str like "30s".
-        const reps = this.activeRange.getCell(3, col).getValue();
-        const sets = this.activeRange.getCell(4, col).getValue();
+        const name = this.activeRange.getCell(2, col).getValue(); // eg. "Hollow body lat pull-down".
+        const weightXReps = this.activeRange.getCell(3, col).getValue();
+        const weight = weightXReps.split(" x ")[0]; // eg. "40kg" or "80%RM (bodyweight+20kg)".
+        const reps = weightXReps.split(" x ")[1]; // eg. "6" or "30s".
+
+        const sets = this.activeRange.getCell(4, col).getValue(); // eg. "8".
         if (!Number.isInteger(sets) || sets < 1 || sets > 90) {
           showAlert("Not a valid sets counter: " + sets);
           return;
         }
-        this.__parsedExercises.push({name: name, reps: reps, sets: sets});
+        this.__parsedExercises.push({name: name, weight: weight, reps: reps, sets: sets});
       }
     }
     return this.__parsedExercises;
@@ -291,7 +293,8 @@ class UpdateStravaButton {
       }
     } else {
       for (let exercise of this._parseExercises()) {
-        desc += exercise.name + ": " + exercise.reps + " reps x " + exercise.sets + " sets\n"
+        // Note: I changed the format of this text starting from the "Powerlifting class" activity done on 09/12/2025.
+        desc += exercise.name + ": " + exercise.sets + " sets x " + exercise.reps + " reps @ " + exercise.weight + "\n";
       }
       if (note) desc += "\n\nNote: " + note.substring(0, 1).toLowerCase() + note.substring(1);
     }
@@ -302,7 +305,7 @@ class UpdateStravaButton {
 
   _confirmUpdateExistingActivityMsg(existingActivities) {
     /**
-     * Ask, with a GUI message, to confirm the update of the first (or the only one) activity found in Strava (the most recent).
+     * Ask, with a GUI message, to confirm the update of the most recent (or the only one) activity found in Strava.
      */
     let text = "Found #" + existingActivities.length + " activities:";
     for (let activity of existingActivities) {
@@ -310,7 +313,7 @@ class UpdateStravaButton {
       text += "\nName: " + activity.name;
       text += "\nTs: " + activity.start_date_local;
     }
-    if (existingActivities.length > 1) text += `\n\nUpdate the 1st one: ${existingActivities[0].name}?`;
+    if (existingActivities.length > 1) text += `\n\nUpdate the most recent: ${existingActivities[0].name}?`;
     else text += "\n\nUpdate it?";
     return showYesNoAlert(text);
   }
