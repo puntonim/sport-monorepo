@@ -93,10 +93,50 @@ __all__ = [
     "RawActivitySummary",
     "RawActivityDetails",
     "Activity",
+    "STRAVA_ACTIVITY_TYPES",
     "sql_functions",
     "triggers",
     "register_default_tables_and_triggers_and_sql_functions",
 ]
+
+
+# Strava activity types, stored in the field "type".
+# I collected all the activity types with this sketch:
+#  https://github.com/puntonim/sport-monorepo/blob/main/projects/sport-analysis/sport_analysis/sketches/collect_all_strava_activity_types.py
+STRAVA_ACTIVITY_TYPES = (
+    "BackcountrySki",
+    "Hike",
+    "Kayaking",
+    "NordicSki",
+    "Ride",
+    "RockClimbing",
+    "Run",
+    "Snowboard",
+    "Snowshoe",
+    "Walk",
+    "WeightTraining",
+    "Workout",
+)
+
+# These are stored in the filed "sport_type", way less important.
+# You always want to use STRAVA_ACTIVITY_TYPES.
+_STRAVA_ACTIVITY_SPORT_TYPES = (
+    "BackcountrySki",
+    "Hike",
+    "Kayaking",
+    "MountainBikeRide",
+    "NordicSki",
+    "Racquetball",
+    "Ride",
+    "RockClimbing",
+    "Run",
+    "Snowboard",
+    "Snowshoe",
+    "TrailRun",
+    "Walk",
+    "WeightTraining",
+    "Workout",
+)
 
 
 def _now_utc() -> datetime:
