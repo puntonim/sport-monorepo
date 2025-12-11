@@ -6,6 +6,7 @@ $ san --help
 
 import click
 
+from .count.count_activities_api import count_activities_api_cli_view
 from .count.count_activities_db import count_activities_db_cli_view
 from .health_cli_view import health_cli_view
 from .plot.plot_interval_run_api.plot_interval_run_api_cli import (
@@ -46,3 +47,4 @@ cli.add_command(plot_simple_ride_api_cli_view)
 cli.add_command(plot_climb_ride_api_cli_view)
 cli.add_command(search_text_db_cli_view)
 cli.add_command(count_activities_db_cli_view)
+cli.add_command(count_activities_api_cli_view)

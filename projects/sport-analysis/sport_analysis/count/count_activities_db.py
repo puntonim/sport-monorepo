@@ -10,25 +10,10 @@ from ..base_cli_view import BaseClickCommand
 from ..conf import settings
 
 # Configure peewee_utils with the SQLite DB path.
-peewee_utils.configure(sqlite_db_path=settings.DB_PATH)
+peewee_utils.configure(get_sqlite_db_path_fn=lambda: settings.DB_PATH)
 
 # Register all default tables, triggers and sql_functions.
 strava_db_models.register_default_tables_and_triggers_and_sql_functions()
-
-ACTIVITY_TYPES = (
-    "BackcountrySki",
-    "Hike",
-    "Kayaking",
-    "NordicSki",
-    "Ride",
-    "RockClimbing",
-    "Run",
-    "Snowboard",
-    "Snowshoe",
-    "Walk",
-    "WeightTraining",
-    "Workout",
-)
 
 
 @click.command(
@@ -46,7 +31,11 @@ ACTIVITY_TYPES = (
     type=click.DateTime(formats=["%Y-%m-%dT%H:%M:%S%z"]),
     help="Filter on activity's start date; eg. 2024-01-01T00:00:01+01:00",
 )
-@click.option("--activity-type", type=str, help=f"One of: {', '.join(ACTIVITY_TYPES)}")
+@click.option(
+    "--activity-type",
+    type=str,
+    help=f"One of: {', '.join(strava_db_models.STRAVA_ACTIVITY_TYPES)}",
+)
 @peewee_utils.use_db
 def count_activities_db_cli_view(
     start_date_after: datetime | str | None = None,
@@ -79,9 +68,11 @@ def count_activities_db(
 
     # Parse activity_type.
     if activity_type:
-        if activity_type.lower() not in (x.lower() for x in ACTIVITY_TYPES):
+        if activity_type.lower() not in (
+            x.lower() for x in strava_db_models.STRAVA_ACTIVITY_TYPES
+        ):
             raise UnknownActivityType(activity_type)
-        logger.info(f"Filter: activity-type = {start_date_before.isoformat()}")
+        logger.info(f"Filter: activity-type = {activity_type}")
 
     query = strava_db_models.Activity.select()
     if start_date_after:

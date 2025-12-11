@@ -69,3 +69,8 @@ format:
 format-check:
 	isort --check-only .
 	black --check .
+
+
+.PHONY : cli
+cli/%:
+	poetry run san $*

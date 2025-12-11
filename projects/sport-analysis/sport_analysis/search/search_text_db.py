@@ -9,7 +9,7 @@ from ..base_cli_view import BaseClickCommand
 from ..conf import settings
 
 # Configure peewee_utils with the SQLite DB path.
-peewee_utils.configure(sqlite_db_path=settings.DB_PATH)
+peewee_utils.configure(get_sqlite_db_path_fn=lambda: settings.DB_PATH)
 
 # Register all default tables, triggers and sql_functions.
 strava_db_models.register_default_tables_and_triggers_and_sql_functions()
