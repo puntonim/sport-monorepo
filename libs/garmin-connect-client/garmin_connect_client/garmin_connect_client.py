@@ -188,13 +188,12 @@ class GarminConnectClient:
          return in client.get_activity_summary(<activity id>).
         """
         if isinstance(day, date) or isinstance(day, datetime):
-            date_str = day.isoformat()
+            date_str = day.isoformat()[:10]
         elif isinstance(day, str):
             try:
-                datetime.fromisoformat(day)
+                date_str = datetime.fromisoformat(day).isoformat()[:10]
             except ValueError as exc:
                 raise InvalidDate(day) from exc
-            date_str = day
         else:
             raise InvalidDate(day)
         data: dict[str, dict] = self.garmin.get_activities_fordate(date_str)
@@ -516,7 +515,15 @@ class GarminConnectClient:
         I tested that all the streams sizes match the original dataset size.
         Note that some streams can contain None values, see details in ActivityDetailsResponse.
         """
-        maxpoly = 0
+        # BUG: note that there is a bug in the lib python-garminconnect
+        #  that allows only integers > 0, and not 0. I submitted a PR to fix it:
+        #  https://github.com/cyberjunky/python-garminconnect/pull/313/
+        #  When merged and deployed I can change this to 0, then delete and record
+        #  again the cassette for the test `test_with_no_polyline`.
+        #  Also other cassettes have to be fixed (?maxChartSize=100000&maxPolylineSize=1).
+        #  Mind that also tests in sport-analysis might have to be recorded again after
+        #  a requirements bump (after my fix is merged and deployed).
+        maxpoly = 1  # BUG: see comment above.
         if do_include_polyline:
             maxpoly = max_polyline_count
         response: dict[str, Any] = self.garmin.get_activity_details(

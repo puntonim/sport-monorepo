@@ -394,6 +394,45 @@ class TestGetActivityDetails:
             == 26
         )
 
+    def test_with_100_polyline(self):
+        client = GarminConnectClient(self.token_mgr)
+        activity_id = 21201295638  # Fara Gera d'Adda Running.
+        response = client.get_activity_details(
+            activity_id,
+            max_metrics_data_count=50,
+            do_include_polyline=True,
+            max_polyline_count=100,
+            do_keep_raw_data=True,
+        )
+        polyline_count = len(response.data["geoPolylineDTO"]["polyline"])
+        assert abs(polyline_count - 100) < 10
+
+    def test_with_4000_polyline(self):
+        client = GarminConnectClient(self.token_mgr)
+        activity_id = 19360781587  # Sellaronda.
+        response = client.get_activity_details(
+            activity_id,
+            max_metrics_data_count=50,
+            do_include_polyline=True,
+            max_polyline_count=4000,
+            do_keep_raw_data=True,
+        )
+        polyline_count = len(response.data["geoPolylineDTO"]["polyline"])
+        assert polyline_count == 2858
+
+    def test_with_no_polyline(self):
+        client = GarminConnectClient(self.token_mgr)
+        activity_id = 21201295638  # Fara Gera d'Adda Running.
+        response = client.get_activity_details(
+            activity_id,
+            max_metrics_data_count=50,
+            do_include_polyline=False,
+            # max_polyline_count=100,
+            do_keep_raw_data=True,
+        )
+        polyline_count = len(response.data["geoPolylineDTO"]["polyline"])
+        assert polyline_count == 1
+
 
 class TestDownloadFitContent:
     def setup_method(self):

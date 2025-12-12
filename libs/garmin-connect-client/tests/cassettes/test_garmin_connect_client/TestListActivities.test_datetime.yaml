@@ -142,7 +142,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2025-03-22T00:00:00
+    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2025-03-22
   response:
     body:
       string: '{"ActivitiesForDay": {"requestUrl": "/activitylist-service/activities/fordailysummary/3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
