@@ -1,11 +1,8 @@
-- Finish sketches/eoy_stats_db.py
-
 - Usa le nuove feature di datetime_utils in strava_client e garmin_client
    e rinomina tutto in start_date_after|before e start_day_after|before
 
 - rename `count` dir to `stats|generic_stats|misc_stats|basic_stats|other_stats`?
   and use it as a container of anything that does not fit in other dirs?
-  and add eoy_stats.py
 
 - aggiungi plot pace per km al Fosso?
 

@@ -1303,7 +1303,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/activity-service/activity/18689027868/details?maxChartSize=100000&maxPolylineSize=0
+    uri: https://connectapi.garmin.com/activity-service/activity/18689027868/details?maxChartSize=100000&maxPolylineSize=1
   response:
     body:
       string: '{"activityId": 18689027868, "measurementCount": 17, "metricsCount":
@@ -33331,7 +33331,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/activity-service/activity/15974223178/details?maxChartSize=100000&maxPolylineSize=0
+    uri: https://connectapi.garmin.com/activity-service/activity/15974223178/details?maxChartSize=100000&maxPolylineSize=1
   response:
     body:
       string: '{"activityId": 15974223178, "measurementCount": 16, "metricsCount":
@@ -47637,7 +47637,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/activity-service/activity/12877651519/details?maxChartSize=100000&maxPolylineSize=0
+    uri: https://connectapi.garmin.com/activity-service/activity/12877651519/details?maxChartSize=100000&maxPolylineSize=1
   response:
     body:
       string: '{"activityId": 12877651519, "measurementCount": 27, "metricsCount":
@@ -71310,7 +71310,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/activity-service/activity/11313479371/details?maxChartSize=100000&maxPolylineSize=0
+    uri: https://connectapi.garmin.com/activity-service/activity/11313479371/details?maxChartSize=100000&maxPolylineSize=1
   response:
     body:
       string: '{"activityId": 11313479371, "measurementCount": 18, "metricsCount":
@@ -105215,7 +105215,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/activity-service/activity/18633237715/details?maxChartSize=100000&maxPolylineSize=0
+    uri: https://connectapi.garmin.com/activity-service/activity/18633237715/details?maxChartSize=100000&maxPolylineSize=1
   response:
     body:
       string: '{"activityId": 18633237715, "measurementCount": 13, "metricsCount":
@@ -131383,7 +131383,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/activity-service/activity/18861865288/details?maxChartSize=100000&maxPolylineSize=0
+    uri: https://connectapi.garmin.com/activity-service/activity/18861865288/details?maxChartSize=100000&maxPolylineSize=1
   response:
     body:
       string: '{"activityId": 18861865288, "measurementCount": 18, "metricsCount":
@@ -150749,7 +150749,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/activity-service/activity/18606916834/details?maxChartSize=100000&maxPolylineSize=0
+    uri: https://connectapi.garmin.com/activity-service/activity/18606916834/details?maxChartSize=100000&maxPolylineSize=1
   response:
     body:
       string: '{"activityId": 18606916834, "measurementCount": 26, "metricsCount":
@@ -167344,7 +167344,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/activity-service/activity/18923007987/details?maxChartSize=100000&maxPolylineSize=0
+    uri: https://connectapi.garmin.com/activity-service/activity/18923007987/details?maxChartSize=100000&maxPolylineSize=1
   response:
     body:
       string: '{"activityId": 18923007987, "measurementCount": 27, "metricsCount":

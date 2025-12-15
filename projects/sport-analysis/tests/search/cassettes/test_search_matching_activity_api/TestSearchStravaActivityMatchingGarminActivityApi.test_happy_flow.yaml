@@ -218,7 +218,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://www.strava.com/api/v3/athlete/activities?before=1743406496&after=1743405896&per_page=1
+    uri: https://www.strava.com/api/v3/athlete/activities?before=1743406497&after=1743405895&per_page=1
   response:
     body:
       string: '[{"resource_state": 2, "athlete": {"id": 115890775, "resource_state":
@@ -528,7 +528,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://www.strava.com/api/v3/athlete/activities?before=1718699391&after=1718698791&per_page=1
+    uri: https://www.strava.com/api/v3/athlete/activities?before=1718699392&after=1718698790&per_page=1
   response:
     body:
       string: '[{"resource_state": 2, "athlete": {"id": 115890775, "resource_state":
@@ -866,7 +866,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://www.strava.com/api/v3/athlete/activities?before=1700985956&after=1700985356&per_page=1
+    uri: https://www.strava.com/api/v3/athlete/activities?before=1700985957&after=1700985355&per_page=1
   response:
     body:
       string: '[{"resource_state": 2, "athlete": {"id": 115890775, "resource_state":

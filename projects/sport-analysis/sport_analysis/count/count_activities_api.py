@@ -19,9 +19,11 @@ from ..conf import settings
 @click.command(
     cls=BaseClickCommand,
     name="count",
+    # The `\b` prevents the word-wrapping.
     help="""
     Count activities in Strava.
     
+    \b
     Eg.: san count --start-date-after 2024-01-01T00:00:01+01:00 --start-date-before 2024-12-31T23:59:59+01:00 --activity-type ride
     """,
 )
@@ -72,7 +74,6 @@ def count_activities_api(
     """
     # Parse start_date_after|before.
     start_date_after: datetime = datetime_utils.parse_datetime_arg(start_date_after)
-
     logger.info(
         f"[underline]Filter[/]: [bold on yellow]start-date-after[/] = {start_date_after.isoformat()}",
         highlight=False,
