@@ -13,7 +13,7 @@ The method `list_activities()` in strava-client lib returns the following
         "moving_time": 4462,
         "elapsed_time": 4822,
         "total_elevation_gain": 48.0,
-        "type": "Run",
+        "type": "Run",  # Note: all types described in https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-db-models/strava_db_models/strava_db_models.py#L106.
         "sport_type": "Run",
         "workout_type": 0,
         "device_name": "Garmin Forerunner 965",

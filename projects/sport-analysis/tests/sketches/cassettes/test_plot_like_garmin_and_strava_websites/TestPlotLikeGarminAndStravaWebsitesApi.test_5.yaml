@@ -3223,7 +3223,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/activity-service/activity/18633237715/details?maxChartSize=100000&maxPolylineSize=0
+    uri: https://connectapi.garmin.com/activity-service/activity/18633237715/details?maxChartSize=100000&maxPolylineSize=1
   response:
     body:
       string: '{"activityId": 18633237715, "measurementCount": 13, "metricsCount":

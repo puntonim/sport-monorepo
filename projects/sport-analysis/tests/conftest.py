@@ -259,7 +259,7 @@ def create_db_fixture(test_settings_fixture, monkeypatch, request):
     #  fixture to be executed before this one.
 
     # Configure peewee_utils with the SQLite DB path.
-    peewee_utils.configure(sqlite_db_path=settings.DB_PATH)
+    peewee_utils.configure(get_sqlite_db_path_fn=lambda: settings.DB_PATH)
 
     # Register all default tables, triggers and sql_functions.
     strava_db_models.register_default_tables_and_triggers_and_sql_functions()
@@ -269,5 +269,5 @@ def create_db_fixture(test_settings_fixture, monkeypatch, request):
     peewee_utils.peewee_utils._db_init()
     peewee_utils.create_all_tables()
     yield
-    if peewee_utils.db and not peewee_utils.db.is_closed():
-        peewee_utils.db.close()
+    if peewee_utils.get_db() and not peewee_utils.get_db().is_closed():
+        peewee_utils.get_db().close()

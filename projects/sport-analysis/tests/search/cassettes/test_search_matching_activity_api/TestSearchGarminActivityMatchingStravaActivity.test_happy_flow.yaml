@@ -1227,7 +1227,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2025-03-31T07:29:56+00:00
+    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2025-03-31
   response:
     body:
       string: '{"ActivitiesForDay": {"requestUrl": "/activitylist-service/activities/fordailysummary/3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
@@ -2478,7 +2478,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2024-06-18T08:24:51+00:00
+    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2024-06-18
   response:
     body:
       string: '{"ActivitiesForDay": {"requestUrl": "/activitylist-service/activities/fordailysummary/3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
@@ -3403,7 +3403,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2023-11-26T08:00:56+00:00
+    uri: https://connectapi.garmin.com/mobile-gateway/heartRate/forDate/2023-11-26
   response:
     body:
       string: '{"ActivitiesForDay": {"requestUrl": "/activitylist-service/activities/fordailysummary/3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
