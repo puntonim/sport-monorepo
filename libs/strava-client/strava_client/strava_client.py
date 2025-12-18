@@ -424,6 +424,46 @@ class StravaClient:
             raise
         return StreamsResponse(response)
 
+    def list_segment_efforts(self, *args, **kwargs):
+        """
+        List all efforts done by me on a specific segment (eg. 14418673 - Selvino Fontanella).
+        """
+        raise NotImplementedError("This API requires a Strava payment subscription")
+
+    # @handle_api_rate_limit_error
+    # def list_segment_efforts(
+    #     self,
+    #     segment_id: int,
+    #     start_date_after: datetime | str | int | float | None = None,  # Inclusive.
+    #     start_date_before: datetime | str | int | float | None = None,  # Inclusive.
+    #     n_results_per_page: int | None = None,
+    #     page_n: int = 1,
+    # ):
+    #     start_date_after: datetime = datetime_utils.parse_datetime_arg(start_date_after)
+    #     start_date_before: datetime = datetime_utils.parse_datetime_arg(
+    #         start_date_after
+    #     )
+    #     url = "https://www.strava.com/api/v3/segment_efforts"
+    #     headers = {"Authorization": f"Bearer {self._access_token}"}
+    #     payload = {
+    #         "segment_id": segment_id,
+    #     }
+    #     if start_date_before:
+    #         payload["before"] = start_date_before.isoformat()
+    #     if start_date_after:
+    #         payload["start_date_local"] = start_date_after.isoformat()
+    #     if n_results_per_page:
+    #         payload["per_page"] = n_results_per_page
+    #     if page_n != 1:
+    #         payload["page"] = page_n
+    #     response = requests.get(url, headers=headers, params=payload)
+    #     try:
+    #         response.raise_for_status()
+    #     except requests.HTTPError as exc:
+    #         raise
+    #
+    #     return response
+
 
 class BaseStravaClientException(Exception):
     pass
