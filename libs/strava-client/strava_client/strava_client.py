@@ -63,7 +63,7 @@ import log_utils as logger
 import requests
 from datetime_utils import datetime_utils
 
-from .responses import (
+from .responses.responses import (
     ActivityDetailsResponse,
     CreatedActivity,
     ListActivitiesResponse,

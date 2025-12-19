@@ -1,0 +1,150 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/athlete/activities?after=1763877599&per_page=5
+  response:
+    body:
+      string: '[{"resource_state": 2, "athlete": {"id": 115890775, "resource_state":
+        1}, "name": "Tapasciata Osio Sotto", "distance": 15018.3, "moving_time": 4715,
+        "elapsed_time": 5184, "total_elevation_gain": 67.0, "type": "Run", "sport_type":
+        "Run", "workout_type": 0, "device_name": "Garmin Forerunner 965", "id": 16540594609,
+        "start_date": "2025-11-23T07:47:13Z", "start_date_local": "2025-11-23T08:47:13Z",
+        "timezone": "(GMT+01:00) Europe/Rome", "utc_offset": 3600.0, "location_city":
+        null, "location_state": null, "location_country": null, "achievement_count":
+        0, "kudos_count": 2, "comment_count": 0, "athlete_count": 1, "photo_count":
+        0, "map": {"id": "a16540594609", "summary_polyline": "g`muGyvpy@dBSrCIfBlA`@d@dAj@RZd@fBVlBPx@lA`DPZtAp@ZHrAP~@@lD^rEv@rAj@r@h@Pv@^pC@v@t@`GLxATjAj@`GFD|BIb@DVDLRBN?hAIxADt@j@~CAXIHmBFi@FKc@_@eDEK[Eq@@mAMi@@eBKKFKb@k@NyC\\{CCGN?Lh@lCH`Ad@lDrA|HP^ZtA^z@Jb@`@f@fDbBj@f@~AjCpA~A\\~@nDdHfAvDXr@IGONC~@G`@@PHJZPP@^\\hBbAXd@DZAfAxBbIHlAHVH|@F~ADDEX@v@JzAH`@p@hBHh@N~BNnAPbDBfARFK\\R|CVnBAPS@_Ac@qC?aASuABaBSQHWv@OJm@FWCk@LqAFUHeAr@a@LGCGW?_@MmAOSuANuAd@cBJCIDMj@gAvAqFvAqCl@yAh@mC@QWIyE?u@XaB}@EIAg@De@IMy@VaAr@q@n@e@TSKOc@Ms@?[Ea@GESDWq@k@XsAD{@MgD}@YLETJx@?lBFdAO^q@`ACh@Xn@Jr@v@|CTdBLRZzAtAxEv@dDJVFDXKNBnApAG`@[d@o@VAHu@b@]KuBeAcAEwBa@wAs@cAMyAsA_BiAIO_@[_C}AeBQi@YeBq@_F_Ac@FuDvA}@NyFn@qIx@SCQMEKLyITs@gBs@mE{BQFq@v@{@f@}E|Ak@EaATgJ`@wAZU?yBaAsByAy@YoBqA{@a@yAiAQ]Sy@QeDO_ACo@Om@o@e@MWyA{Ai@s@i@kAOQmAcAuAw@{AM}@?SIcBkGSc@eA}@}@eAcC_@UKMQ_@aA?S|ByC`@}@bAkDZuAbAyBF_@BkADMHPl@rEn@|GJTjCg@rAk@lCu@VOFq@@gBZ{CVyDLo@j@gGj@eEN}Ab@cAr@uCN_@TGXJRAJUJu@Pm@P[VOfAQTO~AsBdAsBAyDIcEAoGEeA@ORQ^o@zGeBrCm@lBq@n@a@J@NPL?Rq@NUzAw@bCaBt@[Vj@Lt@l@bCJl@Ar@EZ[n@Wv@BXLTtCfChEtCxBt@dAl@rAl@`ANd@KzBaAj@G^JZZPf@b@lDTt@f@x@xCdDFAR}APo@Do@dAeIFeCAe@R_CPqFd@YdA?NKDYQeADa@O}AScAKeAA[KYUyAcAiIGQQSG]Q[m@s@_Ch@mFb@\\E",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        "g20743230", "start_latlng": [45.62127, 9.593204], "end_latlng": [45.622294,
+        9.593923], "average_speed": 3.185, "max_speed": 5.18, "average_cadence": 85.0,
+        "average_temp": 12, "average_watts": 375.1, "max_watts": 561, "weighted_average_watts":
+        367, "device_watts": true, "kilojoules": 1762.4, "has_heartrate": true, "average_heartrate":
+        132.4, "max_heartrate": 153.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 198.6, "elev_low": 164.0, "upload_id": 17627822411, "upload_id_str":
+        "17627822411", "external_id": "garmin_ping_505110804919", "from_accepted_tag":
+        false, "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
+        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Calisthenics
+        class", "distance": 0.0, "moving_time": 3600, "elapsed_time": 3600, "total_elevation_gain":
+        0, "type": "WeightTraining", "sport_type": "WeightTraining", "workout_type":
+        30, "id": 16556063905, "start_date": "2025-11-24T19:00:00Z", "start_date_local":
+        "2025-11-24T20:00:00Z", "timezone": "(GMT+01:00) Europe/Rome", "utc_offset":
+        3600.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a16556063905", "summary_polyline": "",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": true,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0, "max_speed":
+        0, "has_heartrate": false, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        false, "upload_id": null, "external_id": null, "from_accepted_tag": false,
+        "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
+        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Powerlifting
+        class: massimali", "distance": 0.0, "moving_time": 3600, "elapsed_time": 3600,
+        "total_elevation_gain": 0, "type": "WeightTraining", "sport_type": "WeightTraining",
+        "workout_type": 30, "id": 16565917398, "start_date": "2025-11-25T18:00:00Z",
+        "start_date_local": "2025-11-25T19:00:00Z", "timezone": "(GMT+01:00) Europe/Rome",
+        "utc_offset": 3600.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a16565917398", "summary_polyline": "",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": true,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0, "max_speed":
+        0, "has_heartrate": false, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        false, "upload_id": null, "external_id": null, "from_accepted_tag": false,
+        "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
+        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "3x1000m", "distance":
+        7638.3, "moving_time": 2446, "elapsed_time": 2851, "total_elevation_gain":
+        25.0, "type": "Run", "sport_type": "Run", "workout_type": 0, "device_name":
+        "Garmin Forerunner 965", "id": 16573029399, "start_date": "2025-11-26T14:35:00Z",
+        "start_date_local": "2025-11-26T15:35:00Z", "timezone": "(GMT+01:00) Europe/Rome",
+        "utc_offset": 3600.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a16573029399", "summary_polyline": "yqkuGqduy@}Ed@WAm@@qAEy@@cAAoB@k@Ce@Dg@?UBmBIiCCo@SmCuAsD}AmEi@m@COEIIKUG_@K_BIg@Oc@Wc@OaAMOSOQWi@e@Wa@Au@JsFFk@Lu@Nc@`@w@h@{A@i@E{B@GJIx@_@h@MnBu@HICAE@wHnM@@DCx@qBRu@Dm@GkB@MBIXOzCkAp@KDC@GCAi@N_CbAe@NWLEFG`@BhAAn@EVs@dB_@dAKj@KhBInECTIPMJG@uCEwAJE@Y`@]Zg@HOAMGEG?IBkBBOAGGGCK?cBM}EAiB@MIi@IuC@{@AkBCQEE@WH_@Au@@_@S_DC_CDaBFcAGSKKo@H[@IBOAEGYiAKi@Ka@G@k@^KIo@yB?GFEHB`@Jt@ZD?mAc@SOOEAIBi@AIOOo@QEKRaBLQDMDg@HSLA^Dj@Nx@LfAVxBl@pAd@\\PDAHMLiBJs@VqANWFAZHDAFCRSLKNEN?lDl@bAVTLX\\\\FFFFT?tB@`@C`Ai@tCE`@SLEROhEBRHPH?\\HpBz@nA\\nC`ApAj@x@XVNnCr@FFLDDCf@Ax@JTJFPBBj@AbBSzBMrBS~AI|BSb@G^B|@E`B_@\\KZOLDBRJtAXdCBl@DTDDL@\\I|@GfAOrAI`AKd@IFADBLjA@lBB|@AHIJEBMBc@E[GYK[ESOsAm@SEc@?UFUNk@p@MVGVGHOjAYr@OCq@WD?BNLHHPFl@?FCB?`@Fh@AR[fCA~ADf@L^PXNLTHX@LCb@WhAu@hB{Az@u@\\_@f@]\\_@HAv@TDpA@~BClCDrB",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        "g13634133", "start_latlng": [45.609162, 9.616743], "end_latlng": [45.609117,
+        9.616785], "average_speed": 3.123, "max_speed": 5.34, "average_cadence": 82.6,
+        "average_temp": 17, "average_watts": 362.6, "max_watts": 603, "weighted_average_watts":
+        384, "device_watts": true, "kilojoules": 881.5, "has_heartrate": true, "average_heartrate":
+        134.0, "max_heartrate": 166.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 188.8, "elev_low": 170.0, "upload_id": 17660743594, "upload_id_str":
+        "17660743594", "external_id": "garmin_ping_506287273897", "from_accepted_tag":
+        false, "pr_count": 0, "total_photo_count": 1, "has_kudoed": false}, {"resource_state":
+        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Powerlifting
+        class: massimali e nuovi PR \ud83c\udfc6", "distance": 0.0, "moving_time":
+        3600, "elapsed_time": 3600, "total_elevation_gain": 0, "type": "WeightTraining",
+        "sport_type": "WeightTraining", "workout_type": 30, "id": 16585915980, "start_date":
+        "2025-11-27T18:00:00Z", "start_date_local": "2025-11-27T19:00:00Z", "timezone":
+        "(GMT+01:00) Europe/Rome", "utc_offset": 3600.0, "location_city": null, "location_state":
+        null, "location_country": null, "achievement_count": 0, "kudos_count": 0,
+        "comment_count": 0, "athlete_count": 1, "photo_count": 0, "map": {"id": "a16585915980",
+        "summary_polyline": "", "resource_state": 2}, "trainer": false, "commute":
+        false, "manual": true, "private": false, "visibility": "followers_only", "flagged":
+        false, "gear_id": null, "start_latlng": [], "end_latlng": [], "average_speed":
+        0.0, "max_speed": 0, "has_heartrate": false, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        false, "upload_id": null, "external_id": null, "from_accepted_tag": false,
+        "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 21 Dec 2025 09:52:41 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 1d51063b8fd055d6c4f28fa80953f460.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - fsZINChs6JOv9OEsTo0GYvfAnGSdJlfbwo9rCcKTmZ1g0a1kC1wHIA==
+      X-Amz-Cf-Pop:
+      - MXP53-P6
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '7752'
+      etag:
+      - W/"d114e3a0eeac1cb0b35a773c33e3cbdc"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '229'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 3,18
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 3,18
+      x-request-id:
+      - 4e87282f-219b-4b28-96b0-500395791f3e
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

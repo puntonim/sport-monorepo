@@ -1,8 +1,12 @@
+import warnings
 from collections import defaultdict
+from collections.abc import Generator
 from functools import cached_property, lru_cache
 from typing import Any
 
 import requests
+
+from . import list_activities_response_filters
 
 __all__ = [
     "ActivityDetailsResponse",
@@ -39,19 +43,156 @@ class ListActivitiesResponse(BaseJsonResponse):
 
     data: list[dict[str, Any]]
 
-    def filter_by_activity_type(self, activity_type: str):
+    def filter_by_activity_type(
+        self,
+        # All types described in https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-db-models/strava_db_models/strava_db_models.py#L106.
+        activity_type: str,
+    ) -> Generator[dict]:
         """
-        Filter by activity_type.
+        Filter the collected activities summaries by activity_type.
+        Note: it's obsolete, instead use .filter(activity_type=...).
+        Note: all types described in https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-db-models/strava_db_models/strava_db_models.py#L106.
 
         Note: this is just a Python filtering (NOT supported by Strava API).
         """
-        for activity in self.data:
-            activity: dict
-            if (
-                activity.get("type") == activity_type
-                or activity.get("sport_type") == activity_type
+        warnings.warn("use filter(activity_type=...)", DeprecationWarning)
+        return self.filter(activity_type=activity_type)
+
+    def filter(
+        self,
+        title_contains: str | None = None,
+        # All types described in https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-db-models/strava_db_models/strava_db_models.py#L106.
+        activity_type: str | None = None,
+        start_latlng: tuple[float, float, int] | tuple[float, float] | None = None,
+        end_latlng: tuple[float, float, int] | tuple[float, float] | None = None,
+        location_visited_latlng: (
+            tuple[float, float, int] | tuple[float, float] | None
+        ) = None,
+        # Meters (int). The original metric is float.
+        distance_range: tuple[int, int] | None = None,
+        # Seconds (int). The original metric is float.
+        moving_time_range: tuple[int, int] | None = None,
+        # Seconds (int). The original metric is float.
+        elapsed_time_range: tuple[int, int] | None = None,
+        # Meters (int). The original metric is float.
+        elevation_gain_range: tuple[int, int] | None = None,
+        # Meters (int). The original metric is float.
+        elevation_highest_range: tuple[int, int] | None = None,
+        # Meters (int). The original metric is float.
+        elevation_lowest_range: tuple[int, int] | None = None,
+        # km/h (float). The original metric is m/s, float.
+        speed_avg_range: tuple[float, float] | None = None,
+        # km/h (float). The original metric is m/s, float.
+        speed_max_range: tuple[float, float] | None = None,
+        # min/km (string like "4:45"). The original metric is speed avg in m/s, float.
+        pace_avg_range: tuple[str, str] | None = None,
+        # min/km (string like "4:45"). The original metric is speed max in m/s, float.
+        pace_max_range: tuple[str, str] = None,
+        # bpm (int). The original metric is float.
+        hr_avg_range: tuple[int, int] | None = None,
+        # bpm (int). The original metric is float.
+        hr_max_range: tuple[int, int] | None = None,
+    ) -> Generator[dict]:
+        """
+        Filter the collected activities summaries.
+
+        Args:
+            title_contains: filter by text included in the activity summary `name`
+             (title), case insensitive.
+             Eg. a string like "back, calisthenics".
+            activity_type: filter by activity type included in the activity summary
+             `type` or `sport_type`, case insensitive.
+             All types described in https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-db-models/strava_db_models/strava_db_models.py#L106.
+             Eg. a string like "ride" | "MountainBikeRide" | "WeightTraining".
+            start_latlng: filter by activity starting location, within a certain
+             distance, as tuple in the form (lat, lon, distance*).
+             Distance is optional and its default value is 250 meters.
+             Eg. a tuple like (38.898, -77.037, 100)
+             Examples of lat and long:
+               white_house = (38.898, -77.037)
+               eiffel_tower = (48.858, 2.294)
+               bsas = (-34.83333, -58.5166646)  # Ezeiza Airport (Buenos Aires, Argentina).
+               paris = (49.0083899664, 2.53844117956)  # C. de Gaulle Airport (Paris, France).
+               newport_ri = (41.49008, -71.312796)
+               cleveland_oh = (41.499498, -81.695391)
+            end_latlng: same as start_latlng but for activity ending location.
+            location_visited_latlng: same as start_latlng but for any location visited
+             during the activity.
+            distance_range: filter by distance range as tuple of 2 ints to define the
+             distance range inclusive, in meters.
+             Eg. (9800, 10500) for a 10km run.
+            moving_time_range: filter by moving time range as tuple of 2 ints to define
+             the moving time range inclusive, in minutes.
+             Eg. (60, 120) for a run.
+            elapsed_time_range: same as moving_time_range but for elapsed time.
+            elevation_gain_range: filter by elevation gain range as tuple of 2 ints to
+             define the elevation gain range inclusive, in meters.
+             Eg. (600, 1000) for a ride.
+            elevation_highest_range: same as elevation_gain_range but for the highest
+             elevation visited during the activity.
+            elevation_lowest_range: same as elevation_gain_range but for the lowest
+             elevation visited during the activity.
+            speed_avg_range: filter by average speed range as tuple of 2 floats to
+             define the average speed range inclusive, in km/h.
+             Eg. (14.2, 20.0) for a ride.
+            speed_max_range: same as speed_avg_range but for max speed.
+            pace_avg_range: same as speed_avg_range but for average pace in min/km.
+             Eg. ("5:30", "5:45") for a run.
+            pace_max_range: same as speed_avg_range but for max pace in min/km.
+             Eg. ("5:30", "5:45") for a run.
+            hr_avg_range: filter by average heart rate range as tuple of 2 ints to
+             define the average heart rate range inclusive, in bpm.
+             Eg. (112, 180)
+            hr_max_range: same as hr_avg_range but for max heaty rate.
+        """
+        _ = list_activities_response_filters
+        for summary in self.data:
+            summary: dict
+
+            if not _.does_title_contains_filter_match(title_contains, summary):
+                continue
+            if not _.does_activity_type_filter_match(activity_type, summary):
+                continue
+            if not _.does_start_latlng_filter_match(start_latlng, summary):
+                continue
+            if not _.does_end_latlng_filter_match(end_latlng, summary):
+                continue
+            if not _.does_location_visited_latlng_filter_match(
+                location_visited_latlng, summary
             ):
-                yield activity
+                continue
+            if not _.does_distance_range_filter_match(distance_range, summary):
+                continue
+            if not _.does_moving_time_range_filter_match(moving_time_range, summary):
+                continue
+            if not _.does_elapsed_time_range_filter_match(elapsed_time_range, summary):
+                continue
+            if not _.does_elevation_gain_range_filter_match(
+                elevation_gain_range, summary
+            ):
+                continue
+            if not _.does_elevation_highest_range_filter_match(
+                elevation_highest_range, summary
+            ):
+                continue
+            if not _.does_elevation_lowest_range_filter_match(
+                elevation_lowest_range, summary
+            ):
+                continue
+            if not _.does_speed_avg_range_filter_match(speed_avg_range, summary):
+                continue
+            if not _.does_speed_max_range_filter_match(speed_max_range, summary):
+                continue
+            if not _.does_pace_avg_range_filter_match(pace_avg_range, summary):
+                continue
+            if not _.does_pace_max_range_filter_match(pace_max_range, summary):
+                continue
+            if not _.does_hr_avg_range_filter_match(hr_avg_range, summary):
+                continue
+            if not _.does_hr_max_range_filter_match(hr_max_range, summary):
+                continue
+
+            yield summary
 
 
 class UpdatedActivity(BaseJsonResponse):

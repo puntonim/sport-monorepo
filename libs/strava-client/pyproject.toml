@@ -11,6 +11,8 @@ dependencies = [
     "requests (>=2.32.3,<3.0.0)",
     "datetime-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=datetime-utils",
     "log-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=log-utils",
+    "gis-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=gis-utils",
+    "speed-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=speed-utils",
 ]
 
 [build-system]

@@ -1,0 +1,122 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/athlete/activities?before=1760817601&per_page=3
+  response:
+    body:
+      string: '[{"resource_state": 2, "athlete": {"id": 115890775, "resource_state":
+        1}, "name": "4x1000m", "distance": 10001.9, "moving_time": 3398, "elapsed_time":
+        3493, "total_elevation_gain": 27.0, "type": "Run", "sport_type": "Run", "workout_type":
+        null, "device_name": "Garmin Forerunner 965", "id": 16178887143, "start_date":
+        "2025-10-18T10:09:32Z", "start_date_local": "2025-10-18T12:09:32Z", "timezone":
+        "(GMT+01:00) Europe/Rome", "utc_offset": 7200.0, "location_city": null, "location_state":
+        null, "location_country": null, "achievement_count": 0, "kudos_count": 1,
+        "comment_count": 0, "athlete_count": 1, "photo_count": 0, "map": {"id": "a16178887143",
+        "summary_polyline": "eskuGkduy@cCVOAKBcAB{@Ao@GIBiB@e@AaBBWAUBc@Ag@@kCGqBAOCMKYK}@g@eBy@oCiAe@I_DYUEUA[IIGMSOu@QuBK[]s@M}@KMQK]e@c@]O[AOAs@@{@Du@?cCHu@FWXu@x@eBLa@@WIcCBMLMt@]j@Qd@Kj@SDEBI?KCEJHTA_@NVQ@@a@PE?DGZMB?ADc@NZQFA@Be@PCAACf@OB?GF[PCE@ENCNOFFAA@@i@TCEBEPELIF?AF_@NG@AE@APERMD@ABc@TC?ACDENCLKD?@DIB[NKBCCBCl@UBBIF]LE@EGBAd@OD?BB{Af@a@TIAADqAn@GJAV?dBGh@wApDMv@IfCAhBCr@BRJ\\b@z@bAj@JJ?C_@Q][e@a@QYGUD}BC{@DqAJoAJk@Zy@V_@`@kADk@EyBDQLKZOxDmAHI@ECAUHaBv@_AVg@VORGf@DrACj@Mb@Yh@m@|AMd@K|AE~EARKZKJ[@UCeAQs@As@L_@Je@p@SN]DY@MGCKAUHsBGECKEsEGeAK_HIiCBiBBUCcA?_BGk@I{AEoBFoDE[KCO@SF[@_@BGEm@qCCICAo@b@GCGIk@sB@Ml@Lx@XBAYI[OYI[QMKL@HGEG?GG[KKq@SII?QHg@FKFABEDeAJe@NGpBX`AT`@LpAZnCfAJ@JQHu@Bm@LcARkAHSNCPBP?\\WTGN?nFv@VJRVLJVFJNBT?pDGdAYfAQpAOJIPEbCG`ABZHNBAJBl@Tp@Xn@L~Al@d@LbAd@z@XPJd@RjBn@v@Tz@PFDBCZ?h@Dn@RJRl@ArC[`BKtBQp@CVEpCSh@GXDv@EpAa@XEh@SHVDr@Lt@Dv@TvBBHDBpCWt@KN?hC[L@FDDPBj@HxDAHIJMDM@eASOIWCIIIAkAk@i@KIAUD]Nc@`@MRWf@I\\Gl@@^Qt@LJFLVTGJUNWT?BFDKPECGDKVUnBEnA?n@Jp@Xj@PLJDVBVC|AeAdDgCh@k@r@k@RYHAd@RN?DBDpBAjGJdEF|@HxBZ`C?JIHi@A_@@oB^wBNe@@}@J}AZwBFa@HiAJDChAMvAInAQpB_@l@G|@ADELBFCd@CbCc@V?HB",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        "g20743230", "start_latlng": [45.609361, 9.61677], "end_latlng": [45.607314,
+        9.614976], "average_speed": 2.943, "max_speed": 5.16, "average_cadence": 81.5,
+        "average_temp": 23, "average_watts": 332.8, "max_watts": 571, "weighted_average_watts":
+        378, "device_watts": true, "kilojoules": 1124.7, "has_heartrate": true, "average_heartrate":
+        131.8, "max_heartrate": 166.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 191.2, "elev_low": 172.8, "upload_id": 17262639603, "upload_id_str":
+        "17262639603", "external_id": "garmin_ping_492194255982", "from_accepted_tag":
+        false, "pr_count": 0, "total_photo_count": 1, "has_kudoed": false}, {"resource_state":
+        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Powerlifting
+        class", "distance": 0.0, "moving_time": 3600, "elapsed_time": 3600, "total_elevation_gain":
+        0, "type": "WeightTraining", "sport_type": "WeightTraining", "workout_type":
+        30, "id": 16163441935, "start_date": "2025-10-16T17:00:00Z", "start_date_local":
+        "2025-10-16T19:00:00Z", "timezone": "(GMT+01:00) Europe/Rome", "utc_offset":
+        7200.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a16163441935", "summary_polyline": "",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": true,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0, "max_speed":
+        0, "has_heartrate": false, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        false, "upload_id": null, "external_id": null, "from_accepted_tag": false,
+        "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
+        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "5x300m", "distance":
+        9047.9, "moving_time": 3471, "elapsed_time": 3875, "total_elevation_gain":
+        25.0, "type": "Run", "sport_type": "Run", "workout_type": 0, "device_name":
+        "Garmin Forerunner 965", "id": 16158664821, "start_date": "2025-10-16T10:31:25Z",
+        "start_date_local": "2025-10-16T12:31:25Z", "timezone": "(GMT+01:00) Europe/Rome",
+        "utc_offset": 7200.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 2, "kudos_count": 2, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a16158664821", "summary_polyline": "krkuGoduy@mAHuARQ?WBu@DcBIU@_@CcAB{CG]FkA@yFImGyCuAg@{AOo@Ka@Ae@Ii@CKCSUKWKi@KuAGg@IUUc@IWGq@w@}@g@a@OQEOC[DkGLaARu@Pc@NYZs@Nk@D{@GeB@OHKz@[VGTKb@KbAa@NKDKaDCa@YCE@MXy@BWBWA}@Iu@e@eAMc@E]A_@V_CC_ADeCDq@?EA?BAN_A\\_C?aFGM]GIGMYIEu@QqCa@}@QOBKDSXIFQ?OMCAE@O\\Or@OjAM`BGHKBk@O_FaBmDiFSzCB\\RNdAJjBZdAZ`@PRB|@\\VLF?A@AKi@MwAi@WEGKM?OIw@SUYQ[Q{@IMMKQEEE?IBWYGKKIS?C?H@?EVO~BF^DFVJn@Fz@LpAZbDhAL@JDA@@OEBWIsBu@[KSIQCc@OIGIM?C@@@C@BYe@Sw@SSSIAe@YGIMKW@DA?@@UjCBd@LTb@LZ?n@JVBp@Nj@RjA\\|Al@AO?BGE]IyE_B]_@AOB?MYCWQSMYC_@a@IMOKYB??LUlCHh@HJHB~@H`@J`@@x@TlAd@r@RbA^AKCBg@U]IuBy@OAg@Qk@y@Ik@UYGQEa@]GGEGGK[Cz@M~ABZBJLLrBTh@LrAd@fCt@JFTHXNDADODuAHo@VsAJc@HOHCVLL?JEX]FEJAh@FPD|@L`@Hv@Hz@RHHLZPFRBHLBb@BtBAv@Iz@]`BOfAIdBGtDIpAF`Ap@vBHr@?`AE`@ALYx@TNJ@NFDJNx@ADKNSD_@Ra@LGFABFjBAj@CRIb@gA~BUfAGp@KhGBRHNr@l@Pb@ZPFJL|@Zn@DLNbAJnAHb@LNRLt@LxALt@Lb@@XFbC`Aj@Z`Br@fAn@J@fCBdBHt@CL@d@GPBd@CPBfA@^Cf@?HCv@@HBnAFz@Af@IP?j@Ct@KhAEVGb@Ab@MNAbASzAO^AF@x@EfASh@Mp@Eb@DVZf@\\z@nAZn@",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        "g20743230", "start_latlng": [45.609248, 9.616742], "end_latlng": [45.607527,
+        9.613218], "average_speed": 2.607, "max_speed": 7.38, "average_cadence": 78.3,
+        "average_temp": 23, "average_watts": 305.2, "max_watts": 843, "weighted_average_watts":
+        331, "device_watts": true, "kilojoules": 978.8, "has_heartrate": true, "average_heartrate":
+        126.3, "max_heartrate": 161.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 188.0, "elev_low": 174.8, "upload_id": 17242233774, "upload_id_str":
+        "17242233774", "external_id": "garmin_ping_491505446287", "from_accepted_tag":
+        false, "pr_count": 1, "total_photo_count": 1, "has_kudoed": false}]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 26 Dec 2025 22:17:01 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 adef7e196300f0ab5286a44dbbcbc5a6.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - 2QvM3aawONnj0Oyq0dskaR4cUBOkiZXJSRFUFhFwiz7GHsN2C515nQ==
+      X-Amz-Cf-Pop:
+      - MXP53-P2
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '5788'
+      etag:
+      - W/"e92ed0358614c585151325fcbab0e8a9"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '175'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 2,37
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 2,37
+      x-request-id:
+      - a53d168c-fc50-43e6-a1cb-007228f74022
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1
