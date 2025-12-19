@@ -1,8 +1,12 @@
+import warnings
 from collections import defaultdict
+from collections.abc import Generator
 from functools import cached_property, lru_cache
 from typing import Any
 
 import requests
+
+from . import list_activities_response_filters
 
 __all__ = [
     "ActivityDetailsResponse",
@@ -34,19 +38,77 @@ class ListActivitiesResponse(BaseJsonResponse):
 
     data: list[dict[str, Any]]
 
-    def filter_by_activity_type(self, activity_type: str):
+    def filter_by_activity_type(
+        self,
+        # All types described in https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-db-models/strava_db_models/strava_db_models.py#L106.
+        activity_type: str,
+    ) -> Generator[dict]:
         """
         Filter by activity_type.
+        Note: all types described in https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-db-models/strava_db_models/strava_db_models.py#L106.
 
         Note: this is just a Python filtering (NOT supported by Strava API).
         """
-        for activity in self.data:
-            activity: dict
-            if (
-                activity.get("type") == activity_type
-                or activity.get("sport_type") == activity_type
+        warnings.warn("use filter(activity_type=...)", DeprecationWarning)
+        return self.filter(activity_type=activity_type)
+
+    def filter(
+        self,
+        title_contains: str | None = None,
+        # All types described in https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-db-models/strava_db_models/strava_db_models.py#L106.
+        activity_type: str | None = None,
+        start_latlng: tuple[float, float, int] | tuple[float, float] | None = None,
+        end_latlng: tuple[float, float, int] | tuple[float, float] | None = None,
+        location_visited_latlng: (
+            tuple[float, float, int] | tuple[float, float] | None
+        ) = None,
+        # Meters (int). The original metric is float.
+        distance_range: tuple[int, int] | None = None,
+        # Seconds (int). The original metric is float.
+        moving_time_range: tuple[int, int] | None = None,
+        # Seconds (int). The original metric is float.
+        elapsed_time_range: tuple[int, int] | None = None,
+        # Meters (int). The original metric is float.
+        elevation_gain_range: tuple[int, int] | None = None,
+        # Meters (int). The original metric is float.
+        elevation_highest_range: tuple[int, int] | None = None,
+        # Meters (int). The original metric is float.
+        elevation_lowest_range: tuple[int, int] | None = None,
+        # m/s (float). The original metric is float.
+        speed_avg_range: tuple[float, float] | None = None,
+        # m/s (float). The original metric is float.
+        speed_max_range: tuple[float, float] | None = None,
+        # bpm (int). The original metric is float.
+        hr_avg_range: tuple[float, float] | None = None,
+        # bpm (int). The original metric is float.
+        hr_max_range: tuple[float, float] | None = None,
+    ) -> Generator[dict]:
+        _ = list_activities_response_filters
+        for summary in self.data:
+            summary: dict
+
+            if not _.does_title_contains_filter_match(title_contains, summary):
+                continue
+            if not _.does_activity_type_filter_match(activity_type, summary):
+                continue
+            if not _.does_start_latlng_filter_match(start_latlng, summary):
+                continue
+            if not _.does_end_latlng_filter_match(end_latlng, summary):
+                continue
+            if not _.does_location_visited_latlng_filter_match(
+                location_visited_latlng, summary
             ):
-                yield activity
+                continue
+            if not _.does_distance_range_filter_match(distance_range, summary):
+                continue
+            if not _.does_elevation_gain_range_filter_match(
+                elevation_gain_range, summary
+            ):
+                continue
+
+            # TODO continue...........
+
+            yield summary
 
 
 class UpdatedActivity(BaseJsonResponse):

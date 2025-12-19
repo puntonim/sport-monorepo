@@ -344,6 +344,23 @@ files = [
 testing = ["hatch", "pre-commit", "pytest", "tox"]
 
 [[package]]
+name = "gis-utils"
+version = "1.0.0"
+description = "Utils Monorepo: GIS Utils"
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "https://github.com/puntonim/utils-monorepo"
+reference = "HEAD"
+resolved_reference = "263708396ad3dadc0850c063aa431aeb7fd36c9e"
+subdirectory = "gis-utils"
+
+[[package]]
 name = "idna"
 version = "3.11"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -1445,4 +1462,4 @@ aws-parameter-store = ["aws-parameter-store-client"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10"
-content-hash = "bed27855804f1374dbdb83f1987fc4590a21925d0d9057fc8ce8d7e5bd591844"
+content-hash = "b0de45832fbfe50b4acbbfcb158c793ba0781c87d3b095623896d453f1477a36"

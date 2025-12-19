@@ -6,6 +6,7 @@ import pytest
 from strava_client import (
     ActivityNotFound,
     AfterTsInTheFuture,
+    FilterTypeError,
     NaiveDatetime,
     PossibleDuplicatedActivity,
     RequestedResultsPageDoesNotExist,
@@ -192,18 +193,6 @@ class TestListActivities:
         )
         assert len(response.data) == 2
 
-    def test_activity_type(self):
-        client = StravaClient(self.token_mgr.get_access_token())
-        response = client.list_activities(n_results_per_page=10)
-        assert len(response.data) == 10
-
-        activities = list(response.filter_by_activity_type("Run"))
-        assert len(activities) == 2
-        assert activities[0]["name"] == "Lunch Run"
-        assert activities[0]["id"] == 14241623406
-        assert activities[1]["name"] == "Lunch Run"
-        assert activities[1]["id"] == 14193080476
-
     def test_page_n(self):
         client = StravaClient(self.token_mgr.get_access_token())
         response = client.list_activities(
@@ -226,6 +215,499 @@ class TestListActivities:
                 n_results_per_page=2,
                 page_n=99,
             )
+
+
+class TestListActivitiesResponseFilter:
+    def setup_method(self):
+        self.token_mgr = (
+            # Use AWS Param Store token manager when recording vcr episodes.
+            AwsParameterStoreStravaTokenManager(
+                TOKEN_JSON_PARAMETER_STORE_KEY_PATH,
+                CLIENT_ID_PARAMETER_STORE_KEY_PATH,
+                CLIENT_SECRET_PARAMETER_STORE_KEY_PATH,
+            )
+            if is_vcr_record_mode()
+            # And using a fake test token (expiration in 3999) when replaying episodes.
+            else FakeTestStravaTokenManager()
+        )
+
+    def test_deprecated_filter_by_activity_type(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            n_results_per_page=10,
+            before_ts=datetime(2025, 12, 18, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+        )
+        assert len(response.data) == 10
+
+        activities = list(response.filter_by_activity_type("WeightTraining"))
+        assert len(activities) == 9
+        assert activities[0]["name"] == "Legs plyometrics"
+        assert activities[0]["id"] == 16770546210
+        assert activities[8]["name"] == "Back, calisthenics"
+        assert activities[8]["id"] == 16695233895
+
+    def test_filter_by_title_contains_happy_flow(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            n_results_per_page=10,
+            before_ts=datetime(2025, 12, 18, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+        )
+        assert len(response.data) == 10
+
+        activities = list(
+            response.filter(
+                title_contains="back, triceps",
+            )
+        )
+        assert len(activities) == 1
+        assert activities[0]["name"] == "Back, triceps, calisthenics"
+        assert activities[0]["id"] == 16707730538
+
+    def test_filter_by_title_contains_no_results(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            n_results_per_page=10,
+            before_ts=datetime(2025, 12, 18, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+        )
+        assert len(response.data) == 10
+
+        activities = list(
+            response.filter(
+                title_contains="XXX",
+            )
+        )
+        assert len(activities) == 0
+
+    def test_filter_by_activity_type_happy_flow(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            n_results_per_page=10,
+            before_ts=datetime(2025, 12, 18, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+        )
+        assert len(response.data) == 10
+
+        activities = list(
+            response.filter(
+                activity_type="WeiGHttraINIng",
+            )
+        )
+        assert len(activities) == 9
+        assert activities[0]["name"] == "Legs plyometrics"
+        assert activities[0]["id"] == 16770546210
+        assert activities[8]["name"] == "Back, calisthenics"
+        assert activities[8]["id"] == 16695233895
+
+    def test_filter_by_activity_type_no_results(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            n_results_per_page=10,
+            before_ts=datetime(2025, 12, 18, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+        )
+        assert len(response.data) == 10
+
+        activities = list(
+            response.filter(
+                activity_type="XXX",
+            )
+        )
+        assert len(activities) == 0
+
+    def test_filter_by_start_latlng_exact_coords(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=datetime(2025, 11, 23, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=5,
+        )
+        assert len(response.data) == 5
+
+        activities = list(
+            response.filter(
+                start_latlng=(45.609162, 9.616743, 0),
+            )
+        )
+        assert len(activities) == 1
+        assert activities[0]["name"] == "3x1000m"
+
+    def test_filter_by_start_latlng_no_distance(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=datetime(2025, 11, 23, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=5,
+        )
+        assert len(response.data) == 5
+
+        activities = list(
+            response.filter(
+                start_latlng=(45.609162, 9.616743),
+            )
+        )
+        assert len(activities) == 1
+        assert activities[0]["name"] == "3x1000m"
+
+    def test_filter_by_start_latlng_no_results_within_that_distance(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=datetime(2025, 11, 23, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=5,
+        )
+        assert len(response.data) == 5
+
+        activities = list(
+            response.filter(
+                start_latlng=(45.61, 9.60, 200),
+            )
+        )
+        assert len(activities) == 0
+
+    def test_filter_by_start_latlng_2_results_within_that_distance(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=datetime(2025, 11, 23, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=5,
+        )
+        assert len(response.data) == 5
+
+        activities = list(
+            response.filter(
+                start_latlng=(45.61, 9.60, 1500),
+            )
+        )
+        assert len(activities) == 2
+        assert activities[0]["name"] == "Tapasciata Osio Sotto"
+        assert activities[1]["name"] == "3x1000m"
+
+    def test_filter_by_start_latlng_non_tuple(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=datetime(2025, 11, 23, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=5,
+        )
+        assert len(response.data) == 5
+
+        with pytest.raises(FilterTypeError):
+            list(
+                response.filter(
+                    start_latlng="XXX",
+                )
+            )
+
+    def test_filter_by_end_latlng_exact_coords(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=datetime(2025, 11, 23, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=5,
+        )
+        assert len(response.data) == 5
+
+        activities = list(
+            response.filter(
+                end_latlng=(45.622294, 9.593923, 0),
+            )
+        )
+        assert len(activities) == 1
+        assert activities[0]["name"] == "Tapasciata Osio Sotto"
+
+    def test_filter_by_end_latlng_no_distance(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=datetime(2025, 11, 23, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=5,
+        )
+        assert len(response.data) == 5
+
+        activities = list(
+            response.filter(
+                end_latlng=(45.622294, 9.593923),
+            )
+        )
+        assert len(activities) == 1
+        assert activities[0]["name"] == "Tapasciata Osio Sotto"
+
+    def test_filter_by_end_latlng_no_results_within_that_distance(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=datetime(2025, 11, 23, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=5,
+        )
+        assert len(response.data) == 5
+
+        activities = list(
+            response.filter(
+                end_latlng=(45.61, 9.60, 200),
+            )
+        )
+        assert len(activities) == 0
+
+    def test_filter_by_end_latlng_2_results_within_that_distance(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=datetime(2025, 11, 23, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=5,
+        )
+        assert len(response.data) == 5
+
+        activities = list(
+            response.filter(
+                end_latlng=(45.61, 9.60, 1500),
+            )
+        )
+        assert len(activities) == 2
+        assert activities[0]["name"] == "Tapasciata Osio Sotto"
+        assert activities[1]["name"] == "3x1000m"
+
+    def test_filter_by_end_latlng_non_tuple(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=datetime(2025, 11, 23, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=5,
+        )
+        assert len(response.data) == 5
+
+        with pytest.raises(FilterTypeError):
+            list(
+                response.filter(
+                    end_latlng="XXX",
+                )
+            )
+
+    def test_filter_by_location_visited_latlng_happy_flow(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(2025, 11, 5, 13, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=1,
+        )
+        assert len(response.data) == 1
+
+        activities = list(
+            response.filter(
+                location_visited_latlng=(45.616171, 9.616094, 10),
+            )
+        )
+        assert len(activities) == 1
+        assert activities[0]["name"] == "Slow run"
+
+    def test_filter_by_location_visited_latlng_no_distance(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(2025, 11, 5, 13, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=1,
+        )
+        assert len(response.data) == 1
+
+        activities = list(
+            response.filter(
+                location_visited_latlng=(45.616171, 9.616094),
+            )
+        )
+        assert len(activities) == 1
+        assert activities[0]["name"] == "Slow run"
+
+    def test_filter_by_location_visited_latlng_2_results_within_that_distance(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(2025, 11, 5, 13, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=4,
+        )
+        assert len(response.data) == 4
+
+        activities = list(
+            response.filter(
+                location_visited_latlng=(45.616171, 9.616094, 10),
+            )
+        )
+        assert len(activities) == 2
+        assert activities[0]["name"] == "Slow run"
+        assert activities[1]["name"] == "5x1000m 😮‍💨"
+
+    def test_filter_by_location_visited_latlng_non_tuple(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(2025, 11, 5, 13, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=4,
+        )
+        assert len(response.data) == 4
+
+        with pytest.raises(FilterTypeError):
+            list(
+                response.filter(
+                    location_visited_latlng="XXX",
+                )
+            )
+
+    def test_filter_by_distance_range_1_result(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(2025, 11, 5, 13, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=4,
+        )
+        assert len(response.data) == 4
+
+        activities = list(
+            response.filter(
+                distance_range=(9_900, 10_200),
+            )
+        )
+        assert len(activities) == 1
+        assert activities[0]["name"] == "Slow run"
+
+    def test_filter_by_distance_range_2_results(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(2025, 11, 5, 13, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=4,
+        )
+        assert len(response.data) == 4
+
+        activities = list(
+            response.filter(
+                distance_range=(9_900, 10_900),
+            )
+        )
+        assert len(activities) == 2
+        assert activities[0]["name"] == "Slow run"
+        assert activities[1]["name"] == "5x1000m 😮‍💨"
+
+    def test_filter_by_distance_range_no_result(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(2025, 11, 5, 13, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=4,
+        )
+        assert len(response.data) == 4
+
+        activities = list(
+            response.filter(
+                distance_range=(15_000, 99_000),
+            )
+        )
+        assert len(activities) == 0
+
+    def test_filter_by_distance_range_non_tuple(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(2025, 11, 5, 13, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=4,
+        )
+        assert len(response.data) == 4
+
+        with pytest.raises(FilterTypeError):
+            list(
+                response.filter(
+                    distance_range="XXX",
+                )
+            )
+
+    def test_filter_by_elevation_gain_range_1_result(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(2025, 8, 31, 18, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=4,
+        )
+        assert len(response.data) == 4
+
+        activities = list(
+            response.filter(
+                elevation_gain_range=(1_000, 2_000),
+            )
+        )
+        assert len(activities) == 1
+        assert activities[0]["name"] == "Cepina - Passo dello Stelvio"
+
+    def test_filter_by_elevation_gain_range_2_result(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(2025, 8, 31, 18, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=4,
+        )
+        assert len(response.data) == 4
+
+        activities = list(
+            response.filter(
+                elevation_gain_range=(600, 2_000),
+            )
+        )
+        assert len(activities) == 2
+        assert activities[0]["name"] == "Santa Caterina di Valfurva - Passo Gavia"
+        assert activities[1]["name"] == "Cepina - Passo dello Stelvio"
+
+    def test_filter_by_elevation_gain_range_no_result(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(2025, 8, 31, 18, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=4,
+        )
+        assert len(response.data) == 4
+
+        activities = list(
+            response.filter(
+                elevation_gain_range=(5_000, 12_000),
+            )
+        )
+        assert len(activities) == 0
+
+    def test_filter_by_elevation_gain_range_non_tuple(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(2025, 8, 31, 18, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=4,
+        )
+        assert len(response.data) == 4
+
+        with pytest.raises(FilterTypeError):
+            list(
+                response.filter(
+                    elevation_gain_range="XXX",
+                )
+            )
+
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    def test_2_filters(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            n_results_per_page=10,
+            before_ts=datetime(2025, 12, 18, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+        )
+        assert len(response.data) == 10
+
+        activities = list(
+            response.filter(
+                title_contains="back",
+                activity_type="WeightTraining",
+            )
+        )
+        assert len(activities) == 4
+        assert activities[0]["name"] == "Back, shoulders, calisthenics"
+        assert activities[0]["id"] == 16734012247
+        assert activities[1]["name"] == "Back, shoulders, calisthenics"
+        assert activities[1]["id"] == 16724137676
+        assert activities[2]["name"] == "Back, triceps, calisthenics"
+        assert activities[2]["id"] == 16707730538
+        assert activities[3]["name"] == "Back, calisthenics"
+        assert activities[3]["id"] == 16695233895
+
+    def test_no_filter(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            n_results_per_page=9,
+            before_ts=datetime(2025, 12, 18, 7, 0, 0, tzinfo=ZoneInfo("Europe/Rome")),
+        )
+        assert len(response.data) == 9
+
+        activities = list(response.filter())
+        assert len(activities) == 9
+        assert activities[0]["name"] == "Legs plyometrics"
+        assert activities[0]["id"] == 16770546210
+        assert activities[8]["name"] == "Powerlifting class"
+        assert activities[8]["id"] == 16697710509
 
 
 class TestGetActivityDetails:
