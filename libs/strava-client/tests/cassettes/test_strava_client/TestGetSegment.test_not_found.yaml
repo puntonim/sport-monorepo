@@ -1,0 +1,71 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/segments/99999999999956100
+  response:
+    body:
+      string: '{"message": "Record Not Found", "errors": [{"resource": "Segment",
+        "field": "id", "code": "invalid"}]}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 18 Dec 2025 14:12:28 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 d75ae4449c085f5bea1aa41995260040.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - lLUBYmmGGKRwfWQ1g_uXDaM4LJjN4V4b5Ia2gaAvkyo5UkNTyuTHxQ==
+      X-Amz-Cf-Pop:
+      - MXP53-P6
+      X-Cache:
+      - Error from cloudfront
+      cache-control:
+      - no-cache
+      content-length:
+      - '94'
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 404 Not Found
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '54'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 1,2
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 1,2
+      x-request-id:
+      - 4c4f979d-5f41-4b30-a9ae-b782eaff50df
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 404
+      message: Not Found
+version: 1

@@ -11,6 +11,7 @@ from strava_client import (
     RequestedResultsPageDoesNotExist,
     SegmentEffortNotFound,
     SegmentNameMismatch,
+    SegmentNotFound,
     SportTypeInvalid,
     StravaApiRateLimitExceeded,
     StravaClient,
@@ -522,6 +523,52 @@ class TestGetStreams:
         assert response.get_heartrate_stream() == response.data[1]["data"]
         with pytest.raises(StreamNotFound):
             response.get_altitude_stream()
+
+
+class TestGetSegment:
+    def setup_method(self):
+        self.token_mgr = (
+            # Use AWS Param Store token manager when recording vcr episodes.
+            AwsParameterStoreStravaTokenManager(
+                TOKEN_JSON_PARAMETER_STORE_KEY_PATH,
+                CLIENT_ID_PARAMETER_STORE_KEY_PATH,
+                CLIENT_SECRET_PARAMETER_STORE_KEY_PATH,
+            )
+            if is_vcr_record_mode()
+            # And using a fake test token (expiration in 3999) when replaying episodes.
+            else FakeTestStravaTokenManager()
+        )
+        self.segment_stelvio = 15756100  # Passo Stelvio (via Bormio).
+        self.segment_selvino = 14418673  # Selvino Fontanella.
+
+    def test_stelvio(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.get_segment(self.segment_stelvio)
+        assert response.data["name"] == "Passo Stelvio (via Bormio)"
+        assert response.data["id"] == self.segment_stelvio
+        assert response.data["start_latlng"] == [46.47783, 10.367602]
+        assert response.data["end_latlng"] == [46.52874, 10.452808]
+        assert response.data["distance"] == 19481.1
+        assert response.data["total_elevation_gain"] == 1467.7
+        assert response.data["activity_type"] == "Ride"
+        assert "polyline" in response.data["map"]
+
+    def test_selvino(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.get_segment(self.segment_selvino)
+        assert response.data["name"] == "Selvino Fontanella"
+        assert response.data["id"] == self.segment_selvino
+        assert response.data["start_latlng"] == [45.745995, 9.762249]
+        assert response.data["end_latlng"] == [45.778911, 9.743986]
+        assert response.data["distance"] == 10160.9
+        assert response.data["total_elevation_gain"] == 587.9
+        assert response.data["activity_type"] == "Ride"
+        assert "polyline" in response.data["map"]
+
+    def test_not_found(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        with pytest.raises(SegmentNotFound):
+            client.get_segment(99999999999956100)
 
 
 class TestRateLimit:
