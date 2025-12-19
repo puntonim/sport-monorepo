@@ -67,6 +67,7 @@ from .responses import (
     ActivityDetailsResponse,
     CreatedActivity,
     ListActivitiesResponse,
+    SegmentResponse,
     StreamsResponse,
     UpdatedActivity,
 )
@@ -81,6 +82,7 @@ __all__ = [
     "StravaClient",
     "StravaApiRateLimitExceeded",
     "AfterTsInTheFuture",
+    "SegmentNotFound",
 ]
 
 
@@ -424,6 +426,52 @@ class StravaClient:
             raise
         return StreamsResponse(response)
 
+    @handle_api_rate_limit_error
+    def get_segment(self, segment_id: int) -> SegmentResponse:
+        """
+        Get a segment (and not the segment efforts) by its id.
+
+        Raw response data format: see "docs/segment.md"
+
+        Returns:
+            responses.SegmentResponse instance with the attribute `data` [dict]
+             like described in "docs/segment.md".
+
+        Docs:
+            - Authentication: https://developers.strava.com/docs/authentication/
+            - Get Activity API: https://developers.strava.com/docs/reference/#api-Segments-getSegmentById
+
+        Curl example:
+            $ curl "https://www.strava.com/api/v3/segments/14418673" \
+             -H "Authorization: Bearer XXX"
+
+        Example:
+            token_mgr = FileStravaTokenManager(
+                client_id="myclientid",
+                client_secret="myclientsecret",
+                token_json_file_path=Path() / "strava-api-token.json",
+            )
+            client = StravaClient(self.token_mgr.get_access_token())
+            response = client.get_segment(14418673)
+            assert response.data["name"] == "Selvino Fontanella"
+            assert response.data["id"] == 14418673
+            assert response.data["distance"] == 10160.9
+            assert response.data["activity_type"] == "Ride"
+            assert response.data["total_elevation_gain"] == 587.9
+            assert response.data["start_latlng"] == [45.745995, 9.762249]
+        """
+        logger.info(f"Getting segment id={segment_id}...")
+        url = f"https://www.strava.com/api/v3/segments/{segment_id}"
+        headers = {"Authorization": f"Bearer {self._access_token}"}
+        response = requests.get(url, headers=headers)
+        try:
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as exc:
+            if exc.response.status_code == 404:
+                raise SegmentNotFound(segment_id) from exc
+            raise
+        return SegmentResponse(response)
+
     def list_segment_efforts(self, *args, **kwargs):
         """
         List all efforts done by me on a specific segment (eg. 14418673 - Selvino Fontanella).
@@ -482,6 +530,11 @@ class NaiveDatetime(BaseStravaClientException):
 class ActivityNotFound(BaseStravaClientException):
     def __init__(self, activity_id):
         self.activity_id = activity_id
+
+
+class SegmentNotFound(BaseStravaClientException):
+    def __init__(self, segment_id):
+        self.segment_id = segment_id
 
 
 class PossibleDuplicatedActivity(BaseStravaClientException):

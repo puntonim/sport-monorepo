@@ -13,6 +13,7 @@ __all__ = [
     "UpdatedActivity",
     "CreatedActivity",
     "StreamNotFound",
+    "SegmentResponse",
 ]
 
 
@@ -235,6 +236,12 @@ class StreamsResponse(BaseJsonResponse):
                     # print(f"subtracting {diff} for index {j}")
                     moving_time_stream[j] -= diff
         return moving_time_stream
+
+
+class SegmentResponse(BaseJsonResponse):
+    # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
+    #  annotations. If you assign values they become CLASS attrs.
+    data: dict[str, Any]
 
 
 class BaseJsonResponseException(Exception):
