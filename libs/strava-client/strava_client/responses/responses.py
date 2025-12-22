@@ -33,6 +33,11 @@ class BaseJsonResponse:
 
 
 class ListActivitiesResponse(BaseJsonResponse):
+    """
+    Raw response data format: see "docs/activity summary.md"
+     or https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-client/docs/activity%20summary.md
+    """
+
     # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
     #  annotations. If you assign values they become CLASS attrs.
 
@@ -124,6 +129,11 @@ class CreatedActivity(BaseJsonResponse):
 
 
 class ActivityDetailsResponse(BaseJsonResponse):
+    """
+    Raw response data format: see "docs/activity details.md"
+     or https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-client/docs/activity%20details.md
+    """
+
     # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
     #  annotations. If you assign values they become CLASS attrs.
     data: dict[str, Any]
@@ -213,6 +223,11 @@ class ActivityDetailsResponse(BaseJsonResponse):
 
 
 class StreamsResponse(BaseJsonResponse):
+    """
+    Raw response data format: see "docs/streams.md"
+     or https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-client/docs/streams.md
+    """
+
     # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
     #  annotations. If you assign values they become CLASS attrs.
     data: list[dict]
@@ -301,6 +316,11 @@ class StreamsResponse(BaseJsonResponse):
 
 
 class SegmentResponse(BaseJsonResponse):
+    """
+    Raw response data format: see "docs/segment.md"
+     or https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-client/docs/segment.md
+    """
+
     # IMP: do NOT assign values to INSTANCE attrs here at class-level, but only type
     #  annotations. If you assign values they become CLASS attrs.
     data: dict[str, Any]
