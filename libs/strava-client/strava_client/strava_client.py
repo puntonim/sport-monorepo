@@ -123,6 +123,7 @@ class StravaClient:
         The after_ts and before_ts are inclusive.
 
         Raw response data format: see "docs/activity summary.md"
+         or https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-client/docs/activity%20summary.md
 
         Docs:
             - Authentication: https://developers.strava.com/docs/authentication/
@@ -202,6 +203,7 @@ class StravaClient:
          to get a segment effort data.
 
         Raw response data format: see "docs/activity details.md"
+         or https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-client/docs/activity%20details.md
 
         Returns:
             responses.ActivityDetails instance with the attribute `data` [dict]
@@ -381,6 +383,7 @@ class StravaClient:
         Full list of stream types: https://developers.strava.com/docs/reference/#api-models-StreamSet
 
         Raw response data format: see "docs/streams.md"
+         or https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-client/docs/streams.md
 
         Docs:
             - Authentication: https://developers.strava.com/docs/authentication/
@@ -432,6 +435,7 @@ class StravaClient:
         Get a segment (and not the segment efforts) by its id.
 
         Raw response data format: see "docs/segment.md"
+         or https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-client/docs/segment.md
 
         Returns:
             responses.SegmentResponse instance with the attribute `data` [dict]
