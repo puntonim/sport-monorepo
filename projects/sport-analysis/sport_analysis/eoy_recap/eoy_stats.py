@@ -1,18 +1,28 @@
 import re
 from abc import ABC, abstractmethod
 from collections import Counter, defaultdict
-from datetime import date
+from datetime import date, datetime
 from statistics import mean
 
 import datetime_utils
 import log_utils as logger
 
-N_WEEKS_IN_A_YEAR = 52.143
+N_DAYS_IN_PERIOD = 0  # Eg. 365.
+N_WEEKS_IN_PERIOD = 0  # Eg. 52.143.
 
 
 class EoyStats:
-    def __init__(self, strava_activities: list[dict]):
-        self.strava_activities = strava_activities
+    def __init__(
+        self,
+        strava_activities_summaries: list[dict],
+        start_date_after: datetime,
+        start_date_before: datetime,
+    ):
+        self.summaries = strava_activities_summaries
+        global N_DAYS_IN_PERIOD
+        N_DAYS_IN_PERIOD = (start_date_before - start_date_after).days + 1
+        global N_WEEKS_IN_PERIOD
+        N_WEEKS_IN_PERIOD = N_DAYS_IN_PERIOD / 7
 
     def collect_stats(self):
         activities_count_stats = ActivitiesCountStats()
@@ -20,11 +30,11 @@ class EoyStats:
         run_stats = RunStats()
         ride_stats = RideStats()
 
-        for activity in self.strava_activities:
-            activities_count_stats.add_activity(activity)
-            weight_training_stats.add_activity(activity)
-            run_stats.add_activity(activity)
-            ride_stats.add_activity(activity)
+        for summary in self.summaries:
+            activities_count_stats.add_activity_summary(summary)
+            weight_training_stats.add_activity_summary(summary)
+            run_stats.add_activity_summary(summary)
+            ride_stats.add_activity_summary(summary)
 
         activities_count_stats.finalize_stats()
         activities_count_stats.print_stats()
@@ -41,7 +51,7 @@ class EoyStats:
 
 class BaseStats(ABC):
     @abstractmethod
-    def add_activity(self, activity): ...
+    def add_activity_summary(self, activity): ...
 
     @abstractmethod
     def finalize_stats(self): ...
@@ -52,33 +62,54 @@ class BaseStats(ABC):
 
 class ActivitiesCountStats(BaseStats):
     def __init__(self):
+        # Eg. {'WeightTraining': 211, 'Run': 60, 'Ride': 37, 'Snowboard': 7, 'Snowshoe': 3, 'Walk': 2, 'NordicSki': 2, 'Hike': 1, 'RockClimbing': 1}
         self.types_counter: dict | Counter = Counter()
+        # Eg.
+        # {
+        #     "WeightTraining": [6263, 5321, ...],
+        #     "Ride": [7984, 6788, ...],
+        #     "Run": [4340, 4462, ...],
+        #     "Snowboard": [8473, 7246, ...],
+        #     "Snowshoe": [5183, 6258, 7381],
+        #     "NordicSki": [7942, 7776],
+        #     "RockClimbing": [10800],
+        #     "Walk": [4232, 4494],
+        #     "Hike": [2935],
+        # }
         self.types_hours: dict = defaultdict(list)
         self.activities_count = 0
         self.time_tot = 0
 
-        self.activities_same_day_counter: dict | Counter = Counter()
-        self._day_str__n_activities_counter = Counter()
-        self._n_days_in_year = None
+        # Eg. {0: 63, 1: 249, 2: 36, 3: 1}
+        self.n_activities_in_same_day__count__counter: dict | Counter = Counter()
+        # Eg.
+        # {
+        #     "2025-01-10": 3,
+        #     "2025-12-09": 2,
+        #     "2025-11-20": 2,
+        #     "2025-11-05": 1,
+        #     ...
+        # }
+        self._day_str__n_activities__counter = Counter()
 
-    def add_activity(self, activity):
+    def add_activity_summary(self, summary):
         self.activities_count += 1
 
         # types_counter stat: # activities by type.
-        activity_type = activity["type"]
+        activity_type = summary["type"]
         self.types_counter.update([activity_type])
 
         # types_hours stat: # hours by type.
-        self.types_hours[activity_type].append(activity["moving_time"])
-        self.time_tot += activity["moving_time"]
+        self.types_hours[activity_type].append(summary["moving_time"])
+        self.time_tot += summary["moving_time"]
 
-        # activities_same_day_counter: # days by # activities in the same day.
+        # n_activities_in_same_day__count__counter: # days by # activities in the same day.
         day_str = (
-            datetime_utils.iso_string_to_datetime(activity["start_date_local"])
+            datetime_utils.iso_string_to_datetime(summary["start_date_local"])
             .date()
             .isoformat()
         )
-        self._day_str__n_activities_counter.update([day_str])
+        self._day_str__n_activities__counter.update([day_str])
 
     def finalize_stats(self):
         # Sort types_counter.
@@ -93,59 +124,54 @@ class ActivitiesCountStats(BaseStats):
             )
         )
 
-        # Build activities_same_day_counter and sort it.
-        self.activities_same_day_counter.update(
-            self._day_str__n_activities_counter.values()
+        # Build n_activities_in_same_day__count__counter and sort it.
+        self.n_activities_in_same_day__count__counter.update(
+            self._day_str__n_activities__counter.values()
         )
-        # Compute the number of days in the year (365 or 366).
-        year = datetime_utils.iso_string_to_datetime(
-            list(self._day_str__n_activities_counter.keys())[0]
-        ).year
-        self._n_days_in_year = (
-            date(year=year + 1, month=1, day=1) - date(year=year, month=1, day=1)
-        ).days
-        self.activities_same_day_counter[0] = self._n_days_in_year - sum(
-            self.activities_same_day_counter.values()
+        # Rest days.
+        self.n_activities_in_same_day__count__counter[0] = N_DAYS_IN_PERIOD - sum(
+            self.n_activities_in_same_day__count__counter.values()
         )
-        self.activities_same_day_counter = dict(
+        self.n_activities_in_same_day__count__counter = dict(
             sorted(
-                self.activities_same_day_counter.items(),
+                self.n_activities_in_same_day__count__counter.items(),
                 key=lambda item: item[0],
                 reverse=False,
             )
         )
 
     def print_stats(self):
-        rest_days = self.activities_same_day_counter[0]
-        active_days = self._n_days_in_year - rest_days
+        rest_days = self.n_activities_in_same_day__count__counter[0]
+        active_days = N_DAYS_IN_PERIOD - rest_days
 
-        logger.info("[bold on green]Types[/]")
-        logger.info(f"TOT activities: {self.activities_count}")
+        logger.info("[bold on green] > Activity types[/]")
+        logger.info(f"[dim bright_black]TOT activities: {self.activities_count}[/]")
         for k, v in self.types_counter.items():
-            logger.info(f"{k}: {v}")
+            logger.info(f"{k}: {v} ({round(v*100/self.activities_count)}%)")
 
-        logger.info("[bold on green]Duration[/]")
+        logger.info("[bold on green] > Duration (moving time)[/]")
         avg_time_per_active_day = self.time_tot / active_days
-        avg_time_per_week = self.time_tot / N_WEEKS_IN_A_YEAR
+        avg_time_per_week = self.time_tot / N_WEEKS_IN_PERIOD
+        _ = datetime_utils.seconds_to_hh_mm
         logger.info(
-            f"TOT time: {datetime_utils.seconds_to_hh_mm(self.time_tot)} ({datetime_utils.seconds_to_hh_mm(round(avg_time_per_active_day))} per active day, {datetime_utils.seconds_to_hh_mm(round(avg_time_per_week))} per week)"
+            f"[dim bright_black]TOT time: {_(self.time_tot)} ({_(round(avg_time_per_active_day))} per active day, {_(round(avg_time_per_week))} per week)[/]"
         )
         for k, v in self.types_hours.items():
             logger.info(
-                f"{k}: {datetime_utils.seconds_to_hh_mm(sum(v))} (avg {datetime_utils.seconds_to_hh_mm(round(mean(v)))}, max {datetime_utils.seconds_to_hh_mm(max(v))})"
+                f"{k}{' (elapsed time)' if k == 'WeightTraining' else ''}: {_(sum(v))} (avg {_(round(mean(v)))}, max {_(max(v))}, {round(sum(v)*100/self.time_tot)}%)"
             )
 
-        logger.info("[bold on green]Activities in the same day[/]")
+        logger.info("[bold on green] > Activities in the same day[/]")
         logger.info(
-            f"rest days: {rest_days} days ({round(rest_days / N_WEEKS_IN_A_YEAR, 1)} per week)"
+            f"[dim bright_black]rest days: {rest_days} days ({round(rest_days / N_WEEKS_IN_PERIOD, 1)} per week)[/]"
         )
         logger.info(
-            f"active days: {active_days} days ({round(active_days / N_WEEKS_IN_A_YEAR, 1)} per week)"
+            f"[dim bright_black]active days: {active_days} days ({round(active_days / N_WEEKS_IN_PERIOD, 1)} per week)[/]"
         )
-        for k, v in self.activities_same_day_counter.items():
+        for k, v in self.n_activities_in_same_day__count__counter.items():
             if k != 0:
                 logger.info(
-                    f"{k} activit{'y' if k < 2 else 'ies'}: {v} day{'s' if v > 1 else ''} ({round(v/N_WEEKS_IN_A_YEAR, 1)} per week)"
+                    f"{k} activit{'y' if k < 2 else 'ies'}: {v} day{'s' if v > 1 else ''} ({round(v/N_WEEKS_IN_PERIOD, 1)} per week)"
                 )
 
 
@@ -153,15 +179,17 @@ class WeightTrainingStats(BaseStats):
     def __init__(self):
         self.target_counter: dict | Counter = Counter()
 
-    def add_activity(self, activity):
+    def add_activity_summary(self, summary):
         # target_counter stat: # times I trained that target.
-        if activity["type"].lower() != "weighttraining":
+        if summary["type"].lower() != "weighttraining":
             return
-        name = activity["name"]
+        name = summary["name"]
 
         # Clean-up the prefix.
         if name.lower().startswith("weight training: "):
             name = name[17:]
+        if name.lower().startswith("powerbuilding class: "):
+            name = name[21:]
 
         targets = [x.lower().strip() for x in name.split(",")]
 
@@ -203,9 +231,10 @@ class WeightTrainingStats(BaseStats):
         )
 
     def print_stats(self):
-        logger.info("[bold on green]Weight training target[/]")
+        logger.info("[bold on green] > Weight training target[/]")
+        activities_count = sum(self.target_counter.values())
         for k, v in self.target_counter.items():
-            logger.info(f"{k}: {v}")
+            logger.info(f"{k}: {v} ({round(v*100/activities_count)}%)")
 
 
 class RunStats(BaseStats):
@@ -242,20 +271,20 @@ class RunStats(BaseStats):
         self.distance_tot = 0
         self.elevation_gain_tot = 0
 
-    def add_activity(self, activity):
-        if activity["type"].lower() != "run":
+    def add_activity_summary(self, summary):
+        if summary["type"].lower() != "run":
             return
         self.run_count += 1
-        name = activity["name"]
-        distance = activity["distance"]
+        name = summary["name"]
+        distance = summary["distance"]
         self.distance_tot += distance
-        elevation_gain = activity["total_elevation_gain"]
+        elevation_gain = summary["total_elevation_gain"]
         self.elevation_gain_tot += elevation_gain
 
         # run_type stat: # activities by run type, distance, elevation.
         # Split run, trail run, interval run.
         key = "run"
-        if activity["sport_type"].lower() == "trailrun":
+        if summary["sport_type"].lower() == "trailrun":
             key = "trail run"
         elif res := re.match(r"^\d{1,2}x(\d{3,4}m)$", name):
             key = f"interval run {res.group(1)}"
@@ -293,14 +322,16 @@ class RunStats(BaseStats):
     def finalize_stats(self): ...
 
     def print_stats(self):
-        logger.info("[bold on green]Run[/]")
+        logger.info("[bold on green] > Run[/]")
         logger.info(
-            f"TOT runs: {self.run_count} ({round(self.run_count / N_WEEKS_IN_A_YEAR, 1)} per week)"
+            f"[dim bright_black]TOT runs: {self.run_count} ({round(self.run_count / N_WEEKS_IN_PERIOD, 1)} per week)[/]"
         )
         logger.info(
-            f"TOT distance: {round(self.distance_tot/1000)}km ({round(self.distance_tot/1000 / N_WEEKS_IN_A_YEAR)}km per week)"
+            f"[dim bright_black]TOT distance: {round(self.distance_tot/1000)}km ({round(self.distance_tot/1000 / N_WEEKS_IN_PERIOD)}km per week)[/]"
         )
-        logger.info(f"TOT elevation gain: {round(self.elevation_gain_tot)}m")
+        logger.info(
+            f"[dim bright_black]TOT elevation gain: {round(self.elevation_gain_tot)}m[/]"
+        )
         for k, v in self.run_type.items():
             if v:
                 logger.info(f"{k}: {v}")
@@ -323,14 +354,14 @@ class RideStats(BaseStats):
         self.distance_tot = 0
         self.elevation_gain_tot = 0
 
-    def add_activity(self, activity):
-        if activity["type"].lower() != "ride":
+    def add_activity_summary(self, summary):
+        if summary["type"].lower() != "ride":
             return
         self.ride_count += 1
         # name = activity["name"]
-        distance = activity["distance"]
+        distance = summary["distance"]
         self.distance_tot += distance
-        elevation_gain = activity["total_elevation_gain"]
+        elevation_gain = summary["total_elevation_gain"]
         self.elevation_gain_tot += elevation_gain
 
         # ride_distance stat: # rides by distance.
@@ -358,12 +389,14 @@ class RideStats(BaseStats):
     def finalize_stats(self): ...
 
     def print_stats(self):
-        logger.info("[bold on green]Ride[/]")
-        logger.info(f"TOT rides: {self.ride_count}")
+        logger.info("[bold on green] > Ride[/]")
+        logger.info(f"[dim bright_black]TOT rides: {self.ride_count}[/]")
         logger.info(
-            f"TOT distance: {round(self.distance_tot/1000)}km ({round(self.distance_tot/1000 / self.ride_count)}km per ride)"
+            f"[dim bright_black]TOT distance: {round(self.distance_tot/1000)}km ({round(self.distance_tot/1000 / self.ride_count)}km per ride)[/]"
         )
-        logger.info(f"TOT elevation gain: {round(self.elevation_gain_tot)}m")
+        logger.info(
+            f"[dim bright_black]TOT elevation gain: {round(self.elevation_gain_tot)}m[/]"
+        )
         for k, v in self.ride_distance.items():
             if v:
                 logger.info(f"{k}: {v}")
