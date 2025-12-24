@@ -8,7 +8,6 @@ import click
 
 from .count.count_activities_api import count_activities_api_cli_view
 from .count.count_activities_db import count_activities_db_cli_view
-from .eoy_recap.eoy_recap_api import eoy_recap_api_cli_view
 from .health_cli_view import health_cli_view
 from .plot.plot_interval_run_api.plot_interval_run_api_cli import (
     plot_interval_run_api_cli_view,
@@ -21,6 +20,7 @@ from .search.search_matching_activity_api import (
     search_garmin_activity_matching_strava_activity_api_cli_view,
     search_strava_activity_matching_garmin_activity_api_cli_view,
 )
+from .search.search_strava_api import search_strava_api_cli_view
 from .search.search_text_db import search_text_db_cli_view
 
 
@@ -49,4 +49,4 @@ cli.add_command(plot_climb_ride_api_cli_view)
 cli.add_command(search_text_db_cli_view)
 cli.add_command(count_activities_db_cli_view)
 cli.add_command(count_activities_api_cli_view)
-cli.add_command(eoy_recap_api_cli_view)
+cli.add_command(search_strava_api_cli_view)
