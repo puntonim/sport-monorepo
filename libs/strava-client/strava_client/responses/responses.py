@@ -87,7 +87,7 @@ class ListActivitiesResponse(BaseJsonResponse):
         # min/km (string like "4:45"). The original metric is speed avg in m/s, float.
         pace_avg_range: tuple[str, str] | None = None,
         # min/km (string like "4:45"). The original metric is speed max in m/s, float.
-        pace_max_range: tuple[str, str] = None,
+        pace_max_range: tuple[str, str] | None = None,
         # bpm (int). The original metric is float.
         hr_avg_range: tuple[int, int] | None = None,
         # bpm (int). The original metric is float.

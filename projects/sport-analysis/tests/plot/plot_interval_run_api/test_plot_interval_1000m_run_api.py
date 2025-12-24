@@ -2,11 +2,11 @@ from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
 )
-
 from sport_analysis.conf.settings_module import ROOT_DIR
 from sport_analysis.plot.plot_interval_run_api.plot_interval_run_api_cmd import (
     PlotIntervalRunApiCmd,
 )
+
 from tests.conftest import is_vcr_enabled, is_vcr_record_mode
 
 TEST_ACTIVITIES = [
@@ -56,7 +56,7 @@ class TestPlotInterval1000mRunApi:
         )
         p.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlotInterval1000mRunApi-test_happy_flow.png",
+            / "TestPlotInterval1000mRunApi-test_n_previous_activity_to_compare_2.png",
         )
 
     def test_diff_n_intervals(self):
