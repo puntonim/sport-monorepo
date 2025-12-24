@@ -11,12 +11,6 @@ from contextlib import ContextDecorator
 from pathlib import Path
 from typing import Optional
 
-import log_utils as logger
-
-rich_log = logger.RichAdapter()
-rich_log.configure_default()
-logger.set_adapter(rich_log)
-
 CURR_DIR = Path(__file__).parent
 ROOT_DIR = CURR_DIR.parent.parent
 
@@ -48,6 +42,8 @@ class settings:
 
     APP_NAME = "strava-analysis-notebook"
     IS_TEST = False
+    ARE_CONSOLE_LOGS_ENABLED = True
+    ARE_CONSOLE_PRINTS_ENABLED = True
     DB_PATH = get_string_from_env("DB_PATH", str((ROOT_DIR / "db.sqlite3").absolute()))
     DO_LOG_PEEWEE_QUERIES = False
 
