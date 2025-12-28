@@ -1,14 +1,13 @@
 SEARCH CLI per trovare il migliore segmento selvino (ride)
-- arg per aggiungere se avevo fascia cardio o no
-
 - --no-logs??
 - sistema per bene gli output su stdout/stderr
 
-- san search-matching-activity --stravaid=......
-- san search-db text
-- san get-activity-strava <id>
-- san get-segment-strava <id>|selvino|stelvio
-- san get-activity-garmin <id>
+REFACTORING
+- san search-matching-activity --stravaid=<id> (invece di search-matching-strava-activity)
+- san search-db <text> (invece di db-search-text)
+- san get-activity-strava <id> (NEW)
+- san get-segment-strava <id>|selvino|stelvio  (NEW)
+- san get-activity-garmin <id> (NEW)
 
 SEARCH CLI per trovare il migliore 10km|HM (run)
 - cerco le corse di almeno 10km

@@ -380,3 +380,24 @@ class TestSearchStravaApiCmd:
             "https://www.strava.com/activities/15647482107"
             in mock_console.print_list[0]["args"][0]
         )
+
+    def test_do_select_only_if_with_hr_band(self):
+        s = SearchStravaApiCmd(
+            start_date_after="2025-12-25T00:00:00+01:00",
+            do_select_only_if_with_hr_band=True,
+        )
+        with mock.patch(
+            "sport_analysis.search.search_strava_api.search_strava_api_cmd.console",
+            ConsoleAdapterMock(),
+        ) as mock_console:
+            s.search()
+
+        assert len(mock_console.print_list) == 2
+        assert (
+            "https://www.strava.com/activities/16844998965"
+            in mock_console.print_list[0]["args"][0]
+        )
+        assert (
+            "https://www.strava.com/activities/16854219271"
+            in mock_console.print_list[1]["args"][0]
+        )

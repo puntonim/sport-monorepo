@@ -2,6 +2,7 @@ from datetime import datetime
 
 import datetime_utils
 import speed_utils
+from garmin_connect_client import GarminConnectClient
 from strava_client import (
     ActivityDetailsResponse,
     ListActivitiesResponse,
@@ -17,6 +18,10 @@ from strava_client.strava_token_managers import (
 
 from ...base_cli_view import ConsoleAdapter
 from ...conf import settings
+from ..search_matching_activity_api import (
+    ActivityNotFound,
+    search_garmin_activity_matching_strava_activity_api,
+)
 
 __all__ = [
     "SearchStravaApiCmd",
@@ -73,6 +78,7 @@ class SearchStravaApiCmd:
         pace_max_range: tuple[str, str] | None = None,
         hr_avg_range: tuple[int, int] | None = None,
         hr_max_range: tuple[int, int] | None = None,
+        do_select_only_if_with_hr_band: bool = False,
         strava_token_manager: (
             AwsParameterStoreStravaTokenManager
             | FileStravaTokenManager
@@ -100,6 +106,7 @@ class SearchStravaApiCmd:
         self.pace_max_range = pace_max_range
         self.hr_avg_range = hr_avg_range
         self.hr_max_range = hr_max_range
+        self.do_select_only_if_with_hr_band = do_select_only_if_with_hr_band
 
         if segment_id is not None and location_visited_latlng is not None:
             raise ValueError(
@@ -171,6 +178,7 @@ class SearchStravaApiCmd:
             n = len(summary_resp.data)
 
             for summary in summary_resp.filter(**filters_kwargs):
+                ## Get the segment efforts if segment_id was given.
                 segment_efforts: list[dict] = []  # See specs later.
                 if self.segment_id is not None:
                     # Get the activity details and the segment efforts.
@@ -212,6 +220,30 @@ class SearchStravaApiCmd:
                     #         ...
                     #     }
 
+                ## Check in Garmin API if the heart rate band monitor was used.
+                hr_band_msg = "[bold on red]??[/]"
+                if self.do_select_only_if_with_hr_band:
+                    garmin_activity = None
+                    try:
+                        garmin_activity = (
+                            search_garmin_activity_matching_strava_activity_api(
+                                strava_activity_id=summary["id"],
+                            )
+                        )
+                    except ActivityNotFound as exc:
+                        hr_band_msg = (
+                            "[bold on red]Garmin matching activity not found[/]"
+                        )
+                    if garmin_activity:
+                        garmin = GarminConnectClient()
+                        response = garmin.get_activity_summary(
+                            garmin_activity["activityId"]
+                        )
+                        if response.has_heart_rate_monitor():
+                            hr_band_msg = "Yes"
+                        else:
+                            continue
+
                 msg = f"[bold on yellow]{summary['name']}[/]"
                 msg += f"\nhttps://www.strava.com/activities/{summary['id']}"
                 msg += f"\n{summary['type']} - {summary['sport_type']}"
@@ -224,6 +256,8 @@ class SearchStravaApiCmd:
                     msg += f"\nElevation: {round(elevation)} m (max {summary.get('elev_high') or '?'} m, min {summary.get('elev_low') or '?'} m)"
                 if hr_avg := summary.get("average_heartrate"):
                     msg += f"\nHR: {hr_avg} (max {round(summary['max_heartrate'])})"
+                if self.do_select_only_if_with_hr_band:
+                    msg += f"\nHR band: {hr_band_msg}"
                 if summary["type"] == "Run":
                     if average_speed := summary.get("average_speed"):
                         msg += f"\nPace: {speed_utils.minpkm_base10_to_base60(speed_utils.mps_to_minpkm_base10(average_speed))} min/km (max {speed_utils.minpkm_base10_to_base60(speed_utils.mps_to_minpkm_base10(summary.get('max_speed')))} min/km)"

@@ -48,8 +48,8 @@ console = ConsoleAdapter()
     Eg. san search-strava --speed-max-range 60.0 150.0 --activity-type ride
     Eg. san search-strava --pace-avg-range 4:30 4:45 --activity-type run
     Eg. san search-strava --pace-max-range 2:00 2:30 --activity-type run
-    Eg. san search-strava --hr-avg-range 110 180
-    Eg. san search-strava --hr-max-range 160 220
+    Eg. san search-strava --hr-avg-range 110 180 --with-hr-band-only
+    Eg. san search-strava --hr-max-range 160 220 --with-hr-band-only
     Eg. san search-strava --no-questions --debug-args --activity-type ride
     """,
 )
@@ -176,6 +176,13 @@ console = ConsoleAdapter()
     help="Optional filter by average heart rate range as min-bpm-int max-bpm-int; eg. 110 160",
 )
 @click.option(
+    "--with-hr-band-only",
+    "do_select_only_if_with_hr_band",
+    is_flag=True,
+    default=False,
+    help="Optional filter to select only activities with heart rate band monitor",
+)
+@click.option(
     "--no-questions",
     "do_skip_any_question",
     is_flag=True,
@@ -211,6 +218,7 @@ def search_strava_api_cli_view(
     pace_max_range: tuple[str, str] | None = None,
     hr_avg_range: tuple[int, int] | None = None,
     hr_max_range: tuple[int, int] | None = None,
+    do_select_only_if_with_hr_band: bool = False,
     do_skip_any_question: bool = False,
     do_debug_args: bool = False,
 ) -> None:
@@ -440,6 +448,13 @@ def search_strava_api_cli_view(
                 hr_max_range = _parse_int_range_input(x, format_like="110 160")
             is_input_valid = True
 
+    # do_select_only_if_with_hr_band.
+    if not do_select_only_if_with_hr_band and not do_skip_any_question:
+        text = "Optional filter to select only activities with HEART REATE BAND monitor"
+        # unsafe_ask() so it can be stopped with ctrl-c.
+        x = questionary.confirm(text, default=False).unsafe_ask() or None
+        do_select_only_if_with_hr_band = bool(x)
+
     # Print how to re-run this command.
     if not do_skip_any_question:
         cli_msg = "$ san search-strava"
@@ -487,6 +502,8 @@ def search_strava_api_cli_view(
             cli_msg += f" --hr-avg-range {' '.join(str(x) for x in hr_avg_range)}"
         if hr_max_range:
             cli_msg += f" --hr-max-range {' '.join(str(x) for x in hr_max_range)}"
+        if do_select_only_if_with_hr_band:
+            cli_msg += f" --with-hr-band-only"
         cli_msg += " --no-questions"
         console.print(f"\nYou can re-run this same command with:\n{cli_msg}\n")
 
@@ -514,8 +531,14 @@ def search_strava_api_cli_view(
             "hr_avg_range",
             "hr_max_range",
             "do_skip_any_question",
+            "do_select_only_if_with_hr_band",
         ):
             console.print(f"{arg}: {locals()[arg]} | {type(locals()[arg])}")
+
+    if do_select_only_if_with_hr_band:
+        console.log(
+            "[italic]We will use Garmin API to check if the HR band was used[/italic]"
+        )
 
     searcher = SearchStravaApiCmd(
         start_date_after=start_date_after,
@@ -538,6 +561,7 @@ def search_strava_api_cli_view(
         pace_max_range=pace_max_range,
         hr_avg_range=hr_avg_range,
         hr_max_range=hr_max_range,
+        do_select_only_if_with_hr_band=do_select_only_if_with_hr_band,
     )
     searcher.search()
 
