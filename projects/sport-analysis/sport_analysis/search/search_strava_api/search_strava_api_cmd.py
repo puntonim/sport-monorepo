@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import datetime_utils
-
+import speed_utils
 from strava_client import (
     ActivityDetailsResponse,
     ListActivitiesResponse,
@@ -221,12 +221,23 @@ class SearchStravaApiCmd:
                 if moving_time := summary.get("moving_time"):
                     msg += f"\nDuration: {datetime_utils.seconds_to_hh_mm(moving_time)} (elapsed {datetime_utils.seconds_to_hh_mm(summary['elapsed_time'])})"
                 if elevation := summary.get("total_elevation_gain"):
-                    msg += f"\nElevation: {round(elevation)} m"
+                    msg += f"\nElevation: {round(elevation)} m (max {summary.get('elev_high') or '?'} m, min {summary.get('elev_low') or '?'} m)"
                 if hr_avg := summary.get("average_heartrate"):
                     msg += f"\nHR: {hr_avg} (max {round(summary['max_heartrate'])})"
+                if summary["type"] == "Run":
+                    if average_speed := summary.get("average_speed"):
+                        msg += f"\nPace: {speed_utils.minpkm_base10_to_base60(speed_utils.mps_to_minpkm_base10(average_speed))} min/km (max {speed_utils.minpkm_base10_to_base60(speed_utils.mps_to_minpkm_base10(summary.get('max_speed')))} min/km)"
+                else:
+                    if average_speed := summary.get("average_speed"):
+                        msg += f"\nSpeed: {round(speed_utils.mps_to_kmph(average_speed), 2)} km/h (max {round(speed_utils.mps_to_kmph(summary.get('max_speed')), 2)} km/h)"
+                if start_latlng := summary.get("start_latlng"):
+                    msg += f"\nStart loc: {start_latlng}"
+                if end_latlng := summary.get("end_latlng"):
+                    msg += f"\nEnd loc: {end_latlng}"
                 for segment_effort in segment_efforts:
                     msg += f"\n[underline]Segment {segment_effort['name']}[/]"
                     msg += f"\n   Duration: {datetime_utils.seconds_to_hh_mm(segment_effort['elapsed_time'])} (moving: {datetime_utils.seconds_to_hh_mm(segment_effort['moving_time'])})"
+                    msg += f"\n   Distance: {round(segment_effort['distance'] / 1000, 2)} km"
                     msg += f"\n   HR: avg {round(segment_effort['average_heartrate'])} (max {round(segment_effort['max_heartrate'])})"
                 console.print(msg + "\n")
 
