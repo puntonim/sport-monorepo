@@ -144,7 +144,7 @@ class SearchStravaApiCmd:
         if self.segment_id is not None:
             segment_data = self._get_segment_data(self.segment_id)
             if filters_kwargs["activity_type"] is None:
-                filters_kwargs["activity_type"] = segment_data["activity_type"]
+                filters_kwargs["activity_type"] = segment_data.get("activity_type")
             if filters_kwargs["distance_range"] is None:
                 distance = round(segment_data["distance"])
                 filters_kwargs["distance_range"] = (distance - 1, distance + 99_000_000)
@@ -283,10 +283,4 @@ class SearchStravaApiCmd:
             #     },
             #     ...
             # }
-            return response.data.get("start_latlng")
-
-
-# TODO Algo per trovare migliore perf sul segmento Stelvio:
-#   - cerco tutte le attivita di bici con almeno X metri di dislivello e X distance
-#   - che sono passate per le coord di partenza del segmento
-#   - di quelle request per i dettagli e verifico i segment efforts
+            return response.data

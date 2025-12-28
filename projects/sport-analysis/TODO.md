@@ -1,5 +1,4 @@
 SEARCH CLI per trovare il migliore segmento selvino (ride)
-- test per tutti gli args, con i valori presi dagli esempi in help string
 - arg per aggiungere se avevo fascia cardio o no
 
 - --no-logs??

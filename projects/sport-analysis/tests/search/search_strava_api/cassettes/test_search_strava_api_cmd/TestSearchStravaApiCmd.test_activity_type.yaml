@@ -1,0 +1,122 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/athlete/activities?before=1756854000&after=1756594799&per_page=100
+  response:
+    body:
+      string: '[{"resource_state": 2, "athlete": {"id": 115890775, "resource_state":
+        1}, "name": "Weight training: calisthenics", "distance": 0.0, "moving_time":
+        3600, "elapsed_time": 3600, "total_elevation_gain": 0, "type": "WeightTraining",
+        "sport_type": "WeightTraining", "workout_type": 30, "id": 15675847441, "start_date":
+        "2025-09-02T17:00:00Z", "start_date_local": "2025-09-02T19:00:00Z", "timezone":
+        "(GMT+01:00) Europe/Rome", "utc_offset": 7200.0, "location_city": null, "location_state":
+        null, "location_country": null, "achievement_count": 0, "kudos_count": 0,
+        "comment_count": 0, "athlete_count": 1, "photo_count": 0, "map": {"id": "a15675847441",
+        "summary_polyline": "", "resource_state": 2}, "trainer": false, "commute":
+        false, "manual": true, "private": false, "visibility": "followers_only", "flagged":
+        false, "gear_id": null, "start_latlng": [], "end_latlng": [], "average_speed":
+        0.0, "max_speed": 0, "has_heartrate": false, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        false, "upload_id": null, "external_id": null, "from_accepted_tag": false,
+        "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
+        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Lunch Run",
+        "distance": 10019.7, "moving_time": 3181, "elapsed_time": 3228, "total_elevation_gain":
+        32.0, "type": "Run", "sport_type": "Run", "workout_type": 0, "device_name":
+        "Garmin Forerunner 965", "id": 15658059835, "start_date": "2025-09-01T10:47:18Z",
+        "start_date_local": "2025-09-01T12:47:18Z", "timezone": "(GMT+01:00) Europe/Rome",
+        "utc_offset": 7200.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 0, "kudos_count": 2, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a15658059835", "summary_polyline": "wqkuGoduy@mAF_AP_@Du@Dc@AQBqAGc@B{@CUBKCmC@{BFuAEW@}BCWEMGgCqAyAq@iBs@YGSCGIQECKQJM?{@E_BOUOISKe@SoBGc@e@{@OeA_@[ISy@u@GKCQCY@}AFkDDw@Je@Ri@h@mAXaABW?y@EgABYf@[dBg@|Ao@BCCE{@h@q@Vo@X{@VMLGJCRBtBAVc@lAo@xAMd@GnAKbGEVGLKDQDyDKOBe@L_@j@WRm@JQEGICOH_C?EGCEU?m@OmG@uBM{@EkDCi@DkCGeADa@?WSuCAcA@yBHiBGUCEK?Q?MFi@FO@EAEIYkAOcAGIq@b@IACCk@}B?KRBtAd@?AqBq@AGOQN_@FGOIo@QEEEMHm@LyAJ]PUFCJ?rAX`ANlBl@^HbA`@pA^FGDUVsCRkAJUFGXFPAf@_@NE\\Br@LT@`AP|@FZFRHN^HHb@LJT?N?zCEnAe@zBEb@GHIBGNOhED\\FHN?f@RtA^d@RVF\\P\\LzAn@~FrB~A`@ZBTCx@NNFJRHDJA^KV?p@KbBKjAMf@?z@IPATBxBSVAREhAIh@@rBg@p@SJBHTBr@\\pCHjAFRL?\\Mj@GXGl@Cx@G|Cc@FJFrADb@DbCCNILQDmAQOIK?UG{Aw@[IOA[DYL]Va@l@MZUrAMb@QGVTI@BJGPI@APIf@DJCF@JCR?N]nCAnBFj@N\\TX^LR?PCj@]~BeBx@s@bAaAhA_AJAv@PFJ@\\ArBDlBAzADfB@dAT`FXhCGLEBc@?_@@kB^aBNeA@UFq@FqATkAD]Bw@J_@FmALeA@e@CS?k@Gg@BsB@{BAgAFkBEC@sA?uAGu@[qBgAgEeBaBQ_@Cw@K{@GQGGIQa@GWUeCMa@We@GUCc@EILXJd@b@fAJr@Bp@Hh@DVNVlARbDXj@JdBp@~Ax@HHXPh@T^N`@TnAF|@?rBF|AEfB@~@CjBCrAHt@A",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        "g20743230", "start_latlng": [45.609145, 9.616687], "end_latlng": [45.610415,
+        9.616542], "average_speed": 3.15, "max_speed": 4.58, "average_cadence": 83.0,
+        "average_temp": 25, "average_watts": 373.1, "max_watts": 481, "weighted_average_watts":
+        369, "device_watts": true, "kilojoules": 1183.1, "has_heartrate": true, "average_heartrate":
+        125.9, "max_heartrate": 136.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 189.8, "elev_low": 172.0, "upload_id": 16724678321, "upload_id_str":
+        "16724678321", "external_id": "garmin_ping_475612241132", "from_accepted_tag":
+        false, "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
+        2, "athlete": {"id": 115890775, "resource_state": 1}, "name": "Santa Caterina
+        di Valfurva - Passo Gavia", "distance": 27584.7, "moving_time": 6788, "elapsed_time":
+        9872, "total_elevation_gain": 888.0, "type": "Ride", "sport_type": "MountainBikeRide",
+        "workout_type": null, "device_name": "Garmin Forerunner 965", "id": 15647482107,
+        "start_date": "2025-08-31T08:39:35Z", "start_date_local": "2025-08-31T10:39:35Z",
+        "timezone": "(GMT+01:00) Europe/Rome", "utc_offset": 7200.0, "location_city":
+        null, "location_state": null, "location_country": null, "achievement_count":
+        56, "kudos_count": 3, "comment_count": 0, "athlete_count": 1, "photo_count":
+        0, "map": {"id": "a15647482107", "summary_polyline": "ixgzGsja_AeCnMp@j@j@`B@r@NDrHyFn@gAr@uDzAw@xBwChAq@YrCi@bAqBhGK|Eq@~B{@nAHPzAgAdAeBlA_FbDsCpDo@HYKgAXq@fEoF`D_BrA}C`EcBuCzC_@|BsAzBc@fBiA~@_AnCRRl@}AhCmAt@sAjEwEqBbFWjB{AdCq@|BIxBmCdDm@rAAXRLp@yAtDuB|CkEtBe@dBkD~ByBnJoDzBEtD_BF^m@dAuF~D{DfJ[rBJfBQvAeBpIKnCJf@p@kBtByCrAgGnAoEn@gAzDPtAMyErD}@rFhCqDpFHzCaEbCgA|Ce@zCuCnBqCjAkCjIcHnAs@hCc@tByCvAe@jABxC~BhAu@bBtB|D|BvC?|BxDhAxABvAbA`C`DfBf@cAHkGyA{Kq@mBA_Cb@{Bt@k@bAqChByArKcAbBkAzDdA~EKtAx@`KmAvD~AzBTv@]hANrBnDbAd@tHUhDJhAb@~M\\jCqAdB~@jDaApLtDrAD`EnBvD\\bDtAnD]zCp@nAjBzCzBvCf@vCbBjE~AbDx@tDhEdB\\t@z@zCrAnBnCjC~@fD|BhBClBpAhCd@zDO~BeBvAU`@|@b@rDlAfDpEvCd@tAx@rHtBjID`A_@tCZmCIgBZIYHD^Zd@HIi@WVuCQ{@q@d@eAeDWyDo@iDe@{@iEuCcAmCa@iD_@kAcBPkCfBiDNmBYkC{AcBByDcC_C{@sBsCoCkAcEyBuCmDaKcDeBkAyDw@uCwBuAqBsBk@}ERgDwAaE[}CgBiBKmLoDmD`A{AaAoCpAmMYyFq@mIVq@_@{A_DmAe@oAZiHoB{AZgHl@sA}@sERkEqAuArAmBb@kBK{Dd@qBpAgAtCm@`@m@tBAjCl@|AbBnLIjG_@x@y@CoByAiAwBDuAMl@OYsAaEsAcBgDG}DuB}A_Cu@n@a@DuC_CgACgA\\yBjD{Dt@mJxH_EfH}CvCuFrAiB|AqArBy@PwDa@yA`Bs@zAd@_FrEaDL_@oE_@_AZcEdOqB|Cs@pBOI?gARuCrBgIIwCVgBzDwJnB{@|A_BbAqA?o@kDzAcCNqJhD{BtB_BpDqBXyCjEgEzBs@nAISf@mAfAaB`Am@PgC|@cDlA}ApAqFfA}Aa@YaF`HsCtAo@zAQ?p@}B|@o@t@yBfAeBn@{CrCsBJc@yD`Ae@h@g@pBaD|AgFjGE~BoEbAgCzBsApFsC~DQQD[vAqDPkFzAeDL}Al@aA`@}Cm@@qCdD_Bv@mAtEkIlHeBeE~BmN",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        "b12393437", "start_latlng": [46.41147, 10.499149], "end_latlng": [46.411365,
+        10.499371], "average_speed": 4.064, "max_speed": 16.14, "average_temp": 27,
+        "average_watts": 175.1, "device_watts": false, "kilojoules": 1188.9, "has_heartrate":
+        true, "average_heartrate": 108.4, "max_heartrate": 146.0, "heartrate_opt_out":
+        false, "display_hide_heartrate_option": true, "elev_high": 2623.6, "elev_low":
+        1739.6, "upload_id": 16713009462, "upload_id_str": "16713009462", "external_id":
+        "garmin_ping_475262746525", "from_accepted_tag": false, "pr_count": 18, "total_photo_count":
+        1, "has_kudoed": false}]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 28 Dec 2025 15:03:44 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 d1e0911fa6d456578d91481606727406.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - ACZur5edIaLp1qFcve2SV1wq9tNpqyR1Lpwu_gQ36_r7nqr6UrpuhA==
+      X-Amz-Cf-Pop:
+      - MXP53-P6
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '5957'
+      etag:
+      - W/"068c4e7d04a688a34821ffe5efedc964"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '270'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 3,109
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 3,109
+      x-request-id:
+      - e076fdd8-4676-4332-a9c6-1ac332d03893
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1
