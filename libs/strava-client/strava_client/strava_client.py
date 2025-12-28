@@ -113,8 +113,8 @@ class StravaClient:
     @handle_api_rate_limit_error
     def list_activities(
         self,
-        after_ts: datetime | int | float | None = None,  # Inclusive.
-        before_ts: datetime | int | float | None = None,  # Inclusive.
+        after_ts: datetime | str | int | float | None = None,  # Inclusive.
+        before_ts: datetime | str | int | float | None = None,  # Inclusive.
         n_results_per_page: int | None = None,
         page_n: int = 1,
     ) -> ListActivitiesResponse:
@@ -153,15 +153,37 @@ class StravaClient:
             assert activities[1]["name"] == "6x300m"
             assert activities[1]["id"] == 13361068984
         """
-        if isinstance(after_ts, datetime):
-            if datetime_utils.is_naive(after_ts):
-                raise NaiveDatetime(after_ts)
-            after_ts = datetime_utils.utc_date_to_timestamp(after_ts)
+        if isinstance(after_ts, (datetime, str)):
+            try:
+                parsed = datetime_utils.parse_datetime_arg(
+                    after_ts,
+                    is_type_datetime_allowed=True,
+                    is_type_date_allowed=False,
+                    is_type_str_allowed=True,
+                    is_type_none_allowed=False,
+                    is_naive_allowed=False,
+                )
+            except datetime_utils.NaiveDatetime as exc:
+                raise NaiveDatetime(after_ts) from exc
+            except datetime_utils.InvalidDatetime as exc:
+                raise InvalidDatetime(after_ts) from exc
+            after_ts = datetime_utils.utc_date_to_timestamp(parsed)
 
-        if isinstance(before_ts, datetime):
-            if datetime_utils.is_naive(before_ts):
-                raise NaiveDatetime(before_ts)
-            before_ts = datetime_utils.utc_date_to_timestamp(before_ts)
+        if isinstance(before_ts, (datetime, str)):
+            try:
+                parsed = datetime_utils.parse_datetime_arg(
+                    before_ts,
+                    is_type_datetime_allowed=True,
+                    is_type_date_allowed=False,
+                    is_type_str_allowed=True,
+                    is_type_none_allowed=False,
+                    is_naive_allowed=False,
+                )
+            except datetime_utils.NaiveDatetime as exc:
+                raise NaiveDatetime(before_ts) from exc
+            except datetime_utils.InvalidDatetime as exc:
+                raise InvalidDatetime(before_ts) from exc
+            before_ts = datetime_utils.utc_date_to_timestamp(parsed)
 
         logger.info("Listing my activities...")
         url = "https://www.strava.com/api/v3/athlete/activities"

@@ -109,10 +109,46 @@ class TestListActivities:
         assert response.data[0]["name"] == "Lunch Run"
         assert response.data[0]["id"] == 14241623406
 
-    def test_after_ts(self):
+    def test_after_ts_datetime(self):
         client = StravaClient(self.token_mgr.get_access_token())
         response = client.list_activities(
             after_ts=datetime(2025, 1, 18, 6, 0, 1, tzinfo=ZoneInfo("Europe/Rome")),
+            n_results_per_page=2,
+        )
+        assert len(response.data) == 2
+        assert response.data[0]["name"] == "Dobbiaco Winter Night Run 🦠"
+        assert response.data[0]["id"] == 13389554554
+
+    def test_after_ts_str(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts="2025-01-18T06:00:00+01:00",
+            n_results_per_page=2,
+        )
+        assert len(response.data) == 2
+        assert response.data[0]["name"] == "Dobbiaco Winter Night Run 🦠"
+        assert response.data[0]["id"] == 13389554554
+
+    def test_after_ts_float(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=datetime(
+                2025, 1, 18, 6, 0, 1, tzinfo=ZoneInfo("Europe/Rome")
+            ).timestamp(),
+            n_results_per_page=2,
+        )
+        assert len(response.data) == 2
+        assert response.data[0]["name"] == "Dobbiaco Winter Night Run 🦠"
+        assert response.data[0]["id"] == 13389554554
+
+    def test_after_ts_int(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            after_ts=int(
+                datetime(
+                    2025, 1, 18, 6, 0, 1, tzinfo=ZoneInfo("Europe/Rome")
+                ).timestamp()
+            ),
             n_results_per_page=2,
         )
         assert len(response.data) == 2
@@ -151,15 +187,51 @@ class TestListActivities:
                 n_results_per_page=2,
             )
 
-    def test_before_ts(self):
+    def test_before_ts_datetime(self):
         client = StravaClient(self.token_mgr.get_access_token())
         response = client.list_activities(
             before_ts=datetime(2025, 1, 18, 5, 59, 59, tzinfo=ZoneInfo("Europe/Rome")),
             n_results_per_page=2,
         )
         assert len(response.data) == 2
-        assert response.data[0]["name"] == "Weight training: calisthenics"
-        assert response.data[0]["id"] == 13381920990
+        assert response.data[0]["name"] == "Weight training: chest, biceps"
+        assert response.data[0]["id"] == 13371865434
+
+    def test_before_ts_str(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts="2025-01-18T05:59:59+01:00",
+            n_results_per_page=2,
+        )
+        assert len(response.data) == 2
+        assert response.data[0]["name"] == "Weight training: chest, biceps"
+        assert response.data[0]["id"] == 13371865434
+
+    def test_before_ts_float(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=datetime(
+                2025, 1, 18, 5, 59, 59, tzinfo=ZoneInfo("Europe/Rome")
+            ).timestamp(),
+            n_results_per_page=2,
+        )
+        assert len(response.data) == 2
+        assert response.data[0]["name"] == "Weight training: chest, biceps"
+        assert response.data[0]["id"] == 13371865434
+
+    def test_before_ts_int(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.list_activities(
+            before_ts=int(
+                datetime(
+                    2025, 1, 18, 5, 59, 59, tzinfo=ZoneInfo("Europe/Rome")
+                ).timestamp()
+            ),
+            n_results_per_page=2,
+        )
+        assert len(response.data) == 2
+        assert response.data[0]["name"] == "Weight training: chest, biceps"
+        assert response.data[0]["id"] == 13371865434
 
     def test_before_ts_inclusive_timestamp(self):
         before_ts = 1759424400
