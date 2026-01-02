@@ -8,7 +8,16 @@ class AddOneSetButton {
     const sheet = SpreadsheetApp.getActiveSheet();
 
     // Get the position of the +1 button.
-    const plusOneButton = sheet.getDrawings()[0];
+    // This works only if the "+1 set" drawing was added before the "Update Strava" drawing.
+    // But in 2026 I created a new sheet and added the "+1 set" drawing after.
+    // To avoid this issue, I changed the code to perform a for loop on every drawing and
+    //  identify the "+1 set" drawing by its onAction.
+    // let plusOneButton = sheet.getDrawings()[1];
+    let plusOneButton;
+    for (let btn of sheet.getDrawings()) {
+      if (btn.getOnAction() == "addOneSetClickHandler")
+        plusOneButton = btn;
+    };
     const buttonRow = plusOneButton.getContainerInfo().getAnchorRow();
     const buttonCol = plusOneButton.getContainerInfo().getAnchorColumn();
 
@@ -27,6 +36,6 @@ class AddOneSetButton {
     // Finally increment the value.
     let currentValue = selectedCell.getValue();
     if (!currentValue) currentValue = 0;
-    selectedCell.setValue(currentValue + 1);
+    selectedCell.setValue(currentValue + 1);    
   }
 }
