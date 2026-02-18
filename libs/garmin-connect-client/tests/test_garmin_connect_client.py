@@ -627,6 +627,31 @@ class TestSearchActivities:
         for activity in response.data:
             assert activity["activityType"]["typeKey"] in ("running", "trail_running")
 
+    def test_1000m_interval(self):
+        client = GarminConnectClient(self.token_mgr)
+        response = client.search_activities(
+            text="10x1000m",
+            activity_type="running",
+            start_offset=0,
+            n_results=20,
+        )
+        assert response.data[0]["activityName"] == "Verdellino - 5x1000m"
+        assert response.data[1]["activityName"] == "Verdellino - 5x1000m"
+        assert response.data[2]["activityName"] == "Verdellino - 5x1000m"
+        assert response.data[3]["activityName"] == "Verdellino - 5x1000m"
+        assert response.data[4]["activityName"] == "Verdellino - 4x1000m"
+        # NOTE: this is a 200m!!!!!!!!!!!!!
+        # It gets matched because the text includes "10x".
+        # I solved this in sport_analysis/plot/plot_interval_run_api/plot_interval_run_api_cmd.py
+        #  by counting the # splits with 1000m distance.
+        assert response.data[5]["activityName"] == "Verdellino - 10x200m"
+        assert response.data[6]["activityName"] == "Verdellino - 4x1000m"
+        # NOTE: this is a 400m!!!!!!!!!!!!!
+        # It gets matched because the text includes "10x".
+        # I solved this in sport_analysis/plot/plot_interval_run_api/plot_interval_run_api_cmd.py
+        #  by counting the # splits with 1000m distance.
+        assert response.data[7]["activityName"] == "Verdellino - 10x400m"
+
     def test_distance(self):
         client = GarminConnectClient(self.token_mgr)
         response = client.search_activities(

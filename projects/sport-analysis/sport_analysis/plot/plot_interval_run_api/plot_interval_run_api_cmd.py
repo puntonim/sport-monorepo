@@ -10,13 +10,14 @@ import matplotlib.pyplot as plt
 import number_utils
 import numpy as np
 import speed_utils
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+
 from garmin_connect_client import ActivitySummaryResponse, ActivityTypedSplitsResponse
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
 )
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
 
 from .. import base_api, base_plot
 
@@ -54,9 +55,9 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
     # Text used in the search for previous activities to compare. It's an exact match
     #  on activities' titles.
     DEFAULT_TEXT_TO_SEARCH_FOR_PREVIOUS_ACTIVITIES: dict[DistanceEnum, str] = {
-        200: "x200m ".join((str(x) for x in range(1, 26))) + "x200m",
-        300: "x300m ".join((str(x) for x in range(1, 16))) + "x300m",
-        1000: "x1000m ".join((str(x) for x in range(1, 11))) + "x1000m",
+        200: "x200m ".join((str(x) for x in range(2, 26))) + "x200m",
+        300: "x300m ".join((str(x) for x in range(2, 16))) + "x300m",
+        1000: "x1000m ".join((str(x) for x in range(2, 11))) + "x1000m",
     }
     # List of all possible expected number of intervals: fi. for a 4x1000m it is [4],
     #  but if you want to include also a 5x1000m then it is [4, 5]. Use range() to
@@ -682,6 +683,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
                 )
 
         ## Extract all splits from all responses.
+        ix_activities_w_no_splits = list()
         for i in range(len(self._s)):
             splits = self._get_splits_for_activity_typed_splits_response(
                 self._s[i].typed_splits_resp,
@@ -689,7 +691,16 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
                 #  one only for the given activity, not for the old activity to compare.
                 do_raise_if_n_split_not_expected=True if i == 0 else False,
             )
-            self._s[i].splits = splits
+            if len(splits) == 0:
+                ix_activities_w_no_splits.append(i)
+            else:
+                self._s[i].splits = splits
+        # Cleanup the activities found that have no splits, so they are not what we
+        #  are looking for.
+        _i = 0
+        for ix in ix_activities_w_no_splits:
+            del self._s[ix - _i]
+            _i += 1
         self._max_n_splits = max([len(_.splits) for _ in self._s])
 
         # Figure.
