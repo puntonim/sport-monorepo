@@ -3,9 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import datetime_utils
-import log_utils as logger
 import matplotlib as mpl
-import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import pandas as pd
 import speed_utils

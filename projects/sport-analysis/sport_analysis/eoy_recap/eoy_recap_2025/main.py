@@ -1,7 +1,7 @@
 """
 Creates the EOY (end of year) recap for 2025.
 
-Note: it is a script and nor a proper cli command (like the others) because it is used
+Note: it is a script and not a proper cli command (like the others) because it is used
  only twice a year, and it's still a kind of beta feature.
 
 Note: this script uses VCR.py to record HTTP interactions, so it avoids hammering

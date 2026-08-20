@@ -1,8 +1,4 @@
-- plot.plot_ride_api.test_plot_climb_ride_api.TestPlotClimbRideApi.test_111
 
-- committa tutto!!!!!!!!!!!
-
-- aggiorna appunti su VCR.py in prod code e Relative imports
 - add calendar sketch (and use proper vcr.py)
 
 - scritta semplice: rimuovi MA(pace)
