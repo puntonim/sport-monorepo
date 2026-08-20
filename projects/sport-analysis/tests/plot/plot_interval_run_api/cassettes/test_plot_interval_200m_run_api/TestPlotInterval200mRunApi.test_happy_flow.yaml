@@ -2128,7 +2128,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/activitylist-service/activities/search/activities?start=0&limit=11&search=1x200m+2x200m+3x200m+4x200m+5x200m+6x200m+7x200m+8x200m+9x200m+10x200m+11x200m+12x200m+13x200m+14x200m+15x200m+16x200m+17x200m+18x200m+19x200m+20x200m+21x200m+22x200m+23x200m+24x200m+25x200m&endDate=2025-10-03&activityType=running
+    uri: https://connectapi.garmin.com/activitylist-service/activities/search/activities?start=0&limit=11&search=2x200m+3x200m+4x200m+5x200m+6x200m+7x200m+8x200m+9x200m+10x200m+11x200m+12x200m+13x200m+14x200m+15x200m+16x200m+17x200m+18x200m+19x200m+20x200m+21x200m+22x200m+23x200m+24x200m+25x200m&endDate=2025-10-03&activityType=running
   response:
     body:
       string: '[{"activityId": 20579416584, "activityName": "Verdellino - 10x200m",

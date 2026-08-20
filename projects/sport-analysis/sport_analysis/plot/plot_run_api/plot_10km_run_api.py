@@ -3,7 +3,7 @@ from pathlib import Path
 import click
 import datetime_utils
 
-from ...base_cli_view import BaseClickCommand
+from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand
 from ...conf.settings_module import ROOT_DIR
 from .base_plot_run_api import BasePlotRunApi
 
@@ -11,12 +11,27 @@ from .base_plot_run_api import BasePlotRunApi
 @click.command(
     cls=BaseClickCommand,
     name="plot-10km-run",
-    help='Plot a 10km run; eg: san plot-10km-run 19005790234 -vs 19074660632 -vs 18797516250 --title "Fosso BG" --figure-size 5.0 6.5 --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 3.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/',
+    help="""
+    Plot a 10km run.
+    
+    \b
+    Examples
+    $ san plot-10km-run 19005790234 -vs 19074660632 -vs 18797516250 --title "Fosso BG" --figure-size 5.0 6.5 --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 3.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/
+    $ san plot-10km-run LATEST
+    $ san plot-10km-run LATEST-3
+    """,
 )
-@click.argument("garmin-activity-id", nargs=1, type=int)
+@click.argument(
+    # id (int) of Garmin activity to analyze or "LATEST" or "LATEST-3".
+    "garmin-activity-id",
+    nargs=1,
+    type=ACTIVITY_ID_TYPE,
+    # help="Garmin activity id or LATEST or LATEST-3",
+)
 @click.option(
     "--activity-id-to-compare",
     "-vs",
+    # Note: "ids" is plural as this option can be repeated multiple times.
     "activity_ids_to_compare",
     type=int,
     multiple=True,
@@ -53,8 +68,9 @@ from .base_plot_run_api import BasePlotRunApi
     help="Either dir or file path where to store the .png plot",
 )
 def plot_10km_run_api_cli_view(
-    garmin_activity_id: int,
-    activity_ids_to_compare: list[int] | None = None,
+    # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
+    garmin_activity_id: int | tuple[str, int],
+    activity_ids_to_compare: tuple[int] | None = None,
     title: str | None = None,
     figure_size: tuple[float, float] | None = None,
     pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,

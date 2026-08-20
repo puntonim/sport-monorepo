@@ -23,7 +23,7 @@ COL_DARK_BLUE = "#000134"
 COL_VERY_DARK_BLUE = "#01025f"
 
 # Important constants.
-CSV_FILE = CURR_DIR / "2026.04.28 data.csv"
+CSV_FILE = CURR_DIR / "2026.05.08 data.csv"
 EVENT_DATE = date(2026, 4, 26)
 RACE_START_DATE_STR = "2026-04-26T09:30:00"
 RACE_END_DATE_STR = "2026-04-26T11:25:30"
@@ -155,6 +155,8 @@ class Main:
         # %-H means hour without zero-padding.
         formatter = mpl.dates.DateFormatter("%-H:%M")
         self.axes["day"].xaxis.set_major_formatter(formatter)
+        # Force y to use only integers.
+        self.axes["race"].yaxis.get_major_locator().set_params(integer=True)
 
         # Highlight the RACE time range.
         self.axes["day"].axvspan(
@@ -172,6 +174,15 @@ class Main:
             alpha=0.9,
             fontsize=8,
             fontweight="bold",
+        )
+
+        # Draw horizontal line at 120 mg/dL.
+        self.axes["day"].axhline(
+            y=120,
+            color=COL_DARK_GRAY,
+            alpha=0.2,
+            linestyle="--",
+            linewidth=1,
         )
 
     def _plot_race(self):
@@ -199,6 +210,18 @@ class Main:
         # %-H means hour without zero-padding.
         formatter = mpl.dates.DateFormatter("%-H:%M")
         self.axes["race"].xaxis.set_major_formatter(formatter)
+        # Force y to use only integers.
+        self.axes["race"].yaxis.get_major_locator().set_params(integer=True)
+
+        # Draw horizontal line at 120 mg/dL.
+        if max(race_data.glucose) >= 120:
+            self.axes["race"].axhline(
+                y=120,
+                color=COL_DARK_GRAY,
+                alpha=0.2,
+                linestyle="--",
+                linewidth=1,
+            )
 
     def _plot_day_annotations(self):
         line_col = COL_DARK_BLUE

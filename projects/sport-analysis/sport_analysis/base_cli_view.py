@@ -1,5 +1,6 @@
+import re
 import sys
-from typing import Any
+from typing import Literal
 
 import click
 import log_utils as logger
@@ -25,6 +26,34 @@ class BaseClickCommand(click.Command):
     #         disconnect()
     #     return result
     pass
+
+
+class ActivityIdType(click.ParamType):
+    """
+    Parameter type that can be an int or the string "LATEST" or "LATEST-3".
+    """
+
+    name = "activity_id"
+
+    def convert(self, value, param, ctx) -> int | tuple[str, int]:
+        if isinstance(value, int):
+            return value
+
+        if isinstance(value, str) and (match := re.match(r"LATEST(-\d+)?", value)):
+            n = match.group(1) or 0
+            n = int(n)
+            return "LATEST", n  # Eg. ("LATEST", 0) or ("LATEST", -3).
+
+        # Try to convert it to int.
+        try:
+            return int(value)
+        except ValueError:
+            self.fail(
+                f"{value!r} is not a valid integer nor LATEST nor LATEST-3", param, ctx
+            )
+
+
+ACTIVITY_ID_TYPE = ActivityIdType()
 
 
 class ConsoleAdapter:

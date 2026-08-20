@@ -10,16 +10,18 @@ import matplotlib.pyplot as plt
 import number_utils
 import numpy as np
 import speed_utils
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
-
 from garmin_connect_client import ActivitySummaryResponse, ActivityTypedSplitsResponse
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
 )
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 
+from ...base_cli_view import ConsoleAdapter
 from .. import base_api, base_plot
+
+console = ConsoleAdapter()
 
 
 @dataclass
@@ -30,6 +32,7 @@ class CollectedData:
 
 
 class DistanceEnum(IntEnum):
+    ONE_H = 100
     TWO_H = 200
     THREE_H = 300
     ONE_T = 1000
@@ -54,7 +57,10 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
 
     # Text used in the search for previous activities to compare. It's an exact match
     #  on activities' titles.
-    DEFAULT_TEXT_TO_SEARCH_FOR_PREVIOUS_ACTIVITIES: dict[DistanceEnum, str] = {
+    DEFAULT_TXT_TO_SEARCH_FOR_PREV_ACTIVITIES_TO_AUTO_COMPARE: dict[
+        DistanceEnum, str
+    ] = {
+        100: "x100m ".join((str(x) for x in range(2, 26))) + "x100m",
         200: "x200m ".join((str(x) for x in range(2, 26))) + "x200m",
         300: "x300m ".join((str(x) for x in range(2, 16))) + "x300m",
         1000: "x1000m ".join((str(x) for x in range(2, 11))) + "x1000m",
@@ -63,6 +69,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
     #  but if you want to include also a 5x1000m then it is [4, 5]. Use range() to
     #  include many values.
     DEFAULT_N_EXPECTED_INTERVALS: dict[DistanceEnum, Sequence] = {
+        100: range(3, 26),
         200: range(3, 26),
         300: range(3, 16),
         1000: range(3, 11),
@@ -70,11 +77,13 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
 
     def __init__(
         self,
-        garmin_activity_id: int,
+        # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
+        garmin_activity_id: int | tuple[str, int],
         distance: DistanceEnum | int,
-        n_previous_activities_to_compare: int = 10,
-        text_to_search_for_previous_activities: str | None = None,
         n_expected_intervals: list[int] | None = None,
+        activity_ids_to_compare: list[int] | None = None,
+        n_prev_activities_to_auto_compare: int = 0,
+        txt_to_search_for_prev_activities_to_auto_compare: str | None = None,
         title: str | None = None,
         figure_size: tuple[float, float] | None = None,
         garmin_connect_token_manager: (
@@ -83,14 +92,19 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
     ):
         """
         Args:
-            garmin_activity_id: id of Garmin activity to analyze.
-            n_previous_activities_to_compare: number of previous activities to compare
-             to the given activity. They are searched automatically.
-            text_to_search_for_previous_activities: text used in the search for
-             previous activities to compare. It's an exact match on activities' titles.
+            garmin_activity_id: id (int) of Garmin activity to analyze or ("LATEST", 0)
+             or ("LATEST", -3).
+            distance: run distance in meters as DistanceEnum (int).
             n_expected_intervals list[int]: list of all possible expected number of
              intervals: fi. for a 4x1000m it is [4], but if you want to include also
              a 5x1000m then it is [4, 5].
+            activity_ids_to_compare: list of previous activities to compare
+             to the given activity.
+            n_prev_activities_to_auto_compare: number of previous activities to
+             compare to the given activity. They are searched automatically. Default: 0.
+            txt_to_search_for_prev_activities_to_auto_compare: text used in the search
+             for previous activities to automatically compare. It's an exact match on
+             activities' titles.
             title: figure title.
             figure_size: customize the figure size, eg. (3.0, 5.5).
             garmin_connect_token_manager: use FakeTestGarminConnectTokenManager when
@@ -102,14 +116,23 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         self.distance = distance
         if distance not in DistanceEnum:
             raise DistanceNotSupported(f"Distance not supported yet: {distance}")
-        self.n_previous_activities_to_compare = n_previous_activities_to_compare
-        self.text_to_search_for_previous_activities = (
-            text_to_search_for_previous_activities
-            or self.DEFAULT_TEXT_TO_SEARCH_FOR_PREVIOUS_ACTIVITIES[distance]
-        )
         self.n_expected_intervals = (
             n_expected_intervals or self.DEFAULT_N_EXPECTED_INTERVALS[distance]
         )
+
+        # Parse activity_ids_to_compare, n_prev_activities_to_auto_compare,
+        #  txt_to_search_for_prev_activities_to_auto_compare.
+        if activity_ids_to_compare and n_prev_activities_to_auto_compare > 0:
+            raise IncompatibleArgs(
+                "activity_ids_to_compare and n_prev_activities_to_auto_compare args cannot be used together"
+            )
+        self.activity_ids_to_compare = activity_ids_to_compare
+        self.n_prev_activities_to_auto_compare = n_prev_activities_to_auto_compare
+        self.txt_to_search_for_prev_activities_to_auto_compare = (
+            txt_to_search_for_prev_activities_to_auto_compare
+            or self.DEFAULT_TXT_TO_SEARCH_FOR_PREV_ACTIVITIES_TO_AUTO_COMPARE[distance]
+        )
+
         self.title = title
         self.figure_size = figure_size
 
@@ -634,6 +657,24 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         )
 
     def plot(self, save_to_png_file_path: Path | None = None):
+        ## Find the actual Garmin activity, if the garmin id arg was LATEST or LATEST-3.
+        original_garmin_activity_id_arg = self.garmin_activity_id
+        if (
+            # original_garmin_activity_id_arg is a tuple like ("LATEST", 0) or ("LATEST", -3).
+            isinstance(original_garmin_activity_id_arg, tuple)
+            and original_garmin_activity_id_arg[0] == "LATEST"
+        ):
+            # Get N-most recent running activity from Garmin API.
+            self.garmin_activity_id = self._api_search_activities(
+                activity_type="running",
+                n_results=abs(original_garmin_activity_id_arg[1]) + 1,
+            )[-1]
+        self.print_activity_urls(
+            original_activity_id_arg=original_garmin_activity_id_arg,
+            garmin_activity_id=self.garmin_activity_id,
+            activity_txt_to_print="run",
+        )
+
         ## Collect MAIN activity's time splits and summary.
         self._s.append(
             CollectedData(
@@ -644,43 +685,47 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             )
         )
         self._start_date_str = self._s[0].summary_resp.summary["startTimeLocal"][:10]
+        self.print_activity_date(self._s[0].summary_resp.summary["startTimeLocal"])
 
-        if self.n_previous_activities_to_compare > 0:
-            for activity_id in self._api_search_activities(
+        # Get activities to compare to.
+        activity_ids_to_compare = []
+        if self.activity_ids_to_compare:
+            activity_ids_to_compare = self.activity_ids_to_compare
+        elif self.n_prev_activities_to_auto_compare > 0:
+            activity_ids_to_compare = self._api_search_activities(
                 filter_exclude=[self.garmin_activity_id],
-                text=self.text_to_search_for_previous_activities,
+                text=self.txt_to_search_for_prev_activities_to_auto_compare,
                 activity_type="running",
                 day_end=self._start_date_str,
                 # Add 1 because the results include the main activity.
                 #  You might also want to add another 1 to account for the activity that
                 #  was interrupted for a false Incident Detection and ended up as 2
                 #  activities (as better explained in MixinGarminRequestsApi._api_get_activity_splits()).
-                n_results=self.n_previous_activities_to_compare + 1,
-            ):
-                ## Collect all SECONDARY activities time splits and summeries.
-                try:
-                    splits_resp = self._api_get_activity_typed_splits(activity_id)
-                except base_api.InterruptedActivity:
-                    # An activity that was interrupted for a false Incident Detection
-                    #  and ended up as 2 activities (as better explained in
-                    #  MixinGarminRequestsApi._api_get_activity_splits()).
-                    #  Nothing to do as the other activity uses a fixture to join all
-                    #  the splits.
-                    splits_resp = None
-                try:
-                    summary_resp = self._api_get_activity_summary(activity_id)
-                except base_api.InterruptedActivity:
-                    # An activity that was interrupted for a false Incident Detection
-                    #  and ended up as 2 activities (as better explained in
-                    #  MixinGarminRequestsApi._api_get_activity_splits()).
-                    #  Nothing to do as the other activity uses a fixture to join all
-                    #  the splits.
-                    summary_resp = None
-                self._s.append(
-                    CollectedData(
-                        summary_resp=summary_resp, typed_splits_resp=splits_resp
-                    )
-                )
+                n_results=self.n_prev_activities_to_auto_compare + 1,
+            )
+        for activity_id in activity_ids_to_compare:
+            ## Collect all SECONDARY activities time splits and summeries.
+            try:
+                splits_resp = self._api_get_activity_typed_splits(activity_id)
+            except base_api.InterruptedActivity:
+                # An activity that was interrupted for a false Incident Detection
+                #  and ended up as 2 activities (as better explained in
+                #  MixinGarminRequestsApi._api_get_activity_splits()).
+                #  Nothing to do as the other activity uses a fixture to join all
+                #  the splits.
+                splits_resp = None
+            try:
+                summary_resp = self._api_get_activity_summary(activity_id)
+            except base_api.InterruptedActivity:
+                # An activity that was interrupted for a false Incident Detection
+                #  and ended up as 2 activities (as better explained in
+                #  MixinGarminRequestsApi._api_get_activity_splits()).
+                #  Nothing to do as the other activity uses a fixture to join all
+                #  the splits.
+                summary_resp = None
+            self._s.append(
+                CollectedData(summary_resp=summary_resp, typed_splits_resp=splits_resp)
+            )
 
         ## Extract all splits from all responses.
         ix_activities_w_no_splits = list()
@@ -736,7 +781,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         )
 
         if save_to_png_file_path:
-            logger.info(f"Created image: {save_to_png_file_path}")
+            self.print_created_image_path(save_to_png_file_path)
             plt.savefig(save_to_png_file_path)
         else:
             plt.show()
@@ -810,4 +855,8 @@ class DistanceNotSupported(BasePlotIntervalRunException):
 
 
 class NumberOfExpectedIntervalsError(BasePlotIntervalRunException):
+    pass
+
+
+class IncompatibleArgs(BasePlotIntervalRunException):
     pass

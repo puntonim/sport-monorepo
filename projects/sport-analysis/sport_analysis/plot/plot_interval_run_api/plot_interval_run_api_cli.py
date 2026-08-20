@@ -3,7 +3,7 @@ from pathlib import Path
 import click
 import datetime_utils
 
-from ...base_cli_view import BaseClickCommand
+from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand
 from ...conf.settings_module import ROOT_DIR
 from .plot_interval_run_api_cmd import DistanceEnum, PlotIntervalRunApiCmd
 
@@ -21,40 +21,28 @@ __DEFAULT_INPUT_TITLE = "blank to use Garmin title"
      
      \b
      Examples
-     This will ask for inputs:
-        $ san plot-interval-run 18923007987
-     This will not ask for inputs:
-        $ san plot-interval-run 20579416584 --distance 200 --vs-n 3 --text DEFAULT --n-expected-intervals 10 --title DEFAULT --dir DEFAULT
-     This uses all possible args:
-        $ san plot-interval-run 18923007987 --distance 200 --vs-n 3 --text "10x200m" --n-expected-intervals 6 --title "10x200m a Verdellino" --figure-size 5.0 8.2 --dir ~/workspace/sport-monorepo/projects/sport-analysis/output-images/
+     This command asks for inputs:
+       $ san plot-interval-run 18923007987
+     This command does NOT ask for inputs:
+       $ san plot-interval-run 20579416584 --distance 200 --vs-n 3 --text DEFAULT --n-expected-intervals 10 --title DEFAULT --dir DEFAULT
+     All possible args:
+       $ san plot-interval-run 18923007987 --distance 200 --vs-n 3 --text "10x200m" --n-expected-intervals 6 --title "10x200m a Verdellino" --figure-size 5.0 8.2 --dir ~/workspace/sport-monorepo/projects/sport-analysis/output-images/
      """,
 )
-@click.argument("garmin-activity-id", nargs=1, type=int, required=True)
+@click.argument(
+    # id (int) of Garmin activity to analyze or "LATEST" or "LATEST-3".
+    "garmin-activity-id",
+    nargs=1,
+    type=ACTIVITY_ID_TYPE,
+    # help="Garmin activity id or LATEST or LATEST-3",
+)
 @click.option(
     "--distance",
     "-dist",
     "distance",
     type=click.Choice((x.value for x in DistanceEnum), case_sensitive=False),
     prompt="Distance in meters?",
-    help="Distance: 200, 300 or 1000",
-    required=True,
-)
-@click.option(
-    "--vs-n",
-    "n_previous_activities_to_compare",
-    type=int,
-    prompt="Num of previous activities to compare?",
-    default=10,
-    help="Number of previous activities to compare to the given activity; they are searched automatically",
-    required=True,
-)
-@click.option(
-    "--text",
-    "text_to_search_for_previous_activities",
-    type=str,
-    prompt="Text used in the search for prev activities to compare?",
-    default=__DEFAULT_INPUT_TXT_SEARCH_PREV_ACTIVITY,
-    help="Text used in the search for previous activities to compare; it's an exact match on activities' titles; use DEFAULT for a smart serach like: 1x200m ... 10x200m",
+    help="Distance: 100, 200, 300 or 1000",
     required=True,
 )
 @click.option(
@@ -65,6 +53,33 @@ __DEFAULT_INPUT_TITLE = "blank to use Garmin title"
     prompt="Num of expected intervals in the run?",
     default=10,
     help="Number of expected intervals in the given activity; mind that some intervals in the given activity might have been skipped by accident (and thus they are shorted than 200m and automatically discarded).",
+    required=True,
+)
+@click.option(
+    "--activity-id-to-compare",
+    "-vs",
+    # Note: "ids" is plural as this option can be repeated multiple times.
+    "activity_ids_to_compare",
+    type=int,
+    multiple=True,
+    help="Garmin activity id to compare; it can be used multiple times",
+)
+@click.option(
+    "--vs-n",
+    "n_prev_activities_to_auto_compare",
+    type=int,
+    prompt="Num of previous activities to AUTO compare?",
+    default=0,
+    help="Number of previous activities to AUTO compare to the given activity; they are searched automatically",
+    required=True,
+)
+@click.option(
+    "--text",
+    "txt_to_search_for_prev_activities_to_auto_compare",
+    type=str,
+    prompt="Text used in the search for prev activities to AUTO compare?",
+    default=__DEFAULT_INPUT_TXT_SEARCH_PREV_ACTIVITY,
+    help="Text used in the search for previous activities to AUTO compare; it's an exact match on activities' titles; use DEFAULT for a smart serach like: 1x200m ... 10x200m",
     required=True,
 )
 @click.option(
@@ -102,11 +117,13 @@ __DEFAULT_INPUT_TITLE = "blank to use Garmin title"
     required=True,
 )
 def plot_interval_run_api_cli_view(
-    garmin_activity_id: int,
+    # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
+    garmin_activity_id: int | tuple[str, int],
     distance: DistanceEnum,
-    n_previous_activities_to_compare: int = 10,
-    text_to_search_for_previous_activities: str | None = None,
+    activity_ids_to_compare: tuple[int] | None = None,
     n_expected_intervals: int = 10,
+    n_prev_activities_to_auto_compare: int = 10,
+    txt_to_search_for_prev_activities_to_auto_compare: str | None = None,
     title: str | None = None,
     figure_size: tuple[float, float] | None = None,
     dir_or_file_path: Path = ROOT_DIR / "output-images",
@@ -114,12 +131,19 @@ def plot_interval_run_api_cli_view(
     """
     Plot the given Garmin activity id as an interval run.
     """
+    # Parse activity_ids_to_compare, n_prev_activities_to_auto_compare,
+    #  txt_to_search_for_prev_activities_to_auto_compare.
+    if activity_ids_to_compare and n_prev_activities_to_auto_compare > 0:
+        raise click.BadParameter(
+            "--activity-id-to-compare (-vs) and --vs-n args cannot be used together"
+        )
+
     # Set the hack-ish defaults to None.
-    if text_to_search_for_previous_activities in (
+    if txt_to_search_for_prev_activities_to_auto_compare in (
         __DEFAULT_INPUT_TXT_SEARCH_PREV_ACTIVITY,
         "DEFAULT",
     ):
-        text_to_search_for_previous_activities = None
+        txt_to_search_for_prev_activities_to_auto_compare = None
     if title in (__DEFAULT_INPUT_TITLE, "DEFAULT"):
         title = None
 
@@ -142,9 +166,10 @@ def plot_interval_run_api_cli_view(
     plot_interval = PlotIntervalRunApiCmd(
         garmin_activity_id,
         distance=distance,
-        n_previous_activities_to_compare=n_previous_activities_to_compare,
-        text_to_search_for_previous_activities=text_to_search_for_previous_activities,
         n_expected_intervals=[n_expected_intervals],
+        activity_ids_to_compare=[x for x in activity_ids_to_compare],  # Tuple to list.
+        n_prev_activities_to_auto_compare=n_prev_activities_to_auto_compare,
+        txt_to_search_for_prev_activities_to_auto_compare=txt_to_search_for_prev_activities_to_auto_compare,
         title=title,
         figure_size=figure_size,
     )

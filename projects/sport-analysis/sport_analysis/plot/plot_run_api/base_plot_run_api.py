@@ -5,27 +5,38 @@ from pathlib import Path
 import datetime_utils
 import log_utils as logger
 import matplotlib as mpl
+import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 import speed_utils
 import text_utils
-from garmin_connect_client import ActivityDetailsResponse, ActivitySummaryResponse
+from garmin_connect_client import (
+    ActivityDetailsResponse,
+    ActivitySplitsResponse,
+    ActivitySummaryResponse,
+)
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
 )
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
+from matplotlib.legend_handler import HandlerTuple
+from rich import box
+from rich.table import Table
 
+from ...base_cli_view import ConsoleAdapter
 from ...conf import settings
 from .. import base_api, base_plot
+
+console = ConsoleAdapter()
 
 
 @dataclass
 class CollectedData:
     summary_resp: ActivitySummaryResponse = None
     details_resp: ActivityDetailsResponse = None
+    splits_resp: ActivitySplitsResponse | None = None
 
 
 # TODO abandon the base super class and join the 10km and 21km in this class, like
@@ -43,7 +54,8 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
 
     def __init__(
         self,
-        garmin_activity_id: int,
+        # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
+        garmin_activity_id: int | tuple[str, int],
         activity_ids_to_compare: list[int] | None = None,
         title: str | None = None,
         figure_size: tuple[float, float] | None = None,
@@ -54,7 +66,8 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
     ):
         """
         Args:
-            garmin_activity_id: id of Garmin activity to analyze.
+            garmin_activity_id: id (int) of Garmin activity to analyze or ("LATEST", 0)
+             or ("LATEST", -3).
             activity_ids_to_compare: list of previous activities to compare
              to the given activity. Default: a hardcoded list.
             title: plot title.
@@ -156,7 +169,8 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             xdata_distance,
             ydata_pace_df["MA(pace)"],
             label=self._make_legend_label(0),
-            color="red",
+            # color="red",
+            color=base_plot.COL_PACE_MAIN,
             alpha=0.6,
             linewidth=3.0,
         )
@@ -216,7 +230,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         ## Format.
         # Axes labels.
         a.set_ylabel("MA(pace) [min/km]")
-        a.set_xlabel("distance [km]")
+        a.set_xlabel("Distance [km]")
         # axes.xaxis.set_label_position("top")
         # Invert the y-axis so the fastest pace is on top.
         a.invert_yaxis()
@@ -241,7 +255,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         _pace_base10_avg = speed_utils.mps_to_minpkm_base10(_speed_avg)
         a.axhline(
             y=_pace_base10_avg,
-            color=base_plot.COL_DARK_RED,
+            color=base_plot.COL_PACE_MAIN,
             alpha=0.5,
             linestyle=":",
         )
@@ -251,7 +265,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             (a.get_xlim()[0], _pace_base10_avg),
             xytext=(0.1, 0.2),
             textcoords="offset fontsize",
-            color=base_plot.COL_DARK_RED,
+            color=base_plot.COL_PACE_MAIN,
             fontsize=8,
             fontweight="bold",
         )
@@ -261,14 +275,15 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             (a.get_xlim()[0], a.get_ylim()[0]),
             xytext=(0.1, 0.1),
             textcoords="offset fontsize",
-            color=base_plot.COL_DARK_RED,
+            # color=base_plot.COL_DARK_RED,
             style="italic",
             fontsize=8,
         )
 
     def _plot_hr_zones(self):
         hr_stream = self._s[0].details_resp.get_heartrate_stream(
-            do_remove_none_values=False
+            # None values cause exceptions in self._plot_hr_zones_mixin().
+            do_remove_none_values=True
         )
         self._plot_hr_zones_mixin(
             self._axes_mosaic["hr-zones"],
@@ -279,7 +294,8 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
 
     def _plot_hr_histogram(self):
         main_hr_stream = self._s[0].details_resp.get_heartrate_stream(
-            do_remove_none_values=False
+            # None values cause exceptions in self._plot_hr_histogram_mixin().
+            do_remove_none_values=True
         )
         secondary_hr_streams = []
         for i in range(1, len(self._s)):
@@ -301,7 +317,76 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             hr_max_ever=settings.HR_MAX_EVER_RUN,
         )
 
+    def _print_splits(self):
+        # Prepare the Splits table to be printed to the console.
+        table = Table(
+            title=":knife: Splits",  # Print all emoji with: `python -m rich.emoji`.
+            title_style="bold black on yellow",
+            row_styles=["dim", ""],
+            box=box.SIMPLE,
+        )
+        table.add_column("km", justify="right", no_wrap=True)
+        table.add_column("cum\nkm", justify="right", no_wrap=True)
+        table.add_column("pace", justify="right", style="yellow", no_wrap=True)
+        table.add_column("cum\npace", justify="right", style="yellow", no_wrap=True)
+        table.add_column("cum\ntime", justify="right", no_wrap=True)
+        table.add_column("elev", justify="right", no_wrap=True)
+        table.add_column("avg\nHR", justify="right", no_wrap=True)
+        table.add_column("max\nHR", justify="right", no_wrap=True)
+
+        distance_cum = 0
+        duration_cum = 0
+        for split in self._s[0].splits_resp.splits:
+            distance = split["distance"]
+            distance_cum += distance
+            distance_str = str(round(distance / 1000, 1))
+            distance_cum_str = str(round(distance_cum / 1000, 1))
+
+            duration = split["duration"]
+            duration_cum += duration
+            duration_cum_str = datetime_utils.seconds_to_hh_mm_ss(
+                round(duration_cum), do_hide_hours_and_mins_if_zero=True
+            )
+            pace_cum_str = datetime_utils.seconds_to_hh_mm_ss(
+                round(duration_cum / distance_cum * 1000),
+                do_hide_hours_and_mins_if_zero=True,
+            )
+            pace_str = speed_utils.minpkm_base10_to_base60(
+                speed_utils.mps_to_minpkm_base10(split["averageSpeed"])
+            )
+            elevation_str = str(round(split["elevationGain"] - split["elevationLoss"]))
+            # Add rows to the Splits table to be printed to the console.
+            table.add_row(
+                distance_str,
+                distance_cum_str,
+                pace_str,
+                pace_cum_str,
+                duration_cum_str,
+                elevation_str,
+                str(round(split["averageHR"])),
+                str(round(split["maxHR"])),
+            )
+        console.print(table)
+
     def plot(self, save_to_png_file_path: Path | None = None):
+        ## Find the actual Garmin activity, if the garmin id arg was LATEST or LATEST-3.
+        original_garmin_activity_id_arg = self.garmin_activity_id
+        if (
+            # original_garmin_activity_id_arg is a tuple like ("LATEST", 0) or ("LATEST", -3).
+            isinstance(original_garmin_activity_id_arg, tuple)
+            and original_garmin_activity_id_arg[0] == "LATEST"
+        ):
+            # Get N-most recent running activity from Garmin API.
+            self.garmin_activity_id = self._api_search_activities(
+                activity_type="running",
+                n_results=abs(original_garmin_activity_id_arg[1]) + 1,
+            )[-1]
+        self.print_activity_urls(
+            original_activity_id_arg=original_garmin_activity_id_arg,
+            garmin_activity_id=self.garmin_activity_id,
+            activity_txt_to_print="run",
+        )
+
         ## Collect summary and details for MAIN and SECONDARY activities.
         for activity_id in [self.garmin_activity_id] + self.activity_ids_to_compare:
             self._s.append(
@@ -311,8 +396,13 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                         activity_id,
                         max_metrics_data_count=100 * 1000,
                     ),
+                    splits_resp=None,  # Filled only for the main activity.
                 )
             )
+        # Fill in the splits only for the main activity.
+        self._s[0].splits_resp = self._api_get_activity_splits(self.garmin_activity_id)
+
+        self.print_activity_date(self._s[0].summary_resp.summary["startTimeLocal"])
 
         # Figure.
         figure, self._axes_mosaic = self._make_subplot_mosaic()
@@ -321,6 +411,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
 
         # All plots.
         self._plot_pace()
+        self._print_splits()
         self._plot_hr_zones()
         self._plot_hr_histogram()
 
@@ -333,20 +424,39 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
 
         # Docs on legend location:
         #  https://matplotlib.org/stable/users/explain/axes/legend_guide.html
+        # Alt 1/2: this is how to show a legend with only the plumb color of the main
+        #  plot line in the pace chart.
+        # figure.legend(
+        #     loc="outside lower left",
+        #     ncol=1,
+        #     frameon=False,
+        #     fontsize=9,
+        #     labelspacing=0.8,
+        # )
+        # Alt 2/2: this is how to show a legend with both colors (plumb and red) of the
+        #  main plot line in the pace chart and in the HR histogram chart.
+        pace_axes = self._axes_mosaic["pace"]
+        hr_hist_axes = self._axes_mosaic["hr-hist"]
         figure.legend(
+            handles=[(hr_hist_axes.lines[0], pace_axes.lines[0])]
+            + pace_axes.lines[1:-1],
+            handler_map={tuple: HandlerTuple(ndivide=None)},
+            labels=[x.get_label() for x in pace_axes.lines[:-1]],
             loc="outside lower left",
             ncol=1,
             frameon=False,
             fontsize=9,
             labelspacing=0.8,
         )
+
         # Customize legend to make it more visible: less alpha and larger line widths.
-        for i in range(1, len(self._s)):
+        for i in range(0, len(self._s)):
+            figure.legends[0].legend_handles[0].set_linestyle("solid")
             figure.legends[0].legend_handles[i].set_alpha(0.8)
             figure.legends[0].legend_handles[i].set_linewidth(3.0)
 
         if save_to_png_file_path:
-            logger.info(f"Created image: {save_to_png_file_path}")
+            self.print_created_image_path(save_to_png_file_path)
             plt.savefig(save_to_png_file_path)
         else:
             plt.show()

@@ -38,7 +38,7 @@ class TestPlotInterval200mRunApi:
         plot_200m_api = PlotIntervalRunApiCmd(
             garmin_activity_id,
             distance=200,
-            # n_previous_activities_to_compare=4,
+            n_prev_activities_to_auto_compare=10,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         plot_200m_api.plot(
@@ -54,7 +54,7 @@ class TestPlotInterval200mRunApi:
     #     plot_200m_api = PlotIntervalRunApiCmd(
     #         garmin_activity_id,
     #         distance=200,
-    #         n_previous_activities_to_compare=1,
+    #         n_prev_activities_to_auto_compare=1,
     #         # figure_size=(5, 7),
     #         garmin_connect_token_manager=self.garmin_token_mgr,
     #     )
@@ -68,7 +68,7 @@ class TestPlotInterval200mRunApi:
     #     plot_200m_api = PlotIntervalRunApiCmd(
     #         garmin_activity_id,
     #         distance=200,
-    #         n_previous_activities_to_compare=2,
+    #         n_prev_activities_to_auto_compare=2,
     #         # figure_size=(5, 8),
     #         garmin_connect_token_manager=self.garmin_token_mgr,
     #     )
@@ -82,7 +82,7 @@ class TestPlotInterval200mRunApi:
         plot_200m_api = PlotIntervalRunApiCmd(
             garmin_activity_id,
             distance=200,
-            n_previous_activities_to_compare=0,
+            n_prev_activities_to_auto_compare=0,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         plot_200m_api.plot(

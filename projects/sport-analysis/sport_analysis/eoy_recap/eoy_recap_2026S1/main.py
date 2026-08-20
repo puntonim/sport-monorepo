@@ -1,17 +1,25 @@
 """
-This script creates a PNG image with the END OF YEAR recap.
+Creates the EOY semester 1 (end of year) recap for 2026.
 
-Note: it is run via a test so we can leverage VCR.py and record HTTP interactions.
+Note: it is a script and nor a proper cli command (like the others) because it is used
+ only twice a year, and it's still a kind of beta feature.
+
+Note: this script uses VCR.py to record HTTP interactions, so it avoids hammering
+ Strava APIs and hitting rate limits.
 
 Usage:
-    $ IS_VCR_EPISODE_OR_ERROR=n pytest -s tests/eoy_recap/test_eoy_recap_2026S1_api.py
+    $ poetry run python -m sport_analysis.eoy_recap.eoy_recap_2026S1.main
+    To record new VCR.py episodes:
+    $ IS_VCR_EPISODE_OR_ERROR=n poetry run python -m sport_analysis.eoy_recap.eoy_recap_2026S1.main
 """
 
 from datetime import datetime
 from pathlib import Path
 
+import click
 import datetime_utils
 import matplotlib.pyplot as plt
+import vcr as vcr_module
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from strava_client import StravaClient
@@ -20,8 +28,11 @@ from strava_client.strava_token_managers import (
     FakeTestStravaTokenManager,
     FileStravaTokenManager,
 )
+from vcr.errors import CannotOverwriteExistingCassetteException
 
-from ...base_cli_view import ConsoleAdapter
+from tests import conftest
+
+from ...base_cli_view import BaseClickCommand, ConsoleAdapter
 from ...conf import settings
 from .stats_activities_count import ActivitiesCountStats
 from .stats_ride import RideStats
@@ -30,6 +41,73 @@ from .stats_weight import WeightStats
 from .stats_weight_training import WeightTrainingStats
 
 console = ConsoleAdapter()
+
+
+def configure_vcr():
+    return vcr_module.VCR(**conftest.vcr_config_dict())
+
+
+@click.command(
+    cls=BaseClickCommand,
+    name="eoy-recap-2026S1",
+    help="""Create EOY recap 2026 semester 1.""",
+)
+@click.option(
+    "--dir",
+    "-d",
+    "dir_or_file_path",
+    type=click.Path(
+        # exists=True,
+        file_okay=True,
+        dir_okay=True,
+        readable=True,
+        writable=True,
+        resolve_path=True,
+        path_type=Path,
+    ),
+    default=Path(__file__).parent,
+    help="Either dir or file path where to store the .png plot",
+)
+def cli(dir_or_file_path: Path = Path(__file__).parent) -> None:
+    if dir_or_file_path.suffix:  # It's a file.
+        if dir_or_file_path.suffix == ".png":  # It's a .png file.
+            if dir_or_file_path.exists():
+                raise click.BadParameter("The given .png file already exists")
+        else:
+            raise click.BadParameter("Not a .png file path")
+        save_to_png_file_path: Path = dir_or_file_path
+    else:  # It's a dir.
+        if not dir_or_file_path.exists():
+            raise click.BadParameter("The given dir does not exists")
+        save_to_png_file_path: Path = dir_or_file_path / "2026S1.png"
+
+    cli_cmd(save_to_png_file_path)
+
+
+def cli_cmd(save_to_png_file_path: Path | str):
+    eoy = EoyRecap2026S1()
+
+    # Configure VCR.py.
+    vcr = configure_vcr()
+    # Use VCR.py with the cassette named after this file and in this same dir.
+    cassette_path = (
+        Path(__file__).parent / "cassettes" / (Path(__file__).stem + ".yaml")
+    )
+    console.print(f"[italic dim]Using VCR.py cassette: {cassette_path}[/]")
+    with vcr.use_cassette(cassette_path):
+        try:
+            eoy.plot(save_to_png_file_path)
+        # Enrich VCR.py's `CannotOverwriteExistingCassetteException` original exception
+        #  with some useful info.
+        except Exception as exc:
+            if isinstance(exc, CannotOverwriteExistingCassetteException) or isinstance(
+                getattr(exc, "kwargs", dict()).get("error"),
+                CannotOverwriteExistingCassetteException,
+            ):
+                args = list(exc.args)
+                args[0] += "\nUse IS_VCR_EPISODE_OR_ERROR=no to record a new episode."
+                exc.args = tuple(args)
+            raise
 
 
 class EoyRecap2026S1:
@@ -94,7 +172,7 @@ class EoyRecap2026S1:
                 break
             page_n += 1
 
-    def plot(self):
+    def plot(self, save_to_png_file_path: Path | str):
         console.print("\n[bold underline on white]EOY RECAP 2026 SEMESTER 1[/]")
         console.print(
             f"[underline]Filter[/]: [bold on yellow]start-date-after[/] = {self.start_date_after.isoformat()}",
@@ -113,7 +191,10 @@ class EoyRecap2026S1:
         self._plot_title()
         self._plot_stats()
 
-        save_to_png_file_path = Path(__file__).parent / "2026S1.png"
+        console.print(
+            f"\n:floppy_disk: Created image: [blue underline]{save_to_png_file_path}[/]",
+            highlight=False,
+        )
         plt.savefig(save_to_png_file_path)
         # plt.show()
 
@@ -235,3 +316,9 @@ class EoyRecap2026S1:
                 if ax != ".":
                     mosaic[ax].set_axis_off()
         return figure, mosaic
+
+
+if __name__ == "__main__":
+    print("START")
+    cli()
+    print("END")

@@ -703,7 +703,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://connectapi.garmin.com/activitylist-service/activities/search/activities?start=0&limit=3&search=1x1000m+2x1000m+3x1000m+4x1000m+5x1000m+6x1000m+7x1000m+8x1000m+9x1000m+10x1000m&endDate=2025-05-06&activityType=running
+    uri: https://connectapi.garmin.com/activitylist-service/activities/search/activities?start=0&limit=3&search=2x1000m+3x1000m+4x1000m+5x1000m+6x1000m+7x1000m+8x1000m+9x1000m+10x1000m&endDate=2025-05-06&activityType=running
   response:
     body:
       string: '[{"activityId": 19042748874, "activityName": "Verdellino - 4x1000m",

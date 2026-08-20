@@ -162,7 +162,8 @@ def before_record_response(response):
 @pytest.fixture(scope="session")
 def vcr_config():
     """
-    Configure VCR.
+    Configure VCR, thanks to pytest-recording (https://github.com/kiwicom/pytest-recording).
+    The name `vcr_config` cannot be changed.
 
     - Set the record mode.
     - Ignore some headers and hosts.
@@ -170,7 +171,10 @@ def vcr_config():
       ['method', 'scheme', 'host', 'port', 'path', 'query'].
       We also want to match on body.
     """
+    return vcr_config_dict()
 
+
+def vcr_config_dict():
     if not is_vcr_enabled():
         # Disable VCR.
         return {"before_record": lambda *args, **kwargs: None}
@@ -220,9 +224,14 @@ def pytest_runtest_call():
         outcome = yield
         outcome.get_result()
     except Exception as exc:
-        if isinstance(exc, CannotOverwriteExistingCassetteException) or isinstance(
-            getattr(exc, "kwargs", dict()).get("error"),
-            CannotOverwriteExistingCassetteException,
+        if (
+            isinstance(exc, CannotOverwriteExistingCassetteException)
+            or isinstance(
+                getattr(exc, "kwargs", dict()).get("error"),
+                CannotOverwriteExistingCassetteException,
+            )
+            or "can't overwrite existing cassette"
+            in getattr(exc, "args", [""])[0].lower()
         ):
             args = list(exc.args)
             args[0] += "\nUse IS_VCR_EPISODE_OR_ERROR=no to record a new episode."

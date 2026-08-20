@@ -30,27 +30,28 @@ console = ConsoleAdapter()
     help="""Search activities in Strava API.
     
     \b
-    Eg. san search-strava 
-    Eg. san search-strava --start-date-after 2024-01-01T00:00:00+01:00 --start-date-before 2024-12-31T23:59:59+01:00
-    Eg. san search-strava --title-contains "back, calisthenics"
-    Eg. san search-strava --activity-type ride
-    Eg. san search-strava --start-coords 45.609045 9.616716 100  # Verdellino.
-    Eg. san search-strava --end-coords 46.428331 10.355555 100  # Hotel Cepina.
-    Eg. san search-strava --location-visited-coords 46.515631 10.314396 100  # Laghi di Cancano.
-    Eg. san search-strava --segment selvino --activity-type ride
-    Eg. san search-strava --distance-range 30000 150000 --activity-type ride
-    Eg. san search-strava --moving-time-range 60 120 --activity-type run
-    Eg. san search-strava --elapsed-time-range 60 120 --activity-type run
-    Eg. san search-strava --elevation-gain-range 1500 9000 --activity-type ride
-    Eg. san search-strava --elevation-highest-range 2000 9000 --activity-type ride
-    Eg. san search-strava --elevation-lowest-range 1000 9000 --activity-type ride
-    Eg. san search-strava --speed-avg-range 14.2 20.0 --activity-type ride
-    Eg. san search-strava --speed-max-range 60.0 150.0 --activity-type ride
-    Eg. san search-strava --pace-avg-range 4:30 4:45 --activity-type run
-    Eg. san search-strava --pace-max-range 2:00 2:30 --activity-type run
-    Eg. san search-strava --hr-avg-range 110 180 --with-hr-band-only
-    Eg. san search-strava --hr-max-range 160 220 --with-hr-band-only
-    Eg. san search-strava --no-questions --debug-args --activity-type ride
+    Examples:
+    san search-strava 
+    san search-strava --start-date-after 2024-01-01T00:00:00+01:00 --start-date-before 2024-12-31T23:59:59+01:00
+    san search-strava --title-contains "back, calisthenics"
+    san search-strava --activity-type ride
+    san search-strava --start-coords 45.609045 9.616716 100  # Verdellino.
+    san search-strava --end-coords 46.428331 10.355555 100  # Hotel Cepina.
+    san search-strava --location-visited-coords 46.515631 10.314396 100  # Laghi di Cancano.
+    san search-strava --segment selvino --activity-type ride
+    san search-strava --distance-range 30000 150000 --activity-type ride
+    san search-strava --moving-time-range 60 120 --activity-type run
+    san search-strava --elapsed-time-range 60 120 --activity-type run
+    san search-strava --elevation-gain-range 1500 9000 --activity-type ride
+    san search-strava --elevation-highest-range 2000 9000 --activity-type ride
+    san search-strava --elevation-lowest-range 1000 9000 --activity-type ride
+    san search-strava --speed-avg-range 14.2 20.0 --activity-type ride
+    san search-strava --speed-max-range 60.0 150.0 --activity-type ride
+    san search-strava --pace-avg-range 4:30 4:45 --activity-type run
+    san search-strava --pace-max-range 2:00 2:30 --activity-type run
+    san search-strava --hr-avg-range 110 180 --with-hr-band-only
+    san search-strava --hr-max-range 160 220 --with-hr-band-only
+    san search-strava --no-questions --debug-args --activity-type ride
     """,
 )
 @click.option(
@@ -708,7 +709,7 @@ def _parse_pace_range_input(value: str, do_not_print=False):
     return tuple(data)
 
 
-class BaseFooException(Exception): ...
+class BaseSearchStravaApiCliException(Exception): ...
 
 
-class ValidationError(BaseFooException): ...
+class ValidationError(BaseSearchStravaApiCliException): ...

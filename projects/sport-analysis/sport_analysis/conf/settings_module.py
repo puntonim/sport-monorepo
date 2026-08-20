@@ -9,13 +9,12 @@ A better alternative, in case the app requires more settings and advanced featur
 import os
 from contextlib import ContextDecorator
 from pathlib import Path
-from typing import Optional
 
 CURR_DIR = Path(__file__).parent
 ROOT_DIR = CURR_DIR.parent.parent
 
 
-def get_string_from_env(key: str, default: Optional[str] = None):
+def get_string_from_env(key: str, default: str | None = None):
     value = os.getenv(key, "").strip()
     if not value:
         if default is None:
@@ -24,7 +23,7 @@ def get_string_from_env(key: str, default: Optional[str] = None):
     return value
 
 
-def get_bool_from_env(key: str, default: Optional[bool] = None):
+def get_bool_from_env(key: str, default: str | None = None):
     value = os.getenv(key, "").lower().strip()
     if not value:
         if default is None:
@@ -58,8 +57,14 @@ class settings:
     )
 
     HR_MIN = 46
-    HR_MAX_EVER_RIDE = 149
-    HR_MAX_EVER_RUN = 173
+    HR_MAX_EVER_RIDE = 157
+    # Run For Life Monza (PR HM: 1:32:49 🏆)
+    # https://www.strava.com/activities/17644996304
+    # https://connect.garmin.com/modern/activity/22100401605
+    # 2026-03-08T09:10:15Z
+    # HR: 148.6 (max 174)
+    # HR band: Yes
+    HR_MAX_EVER_RUN = 174
 
 
 class test_settings:

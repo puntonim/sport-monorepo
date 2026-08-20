@@ -43,3 +43,14 @@ class TestPlotSimpleRideApi:
             save_to_png_file_path=self.png_file_root
             / "TestPlotSimpleRideApi-test_happy_flow.png",
         )
+
+    def test_latest(self):
+        garmin_activity_id = ("LATEST", -1)
+        plotter = PlotSimpleRideApi(
+            garmin_activity_id,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        plotter.plot(
+            save_to_png_file_path=self.png_file_root
+            / "TestPlotSimpleRideApi-test_latest.png",
+        )

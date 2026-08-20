@@ -116,7 +116,7 @@ def count_activities_api(
         n = len(response.data)
 
         if activity_type:
-            activities = list(response.filter_by_activity_type(activity_type))
+            activities = list(response.filter(activity_type=activity_type))
         else:
             activities = response.data
 
@@ -130,6 +130,17 @@ def count_activities_api(
         page_n += 1
 
     logger.info(f"Strava API, [bold on red]TOT[/] filtered activities #: {tot_count}")
+    n_days = round(
+        ((start_date_before or datetime_utils.now()) - start_date_after).total_seconds()
+        / (60 * 60 * 24),
+        1,
+    )
+    n_weeks = round(
+        ((start_date_before or datetime_utils.now()) - start_date_after).total_seconds()
+        / (60 * 60 * 24 * 7),
+        1,
+    )
+    logger.info(f"[italic]The period is {n_days} days or {n_weeks} weeks[/]")
     for k, v in counter.items():
         logger.info(f" > {k} #: {v}")
     return tot_count

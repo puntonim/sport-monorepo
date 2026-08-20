@@ -1,6 +1,48 @@
-SEARCH CLI per trovare il migliore segmento selvino (ride)
-- --no-logs??
-- sistema per bene gli output su stdout/stderr
+- plot.plot_ride_api.test_plot_climb_ride_api.TestPlotClimbRideApi.test_111
+
+- committa tutto!!!!!!!!!!!
+
+- aggiorna appunti su VCR.py in prod code e Relative imports
+- add calendar sketch (and use proper vcr.py)
+
+- scritta semplice: rimuovi MA(pace)
+- sotto le barre orizzontale delle HR zone scrivere tutte le perc:
+  Z0 1%, Z1 3%, ...
+- invece di usare immagini che creo io a mano in plot (come plot_interval_1000m_run_api.png)
+   fare si che il test_happy_flow crei quell'immagine in modo che sia aggiornata
+   dopo ogni cambiamento
+- replace get_string_from_env() e override_settings in settings_module.py con settings_utils lib
+- activity_id: strava-* or garmin-*
+- UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
+- usa domande interattive
+  vedi `search_strava_api_cli.py`
+- 1 chart largo sopra con i tempi
+  3 sotto piccoli
+  non rosso, ma violetto
+
+- usa ConsoleAdapterMock() come in test_search_strava_api_cmd.py?
+
+
+
+
+
+EOY feature
+- add "per week" data
+- controlla se i PR per la corsa e bici sono giusti
+- HR max per sport
+   Mean e std-err del top 10% e 5% HR del top 10% di attività ordinate per HR max
+- aggiungi emoji tipo trophy per PR e bike per Ride e heart per HR?
+    https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figimage.html
+    https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.open
+    https://stackoverflow.com/questions/3609585/how-to-insert-a-small-image-on-the-corner-of-a-plot-with-matplotlib
+- avg weight per month, and diff peso finale - peso iniziale con g/month
+- non dve essere un cli, perche ci sono cose da fare a mano o ad hoc,
+   es i PR di powerlifting che non possono essere estratti da garmin o strava
+- quindi forse meglio fare dei files tipo:
+  - base_eoy_recap_api.py
+    eoy_recap_2025_api.py
+    eoy_recap_2024_api.py
+- cancella branch eoy e eoy-new
 
 REFACTORING
 - san search-matching-activity --stravaid=<id> (invece di search-matching-strava-activity)
@@ -18,19 +60,6 @@ SEARCH CLI per trovare i migliori 300m (run)
 - posso cercare in garmin quando ho fatto quel workout
 - e pure in strava per titolo
 - estraggo i tempi, come faccio nel plot
-
-EOY feature
-- torna sul branch eoy-new e pull --rebase
-- add "per week" data
-- avg weight per month, and diff peso finale - peso iniziale con g/month
-- delete sketches/gis_utils....
-- non dve essere un cli, perche ci sono cose da fare a mano o ad hoc,
-   es i PR di powerlifting che non possono essere estratti da garmin o strava
-- quindi forse meglio fare dei files tipo:
-  - base_eoy_recap_api.py
-    eoy_recap_2025_api.py
-    eoy_recap_2024_api.py
-
 
 =================
 

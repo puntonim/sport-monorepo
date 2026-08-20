@@ -3,7 +3,6 @@ from pathlib import Path
 
 import click
 import datetime_utils
-import log_utils as logger
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from garmin_connect_client import ActivityDetailsResponse, ActivitySummaryResponse
@@ -13,22 +12,54 @@ from garmin_connect_client.garmin_connect_token_managers import (
 )
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
+from strava_client import StravaClient, StreamsResponse
+from strava_client.strava_token_managers import (
+    AwsParameterStoreStravaTokenManager,
+    FakeTestStravaTokenManager,
+    FileStravaTokenManager,
+)
 
-from ...base_cli_view import BaseClickCommand
+from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand
 from ...conf import settings
 from ...conf.settings_module import ROOT_DIR
+from ...search.search_matching_activity_api import (
+    search_strava_activity_matching_garmin_activity_api,
+)
 from .. import base_api, base_plot
 
 
 @click.command(
     cls=BaseClickCommand,
     name="plot-climb-ride",
-    help='Plot a climb ride; eg: san plot-climb-ride 19792668968 --title "Re Stelvio Mapei" --segment-start-meters 0 --segment-end-meters 21110 --segment-title "Climb segment only" --figure-size 5.0 6.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/',
+    help="""
+    Plot a climb ride.
+    
+    \b
+    Examples
+    $ san plot-climb-ride 19792668968 --title "Re Stelvio Mapei" --segment-start-meters 0 --segment-end-meters 21110 --segment-title "Climb segment only" --figure-size 5.0 6.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/
+    """,
 )
-@click.argument("garmin-activity-id", nargs=1, type=int)
+@click.argument(
+    # id (int) of Garmin activity to analyze or "LATEST" or "LATEST-3".
+    "garmin-activity-id",
+    nargs=1,
+    type=ACTIVITY_ID_TYPE,
+    # help="Garmin activity id or LATEST or LATEST-3",
+)
 @click.option("--title", type=str)
-@click.option("--segment-start-meters", type=int)
-@click.option("--segment-end-meters", type=int)
+@click.option(
+    "--segment-start-meters",
+    type=int,
+    help="The start of the desired segment, in meters",
+)
+@click.option(
+    "--segment-end-meters", type=int, help="The end of the desired segment, in meters"
+)
+@click.option(
+    "--segment-strava-name",
+    type=str,
+    help="Name of the Strava segment - it cannot be used together with segment_start|end_meters",
+)
 @click.option("--segment-title", default="Segment only", type=str)
 @click.option(
     "--figure-size",
@@ -53,10 +84,12 @@ from .. import base_api, base_plot
     help="Either dir or file path where to store the .png plot",
 )
 def plot_climb_ride_api_cli_view(
-    garmin_activity_id: int,
+    # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
+    garmin_activity_id: int | tuple[str, int],
     title: str | None = None,
     segment_start_meters: int | None = None,
     segment_end_meters: int | None = None,
+    segment_strava_name: str | None = None,
     segment_title: str = "Segment only",
     figure_size: tuple[float, float] | None = None,
     dir_or_file_path: Path = ROOT_DIR / "output-images",
@@ -77,11 +110,20 @@ def plot_climb_ride_api_cli_view(
         ts = datetime_utils.now().isoformat()  # Eg. "2025-05-13T21:01:33.752427+02:00".
         save_to_png_file_path: Path = dir_or_file_path / f"{ts}.png"
 
+    # Check that
+    #   segment_start|end_meters and segment_strava_name
+    #  are NOT given together.
+    if segment_strava_name and (segment_start_meters or segment_end_meters):
+        raise click.BadParameter(
+            "Either segment-strava-name or (segment-start-meters and segment-end-meters)"
+        )
+
     plot_ride = PlotClimbRideApi(
         garmin_activity_id,
         title=title,
         segment_start_meters=segment_start_meters,
         segment_end_meters=segment_end_meters,
+        segment_strava_name=segment_strava_name,
         segment_title=segment_title,
         figure_size=figure_size,
     )
@@ -97,31 +139,49 @@ class CollectedData:
 class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
     def __init__(
         self,
-        garmin_activity_id: int,
+        # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
+        garmin_activity_id: int | tuple[str, int],
         title: str | None = None,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
+        segment_strava_name: str | None = None,
         segment_title: str = "Segment only",
         figure_size: tuple[float, float] | None = None,
         garmin_connect_token_manager: (
             FileGarminConnectTokenManager | FakeTestGarminConnectTokenManager | None
         ) = None,
+        strava_token_manager: (
+            AwsParameterStoreStravaTokenManager
+            | FileStravaTokenManager
+            | FakeTestStravaTokenManager
+            | None
+        ) = None,
     ):
         """
         Args:
-            garmin_activity_id: id of Garmin activity to analyze.
+            garmin_activity_id: id (int) of Garmin activity to analyze or ("LATEST", 0)
+             or ("LATEST", -3).
             title: plot title.
+            segment_start_meters: the start of the desired segment, in meters.
+            segment_end_meters: the end of the desired segment, in meters.
+            segment_strava_name: name of the Strava segment. It cannot be used
+             together with segment_start|end_meters.
             segment_title: title used for the segment chart,
             figure_size: customize the figure size, eg. (3.0, 5.5).
             garmin_connect_token_manager: use FakeTestGarminConnectTokenManager when
              replaying VCR episodes.
+            strava_token_manager: use FakeTestStravaTokenManager when
+             replaying VCR episodes.
         """
         super().__init__(garmin_connect_token_manager)
 
+        self.garmin_connect_token_manager = garmin_connect_token_manager
+        self.strava_token_manager = strava_token_manager
         self.garmin_activity_id = garmin_activity_id
         self.title = title
         self.segment_start_meters = segment_start_meters
         self.segment_end_meters = segment_end_meters
+        self.segment_strava_name = segment_strava_name
         self.segment_title = segment_title
         self.figure_size = figure_size
 
@@ -209,7 +269,7 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             segment_start_meters=self.segment_start_meters,
             segment_end_meters=self.segment_end_meters,
         )
-        segment_title = f"{self.segment_title}\n{round(self.segment_start_meters/1000, 2) if self.segment_start_meters else ''}-{round(self.segment_end_meters/1000, 2) if self.segment_end_meters else ''} km"
+        segment_title = f"{self.segment_title}\n{round(self.segment_start_meters/1000, 2) if self.segment_start_meters else '0'}-{round(self.segment_end_meters/1000, 2) if self.segment_end_meters else ''} km"
         self._plot_hr_histogram_mixin(
             self._axes_mosaic["hr-hist"],
             hr_stream,
@@ -232,7 +292,78 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             settings.HR_MAX_EVER_RIDE,
         )
 
+    def _get_strava_segment_info(self):
+        strava_token_manager = (
+            self.strava_token_manager
+            or AwsParameterStoreStravaTokenManager(
+                settings.TOKEN_JSON_PARAMETER_STORE_KEY_PATH,
+                settings.CLIENT_ID_PARAMETER_STORE_KEY_PATH,
+                settings.CLIENT_SECRET_PARAMETER_STORE_KEY_PATH,
+            )
+        )
+        strava = StravaClient(strava_token_manager.get_access_token())
+
+        strava_summary = search_strava_activity_matching_garmin_activity_api(
+            self.garmin_activity_id,
+            strava_token_manager=self.strava_token_manager,
+            garmin_connect_token_manager=self.garmin_connect_token_manager,
+        )
+        strava_activity_id = strava_summary["id"]
+        strava_details = strava.get_activity_details(strava_activity_id)
+        stream_types = ["time", "distance"]
+        strava_streams: StreamsResponse = strava.get_streams(
+            strava_activity_id, stream_types=stream_types
+        )
+
+        # Ensure that the Garmin and Strava matching activities have the same dataset
+        #  size.
+        garmin_dataset_size = self._s[0].details_resp.original_dataset_size
+        strava_dataset_size = strava_streams.get_original_dataset_size()
+        if garmin_dataset_size != strava_dataset_size:
+            # TODO better exc
+            raise Exception(
+                "The matching Strava activity has a dataset with different size (and I am searching for the Strava segment name provided)"
+            )
+
+        # Get the segment effort in Strava.
+        # TODO cambia codice di strava client per prendere un segment effort by name only
+        segment_efforts = strava_details.get_segment_efforts(
+            [(14418673, "Selvino Fontanella")]
+        )
+        # TODO replace assertion with exception
+        assert len(segment_efforts) == 1
+        segment_start_index = segment_efforts[0]["start_index"]
+        segment_end_index = segment_efforts[0]["end_index"]
+        print(f"Strava segment indices: {segment_start_index}-{segment_end_index}")
+        segment_start_distance = strava_streams.get_distance_stream()[
+            segment_start_index
+        ]
+        segment_end_distance = strava_streams.get_distance_stream()[segment_end_index]
+        print(
+            f"Strava segment distances: {segment_start_distance}-{segment_end_distance}"
+        )
+        self.segment_start_meters = segment_start_distance
+        self.segment_end_meters = segment_end_distance
+
     def plot(self, save_to_png_file_path: Path | None = None):
+        ## Find the actual Garmin activity, if the garmin id arg was LATEST or LATEST-3.
+        original_garmin_activity_id_arg = self.garmin_activity_id
+        if (
+            # original_garmin_activity_id_arg is a tuple like ("LATEST", 0) or ("LATEST", -3).
+            isinstance(original_garmin_activity_id_arg, tuple)
+            and original_garmin_activity_id_arg[0] == "LATEST"
+        ):
+            # Get N-most recent running activity from Garmin API.
+            self.garmin_activity_id = self._api_search_activities(
+                activity_type="cycling",
+                n_results=abs(original_garmin_activity_id_arg[1]) + 1,
+            )[-1]
+        self.print_activity_urls(
+            original_activity_id_arg=original_garmin_activity_id_arg,
+            garmin_activity_id=self.garmin_activity_id,
+            activity_txt_to_print="ride",
+        )
+
         ## Collect summary and details.
         self._s.append(
             CollectedData(
@@ -244,12 +375,16 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             )
         )
 
+        self.print_activity_date(self._s[0].summary_resp.summary["startTimeLocal"])
+
         # Figure.
         figure, self._axes_mosaic = self._make_subplot_mosaic()
         figure: Figure
         self._axes_mosaic: dict[str, Axes]
 
         # All plots.
+        if self.segment_strava_name:
+            self._get_strava_segment_info()
         self._plot_hr_and_elevation()
         self._plot_hr_histogram()
         self._plot_hr_zones()
@@ -272,7 +407,7 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         )
 
         if save_to_png_file_path:
-            logger.info(f"Created image: {save_to_png_file_path}")
+            self.print_created_image_path(save_to_png_file_path)
             plt.savefig(save_to_png_file_path)
         else:
             plt.show()

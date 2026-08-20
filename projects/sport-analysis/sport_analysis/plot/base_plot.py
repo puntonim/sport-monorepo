@@ -1,12 +1,22 @@
+from functools import lru_cache
 from math import floor
 from statistics import mean
 
 import datetime_utils
+import log_utils as logger
 import matplotlib as mpl
 import numpy as np
 from matplotlib.axes import Axes
+from rich import box
+from rich.table import Table
 
+from ..base_cli_view import ConsoleAdapter
 from ..conf import settings
+
+console = ConsoleAdapter()
+
+COL_HR_MAIN = "red"
+COL_PACE_MAIN = "#580F41"  # Plum.
 
 COL_DARK_RED = "#9A2D2D"
 COL_DARK_GRAY = "#3B3B3B"
@@ -22,7 +32,39 @@ COLS_SECONDARY = (
 
 
 class BasePlot:
-    pass
+    @staticmethod
+    def print_activity_urls(
+        # `original_activity_id_arg` comes from base_cli_view.ACTIVITY_ID_TYPE.
+        original_activity_id_arg: str | tuple[str, int],
+        garmin_activity_id,
+        activity_txt_to_print="run",
+        # strava_activity_id,
+    ):
+        activity_url_text = f"Garmin {activity_txt_to_print} activity:"
+        if isinstance(original_activity_id_arg, tuple):
+            # self.garmin_activity_id is a tuple like ("LATEST", 0) or ("LATEST", -3).
+            activity_url_text = "LATEST"
+            if original_activity_id_arg[1] != 0:
+                activity_url_text += str(original_activity_id_arg[1])
+            activity_url_text += f" {activity_txt_to_print} found in Garmin:"
+        console.print(
+            f":link: {activity_url_text} https://connect.garmin.com/app/activity/{garmin_activity_id}"
+        )
+
+    @staticmethod
+    def print_created_image_path(file_path):
+        console.print(
+            f"\n:floppy_disk: Created image: [blue underline]{file_path}[/]",
+            highlight=False,
+        )
+        console.print(
+            f":open_file_folder: Dir: [blue underline]{file_path.parent}[/]",
+            highlight=False,
+        )
+
+    @staticmethod
+    def print_activity_date(date_str: str):
+        console.print(f":calendar: {date_str}\n", highlight=False)
 
 
 class MixinBarHPlot(BasePlot):
@@ -178,6 +220,7 @@ class MixinHrPlot(BasePlot):
         axes: Axes,
         hr_stream: list,
         secondary_hr_streams: list[list] | None = None,
+        hr_min_ever: int = settings.HR_MIN,
         hr_max_ever: int = settings.HR_MAX_EVER_RUN,
         elevation_stream: list | None = None,
         time_stream: list | None = None,
@@ -215,12 +258,12 @@ class MixinHrPlot(BasePlot):
 
         ## Plot data.
         # Plot HR histogram.
-        _n_bins = 10
+        _n_bins = 50
         axes.hist(
             hr_stream,
             bins=_n_bins,
             weights=1 / len(hr_stream) * np.ones(len(hr_stream)),
-            color="red",
+            color=COL_HR_MAIN,
             alpha=0.6,
         )
 
@@ -340,20 +383,147 @@ class MixinHrPlot(BasePlot):
         )
         # Write text annotation for HR avg and max.
         axes.annotate(
-            f"avg\n{round(hr_avg)}\n{round(hr_avg*100/hr_max_ever)}%",
+            f"avg {round(hr_avg)}\n{round(hr_avg*100/hr_max_ever)}% max",
             (hr_avg, axes.get_ylim()[1]),
-            xytext=(-2.2, -3.2),
+            xytext=(0, -2.2),
             textcoords="offset fontsize",
             color=COL_DARK_RED,
             fontsize=8,
             fontweight="bold",
+            horizontalalignment="right",
         )
         axes.annotate(
             f"max\n{round(hr_max)}",
             (hr_max, axes.get_ylim()[1]),
-            xytext=(-1.1, -2.2),
+            xytext=(0, -2.2),
             textcoords="offset fontsize",
             color=COL_DARK_RED,
+            fontsize=8,
+            fontweight="bold",
+            horizontalalignment="center",
+        )
+
+        # Draw P80 vertical line.
+        # With Pandas (lighter than numpy).
+        # df = pd.DataFrame(hr_stream, columns=["HR"])
+        # percentile80 = df["HR"].quantile(0.80)
+        # With numpy (heavier than Pandas).
+        p80 = round(np.percentile(hr_stream, 80))
+        axes.axvline(
+            x=p80,
+            color=COL_DARK_RED,
+            alpha=0.5,
+            linestyle=":",
+        )
+        # Write text annotation for P80.
+        axes.annotate(
+            f"P80 {p80}\n{round(p80*100/hr_max_ever)}% max",
+            (p80, axes.get_ylim()[0]),
+            xytext=(0, 0.2),
+            textcoords="offset fontsize",
+            color=COL_DARK_RED,
+            fontsize=8,
+            fontweight="bold",
+            horizontalalignment="left",
+        )
+        p80text = _make_p80_text(p80)
+        console.print(p80text[0].replace("P80", ":yellow_heart: [bold red]P80[/]"))
+        axes.annotate(
+            p80text[1],
+            ((axes.get_xlim()[0] + axes.get_xlim()[1]) / 2, axes.get_ylim()[0]),
+            xytext=(0, -6),
+            textcoords="offset fontsize",
+            color=COL_DARK_RED,
+            alpha=0.8,
+            fontsize=9,
+            # fontweight="bold",
+            style="italic",
+            horizontalalignment="center",
+        )
+
+        ## Draw HR zones as gray background areas.
+        # Z0.
+        hr_min = axes.get_xlim()[0]
+        z0_x0, z0_x1 = _get_bpm_range_for_hr_zone(0, hr_min, hr_max_ever)
+        axes.axvspan(
+            z0_x0,
+            z0_x1,
+            color="grey",
+            alpha=0.2,
+        )
+        axes.annotate(
+            "Z0",
+            ((z0_x0 + z0_x1) / 2, axes.get_ylim()[1]),
+            xytext=(-0.2, 0.2),
+            textcoords="offset fontsize",
+            color="gray",
+            fontsize=8,
+            fontweight="bold",
+        )
+        # Z1.
+        z1_x0, z1_x1 = _get_bpm_range_for_hr_zone(1, hr_min, hr_max_ever)
+        axes.annotate(
+            "Z1",
+            ((z1_x0 + z1_x1) / 2, axes.get_ylim()[1]),
+            xytext=(-0.2 * 1, 0.2),
+            textcoords="offset fontsize",
+            color="gray",
+            fontsize=8,
+            fontweight="bold",
+        )
+        # Z2.
+        z2_x0, z2_x1 = _get_bpm_range_for_hr_zone(2, hr_min, hr_max_ever)
+        axes.axvspan(
+            z2_x0,
+            z2_x1,
+            color="grey",
+            alpha=0.2,
+        )
+        axes.annotate(
+            "Z2",
+            ((z2_x0 + z2_x1) / 2, axes.get_ylim()[1]),
+            xytext=(-0.2 * 2, 0.2),
+            textcoords="offset fontsize",
+            color="gray",
+            fontsize=8,
+            fontweight="bold",
+        )
+        # Z3.
+        z3_x0, z3_x1 = _get_bpm_range_for_hr_zone(3, hr_min, hr_max_ever)
+        axes.annotate(
+            "Z3",
+            ((z3_x0 + z3_x1) / 2, axes.get_ylim()[1]),
+            xytext=(-0.2 * 3, 0.2),
+            textcoords="offset fontsize",
+            color="gray",
+            fontsize=8,
+            fontweight="bold",
+        )
+        # Z4.
+        z4_x0, z4_x1 = _get_bpm_range_for_hr_zone(4, hr_min, hr_max_ever)
+        axes.axvspan(
+            z4_x0,
+            z4_x1,
+            color="grey",
+            alpha=0.2,
+        )
+        axes.annotate(
+            "Z4",
+            ((z4_x0 + z4_x1) / 2, axes.get_ylim()[1]),
+            xytext=(-0.2 * 4, 0.2),
+            textcoords="offset fontsize",
+            color="gray",
+            fontsize=8,
+            fontweight="bold",
+        )
+        # Z5.
+        z5_x0, z5_x1 = _get_bpm_range_for_hr_zone(5, hr_min, hr_max_ever)
+        axes.annotate(
+            "Z5",
+            ((z5_x0 + z5_x1) / 2, axes.get_ylim()[1]),
+            xytext=(-0.2 * 5, 0.2),
+            textcoords="offset fontsize",
+            color="gray",
             fontsize=8,
             fontweight="bold",
         )
@@ -376,15 +546,22 @@ class MixinHrPlot(BasePlot):
         """
         ## Data.
         # X data.
+        hr_min = min(hr_stream) if min(hr_stream) < hr_min_ever else hr_min_ever
+        z0_x0, z0_x1 = _get_bpm_range_for_hr_zone(0, hr_min, hr_max_ever)
+        z1_x0, z1_x1 = _get_bpm_range_for_hr_zone(1, hr_min, hr_max_ever)
+        z2_x0, z2_x1 = _get_bpm_range_for_hr_zone(2, hr_min, hr_max_ever)
+        z3_x0, z3_x1 = _get_bpm_range_for_hr_zone(3, hr_min, hr_max_ever)
+        z4_x0, z4_x1 = _get_bpm_range_for_hr_zone(4, hr_min, hr_max_ever)
+        z5_x0, z5_x1 = _get_bpm_range_for_hr_zone(5, hr_min, hr_max_ever)
         res = np.histogram(
             hr_stream,
             bins=[
-                min(hr_stream) if min(hr_stream) < hr_min_ever else hr_min_ever,
-                round(hr_max_ever / 100 * 50),
-                round(hr_max_ever / 100 * 60),
-                round(hr_max_ever / 100 * 70),
-                round(hr_max_ever / 100 * 80),
-                round(hr_max_ever / 100 * 90),
+                z0_x0,
+                z1_x0,
+                z2_x0,
+                z3_x0,
+                z4_x0,
+                z5_x0,
                 hr_max_ever,
             ],
             weights=1 / len(hr_stream) * np.ones(len(hr_stream)),
@@ -401,6 +578,23 @@ class MixinHrPlot(BasePlot):
             "#e54d35",  # Red.
         ]
         left = 0
+
+        # Prepare the HR zones table to be printed to the console.
+        table = Table(
+            # Print all emoji with: `python -m rich.emoji`.
+            title=":black_heart: HR zones",
+            title_style="bold black on red",
+            # row_styles=["dim", ""],
+            box=box.SIMPLE,
+        )
+        table.add_column(f"Z0\n{z0_x0}-{z0_x1}", justify="center", no_wrap=True)
+        table.add_column(f"Z1\n{z1_x0}-{z1_x1}", justify="center", no_wrap=True)
+        table.add_column(f"Z2\n{z2_x0}-{z2_x1}", justify="center", no_wrap=True)
+        table.add_column(f"Z3\n{z3_x0}-{z3_x1}", justify="center", no_wrap=True)
+        table.add_column(f"Z4\n{z4_x0}-{z4_x1}", justify="center", no_wrap=True)
+        table.add_column(f"Z5\n{z5_x0}-{z5_x1}", justify="center", no_wrap=True)
+        z_perc = []
+
         for i, xdata_hr_zone_perc in enumerate(xdata_hr_zones_perc):
             bar = axes.barh(
                 0,
@@ -421,6 +615,16 @@ class MixinHrPlot(BasePlot):
                     fontsize=8,
                     fontweight="bold",
                 )
+            z_perc.append(round(xdata_hr_zone_perc * 100))
+
+        # Color in red the 2 highest values in the HR zones table to be printed to the
+        #  console.
+        for i in sorted(z_perc)[-2:]:
+            z_perc[z_perc.index(i)] = f"[red]{i}%[/]"
+        z_perc = [f"{x}%" if isinstance(x, int) else x for x in z_perc]
+        # Add the single row to the HR zones table to be printed to the console.
+        table.add_row(*z_perc)
+        console.print(table)
 
         axes.set_xlim(left=0, right=1)
         axes.set_axis_off()
@@ -428,3 +632,49 @@ class MixinHrPlot(BasePlot):
 
 class BasePlotException(Exception):
     pass
+
+
+@lru_cache()
+def _get_bpm_range_for_hr_zone(
+    zone_number: int,
+    hr_min: int = settings.HR_MIN,
+    hr_max: int = settings.HR_MAX_EVER_RUN,
+):
+    z1_start_inclusive = round(hr_max / 100 * 50)  # 87 bpm.
+    z2_start_inclusive = round(hr_max / 100 * 60)  # 104 bpm.
+    z3_start_inclusive = round(hr_max / 100 * 70)  # 122 bpm.
+    z4_start_inclusive = round(hr_max / 100 * 80)  # 139 bpm.
+    z5_start_inclusive = round(hr_max / 100 * 90)  # 157 bpm.
+
+    ranges = [
+        (hr_min, z1_start_inclusive - 1),
+        (z1_start_inclusive, z2_start_inclusive - 1),
+        (z2_start_inclusive, z3_start_inclusive - 1),
+        (z3_start_inclusive, z4_start_inclusive - 1),
+        (z4_start_inclusive, z5_start_inclusive - 1),
+        (z5_start_inclusive, hr_max),
+    ]
+    return ranges[zone_number]
+
+
+def _make_p80_text(
+    p80: int,
+    hr_min: int = settings.HR_MIN,
+    hr_max: int = settings.HR_MAX_EVER_RUN,
+) -> tuple[str, str]:
+    """
+    Eg. "P80 125bpm (=Z2+4bpm, =P19 Z3)".
+    """
+    for zone_num in range(5, -1, -1):
+        zone_bpm_range = _get_bpm_range_for_hr_zone(zone_num, hr_min, hr_max)
+        if p80 > zone_bpm_range[0]:
+            break
+    bpm_diff = p80 - zone_bpm_range[0] + 1
+    p_in_zone = round((bpm_diff - 1) * 100 / (zone_bpm_range[1] - zone_bpm_range[0]))
+
+    plain_str = (
+        rf"P80 {p80}bpm (=Z{zone_num-1}+{bpm_diff}bpm, =P{p_in_zone} Z{zone_num})"
+    )
+    # Mathtext info: https://matplotlib.org/stable/users/explain/text/mathtext.html.
+    mathtext_str = rf"P$_{{80}}$ {p80}bpm (=Z{zone_num-1}+{bpm_diff}bpm, =P$_{{{p_in_zone}}}$ Z{zone_num})"
+    return (plain_str, mathtext_str)

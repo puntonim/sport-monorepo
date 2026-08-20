@@ -15,6 +15,13 @@ TEST_ACTIVITIES = [
         garmin_activity_id=19005790234,
         start_date="2025-05-02",
     ),
+    # 1.
+    dict(
+        title="Verdellino Running",
+        strava_activity_id=19564762171,
+        garmin_activity_id=23819721623,
+        start_date="2026-08-02",
+    ),
 ]
 
 
@@ -33,7 +40,7 @@ class TestPlot10KmRunApi:
 
     def test_happy_flow(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        plot_half_marathon_api = Plot10KmRunApi(
+        plot_api = Plot10KmRunApi(
             garmin_activity_id,
             activity_ids_to_compare=[
                 19074660632,
@@ -41,7 +48,31 @@ class TestPlot10KmRunApi:
             title="Fosso Bergamasco: Cologno al Serio, 1a tappa",
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plot_half_marathon_api.plot(
+        plot_api.plot(
             save_to_png_file_path=self.png_file_root
             / "TestPlot10KmRunApi-test_happy_flow.png",
+        )
+
+    def test_happy_flow_alt(self):
+        garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
+        plot_api = Plot10KmRunApi(
+            garmin_activity_id,
+            activity_ids_to_compare=[],
+            title="Verdellino running",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        plot_api.plot(
+            save_to_png_file_path=self.png_file_root
+            / "TestPlot10KmRunApi-test_happy_flow_alt.png",
+        )
+
+    def test_latest(self):
+        garmin_activity_id = ("LATEST", -2)
+        plot_api = Plot10KmRunApi(
+            garmin_activity_id,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        plot_api.plot(
+            save_to_png_file_path=self.png_file_root
+            / "TestPlot10KmRunApi-test_latest.png",
         )

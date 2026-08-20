@@ -2,11 +2,11 @@ from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
 )
+
 from sport_analysis.conf.settings_module import ROOT_DIR
 from sport_analysis.plot.plot_interval_run_api.plot_interval_run_api_cmd import (
     PlotIntervalRunApiCmd,
 )
-
 from tests.conftest import is_vcr_enabled, is_vcr_record_mode
 
 TEST_ACTIVITIES = [
@@ -38,7 +38,7 @@ class TestPlotInterval1000mRunApi:
         p = PlotIntervalRunApiCmd(
             garmin_activity_id,
             distance=1000,
-            n_previous_activities_to_compare=0,
+            n_prev_activities_to_auto_compare=0,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         p.plot(
@@ -51,7 +51,7 @@ class TestPlotInterval1000mRunApi:
         p = PlotIntervalRunApiCmd(
             garmin_activity_id,
             distance=1000,
-            n_previous_activities_to_compare=2,
+            n_prev_activities_to_auto_compare=2,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         p.plot(
@@ -64,12 +64,25 @@ class TestPlotInterval1000mRunApi:
         p = PlotIntervalRunApiCmd(
             garmin_activity_id,
             distance=1000,
-            n_previous_activities_to_compare=1,
-            text_to_search_for_previous_activities="3x1000m",
+            n_prev_activities_to_auto_compare=1,
+            txt_to_search_for_prev_activities_to_auto_compare="3x1000m",
             n_expected_intervals=[3, 4],
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         p.plot(
             save_to_png_file_path=self.png_file_root
             / "TestPlotInterval1000mRunApi-test_diff_n_intervals.png",
+        )
+
+    def test_latest(self):
+        garmin_activity_id = ("LATEST", -1)
+        p = PlotIntervalRunApiCmd(
+            garmin_activity_id,
+            distance=1000,
+            n_expected_intervals=[5],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / "TestPlotInterval1000mRunApi-test_latest.png",
         )

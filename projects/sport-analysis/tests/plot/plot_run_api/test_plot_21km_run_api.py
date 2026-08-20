@@ -42,3 +42,15 @@ class TestPlot21KmRunApi:
             save_to_png_file_path=self.png_file_root
             / "TestPlot21KmRunApi-test_happy_flow.png",
         )
+
+    def test_latest(self):
+        garmin_activity_id = ("LATEST", -2)
+        plot_half_marathon_api = Plot21KmRunApi(
+            garmin_activity_id,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+            pace_plot_set_y_axis_bottom_to_slowest_pace_perc=4.0,
+        )
+        plot_half_marathon_api.plot(
+            save_to_png_file_path=self.png_file_root
+            / "TestPlot21KmRunApi-test_latest.png",
+        )

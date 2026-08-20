@@ -3,18 +3,19 @@ Plot my weight history.
 
 The file with the weight data `2025.11.04` was exported from my scale
  Renpho ES-CS20M.
+To extract the weights from the scale see:
+ /Volumes/home/Drive/DOCUMENTI-SYNC/IT/WEARABLE,\ FITNESS/Bilancia\ Renpho\ ES-CS20M/EXPORT/How\ to
 
 Usage:
     $ poetry run python sport_analysis/sketches/weight/plot_weight.py
 """
 
 import csv
-from datetime import date, datetime
+from datetime import datetime
 from pathlib import Path
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-import numpy as np
 
 CURR_DIR = Path(__file__).parent
 CSV_FILE = CURR_DIR / "2025.11.04.csv"
@@ -48,7 +49,7 @@ fields = (
 def main():
     print("MAIN")
     weights = list()
-    dates = list()
+    days = list()
     with open(CSV_FILE, newline="") as csvfile:
         # reader = csv.reader(csvfile, delimiter=",")
         reader = csv.DictReader(csvfile, fieldnames=fields, delimiter=",")
@@ -56,13 +57,16 @@ def main():
             if i == 0:
                 continue
             weights.append(float(row["Weight"]))
-            dates.append(datetime.strptime(row["Date"], "%Y.%m.%d").date())
+            days.append(datetime.strptime(row["Date"], "%Y.%m.%d").date())
+
+    if len(weights) != len(days):
+        raise Exception("BUG: the collected weights and days have different count!")
 
     weights.reverse()
-    dates.reverse()
+    days.reverse()
 
     fig, ax = plt.subplots(layout="constrained")
-    ax.plot(dates, weights)
+    ax.plot(days, weights)
 
     formatter = mpl.dates.ConciseDateFormatter(ax.xaxis.get_major_locator())
     ax.xaxis.set_major_formatter(formatter)

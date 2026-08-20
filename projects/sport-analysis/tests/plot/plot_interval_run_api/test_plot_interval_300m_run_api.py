@@ -41,7 +41,7 @@ class TestPlotInterval300mRunApi:
         plot_6x300m_api = PlotIntervalRunApiCmd(
             garmin_activity_id,
             distance=300,
-            # n_previous_activities_to_compare=4,
+            n_prev_activities_to_auto_compare=10,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         plot_6x300m_api.plot(
@@ -54,7 +54,7 @@ class TestPlotInterval300mRunApi:
         plot_6x300m_api = PlotIntervalRunApiCmd(
             garmin_activity_id,
             distance=300,
-            n_previous_activities_to_compare=1,
+            n_prev_activities_to_auto_compare=1,
             # figure_size=(5, 7),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
@@ -70,7 +70,7 @@ class TestPlotInterval300mRunApi:
             distance=300,
             # Using 3 instead of 2 because the prev activity is the in-famous
             #  interrupted one and automatically fixed with a fixture.
-            n_previous_activities_to_compare=3,
+            n_prev_activities_to_auto_compare=3,
             # figure_size=(5, 8),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
@@ -84,7 +84,7 @@ class TestPlotInterval300mRunApi:
         plot_6x300m_api = PlotIntervalRunApiCmd(
             garmin_activity_id,
             distance=300,
-            n_previous_activities_to_compare=0,
+            n_prev_activities_to_auto_compare=0,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         plot_6x300m_api.plot(

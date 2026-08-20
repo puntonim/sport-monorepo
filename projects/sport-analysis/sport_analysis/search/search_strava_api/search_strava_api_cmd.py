@@ -3,6 +3,10 @@ from datetime import datetime
 import datetime_utils
 import speed_utils
 from garmin_connect_client import GarminConnectClient
+from garmin_connect_client.garmin_connect_token_managers import (
+    FakeTestGarminConnectTokenManager,
+    FileGarminConnectTokenManager,
+)
 from strava_client import (
     ActivityDetailsResponse,
     ListActivitiesResponse,
@@ -85,6 +89,9 @@ class SearchStravaApiCmd:
             | FakeTestStravaTokenManager
             | None
         ) = None,
+        garmin_connect_token_manager: (
+            FileGarminConnectTokenManager | FakeTestGarminConnectTokenManager | None
+        ) = None,
     ):
         self.start_date_after = start_date_after
         self.start_date_before = start_date_before
@@ -114,7 +121,8 @@ class SearchStravaApiCmd:
                 " use only one of them"
             )
 
-        strava_token_manager = (
+        self.garmin_connect_token_manager = garmin_connect_token_manager
+        self.strava_token_manager = (
             strava_token_manager
             or AwsParameterStoreStravaTokenManager(
                 settings.TOKEN_JSON_PARAMETER_STORE_KEY_PATH,
@@ -122,7 +130,7 @@ class SearchStravaApiCmd:
                 settings.CLIENT_SECRET_PARAMETER_STORE_KEY_PATH,
             )
         )
-        self.client = StravaClient(strava_token_manager.get_access_token())
+        self.client = StravaClient(self.strava_token_manager.get_access_token())
 
     def search(self) -> None:
         filters_kwargs = dict(
@@ -222,20 +230,22 @@ class SearchStravaApiCmd:
 
                 ## Check in Garmin API if the heart rate band monitor was used.
                 hr_band_msg = "[bold on red]??[/]"
+                garmin_activity = None
                 if self.do_select_only_if_with_hr_band:
-                    garmin_activity = None
                     try:
-                        garmin_activity = (
-                            search_garmin_activity_matching_strava_activity_api(
-                                strava_activity_id=summary["id"],
-                            )
+                        garmin_activity = search_garmin_activity_matching_strava_activity_api(
+                            strava_activity_id=summary["id"],
+                            strava_token_manager=self.strava_token_manager,
+                            garmin_connect_token_manager=self.garmin_connect_token_manager,
                         )
                     except ActivityNotFound as exc:
                         hr_band_msg = (
                             "[bold on red]Garmin matching activity not found[/]"
                         )
                     if garmin_activity:
-                        garmin = GarminConnectClient()
+                        garmin = GarminConnectClient(
+                            token_manager=self.garmin_connect_token_manager
+                        )
                         response = garmin.get_activity_summary(
                             garmin_activity["activityId"]
                         )
@@ -246,6 +256,8 @@ class SearchStravaApiCmd:
 
                 msg = f"[bold on yellow]{summary['name']}[/]"
                 msg += f"\nhttps://www.strava.com/activities/{summary['id']}"
+                if garmin_activity:
+                    msg += f"\nhttps://connect.garmin.com/modern/activity/{garmin_activity['activityId']}"
                 msg += f"\n{summary['type']} - {summary['sport_type']}"
                 msg += f"\n{summary['start_date_local']}"
                 if distance := summary.get("distance") / 1000:

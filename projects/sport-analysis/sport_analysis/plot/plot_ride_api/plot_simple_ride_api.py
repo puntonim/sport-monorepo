@@ -3,7 +3,6 @@ from pathlib import Path
 
 import click
 import datetime_utils
-import log_utils as logger
 import matplotlib.pyplot as plt
 from garmin_connect_client import ActivityDetailsResponse, ActivitySummaryResponse
 from garmin_connect_client.garmin_connect_token_managers import (
@@ -13,7 +12,7 @@ from garmin_connect_client.garmin_connect_token_managers import (
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
-from ...base_cli_view import BaseClickCommand
+from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand
 from ...conf import settings
 from ...conf.settings_module import ROOT_DIR
 from .. import base_api, base_plot
@@ -22,9 +21,21 @@ from .. import base_api, base_plot
 @click.command(
     cls=BaseClickCommand,
     name="plot-simple-ride",
-    help='Plot a simple bike ride; eg: san plot-simple-ride 19795436851 --title "Verdellino - Adda 20km" --figure-size 5.0 6.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/',
+    help="""
+    Plot a simple bike ride.
+    
+    \b
+    Examples
+    $ san plot-simple-ride 19795436851 --title "Verdellino - Adda 20km" --figure-size 5.0 6.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/
+    """,
 )
-@click.argument("garmin-activity-id", nargs=1, type=int)
+@click.argument(
+    # id (int) of Garmin activity to analyze or "LATEST" or "LATEST-3".
+    "garmin-activity-id",
+    nargs=1,
+    type=ACTIVITY_ID_TYPE,
+    # help="Garmin activity id or LATEST or LATEST-3",
+)
 @click.option("--title", type=str)
 @click.option(
     "--figure-size",
@@ -49,7 +60,8 @@ from .. import base_api, base_plot
     help="Either dir or file path where to store the .png plot",
 )
 def plot_simple_ride_api_cli_view(
-    garmin_activity_id: int,
+    # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
+    garmin_activity_id: int | tuple[str, int],
     title: str | None = None,
     figure_size: tuple[float, float] | None = None,
     dir_or_file_path: Path = ROOT_DIR / "output-images",
@@ -57,7 +69,7 @@ def plot_simple_ride_api_cli_view(
     """
     Plot the HR histogram alone for the given Garmin activity id as a bike ride.
     """
-    if dir_or_file_path.suffix:
+    if dir_or_file_path.suffix:  # It's a file.
         if dir_or_file_path.suffix == ".png":  # It's a .png file.
             if dir_or_file_path.exists():
                 raise click.BadParameter("The given .png file already exists")
@@ -87,7 +99,8 @@ class CollectedData:
 class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
     def __init__(
         self,
-        garmin_activity_id: int,
+        # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
+        garmin_activity_id: int | tuple[str, int],
         title: str | None = None,
         figure_size: tuple[float, float] | None = None,
         garmin_connect_token_manager: (
@@ -96,7 +109,8 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
     ):
         """
         Args:
-            garmin_activity_id: id of Garmin activity to analyze.
+            garmin_activity_id: id (int) of Garmin activity to analyze or ("LATEST", 0)
+             or ("LATEST", -3).
             title: plot title.
             figure_size: customize the figure size, eg. (3.0, 5.5).
             garmin_connect_token_manager: use FakeTestGarminConnectTokenManager when
@@ -139,6 +153,24 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         )
 
     def plot(self, save_to_png_file_path: Path | None = None):
+        ## Find the actual Garmin activity, if the garmin id arg was LATEST or LATEST-3.
+        original_garmin_activity_id_arg = self.garmin_activity_id
+        if (
+            # original_garmin_activity_id_arg is a tuple like ("LATEST", 0) or ("LATEST", -3).
+            isinstance(original_garmin_activity_id_arg, tuple)
+            and original_garmin_activity_id_arg[0] == "LATEST"
+        ):
+            # Get N-most recent running activity from Garmin API.
+            self.garmin_activity_id = self._api_search_activities(
+                activity_type="cycling",
+                n_results=abs(original_garmin_activity_id_arg[1]) + 1,
+            )[-1]
+        self.print_activity_urls(
+            original_activity_id_arg=original_garmin_activity_id_arg,
+            garmin_activity_id=self.garmin_activity_id,
+            activity_txt_to_print="ride",
+        )
+
         ## Collect summary and details.
         self._s.append(
             CollectedData(
@@ -149,6 +181,8 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
                 ),
             )
         )
+
+        self.print_activity_date(self._s[0].summary_resp.summary["startTimeLocal"])
 
         # Figure.
         figure, self._axes_mosaic = self._make_subplot_mosaic()
@@ -177,7 +211,7 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         )
 
         if save_to_png_file_path:
-            logger.info(f"Created image: {save_to_png_file_path}")
+            self.print_created_image_path(save_to_png_file_path)
             plt.savefig(save_to_png_file_path)
         else:
             plt.show()
