@@ -1,5 +1,7 @@
 
 - add calendar sketch (and use proper vcr.py)
+  dopo averlo committato aggiorna appunti in: /Volumes/home/Drive/DOCUMENTI-SYNC/IT/_SW,\ SYS\ ENGINEERING/FRONTEND,\ JAVASCRIPT/CSS/GRID\ \(like\ tables,\ 2\ dimensions\)/Calendar-advanced/Calendar-advanced.md
+  e scrivi appunti su VCR che fallisce con troppe interazioni
 
 - scritta semplice: rimuovi MA(pace)
 - sotto le barre orizzontale delle HR zone scrivere tutte le perc:
@@ -7,6 +9,7 @@
 - invece di usare immagini che creo io a mano in plot (come plot_interval_1000m_run_api.png)
    fare si che il test_happy_flow crei quell'immagine in modo che sia aggiornata
    dopo ogni cambiamento
+   e uso le stesse immagini nei files README.md
 - replace get_string_from_env() e override_settings in settings_module.py con settings_utils lib
 - activity_id: strava-* or garmin-*
 - UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.

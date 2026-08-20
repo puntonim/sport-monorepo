@@ -32,7 +32,7 @@ console = ConsoleAdapter()
 
 
 def configure_vcr():
-    return vcr_module.VCR(**conftest.vcr_config())
+    return vcr_module.VCR(**conftest.vcr_config_dict())
 
 
 def configure_garmin_token_manager():
