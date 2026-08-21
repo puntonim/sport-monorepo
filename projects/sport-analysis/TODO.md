@@ -1,6 +1,5 @@
 
 
-- scritta semplice: rimuovi MA(pace)
 - sotto le barre orizzontale delle HR zone scrivere tutte le perc:
   Z0 1%, Z1 3%, ...
 - replace get_string_from_env() e override_settings in settings_module.py con settings_utils lib

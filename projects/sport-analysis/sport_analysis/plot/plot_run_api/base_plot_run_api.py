@@ -227,7 +227,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
 
         ## Format.
         # Axes labels.
-        a.set_ylabel("MA(pace) [min/km]")
+        a.set_ylabel("Pace [min/km]")
         a.set_xlabel("Distance [km]")
         # axes.xaxis.set_label_position("top")
         # Invert the y-axis so the fastest pace is on top.
@@ -269,7 +269,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         )
         # Write text annotation for MA window size.
         a.annotate(
-            f"MA window: ~{round(rolling_window_avg_time)}s, ~{round(rolling_window_avg_distance)}m",
+            f"MA(pace) window: ~{round(rolling_window_avg_time)}s, ~{round(rolling_window_avg_distance)}m",
             (a.get_xlim()[0], a.get_ylim()[0]),
             xytext=(0.1, 0.1),
             textcoords="offset fontsize",

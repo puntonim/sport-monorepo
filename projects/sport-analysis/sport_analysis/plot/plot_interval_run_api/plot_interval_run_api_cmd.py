@@ -249,7 +249,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         # Invert the y-axis so the 1st attempt is on top.
         a.invert_yaxis()
         # Axes labels.
-        a.set_xlabel("log(time) [s]")
+        a.set_xlabel("Time [s]")
         # Set the x-axis label to the top.
         a.xaxis.set_label_position("top")
         # Use log scale to amplify the small differences.
@@ -373,7 +373,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         ## Format.
         # Invert the y-axis so the 1st attempt is on top.
         a.invert_yaxis()
-        a.set_xlabel("log(pace avg|max) [min/km]")
+        a.set_xlabel("Pace avg|max [min/km]")
         # Set the x-axis label to the top.
         a.xaxis.set_label_position("top")
         # Use log scale to amplify the small differences.
@@ -508,7 +508,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         ## Format.
         # Invert the y-axis so the 1st attempt is on top.
         a.invert_yaxis()
-        a.set_xlabel("log(cadence avg|max) [spm]")
+        a.set_xlabel("Cadence avg|max [spm]")
         # Set the x-axis label to the top.
         a.xaxis.set_label_position("top")
         # Use log scale to amplify the small differences.
@@ -633,7 +633,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         ## Format.
         # Invert the y-axis so the 1st attempt is on top.
         a.invert_yaxis()
-        a.set_xlabel("log(HR avg|max) [bpm]")
+        a.set_xlabel("Heart rate avg|max [bpm]")
         # Set the x-axis label to the top.
         a.xaxis.set_label_position("top")
         # Use log scale to amplify the small differences.
@@ -654,6 +654,22 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             # right=False,
             labelbottom=False,  # Ticks labels along the bottom are off.
             labelleft=False,
+        )
+
+    def _write_note_on_log_scale(self):
+        a: Axes = self._axes_mosaic["note"]
+        a.set_axis_off()
+        a.annotate(
+            "Note: log scale used in all charts",
+            ((a.get_xlim()[1] - a.get_xlim()[0]) / 2, a.get_ylim()[0]),
+            xytext=(0, 0),
+            textcoords="offset fontsize",
+            # color=COL_DARK_RED,
+            # alpha=0.8,
+            fontsize=9,
+            # fontweight="bold",
+            style="italic",
+            horizontalalignment="center",
         )
 
     def plot(self, save_to_png_file_path: Path | str | None = None):
@@ -759,6 +775,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         self._plot_pace()
         self._plot_cadence()
         self._plot_hr()
+        self._write_note_on_log_scale()
 
         title = (
             self.title
@@ -809,12 +826,13 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
                 # 2 rows, 2 col.
                 ["time", "hr"],
                 ["pace", "cadence"],
+                ["note", "note"],
             ],
             # fmt: on
             gridspec_kw=dict(
                 # The relative sizes of the subplots.
                 width_ratios=[1, 1],
-                height_ratios=[1, 1],
+                height_ratios=[1, 1, 0.05],
             ),
             figsize=self._make_figure_size(),
             layout="constrained",
