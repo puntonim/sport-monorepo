@@ -1,9 +1,9 @@
 from functools import lru_cache
 from math import floor
+from pathlib import Path
 from statistics import mean
 
 import datetime_utils
-import log_utils as logger
 import matplotlib as mpl
 import numpy as np
 from matplotlib.axes import Axes
@@ -58,7 +58,7 @@ class BasePlot:
             highlight=False,
         )
         console.print(
-            f":open_file_folder: Dir: [blue underline]{file_path.parent}[/]",
+            f":open_file_folder: Dir: [blue underline]{Path(file_path).parent}[/]",
             highlight=False,
         )
 

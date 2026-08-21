@@ -1,3 +1,5 @@
+import inspect
+
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
@@ -10,12 +12,21 @@ from tests.conftest import is_vcr_enabled, is_vcr_record_mode
 TEST_ACTIVITIES = [
     # 0.
     dict(
-        title="Run - Sarnico-Lovere",
+        title="Run - Sarnico-Lovere 2025",
         strava_activity_id=14299142926,
         garmin_activity_id=18948270166,
         start_date="2025-04-27",
     ),
+    # 1.
+    dict(
+        title="Run - Sarnico-Lovere 2026",
+        strava_activity_id=18262545803,
+        garmin_activity_id=22663177131,
+        start_date="2026-04-26",
+    ),
 ]
+
+FILE_TESTED_PATH = inspect.getfile(Plot21KmRunApi)
 
 
 class TestPlot21KmRunApi:
@@ -31,16 +42,15 @@ class TestPlot21KmRunApi:
         )
         self.png_file_root = ROOT_DIR / "tests" / "test-output-images"
 
-    def test_happy_flow(self):
-        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
+    def test_generate_sample_image(self):
         plot_half_marathon_api = Plot21KmRunApi(
-            garmin_activity_id,
+            TEST_ACTIVITIES[1]["garmin_activity_id"],
+            activity_ids_to_compare=[TEST_ACTIVITIES[0]["garmin_activity_id"]],
             garmin_connect_token_manager=self.garmin_token_mgr,
             pace_plot_set_y_axis_bottom_to_slowest_pace_perc=4.0,
         )
         plot_half_marathon_api.plot(
-            save_to_png_file_path=self.png_file_root
-            / "TestPlot21KmRunApi-test_happy_flow.png",
+            save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png")
         )
 
     def test_latest(self):

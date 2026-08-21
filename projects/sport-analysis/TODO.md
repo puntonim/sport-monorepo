@@ -1,27 +1,27 @@
 
-- add calendar sketch (and use proper vcr.py)
-  dopo averlo committato aggiorna appunti in: /Volumes/home/Drive/DOCUMENTI-SYNC/IT/_SW,\ SYS\ ENGINEERING/FRONTEND,\ JAVASCRIPT/CSS/GRID\ \(like\ tables,\ 2\ dimensions\)/Calendar-advanced/Calendar-advanced.md
-  e scrivi appunti su VCR che fallisce con troppe interazioni
 
 - scritta semplice: rimuovi MA(pace)
 - sotto le barre orizzontale delle HR zone scrivere tutte le perc:
   Z0 1%, Z1 3%, ...
-- invece di usare immagini che creo io a mano in plot (come plot_interval_1000m_run_api.png)
-   fare si che il test_happy_flow crei quell'immagine in modo che sia aggiornata
-   dopo ogni cambiamento
-   e uso le stesse immagini nei files README.md
 - replace get_string_from_env() e override_settings in settings_module.py con settings_utils lib
-- activity_id: strava-* or garmin-*
+- activity_id: strava-* or garmin-* (oppure --stravaid=123)
+  usala in search-matching-strava-activity, rename to search-matching-activity
+  ma anche dovunque si usa un activity_id
 - UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
-- usa domande interattive
+  in interval run
+- usa sempre domande interattive, dovunque ma in particolare per interval run
   vedi `search_strava_api_cli.py`
-- 1 chart largo sopra con i tempi
+- 1 chart largo sopra con i tempi, per interval run
   3 sotto piccoli
   non rosso, ma violetto
 
 - usa ConsoleAdapterMock() come in test_search_strava_api_cmd.py?
+- san get-activity strava-123
+  console print summary e details
 
-
+- Unire piu comandi:
+    plot-run: che unisce plot-10km-run, plot-21km-run, plot-interval-run
+    plot-ride: che unisce plot-climb-ride, plot-simple-ride
 
 
 
@@ -44,11 +44,8 @@ EOY feature
 - cancella branch eoy e eoy-new
 
 REFACTORING
-- san search-matching-activity --stravaid=<id> (invece di search-matching-strava-activity)
 - san search-db <text> (invece di db-search-text)
-- san get-activity-strava <id> (NEW)
 - san get-segment-strava <id>|selvino|stelvio  (NEW)
-- san get-activity-garmin <id> (NEW)
 
 SEARCH CLI per trovare il migliore 10km|HM (run)
 - cerco le corse di almeno 10km

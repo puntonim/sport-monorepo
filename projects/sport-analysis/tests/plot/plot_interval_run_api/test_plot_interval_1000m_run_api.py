@@ -1,3 +1,5 @@
+import inspect
+
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
@@ -17,7 +19,16 @@ TEST_ACTIVITIES = [
         garmin_activity_id=19042748874,
         start_date="2025-05-06",
     ),
+    # 1.
+    dict(
+        title="Run - 5x1000m",
+        strava_activity_id=19789659538,
+        garmin_activity_id=24018992823,
+        start_date="2026-08-18",
+    ),
 ]
+
+FILE_TESTED_PATH = inspect.getfile(PlotIntervalRunApiCmd)
 
 
 class TestPlotInterval1000mRunApi:
@@ -33,18 +44,15 @@ class TestPlotInterval1000mRunApi:
         )
         self.png_file_root = ROOT_DIR / "tests" / "test-output-images"
 
-    def test_happy_flow(self):
-        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
+    def test_generate_sample_image(self):
         p = PlotIntervalRunApiCmd(
-            garmin_activity_id,
+            TEST_ACTIVITIES[1]["garmin_activity_id"],
             distance=1000,
+            activity_ids_to_compare=[TEST_ACTIVITIES[0]["garmin_activity_id"]],
             n_prev_activities_to_auto_compare=0,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        p.plot(
-            save_to_png_file_path=self.png_file_root
-            / "TestPlotInterval1000mRunApi-test_happy_flow.png",
-        )
+        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-1000m.png"))
 
     def test_n_previous_activity_to_compare_2(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]

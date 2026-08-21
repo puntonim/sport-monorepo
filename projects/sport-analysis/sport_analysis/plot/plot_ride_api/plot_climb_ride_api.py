@@ -345,7 +345,7 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         self.segment_start_meters = segment_start_distance
         self.segment_end_meters = segment_end_distance
 
-    def plot(self, save_to_png_file_path: Path | None = None):
+    def plot(self, save_to_png_file_path: Path | str | None = None):
         ## Find the actual Garmin activity, if the garmin id arg was LATEST or LATEST-3.
         original_garmin_activity_id_arg = self.garmin_activity_id
         if (

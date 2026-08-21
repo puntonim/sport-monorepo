@@ -53,7 +53,8 @@ Optionally compare with previous runs.
 ```sh
 $ san plot-10km-run 19005790234 -vs 19074660632 --title "Fosso BG" --figure-size 5.0 6.5 --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 3.5 -d ~/output-images/
 ```
-![](sport_analysis/plot/plot_run_api/plot_10km_run_api.png)
+![](sport_analysis/plot/plot_run_api/plot_10km_run_api1.png)
+![](sport_analysis/plot/plot_run_api/plot_10km_run_api2.png)
 
 ### 21 km run (api)
 Optionally compare with the given runs.
@@ -65,15 +66,15 @@ $ san plot-21km-run 18948270166 -vs 18891426764 -vs 12877651519 --title "Sarnico
 ### 300 m interval run (api)
 ```sh
 Optionally compare with previous 2 runs automatically found.
-$ san plot-interval-300m-run 18923007987 --vs-n 2 --text "6x300m" --title "6x300m a Verdellino" --figure-size 5.0 8.2 -d ~/output-images/
+$ san plot-interval-run 18923007987 --dist 300 -n-int 6 --vs-n 2 --text "6x300m" --title "6x300m a Verdellino" --figure-size 5.0 8.2 -d ~/output-images/
 ```
-![](sport_analysis/plot/plot_interval_run_api/plot_interval_300m_run_api.png)
+![](sport_analysis/plot/plot_interval_run_api/plot_interval_run_api_cmd-300m.png)
 
 ### 1000 m interval run (api)
 ```sh
-$ san plot-interval-1000m-run 19042748874 --vs-n 1 --text "4x1000m" --title "4x1000m a Verdellino" --figure-size 5.0 8.2 -d ~/output-images/
+$ san plot-interval-run 19042748874 --dist 1000 -n-int 5 --vs-n 1 --text "4x1000m" --title "4x1000m a Verdellino" --figure-size 5.0 8.2 -d ~/output-images/
 ```
-![](sport_analysis/plot/plot_interval_run_api/plot_interval_1000m_run_api.png)
+![](sport_analysis/plot/plot_interval_run_api/plot_interval_run_api_cmd-1000m.png)
 
 
 Search

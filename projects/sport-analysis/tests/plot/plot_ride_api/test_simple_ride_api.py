@@ -1,3 +1,5 @@
+import inspect
+
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
@@ -17,6 +19,8 @@ TEST_ACTIVITIES = [
     ),
 ]
 
+FILE_TESTED_PATH = inspect.getfile(PlotSimpleRideApi)
+
 
 class TestPlotSimpleRideApi:
     def setup_method(self):
@@ -31,7 +35,7 @@ class TestPlotSimpleRideApi:
         )
         self.png_file_root = ROOT_DIR / "tests" / "test-output-images"
 
-    def test_happy_flow(self):
+    def test_generate_sample_image(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
         plotter = PlotSimpleRideApi(
             garmin_activity_id,
@@ -39,10 +43,7 @@ class TestPlotSimpleRideApi:
             figure_size=(5.0, 6.5),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plotter.plot(
-            save_to_png_file_path=self.png_file_root
-            / "TestPlotSimpleRideApi-test_happy_flow.png",
-        )
+        plotter.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png"))
 
     def test_latest(self):
         garmin_activity_id = ("LATEST", -1)

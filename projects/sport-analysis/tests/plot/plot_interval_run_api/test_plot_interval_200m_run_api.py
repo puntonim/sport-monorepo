@@ -1,3 +1,5 @@
+import inspect
+
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
@@ -18,6 +20,7 @@ TEST_ACTIVITIES = [
         start_date="2025-10-03",
     ),
 ]
+FILE_TESTED_PATH = inspect.getfile(PlotIntervalRunApiCmd)
 
 
 class TestPlotInterval200mRunApi:
@@ -33,7 +36,7 @@ class TestPlotInterval200mRunApi:
         )
         self.png_file_root = ROOT_DIR / "tests" / "test-output-images"
 
-    def test_happy_flow(self):
+    def test_generate_sample_image(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
         plot_200m_api = PlotIntervalRunApiCmd(
             garmin_activity_id,
@@ -42,8 +45,7 @@ class TestPlotInterval200mRunApi:
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         plot_200m_api.plot(
-            save_to_png_file_path=self.png_file_root
-            / "TestPlotInterval200mRunApi-test_happy_flow.png",
+            save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-200m.png")
         )
 
     ## At the time of writing I only have 1 activity with 200m, so I cannot really

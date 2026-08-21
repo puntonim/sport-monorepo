@@ -1,3 +1,5 @@
+import inspect
+
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
@@ -28,6 +30,8 @@ TEST_ACTIVITIES = [
         start_date="2026-04-03",
     ),
 ]
+
+FILE_TESTED_PATH = inspect.getfile(PlotClimbRideApi)
 
 
 class TestPlotClimbRideApi:
@@ -71,7 +75,7 @@ class TestPlotClimbRideApi:
             / "TestPlotClimbRideApi-test_happy_flow.png",
         )
 
-    def test_strava_segment(self):
+    def test_generate_sample_image_with_strava_segment(self):
         garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
         plotter = PlotClimbRideApi(
             garmin_activity_id,
@@ -84,10 +88,7 @@ class TestPlotClimbRideApi:
             garmin_connect_token_manager=self.garmin_token_mgr,
             strava_token_manager=self.strava_token_mgr,
         )
-        plotter.plot(
-            save_to_png_file_path=self.png_file_root
-            / "TestPlotClimbRideApi-test_strava_segment.png",
-        )
+        plotter.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png"))
 
     def test_latest(self):
         garmin_activity_id = ("LATEST", 0)

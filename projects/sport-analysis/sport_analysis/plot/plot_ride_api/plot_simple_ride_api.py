@@ -152,7 +152,7 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             settings.HR_MAX_EVER_RIDE,
         )
 
-    def plot(self, save_to_png_file_path: Path | None = None):
+    def plot(self, save_to_png_file_path: Path | str | None = None):
         ## Find the actual Garmin activity, if the garmin id arg was LATEST or LATEST-3.
         original_garmin_activity_id_arg = self.garmin_activity_id
         if (

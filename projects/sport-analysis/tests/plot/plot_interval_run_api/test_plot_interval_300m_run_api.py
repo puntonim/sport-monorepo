@@ -1,3 +1,4 @@
+import inspect
 import json
 
 from garmin_connect_client import ActivityTypedSplitsResponse
@@ -21,6 +22,7 @@ TEST_ACTIVITIES = [
         start_date="2025-04-24",
     ),
 ]
+FILE_TESTED_PATH = inspect.getfile(PlotIntervalRunApiCmd)
 
 
 class TestPlotInterval300mRunApi:
@@ -36,7 +38,7 @@ class TestPlotInterval300mRunApi:
         )
         self.png_file_root = ROOT_DIR / "tests" / "test-output-images"
 
-    def test_happy_flow(self):
+    def test_generate_sample_image(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
         plot_6x300m_api = PlotIntervalRunApiCmd(
             garmin_activity_id,
@@ -45,8 +47,7 @@ class TestPlotInterval300mRunApi:
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         plot_6x300m_api.plot(
-            save_to_png_file_path=self.png_file_root
-            / "TestPlotInterval300mRunApi-test_happy_flow.png",
+            save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-300m.png")
         )
 
     def test_n_previous_activity_to_compare_1(self):
