@@ -1,7 +1,7 @@
 
-
-- sotto le barre orizzontale delle HR zone scrivere tutte le perc:
-  Z0 1%, Z1 3%, ...
+- Aggiungi al titolo: 24.95km in 1:54:33
+- P80 scritto meglio
+  P80 a 121bpm (=Z1+18 NOOOOOOO =Z2-1bpm)
 - replace get_string_from_env() e override_settings in settings_module.py con settings_utils lib
 - activity_id: strava-* or garmin-* (oppure --stravaid=123)
   usala in search-matching-strava-activity, rename to search-matching-activity
