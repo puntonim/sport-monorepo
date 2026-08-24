@@ -782,7 +782,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             activity_original_title=self._s[0].summary_resp.data["activityName"],
             custom_title=self.title,
         )
-        figure.suptitle(title + "\n  ")
+        figure.suptitle(title + "\n  ", fontweight="bold")
         subtitle = _make_subtitle(
             activity_original_start_time_local=self._s[0].summary_resp.summary[
                 "startTimeLocal"

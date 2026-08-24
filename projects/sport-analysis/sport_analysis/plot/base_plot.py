@@ -377,13 +377,9 @@ class MixinHrPlot(BasePlot):
         if segment_title:
             axes.set_title(
                 segment_title,
-                loc="left",
-                x=0.01,
-                y=1.0,
-                pad=-22,
-                style="italic",
                 fontsize=9,
-                # color=COL_DARK_RED,
+                fontweight="bold",
+                # backgroundcolor="gray",
             )
 
         # Draw HR avg vertical line.

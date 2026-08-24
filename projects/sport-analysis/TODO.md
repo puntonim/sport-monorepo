@@ -1,8 +1,5 @@
 
 
-- climb ride con segment: scrivere "Segment Selvino Fontanella" come titolo del chart in basso
-   e non dentro il chart perchè si sovrappone al HR avg
-
 - Time in zones: Z0=0% Z1=0%
    Prova ad usare "|": Z0 0% | Z1 0% | ...
 

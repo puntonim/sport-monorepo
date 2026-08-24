@@ -154,7 +154,7 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
         segment_strava_name: str | None = None,
-        segment_title: str = "Segment only",
+        segment_title: str | None = None,
         figure_size: tuple[float, float] | None = None,
         garmin_connect_token_manager: (
             FileGarminConnectTokenManager | FakeTestGarminConnectTokenManager | None
@@ -270,7 +270,7 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
 
     def _plot_hr_histogram(self):
         hr_stream = self._s[0].details_resp.get_heartrate_stream(
-            do_remove_none_values=False,
+            do_remove_none_values=True,
             segment_start_meters=self.segment_start_meters,
             segment_end_meters=self.segment_end_meters,
         )
@@ -282,7 +282,15 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             segment_start_meters=self.segment_start_meters,
             segment_end_meters=self.segment_end_meters,
         )
-        segment_title = f"{self.segment_title}\n{round(self.segment_start_meters/1000, 2) if self.segment_start_meters else '0'}-{round(self.segment_end_meters/1000, 2) if self.segment_end_meters else ''} km"
+
+        segment_title = None
+        distance = self._s[0].summary_resp.data["summaryDTO"]["distance"]
+        if self.segment_title:
+            segment_title = f"Segment {self.segment_title} ({round(self.segment_start_meters/1000, 1) if self.segment_start_meters else '0'}-{round(self.segment_end_meters/1000, 1) if self.segment_end_meters else round(distance/1000, 1)} km)"
+        elif self.segment_strava_name:
+            segment_title = self.segment_strava_name
+        elif self.segment_start_meters or self.segment_end_meters:
+            segment_title = f"Segment {round(self.segment_start_meters/1000, 1) if self.segment_start_meters else '0'}-{round(self.segment_end_meters/1000, 1) if self.segment_end_meters else round(distance/1000, 1)} km"
         self._plot_hr_histogram_mixin(
             self._axes_mosaic["hr-hist"],
             hr_stream,
@@ -295,7 +303,7 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
 
     def _plot_hr_zones(self):
         hr_stream = self._s[0].details_resp.get_heartrate_stream(
-            do_remove_none_values=False,
+            do_remove_none_values=True,
             segment_start_meters=self.segment_start_meters,
             segment_end_meters=self.segment_end_meters,
         )
@@ -408,7 +416,7 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             activity_original_title=self._s[0].summary_resp.data["activityName"],
             custom_title=self.title,
         )
-        figure.suptitle(title + "\n  ")
+        figure.suptitle(title + "\n  ", fontweight="bold")
         subtitle = _make_subtitle(
             activity_original_start_time_local=self._s[0].summary_resp.summary[
                 "startTimeLocal"

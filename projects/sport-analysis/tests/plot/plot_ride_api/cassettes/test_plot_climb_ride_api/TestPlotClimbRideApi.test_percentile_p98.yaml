@@ -57,7 +57,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 24 Aug 2026 16:31:49 GMT
+      - Mon, 24 Aug 2026 19:22:35 GMT
       Nel:
       - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
       Server:
@@ -130,7 +130,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 24 Aug 2026 16:31:50 GMT
+      - Mon, 24 Aug 2026 19:22:35 GMT
       Nel:
       - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
       Server:
@@ -183,14 +183,14 @@ interactions:
         false, "eBikeMaxAssistModes": null, "eBikeBatteryUsage": null, "eBikeBatteryRemaining":
         null, "eBikeAssistModeInfoDTOList": null, "hasRunPowerWindData": null, "calendarEventInfo":
         null, "groupRideUUID": null, "hasHeatMap": false, "thirdPartyGymEquipment":
-        [], "personalRecord": false, "manualActivity": false, "runPowerWindDataEnabled":
-        null, "elevationCorrected": false, "trimmed": false, "autoCalcCalories": false,
-        "favorite": false, "gcj02": false}, "summaryDTO": {"startTimeLocal": "2026-04-03T09:21:49.0",
-        "startTimeGMT": "2026-04-03T07:21:49.0", "startLatitude": 45.7228250708431,
-        "startLongitude": 9.720295714214444, "distance": 40253.37, "duration": 9136.627,
-        "movingDuration": 9094.093, "elapsedDuration": 18051.941, "elevationGain":
-        971.0, "elevationLoss": 948.0, "maxElevation": 919.4, "minElevation": 276.2,
-        "avgElevation": 511.29, "averageSpeed": 4.406000137329102, "averageMovingSpeed":
+        [], "personalRecord": false, "runPowerWindDataEnabled": null, "manualActivity":
+        false, "autoCalcCalories": false, "favorite": false, "elevationCorrected":
+        false, "trimmed": false, "gcj02": false}, "summaryDTO": {"startTimeLocal":
+        "2026-04-03T09:21:49.0", "startTimeGMT": "2026-04-03T07:21:49.0", "startLatitude":
+        45.7228250708431, "startLongitude": 9.720295714214444, "distance": 40253.37,
+        "duration": 9136.627, "movingDuration": 9094.093, "elapsedDuration": 18051.941,
+        "elevationGain": 971.0, "elevationLoss": 948.0, "maxElevation": 919.4, "minElevation":
+        276.2, "avgElevation": 511.29, "averageSpeed": 4.406000137329102, "averageMovingSpeed":
         4.426320581496537, "maxSpeed": 13.715999603271484, "calories": 1656.0, "bmrCalories":
         225.0, "averageHR": 103.0, "maxHR": 140.0, "minHR": 61.0, "averageTemperature":
         24.514096096606057, "maxTemperature": 34.0, "minTemperature": 21.0, "trainingEffect":
@@ -213,7 +213,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Mon, 24 Aug 2026 16:31:50 GMT
+      - Mon, 24 Aug 2026 19:22:35 GMT
       Nel:
       - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
       Server:
@@ -23142,7 +23142,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Mon, 24 Aug 2026 16:31:51 GMT
+      - Mon, 24 Aug 2026 19:22:36 GMT
       Nel:
       - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
       Server:
@@ -23214,7 +23214,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 24 Aug 2026 16:31:53 GMT
+      - Mon, 24 Aug 2026 19:22:37 GMT
       Nel:
       - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
       Server:
@@ -23259,7 +23259,7 @@ interactions:
         null, "latitude": null, "longitude": null, "locationName": null, "isoCountryCode":
         null, "postalCode": null}, "golfDistanceUnit": "statute_us", "golfElevationUnit":
         null, "golfSpeedUnit": null, "externalBottomTime": null, "availableTrainingDays":
-        ["FRIDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "SUNDAY", "SATURDAY"],
+        ["THURSDAY", "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "SATURDAY", "FRIDAY"],
         "preferredLongTrainingDays": ["SUNDAY", "SATURDAY"], "virtualCaddieDataSource":
         null, "numberDivesAutomatically": null, "firstbeatRowingLtTimestamp": null,
         "lactateThresholdRowingPace": null, "lactateThresholdHeartRateRowing": null,
@@ -23287,7 +23287,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 24 Aug 2026 16:31:54 GMT
+      - Mon, 24 Aug 2026 19:22:38 GMT
       Nel:
       - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
       Server:
@@ -23340,9 +23340,9 @@ interactions:
         false, "eBikeMaxAssistModes": null, "eBikeBatteryUsage": null, "eBikeBatteryRemaining":
         null, "eBikeAssistModeInfoDTOList": null, "hasRunPowerWindData": null, "calendarEventInfo":
         null, "groupRideUUID": null, "hasHeatMap": false, "thirdPartyGymEquipment":
-        [], "personalRecord": false, "elevationCorrected": false, "manualActivity":
-        false, "trimmed": false, "autoCalcCalories": false, "favorite": false, "runPowerWindDataEnabled":
-        null, "gcj02": false}, "summaryDTO": {"startTimeLocal": "2026-04-03T09:21:49.0",
+        [], "gcj02": false, "personalRecord": false, "favorite": false, "runPowerWindDataEnabled":
+        null, "autoCalcCalories": false, "trimmed": false, "elevationCorrected": false,
+        "manualActivity": false}, "summaryDTO": {"startTimeLocal": "2026-04-03T09:21:49.0",
         "startTimeGMT": "2026-04-03T07:21:49.0", "startLatitude": 45.7228250708431,
         "startLongitude": 9.720295714214444, "distance": 40253.37, "duration": 9136.627,
         "movingDuration": 9094.093, "elapsedDuration": 18051.941, "elevationGain":
@@ -23370,7 +23370,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Mon, 24 Aug 2026 16:31:55 GMT
+      - Mon, 24 Aug 2026 19:22:38 GMT
       Nel:
       - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
       Server:
@@ -23423,13 +23423,13 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 24 Aug 2026 16:31:55 GMT
+      - Mon, 24 Aug 2026 19:22:39 GMT
       Transfer-Encoding:
       - chunked
       Via:
-      - 1.1 8e8540d018f18b8833babc5ff23ec2c6.cloudfront.net (CloudFront)
+      - 1.1 60fbd37e02af93daf30940afee9b7698.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - TYRi3BK9GsVTQNhsE9rBCME8IJEgvCXbISfgEjCPSMA5AqqL_6jMKw==
+      - e9X8rvZNYOLdpv2ZZCAd-bhNcp3KXQIUCitEif9Ghf9sfAnhmKooUg==
       X-Amz-Cf-Pop:
       - MXP53-P2
       X-Cache:
@@ -23453,7 +23453,7 @@ interactions:
       x-download-options:
       - noopen
       x-envoy-upstream-service-time:
-      - '183'
+      - '174'
       x-frame-options:
       - DENY
       x-permitted-cross-domain-policies:
@@ -23461,13 +23461,13 @@ interactions:
       x-ratelimit-limit:
       - 200,2000
       x-ratelimit-usage:
-      - 3,5
+      - 6,14
       x-readratelimit-limit:
       - 100,1000
       x-readratelimit-usage:
-      - 3,5
+      - 6,14
       x-request-id:
-      - b4d8b1a5-a47f-454a-a856-b95d996366c0
+      - 62c60e09-3cb5-443d-9dd1-a215d8bd59ef
       x-xss-protection:
       - 1; mode=block
     status:
@@ -24215,13 +24215,13 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 24 Aug 2026 16:31:56 GMT
+      - Mon, 24 Aug 2026 19:22:39 GMT
       Transfer-Encoding:
       - chunked
       Via:
-      - 1.1 59e4ad432d462243b40c1447c9691d6a.cloudfront.net (CloudFront)
+      - 1.1 d1e0c032095aed37076f757ebca1f51a.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - 0hWX1Azr1nfROhOjkkT9ztvz_oBEw7gFgPvWLsKLj59zPnY3GHmvFQ==
+      - 5oKXZrm9JHBkzYpWukHp8WToa4jve0DWaTM48mkhOwCMK6SVOlwYqw==
       X-Amz-Cf-Pop:
       - MXP53-P2
       X-Cache:
@@ -24245,7 +24245,7 @@ interactions:
       x-download-options:
       - noopen
       x-envoy-upstream-service-time:
-      - '544'
+      - '358'
       x-frame-options:
       - DENY
       x-permitted-cross-domain-policies:
@@ -24253,13 +24253,13 @@ interactions:
       x-ratelimit-limit:
       - 200,2000
       x-ratelimit-usage:
-      - 4,6
+      - 7,15
       x-readratelimit-limit:
       - 100,1000
       x-readratelimit-usage:
-      - 4,6
+      - 7,15
       x-request-id:
-      - a90e496d-aa05-4628-a316-bf95c7a9d153
+      - 3a342240-6735-4453-9dad-90053040597b
       x-xss-protection:
       - 1; mode=block
     status:
@@ -25796,11 +25796,11 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 24 Aug 2026 16:31:57 GMT
+      - Mon, 24 Aug 2026 19:22:40 GMT
       Via:
-      - 1.1 d1e0c032095aed37076f757ebca1f51a.cloudfront.net (CloudFront)
+      - 1.1 930bfe2738c0d99cc17a2f17263cb4d4.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - kYNmLVd16Lip0ujpd96b6_fGhpauJjWw8dMqABcFecf1LHqC63lGFA==
+      - kBTcqwPFUl-AcWQG10DJ5HmEwqOfUX2I5_hVpII4CWymYuGx0Cf1Uw==
       X-Amz-Cf-Pop:
       - MXP53-P2
       X-Cache:
@@ -25812,7 +25812,7 @@ interactions:
       vary:
       - Origin
       x-envoy-upstream-service-time:
-      - '31'
+      - '34'
     status:
       code: 200
       message: OK
