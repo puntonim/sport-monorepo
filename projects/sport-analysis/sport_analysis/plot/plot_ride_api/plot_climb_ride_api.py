@@ -26,7 +26,7 @@ from ...search.search_matching_activity_api import (
     search_strava_activity_matching_garmin_activity_api,
 )
 from .. import base_api, base_plot
-from ..base_plot import PERCENTILE_TO_DRAW_ENUM
+from ..base_plot import PERCENTILE_TO_DRAW_ENUM, _make_subtitle, _make_title
 
 
 @click.command(
@@ -403,12 +403,27 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         self._plot_hr_histogram()
         self._plot_hr_zones()
 
-        title = (
-            self.title
-            if self.title is not None
-            else self._s[0].summary_resp.data["activityName"]
+        # Title and subtitle.
+        title = _make_title(
+            activity_original_title=self._s[0].summary_resp.data["activityName"],
+            custom_title=self.title,
         )
-        figure.suptitle(title)
+        figure.suptitle(title + "\n  ")
+        subtitle = _make_subtitle(
+            activity_original_start_time_local=self._s[0].summary_resp.summary[
+                "startTimeLocal"
+            ],
+            activity_original_duration=self._s[0].summary_resp.summary["duration"],
+            activity_original_distance=self._s[0].summary_resp.summary["distance"],
+        )
+        figure.text(
+            figure.get_figwidth() / 2,  # Inches.
+            figure.get_figheight() - 0.35,  # Inches.
+            subtitle,
+            fontsize=10,
+            horizontalalignment="center",
+            transform=figure.dpi_scale_trans,  # Use inches as figure size.
+        )
 
         # Docs on legend location:
         #  https://matplotlib.org/stable/users/explain/axes/legend_guide.html

@@ -1,15 +1,10 @@
 
 
-
-- Aggiungi al titolo: 24.95km in 1:54:33
-    Fatto, ma dove posso mettere _make_title() e _make_subtitle() in modo che sia usata
-     anche in ride e interval run?
-
 - climb ride con segment: scrivere "Segment Selvino Fontanella" come titolo del chart in basso
    e non dentro il chart perchè si sovrappone al HR avg
 
 - Time in zones: Z0=0% Z1=0%
-   Usa |: Z0 0% | Z1 0% | ...
+   Prova ad usare "|": Z0 0% | Z1 0% | ...
 
 - usa sempre domande interattive, dovunque ma in particolare per interval run
   vedi qto già fatto in `search_strava_api_cli.py`

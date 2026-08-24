@@ -8,6 +8,7 @@ from statistics import mean
 import datetime_utils
 import matplotlib as mpl
 import numpy as np
+import text_utils
 from matplotlib.axes import Axes
 from rich import box
 from rich.table import Table
@@ -839,3 +840,23 @@ def _make_percentile_text(
     # Mathtext info: https://matplotlib.org/stable/users/explain/text/mathtext.html.
     math_txt = rf"P$_{{{percentile_perc}}}$ at {percentile_bpm}bpm | {perc_of_max_txt} | P$_{{{p_in_zone}}}$ Z{zone_num} | {bpm_diff_txt}"
     return PercentileText(plain_txt, math_txt)
+
+
+def _make_title(
+    activity_original_title: str,
+    custom_title: str | None = None,
+):
+    ACTIVITY_NAME_MAX_LENGTH = 50
+    title = custom_title if custom_title is not None else activity_original_title
+    title = text_utils.truncate_text(title, ACTIVITY_NAME_MAX_LENGTH)
+
+    return title
+
+
+def _make_subtitle(
+    activity_original_start_time_local: str,
+    activity_original_duration: int,
+    activity_original_distance: int,
+):
+    subtitle = f"{activity_original_start_time_local[:10]} for {round(activity_original_distance / 1000, 2)}km in {datetime_utils.seconds_to_hh_mm_ss(round(activity_original_duration))}"
+    return subtitle
