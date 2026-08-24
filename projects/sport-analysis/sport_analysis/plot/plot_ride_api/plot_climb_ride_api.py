@@ -26,6 +26,7 @@ from ...search.search_matching_activity_api import (
     search_strava_activity_matching_garmin_activity_api,
 )
 from .. import base_api, base_plot
+from ..base_plot import PERCENTILE_TO_DRAW_ENUM
 
 
 @click.command(
@@ -45,6 +46,11 @@ from .. import base_api, base_plot
     nargs=1,
     type=ACTIVITY_ID_TYPE,
     # help="Garmin activity id or LATEST or LATEST-3",
+)
+@click.option(
+    "--percentile-to-draw",
+    type=click.Choice(tuple(x for x in PERCENTILE_TO_DRAW_ENUM), case_sensitive=False),
+    help="Optional percentile to draw in histogram; P80 is great for a 80/20 ride, P98 for a slow ride; eg. P80 | P98",
 )
 @click.option("--title", type=str)
 @click.option(
@@ -86,6 +92,7 @@ from .. import base_api, base_plot
 def plot_climb_ride_api_cli_view(
     # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
     garmin_activity_id: int | tuple[str, int],
+    percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | None = None,
     title: str | None = None,
     segment_start_meters: int | None = None,
     segment_end_meters: int | None = None,
@@ -120,6 +127,7 @@ def plot_climb_ride_api_cli_view(
 
     plot_ride = PlotClimbRideApi(
         garmin_activity_id,
+        percentile_to_draw=percentile_to_draw,
         title=title,
         segment_start_meters=segment_start_meters,
         segment_end_meters=segment_end_meters,
@@ -141,6 +149,7 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         self,
         # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
         garmin_activity_id: int | tuple[str, int],
+        percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | str | None = None,
         title: str | None = None,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
@@ -161,6 +170,9 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         Args:
             garmin_activity_id: id (int) of Garmin activity to analyze or ("LATEST", 0)
              or ("LATEST", -3).
+            percentile_to_draw: either P80 or P98 to draw as vertical line on the
+             histogram. Note that both percentiles are always written as text under the
+             histogram.
             title: plot title.
             segment_start_meters: the start of the desired segment, in meters.
             segment_end_meters: the end of the desired segment, in meters.
@@ -178,6 +190,7 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         self.garmin_connect_token_manager = garmin_connect_token_manager
         self.strava_token_manager = strava_token_manager
         self.garmin_activity_id = garmin_activity_id
+        self.percentile_to_draw = percentile_to_draw
         self.title = title
         self.segment_start_meters = segment_start_meters
         self.segment_end_meters = segment_end_meters
@@ -277,6 +290,7 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             elevation_stream=elevation_stream,
             time_stream=time_stream,
             segment_title=segment_title,
+            percentile_to_draw=self.percentile_to_draw,
         )
 
     def _plot_hr_zones(self):

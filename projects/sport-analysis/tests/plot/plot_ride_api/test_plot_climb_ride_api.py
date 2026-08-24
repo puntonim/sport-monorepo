@@ -87,6 +87,7 @@ class TestPlotClimbRideApi:
             figure_size=(5.0, 6.5),
             garmin_connect_token_manager=self.garmin_token_mgr,
             strava_token_manager=self.strava_token_mgr,
+            # percentile_to_draw="p80",
         )
         plotter.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png"))
 
@@ -105,4 +106,42 @@ class TestPlotClimbRideApi:
         plotter.plot(
             save_to_png_file_path=self.png_file_root
             / "TestPlotClimbRideApi-test_latest.png",
+        )
+
+    def test_percentile_p80(self):
+        garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
+        plotter = PlotClimbRideApi(
+            garmin_activity_id,
+            title="Ranica - Selvino - Lonno",
+            # segment_start_meters=0,
+            # segment_end_meters=21110,
+            segment_strava_name="Selvino Fontanella",
+            segment_title="Selvino Fontanella",
+            figure_size=(5.0, 6.5),
+            garmin_connect_token_manager=self.garmin_token_mgr,
+            strava_token_manager=self.strava_token_mgr,
+            percentile_to_draw="p80",
+        )
+        plotter.plot(
+            save_to_png_file_path=self.png_file_root
+            / "TestPlotClimbRideApi-test_percentile_p80.png",
+        )
+
+    def test_percentile_p98(self):
+        garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
+        plotter = PlotClimbRideApi(
+            garmin_activity_id,
+            title="Ranica - Selvino - Lonno",
+            # segment_start_meters=0,
+            # segment_end_meters=21110,
+            segment_strava_name="Selvino Fontanella",
+            segment_title="Selvino Fontanella",
+            figure_size=(5.0, 6.5),
+            garmin_connect_token_manager=self.garmin_token_mgr,
+            strava_token_manager=self.strava_token_mgr,
+            percentile_to_draw="P98",
+        )
+        plotter.plot(
+            save_to_png_file_path=self.png_file_root
+            / "TestPlotClimbRideApi-test_percentile_p98.png",
         )

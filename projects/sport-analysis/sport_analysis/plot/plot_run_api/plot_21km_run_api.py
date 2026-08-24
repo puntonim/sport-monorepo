@@ -5,6 +5,7 @@ import datetime_utils
 
 from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand
 from ...conf.settings_module import ROOT_DIR
+from ..base_plot import PERCENTILE_TO_DRAW_ENUM
 from .base_plot_run_api import BasePlotRunApi
 
 
@@ -33,6 +34,11 @@ from .base_plot_run_api import BasePlotRunApi
     type=int,
     multiple=True,
     help="Garmin activity id to compare; it can be used multiple times",
+)
+@click.option(
+    "--percentile-to-draw",
+    type=click.Choice(tuple(x for x in PERCENTILE_TO_DRAW_ENUM), case_sensitive=False),
+    help="Optional percentile to draw in histogram; P80 is great for a 80/20 run, P98 for a slow run; eg. P80 | P98",
 )
 @click.option("--title", type=str)
 @click.option(
@@ -68,6 +74,7 @@ def plot_21km_run_api_cli_view(
     # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
     garmin_activity_id: int | tuple[str, int],
     activity_ids_to_compare: tuple[int] | None = None,
+    percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | None = None,
     title: str | None = None,
     figure_size: tuple[float, float] | None = None,
     pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
@@ -92,6 +99,7 @@ def plot_21km_run_api_cli_view(
     plot_21k = Plot21KmRunApi(
         garmin_activity_id,
         activity_ids_to_compare=[x for x in activity_ids_to_compare],  # Tuple to list.
+        percentile_to_draw=percentile_to_draw,
         title=title,
         figure_size=figure_size,
         pace_plot_set_y_axis_bottom_to_slowest_pace_perc=pace_plot_set_y_axis_bottom_to_slowest_pace_perc,

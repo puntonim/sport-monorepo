@@ -1,18 +1,28 @@
 
+
+
 - Aggiungi al titolo: 24.95km in 1:54:33
-- P80 scritto meglio
-  P80 a 121bpm (=Z1+18 NOOOOOOO =Z2-1bpm)
+    Fatto, ma dove posso mettere _make_title() e _make_subtitle() in modo che sia usata
+     anche in ride e interval run?
+
+- climb ride con segment: scrivere "Segment Selvino Fontanella" come titolo del chart in basso
+   e non dentro il chart perchè si sovrappone al HR avg
+
+- Time in zones: Z0=0% Z1=0%
+   Usa |: Z0 0% | Z1 0% | ...
+
+- usa sempre domande interattive, dovunque ma in particolare per interval run
+  vedi qto già fatto in `search_strava_api_cli.py`
+
+- 1 chart largo sopra con i tempi, per interval run
+  3 sotto piccoli
+  non rosso, ma violetto
 - replace get_string_from_env() e override_settings in settings_module.py con settings_utils lib
 - activity_id: strava-* or garmin-* (oppure --stravaid=123)
   usala in search-matching-strava-activity, rename to search-matching-activity
   ma anche dovunque si usa un activity_id
 - UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   in interval run
-- usa sempre domande interattive, dovunque ma in particolare per interval run
-  vedi `search_strava_api_cli.py`
-- 1 chart largo sopra con i tempi, per interval run
-  3 sotto piccoli
-  non rosso, ma violetto
 
 - usa ConsoleAdapterMock() come in test_search_strava_api_cmd.py?
 - san get-activity strava-123

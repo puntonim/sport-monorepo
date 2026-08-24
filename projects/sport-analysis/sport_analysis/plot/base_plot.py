@@ -1,3 +1,5 @@
+from collections import namedtuple
+from enum import StrEnum
 from functools import lru_cache
 from math import floor
 from pathlib import Path
@@ -29,6 +31,11 @@ COLS_SECONDARY = (
     ("#1c1c7b", 0.5),  # Blue.
     ("#4c2929", 0.6),  # Brown.
 )
+
+
+class PERCENTILE_TO_DRAW_ENUM(StrEnum):
+    P80 = "P80"
+    P98 = "P98"
 
 
 class BasePlot:
@@ -224,6 +231,7 @@ class MixinHrPlot(BasePlot):
         hr_max_ever: int = settings.HR_MAX_EVER_RUN,
         elevation_stream: list | None = None,
         time_stream: list | None = None,
+        percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | str | None = None,
         segment_title: str | None = None,
     ):
         """
@@ -245,6 +253,9 @@ class MixinHrPlot(BasePlot):
             hr_max_ever: the max HR ever recorded for this type of activity.
             elevation_stream: optional, to plot also elevation over time.
             time_stream: optional, to plot also elevation over time.
+            percentile_to_draw: either P80 or P98 to draw as vertical line on the
+             histogram. Note that both percentiles are always written as text under the
+             histogram.
             segment_title: optional, if the hr_stream is a segment then you can
              add a title to highlight that.
         """
@@ -408,33 +419,76 @@ class MixinHrPlot(BasePlot):
         # df = pd.DataFrame(hr_stream, columns=["HR"])
         # percentile80 = df["HR"].quantile(0.80)
         # With numpy (heavier than Pandas).
-        p80 = round(np.percentile(hr_stream, 80))
-        axes.axvline(
-            x=p80,
-            color=COL_DARK_RED,
-            alpha=0.5,
-            linestyle=":",
+        p80_bpm = round(np.percentile(hr_stream, 80))
+        p98_bpm = round(np.percentile(hr_stream, 98))
+        # Vertical line for P80.
+        # Note: draw either P80 or P98 as there isn't enough room for both.
+        if percentile_to_draw:
+            if percentile_to_draw.upper() == PERCENTILE_TO_DRAW_ENUM.P80:
+                axes.axvline(
+                    x=p80_bpm,
+                    color=COL_DARK_RED,
+                    alpha=0.5,
+                    linestyle=":",
+                )
+                axes.annotate(
+                    f"P80 {p80_bpm}\n{round(p80_bpm*100/hr_max_ever)}% max",
+                    (p80_bpm, axes.get_ylim()[0]),
+                    xytext=(0, 0.2),
+                    textcoords="offset fontsize",
+                    color=COL_DARK_RED,
+                    fontsize=8,
+                    fontweight="bold",
+                    horizontalalignment="left",
+                )
+            # Vertical line for P98.
+            # Note: draw either P80 or P98 as there isn't enough room for both.
+            elif percentile_to_draw.upper() == PERCENTILE_TO_DRAW_ENUM.P98:
+                axes.axvline(
+                    x=p98_bpm,
+                    color=COL_DARK_RED,
+                    alpha=0.5,
+                    linestyle=":",
+                )
+                axes.annotate(
+                    f"P98 {p98_bpm}\n{round(p98_bpm*100/hr_max_ever)}% max",
+                    (p98_bpm, axes.get_ylim()[0]),
+                    xytext=(0, 0.2),
+                    textcoords="offset fontsize",
+                    color=COL_DARK_RED,
+                    fontsize=8,
+                    fontweight="bold",
+                    horizontalalignment="left",
+                )
+
+        # P80 and P98 text.
+        p80text = _make_percentile_text(80, p80_bpm, hr_max=hr_max_ever)
+        console.print(
+            p80text.plain_txt.replace("P80", ":yellow_heart: [bold red]P80[/]")
         )
-        # Write text annotation for P80.
-        axes.annotate(
-            f"P80 {p80}\n{round(p80*100/hr_max_ever)}% max",
-            (p80, axes.get_ylim()[0]),
-            xytext=(0, 0.2),
-            textcoords="offset fontsize",
-            color=COL_DARK_RED,
-            fontsize=8,
-            fontweight="bold",
-            horizontalalignment="left",
+        p98text = _make_percentile_text(98, p98_bpm, hr_max=hr_max_ever)
+        console.print(
+            p98text.plain_txt.replace("P98", ":yellow_heart: [bold red]P98[/]")
         )
-        p80text = _make_p80_text(p80)
-        console.print(p80text[0].replace("P80", ":yellow_heart: [bold red]P80[/]"))
         axes.annotate(
-            p80text[1],
+            p80text.math_text,
             ((axes.get_xlim()[0] + axes.get_xlim()[1]) / 2, axes.get_ylim()[0]),
-            xytext=(0, -6),
+            xytext=(0, -6.2),
             textcoords="offset fontsize",
             color=COL_DARK_RED,
-            alpha=0.8,
+            # alpha=0.8,
+            fontsize=9,
+            # fontweight="bold",
+            style="italic",
+            horizontalalignment="center",
+        )
+        axes.annotate(
+            p98text.math_text,
+            ((axes.get_xlim()[0] + axes.get_xlim()[1]) / 2, axes.get_ylim()[0]),
+            xytext=(0, -7.4),
+            textcoords="offset fontsize",
+            color=COL_DARK_RED,
+            # alpha=0.8,
             fontsize=9,
             # fontweight="bold",
             style="italic",
@@ -653,12 +707,24 @@ class MixinHrPlot(BasePlot):
             # row_styles=["dim", ""],
             box=box.SIMPLE,
         )
-        table.add_column(f"Z0\n<50%\n{z0_x0}-{z0_x1}", justify="center", no_wrap=True)
-        table.add_column(f"Z1\n50-60%\n{z1_x0}-{z1_x1}", justify="center", no_wrap=True)
-        table.add_column(f"Z2\n60-70%\n{z2_x0}-{z2_x1}", justify="center", no_wrap=True)
-        table.add_column(f"Z3\n70-80%\n{z3_x0}-{z3_x1}", justify="center", no_wrap=True)
-        table.add_column(f"Z4\n80-90%\n{z4_x0}-{z4_x1}", justify="center", no_wrap=True)
-        table.add_column(f"Z5\n≥90%\n{z5_x0}-{z5_x1}", justify="center", no_wrap=True)
+        table.add_column(
+            f"[dim]<50%\n{z0_x0}-{z0_x1}[/dim]\nZ0", justify="center", no_wrap=True
+        )
+        table.add_column(
+            f"[dim]50-60%\n{z1_x0}-{z1_x1}[/dim]\nZ1", justify="center", no_wrap=True
+        )
+        table.add_column(
+            f"[dim]60-70%\n{z2_x0}-{z2_x1}[/dim]\nZ2", justify="center", no_wrap=True
+        )
+        table.add_column(
+            f"[dim]70-80%\n{z3_x0}-{z3_x1}[/dim]\nZ3", justify="center", no_wrap=True
+        )
+        table.add_column(
+            f"[dim]80-90%\n{z4_x0}-{z4_x1}[/dim]\nZ4", justify="center", no_wrap=True
+        )
+        table.add_column(
+            f"[dim]≥90%\n{z5_x0}-{z5_x1}[/dim]\nZ5", justify="center", no_wrap=True
+        )
         z_perc = []
 
         for i, xdata_hr_zone_perc in enumerate(xdata_hr_zones_perc):
@@ -735,24 +801,41 @@ def _get_bpm_range_for_hr_zone(
     return ranges[zone_number]
 
 
-def _make_p80_text(
-    p80: int,
-    hr_min: int = settings.HR_MIN,
-    hr_max: int = settings.HR_MAX_EVER_RUN,
-) -> tuple[str, str]:
+PercentileText = namedtuple("PercentileText", ["plain_txt", "math_text"])
+
+
+def _make_percentile_text(
+    percentile_perc: int,  # Eg. 80.
+    percentile_bpm: int,  # Eg. 119.
+    hr_min: int = settings.HR_MIN,  # Eg. 46.
+    hr_max: int = settings.HR_MAX_EVER_RUN,  # Eg. 174.
+) -> PercentileText:
     """
     Eg. "P80 125bpm (=Z2+4bpm, =P19 Z3)".
     """
     for zone_num in range(5, -1, -1):
         zone_bpm_range = _get_bpm_range_for_hr_zone(zone_num, hr_min, hr_max)
-        if p80 > zone_bpm_range[0]:
+        if percentile_bpm >= zone_bpm_range[0]:
             break
-    bpm_diff = p80 - zone_bpm_range[0] + 1
-    p_in_zone = round((bpm_diff - 1) * 100 / (zone_bpm_range[1] - zone_bpm_range[0]))
 
-    plain_str = (
-        rf"P80 {p80}bpm (=Z{zone_num-1}+{bpm_diff}bpm, =P{p_in_zone} Z{zone_num})"
+    # Eg. "72% max HR".
+    perc_of_max_txt = f"{round(percentile_bpm * 100 / hr_max)}% max HR"
+
+    # Eg. "Z2+4bpm".
+    bpm_diff_left = percentile_bpm - zone_bpm_range[0] + 1
+    bpm_diff_right = zone_bpm_range[1] + 1 - percentile_bpm
+    if bpm_diff_left < bpm_diff_right:
+        bpm_diff_txt = f"Z{zone_num-1}+{bpm_diff_left}bpm"
+    else:
+        bpm_diff_txt = f"Z{zone_num+1}-{bpm_diff_right}bpm"
+
+    # Eg. "P19 Z3".
+    p_in_zone = round(
+        (bpm_diff_left - 1) * 100 / (zone_bpm_range[1] - zone_bpm_range[0])
     )
+    p_in_zone_txt = f"P{p_in_zone} Z{zone_num}"
+
+    plain_txt = rf"P{percentile_perc} at {percentile_bpm}bpm | {perc_of_max_txt} | {p_in_zone_txt} | {bpm_diff_txt}"
     # Mathtext info: https://matplotlib.org/stable/users/explain/text/mathtext.html.
-    mathtext_str = rf"P$_{{80}}$ {p80}bpm (=Z{zone_num-1}+{bpm_diff}bpm, =P$_{{{p_in_zone}}}$ Z{zone_num})"
-    return (plain_str, mathtext_str)
+    math_txt = rf"P$_{{{percentile_perc}}}$ at {percentile_bpm}bpm | {perc_of_max_txt} | P$_{{{p_in_zone}}}$ Z{zone_num} | {bpm_diff_txt}"
+    return PercentileText(plain_txt, math_txt)

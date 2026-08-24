@@ -40,10 +40,17 @@ TEST_ACTIVITIES = [
     ),
     # 4.
     dict(
-        title="Verdellino Running",
-        strava_activity_id=19564762171,
-        garmin_activity_id=23819721623,
-        start_date="2026-08-02",
+        title="Verdellino Running",  # Run 80/20.
+        strava_activity_id=19706505901,
+        garmin_activity_id=23945353188,
+        start_date="2026-08-12",
+    ),
+    # 5.
+    dict(
+        title="Verdellino Running",  # Run slow.
+        strava_activity_id=19822600349,
+        garmin_activity_id=24048184816,
+        start_date="2026-08-12",
     ),
 ]
 
@@ -68,7 +75,8 @@ class TestPlot10KmRunApi:
         plot_api = Plot10KmRunApi(
             garmin_activity_id,
             activity_ids_to_compare=[],
-            title="Verdellino running",
+            percentile_to_draw="p80",
+            # title="Verdellino running",
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         plot_api.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "1.png"))
@@ -96,4 +104,32 @@ class TestPlot10KmRunApi:
         plot_api.plot(
             save_to_png_file_path=self.png_file_root
             / "TestPlot10KmRunApi-test_latest.png",
+        )
+
+    def test_percentile_p80(self):
+        garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
+        plot_api = Plot10KmRunApi(
+            garmin_activity_id,
+            activity_ids_to_compare=[],
+            percentile_to_draw="P80",
+            # title="Verdellino running",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        plot_api.plot(
+            save_to_png_file_path=self.png_file_root
+            / "TestPlot10KmRunApi-test_percentile_p80.png"
+        )
+
+    def test_percentile_p98(self):
+        garmin_activity_id = TEST_ACTIVITIES[5]["garmin_activity_id"]
+        plot_api = Plot10KmRunApi(
+            garmin_activity_id,
+            activity_ids_to_compare=[],
+            percentile_to_draw="p98",
+            # title="Verdellino running",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        plot_api.plot(
+            save_to_png_file_path=self.png_file_root
+            / "TestPlot10KmRunApi-test_percentile_p98.png"
         )

@@ -16,6 +16,7 @@ from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand
 from ...conf import settings
 from ...conf.settings_module import ROOT_DIR
 from .. import base_api, base_plot
+from ..base_plot import PERCENTILE_TO_DRAW_ENUM
 
 
 @click.command(
@@ -35,6 +36,11 @@ from .. import base_api, base_plot
     nargs=1,
     type=ACTIVITY_ID_TYPE,
     # help="Garmin activity id or LATEST or LATEST-3",
+)
+@click.option(
+    "--percentile-to-draw",
+    type=click.Choice(tuple(x for x in PERCENTILE_TO_DRAW_ENUM), case_sensitive=False),
+    help="Optional percentile to draw in histogram; P80 is great for a 80/20 ride, P98 for a slow ride; eg. P80 | P98",
 )
 @click.option("--title", type=str)
 @click.option(
@@ -62,6 +68,7 @@ from .. import base_api, base_plot
 def plot_simple_ride_api_cli_view(
     # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
     garmin_activity_id: int | tuple[str, int],
+    percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | None = None,
     title: str | None = None,
     figure_size: tuple[float, float] | None = None,
     dir_or_file_path: Path = ROOT_DIR / "output-images",
@@ -84,6 +91,7 @@ def plot_simple_ride_api_cli_view(
 
     plot_ride = PlotSimpleRideApi(
         garmin_activity_id,
+        percentile_to_draw=percentile_to_draw,
         title=title,
         figure_size=figure_size,
     )
@@ -101,6 +109,7 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         self,
         # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
         garmin_activity_id: int | tuple[str, int],
+        percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | str | None = None,
         title: str | None = None,
         figure_size: tuple[float, float] | None = None,
         garmin_connect_token_manager: (
@@ -111,6 +120,9 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         Args:
             garmin_activity_id: id (int) of Garmin activity to analyze or ("LATEST", 0)
              or ("LATEST", -3).
+            percentile_to_draw: either P80 or P98 to draw as vertical line on the
+             histogram. Note that both percentiles are always written as text under the
+             histogram.
             title: plot title.
             figure_size: customize the figure size, eg. (3.0, 5.5).
             garmin_connect_token_manager: use FakeTestGarminConnectTokenManager when
@@ -119,6 +131,7 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         super().__init__(garmin_connect_token_manager)
 
         self.garmin_activity_id = garmin_activity_id
+        self.percentile_to_draw = percentile_to_draw
         self.title = title
         self.figure_size = figure_size
 
@@ -139,6 +152,7 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             self._axes_mosaic["hr-hist"],
             hr_stream,
             hr_max_ever=settings.HR_MAX_EVER_RIDE,
+            percentile_to_draw=self.percentile_to_draw,
         )
 
     def _plot_hr_zones(self):
@@ -217,7 +231,7 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             plt.show()
 
     def _make_figure_size(self) -> tuple[float, float]:
-        height = max(len(self._s), 3.5) * 1
+        height = max(len(self._s), 3.5) * 1.1
         return 5, height
 
     def _make_subplot_mosaic(self) -> tuple[Figure, dict[str, Axes]]:

@@ -26,6 +26,7 @@ from rich.table import Table
 from ...base_cli_view import ConsoleAdapter
 from ...conf import settings
 from .. import base_api, base_plot
+from ..base_plot import PERCENTILE_TO_DRAW_ENUM
 
 console = ConsoleAdapter()
 
@@ -55,6 +56,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
         garmin_activity_id: int | tuple[str, int],
         activity_ids_to_compare: list[int] | None = None,
+        percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | str | None = None,
         title: str | None = None,
         figure_size: tuple[float, float] | None = None,
         pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
@@ -68,6 +70,9 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
              or ("LATEST", -3).
             activity_ids_to_compare: list of previous activities to compare
              to the given activity. Default: a hardcoded list.
+            percentile_to_draw: either P80 or P98 to draw as vertical line on the
+             histogram. Note that both percentiles are always written as text under the
+             histogram.
             title: plot title.
             pace_plot_set_y_axis_bottom_to_slowest_pace_perc: eg. 0.45. In the
              MA(pace) chart, cutting out of the visible part of the chart the slowest
@@ -83,6 +88,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         self.activity_ids_to_compare = activity_ids_to_compare
         if self.activity_ids_to_compare is None:
             self.activity_ids_to_compare = self.DEFAULT_ACTIVITY_IDS_TO_COMPARE or []
+        self.percentile_to_draw = percentile_to_draw
         self.title = title
         self.figure_size = figure_size
         self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc = (
@@ -313,6 +319,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             main_hr_stream,
             secondary_hr_streams=secondary_hr_streams,
             hr_max_ever=settings.HR_MAX_EVER_RUN,
+            percentile_to_draw=self.percentile_to_draw,
         )
 
     def _print_splits(self):
@@ -418,7 +425,6 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             if self.title is not None
             else self._s[0].summary_resp.data["activityName"]
         )
-        figure.suptitle(title)
 
         # Docs on legend location:
         #  https://matplotlib.org/stable/users/explain/axes/legend_guide.html
@@ -460,7 +466,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             plt.show()
 
     def _make_figure_size(self) -> tuple[float, float]:
-        height = max(len(self._s), 3.5) * 2
+        height = max(len(self._s), 3.5) * 2.1
         return 5, height
 
     def _make_subplot_mosaic(self) -> tuple[Figure, dict[str, Axes]]:
@@ -479,7 +485,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             gridspec_kw=dict(
                 # The relative sizes of the subplots.
                 width_ratios=[1],
-                height_ratios=[1.5, 1 / 5, 1],
+                height_ratios=[1.5, 0.22, 1],
             ),
             figsize=self._make_figure_size(),
             layout="constrained",

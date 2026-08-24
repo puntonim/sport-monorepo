@@ -48,6 +48,7 @@ class TestPlot21KmRunApi:
             activity_ids_to_compare=[TEST_ACTIVITIES[0]["garmin_activity_id"]],
             garmin_connect_token_manager=self.garmin_token_mgr,
             pace_plot_set_y_axis_bottom_to_slowest_pace_perc=4.0,
+            percentile_to_draw="p98",
         )
         plot_half_marathon_api.plot(
             save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png")
@@ -63,4 +64,30 @@ class TestPlot21KmRunApi:
         plot_half_marathon_api.plot(
             save_to_png_file_path=self.png_file_root
             / "TestPlot21KmRunApi-test_latest.png",
+        )
+
+    def test_percentile_p80(self):
+        plot_half_marathon_api = Plot21KmRunApi(
+            TEST_ACTIVITIES[1]["garmin_activity_id"],
+            activity_ids_to_compare=[TEST_ACTIVITIES[0]["garmin_activity_id"]],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+            pace_plot_set_y_axis_bottom_to_slowest_pace_perc=4.0,
+            percentile_to_draw="P80",
+        )
+        plot_half_marathon_api.plot(
+            save_to_png_file_path=self.png_file_root
+            / "TestPlot21KmRunApi-test_percentile_p80.png",
+        )
+
+    def test_percentile_p98(self):
+        plot_half_marathon_api = Plot21KmRunApi(
+            TEST_ACTIVITIES[1]["garmin_activity_id"],
+            activity_ids_to_compare=[TEST_ACTIVITIES[0]["garmin_activity_id"]],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+            pace_plot_set_y_axis_bottom_to_slowest_pace_perc=4.0,
+            percentile_to_draw="p98",
+        )
+        plot_half_marathon_api.plot(
+            save_to_png_file_path=self.png_file_root
+            / "TestPlot21KmRunApi-test_percentile_p98.png",
         )
