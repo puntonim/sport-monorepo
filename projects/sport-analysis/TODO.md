@@ -1,8 +1,5 @@
 
 
-- Time in zones: Z0=0% Z1=0%
-   Prova ad usare "|": Z0 0% | Z1 0% | ...
-
 - usa sempre domande interattive, dovunque ma in particolare per interval run
   vedi qto già fatto in `search_strava_api_cli.py`
 

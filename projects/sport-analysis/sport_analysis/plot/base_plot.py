@@ -746,7 +746,7 @@ class MixinHrPlot(BasePlot):
                 )
             z_perc.append(round(xdata_hr_zone_perc * 100))
 
-        txt = f"Time in zones: Z0={z_perc[0]}% Z1={z_perc[1]}% Z2={z_perc[2]}% Z3={z_perc[3]}% Z4={z_perc[4]}% Z5={z_perc[5]}%"
+        txt = f"Time in zones: Z0 {z_perc[0]}% | Z1 {z_perc[1]}% | Z2 {z_perc[2]}% | Z3 {z_perc[3]}% | Z4 {z_perc[4]}% | Z5 {z_perc[5]}%"
         axes.annotate(
             txt,
             (axes.get_xlim()[0], axes.get_ylim()[0]),
