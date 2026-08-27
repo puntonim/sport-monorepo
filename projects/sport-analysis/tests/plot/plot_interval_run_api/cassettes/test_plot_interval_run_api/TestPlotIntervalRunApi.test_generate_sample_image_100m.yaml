@@ -1,0 +1,1671 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/userprofile-service/socialProfile
+  response:
+    body:
+      string: '{"id": 408106091, "profileId": 113739130, "garminGUID": "036d4457-1523-4d57-a237-43de978cd7cc",
+        "displayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "fullName": "Paolo",
+        "userName": "puntonim@gmail.com", "profileImageType": "UPLOADED_PHOTO", "profileImageUrlLarge":
+        "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "hasPremiumSocialIcon": false, "location": "Verdellino, Italy", "facebookUrl":
+        null, "twitterUrl": null, "personalWebsite": null, "motivation": 2, "bio":
+        null, "primaryActivity": "other", "favoriteActivityTypes": ["running", "cycling",
+        "weight_training", "snow_sports"], "runningTrainingSpeed": 0.0, "cyclingTrainingSpeed":
+        0.0, "favoriteCyclingActivityTypes": ["road", "mountain"], "cyclingClassification":
+        null, "cyclingMaxAvgPower": 0.0, "swimmingTrainingSpeed": 0.0, "profileVisibility":
+        "following", "activityStartVisibility": "public", "activityMapVisibility":
+        "public", "courseVisibility": "public", "activityHeartRateVisibility": "public",
+        "activityPowerVisibility": "public", "badgeVisibility": "private", "showAge":
+        false, "showWeight": false, "showHeight": false, "showWeightClass": false,
+        "showAgeRange": false, "showGender": false, "showActivityClass": false, "showVO2Max":
+        false, "showPersonalRecords": true, "showLast12Months": true, "showLifetimeTotals":
+        true, "showUpcomingEvents": true, "showRecentFavorites": true, "showRecentDevice":
+        true, "showRecentGear": false, "showBadges": true, "otherActivity": null,
+        "otherPrimaryActivity": null, "otherMotivation": null, "userRoles": ["SCOPE_ATP_READ",
+        "SCOPE_ATP_WRITE", "SCOPE_CIQ_APPSTORE_SERVICES_CREATE", "SCOPE_CIQ_APPSTORE_SERVICES_DELETE",
+        "SCOPE_CIQ_APPSTORE_SERVICES_READ", "SCOPE_CIQ_APPSTORE_SERVICES_UPDATE",
+        "SCOPE_COMMUNITY_COURSE_READ", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_CONNECT_MCT_DAILY_LOG_READ",
+        "SCOPE_CONNECT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_DIVE_API_READ", "SCOPE_DI_API_READ",
+        "SCOPE_DI_COACHING_READ", "SCOPE_DI_COACHING_WRITE", "SCOPE_DI_OAUTH_2_AUTHORIZATION_CODE_CREATE",
+        "SCOPE_DI_TOUM_NATIVE_REPORTED_DETAIL_WRITE", "SCOPE_DT_CLIENT_ANALYTICS_WRITE",
+        "SCOPE_GARMINPAY_READ", "SCOPE_GARMINPAY_WRITE", "SCOPE_GCOFFER_READ", "SCOPE_GCOFFER_WRITE",
+        "SCOPE_GHS_SAMD", "SCOPE_GHS_UPLOAD", "SCOPE_GOLF_API_READ", "SCOPE_GOLF_API_WRITE",
+        "SCOPE_INSIGHTS_READ", "SCOPE_INSIGHTS_WRITE", "SCOPE_OMT_CAMPAIGN_READ",
+        "SCOPE_OMT_DISCOUNTS_CREATE", "SCOPE_OMT_DISCOUNTS_READ", "SCOPE_OMT_SUBSCRIPTION_READ",
+        "SCOPE_PRODUCT_SEARCH_READ", "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER",
+        "ROLE_OUTDOOR_USER", "ROLE_GARMIN_USER"], "nameApproved": true, "userProfileFullName":
+        "Paolo", "makeGolfScorecardsPrivate": true, "allowGolfLiveScoring": false,
+        "allowGolfScoringByConnections": true, "userLevel": 4, "userPoint": 163, "levelUpdateDate":
+        "2026-01-20T07:26:11.0", "levelIsViewed": false, "levelPointThreshold": 300,
+        "userPointOffset": 0, "userPro": false}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 27 Aug 2026 08:30:08 GMT
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3032'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/userprofile-service/userprofile/user-settings
+  response:
+    body:
+      string: '{"id": 113739130, "userData": {"gender": "MALE", "weight": 84000.0,
+        "height": 180.0, "timeFormat": "time_twenty_four_hr", "birthDate": "1980-01-18",
+        "measurementSystem": "metric", "activityLevel": 7, "handedness": "RIGHT",
+        "powerFormat": {"formatId": 30, "formatKey": "watt", "minFraction": 0, "maxFraction":
+        0, "groupingUsed": true, "displayFormat": null}, "heartRateFormat": {"formatId":
+        21, "formatKey": "bpm", "minFraction": 0, "maxFraction": 0, "groupingUsed":
+        false, "displayFormat": null}, "firstDayOfWeek": {"dayId": 3, "dayName": "monday",
+        "sortOrder": 3, "isPossibleFirstDay": true}, "vo2MaxRunning": 58.0, "vo2MaxCycling":
+        null, "lactateThresholdSpeed": 0.40277665000000007, "lactateThresholdHeartRate":
+        155, "diveNumber": null, "intensityMinutesCalcMethod": "AUTO", "moderateIntensityMinutesHrZone":
+        3, "vigorousIntensityMinutesHrZone": 4, "hydrationMeasurementUnit": "cup",
+        "hydrationContainers": [], "hydrationAutoGoalEnabled": true, "firstbeatMaxStressScore":
+        null, "firstbeatCyclingLtTimestamp": null, "firstbeatRunningLtTimestamp":
+        1154761629, "thresholdHeartRateAutoDetected": true, "ftpAutoDetected": true,
+        "trainingStatusPausedDate": null, "weatherLocation": {"useFixedLocation":
+        null, "latitude": null, "longitude": null, "locationName": null, "isoCountryCode":
+        null, "postalCode": null}, "golfDistanceUnit": "statute_us", "golfElevationUnit":
+        null, "golfSpeedUnit": null, "externalBottomTime": null, "availableTrainingDays":
+        ["TUESDAY", "SATURDAY", "WEDNESDAY", "THURSDAY", "SUNDAY", "MONDAY", "FRIDAY"],
+        "preferredLongTrainingDays": ["SATURDAY", "SUNDAY"], "virtualCaddieDataSource":
+        null, "numberDivesAutomatically": null, "firstbeatRowingLtTimestamp": null,
+        "lactateThresholdRowingPace": null, "lactateThresholdHeartRateRowing": null,
+        "lactateThresholdHeartRateCycling": null, "wtrPrimaryActivityType": null},
+        "userSleep": {"sleepTime": 0, "defaultSleepTime": false, "wakeTime": 28800,
+        "defaultWakeTime": false}, "connectDate": null, "sourceType": null, "userSleepWindows":
+        [{"sleepWindowFrequency": "SUNDAY", "startSleepTimeSecondsFromMidnight": 0,
+        "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "MONDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "TUESDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "WEDNESDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "THURSDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "FRIDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "SATURDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "DAILY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 27 Aug 2026 08:30:09 GMT
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2756'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/activity-service/activity/22427297044
+  response:
+    body:
+      string: '{"activityId": 22427297044, "activityUUID": {"uuid": "7d7a1f74-0f67-47f3-9a40-a1d2b179fe1b"},
+        "activityName": "Verdellino - 10x100m", "userProfileId": 113739130, "isMultiSportParent":
+        false, "activityTypeDTO": {"typeId": 1, "typeKey": "running", "parentTypeId":
+        17, "isHidden": false, "trimmable": true, "restricted": false}, "eventTypeDTO":
+        {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "accessControlRuleDTO":
+        {"typeId": 3, "typeKey": "subscribers"}, "timeZoneUnitDTO": {"unitId": 124,
+        "unitKey": "Europe/Paris", "factor": 0.0, "timeZone": "Europe/Paris"}, "metadataDTO":
+        {"isOriginal": true, "deviceApplicationInstallationId": 1004830, "agentApplicationInstallationId":
+        null, "agentString": null, "fileFormat": {"formatId": 7, "formatKey": "fit"},
+        "associatedCourseId": null, "lastUpdateDate": "2026-04-06T13:12:24.0", "uploadedDate":
+        "2026-04-06T13:12:23.0", "videoUrl": null, "hasPolyline": true, "hasChartData":
+        true, "hasHrTimeInZones": true, "hasPowerTimeInZones": true, "userInfoDto":
+        {"userProfilePk": 113739130, "displayname": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "fullname": "Paolo", "profileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "userPro": false}, "childIds": [], "childActivityTypes": [], "sensors": [{"manufacturer":
+        "GARMIN", "serialNumber": 3511385941, "sku": "006-B4606-00", "fitProductNumber":
+        4606, "sourceType": "ANTPLUS", "antplusDeviceType": "HEART_RATE", "softwareVersion":
+        5.4, "batteryStatus": "OK"}], "activityImages": [], "manufacturer": "GARMIN",
+        "diveNumber": null, "lapCount": 31, "associatedWorkoutId": 1527972763, "isAtpActivity":
+        null, "deviceMetaDataDTO": {"deviceId": "3444001964", "deviceTypePk": 37086,
+        "deviceVersionPk": 1004830}, "hasIntensityIntervals": true, "hasSplits": true,
+        "eBikeMaxAssistModes": null, "eBikeBatteryUsage": null, "eBikeBatteryRemaining":
+        null, "eBikeAssistModeInfoDTOList": null, "hasRunPowerWindData": true, "calendarEventInfo":
+        null, "groupRideUUID": null, "hasHeatMap": false, "hasMultiDayActivities":
+        false, "thirdPartyGymEquipment": [], "personalRecord": false, "manualActivity":
+        false, "elevationCorrected": false, "trimmed": false, "runPowerWindDataEnabled":
+        true, "autoCalcCalories": false, "favorite": false, "gcj02": false}, "summaryDTO":
+        {"startTimeLocal": "2026-04-06T13:18:54.0", "startTimeGMT": "2026-04-06T11:18:54.0",
+        "startLatitude": 45.60911390930414, "startLongitude": 9.61672531440854, "distance":
+        12268.29, "duration": 4568.279, "movingDuration": 4121.027, "elapsedDuration":
+        5633.156, "elevationGain": 42.0, "elevationLoss": 37.0, "maxElevation": 188.0,
+        "minElevation": 173.8, "avgElevation": 183.01, "averageSpeed": 2.686000108718872,
+        "averageMovingSpeed": 2.976998261310583, "maxSpeed": 8.807999610900879, "calories":
+        1011.0, "bmrCalories": 112.0, "averageHR": 124.0, "maxHR": 147.0, "minHR":
+        80.0, "averageRunCadence": 141.1875, "maxRunCadence": 248.0, "averageTemperature":
+        30.390105791181988, "maxTemperature": 34.0, "minTemperature": 27.0, "averagePower":
+        312.0, "maxPower": 1145.0, "minPower": 0.0, "normalizedPower": 367.0, "totalWork":
+        340.80982907002834, "groundContactTime": 259.0, "strideLength": 112.2, "verticalOscillation":
+        8.580000305175782, "trainingEffect": 3.299999952316284, "anaerobicTrainingEffect":
+        2.9000000953674316, "aerobicTrainingEffectMessage": "IMPROVING_AEROBIC_BASE_8",
+        "anaerobicTrainingEffectMessage": "MAINTAINING_FAST_FORCE_PRODUCTION_6", "verticalRatio":
+        7.960000038146973, "endLatitude": 45.6091196089983, "endLongitude": 9.616730259731412,
+        "maxVerticalSpeed": 2.0, "waterEstimated": 1268.0, "minRespirationRate": 19.299999237060547,
+        "maxRespirationRate": 48.619998931884766, "avgRespirationRate": 35.529998779296875,
+        "trainingEffectLabel": "SPEED", "activityTrainingLoad": 162.3905792236328,
+        "minActivityLapDuration": 0.946, "directWorkoutFeel": 75, "directWorkoutRpe":
+        60, "directWorkoutComplianceScore": 71, "moderateIntensityMinutes": 11, "vigorousIntensityMinutes":
+        76, "steps": 10810, "beginPotentialStamina": 100.0, "endPotentialStamina":
+        66.0, "minAvailableStamina": 52.0, "avgGradeAdjustedSpeed": 2.7139999866485596,
+        "differenceBodyBattery": -20}, "locationName": "Verdellino", "splitSummaries":
+        [{"distance": 113.13, "duration": 352.001, "movingDuration": 0.0, "elevationGain":
+        0.0, "elevationLoss": 0.0, "averageSpeed": 0.32100000977516174, "maxSpeed":
+        0.0, "calories": 68.0, "bmrCalories": 9.0, "averageHR": 122.0, "maxHR": 145.0,
+        "averageRunCadence": 9.1875, "maxRunCadence": 100.0, "averageTemperature":
+        32.0, "maxTemperature": 33.0, "minTemperature": 31.0, "averagePower": 0.0,
+        "maxPower": 15.0, "normalizedPower": 280.0, "strideLength": 27.768558138746307,
+        "totalExerciseReps": 0, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        0.0, "splitType": "RWD_STAND", "noOfSplits": 37, "maxElevationGain": 0.0,
+        "averageElevationGain": 0.0, "maxDistance": 13, "maxDistanceWithPrecision":
+        13.02, "avgStepFrequency": 9.1875}, {"distance": 660.78, "duration": 628.567,
+        "movingDuration": 545.0, "elevationGain": 4.0, "elevationLoss": 0.0, "averageSpeed":
+        1.0509999990463257, "averageMovingSpeed": 1.1126962079974736, "maxSpeed":
+        2.062000036239624, "calories": 79.0, "bmrCalories": 15.0, "averageHR": 111.0,
+        "maxHR": 143.0, "averageRunCadence": 84.859375, "maxRunCadence": 211.0, "averageTemperature":
+        32.0, "maxTemperature": 33.0, "minTemperature": 30.0, "averagePower": 76.0,
+        "maxPower": 232.0, "normalizedPower": 213.0, "groundContactTime": 317.5, "strideLength":
+        73.24000244140625, "verticalOscillation": 5.75, "verticalRatio": 8.0, "totalExerciseReps":
+        0, "avgVerticalSpeed": 0.006000000052154065, "avgGradeAdjustedSpeed": 1.0720000267028809,
+        "splitType": "RWD_WALK", "noOfSplits": 53, "maxElevationGain": 1.0, "averageElevationGain":
+        0.0, "maxDistance": 134, "maxDistanceWithPrecision": 134.97, "avgStepFrequency":
+        84.859375, "avgStepLength": 0.7324000244140625}, {"distance": 11494.38, "duration":
+        3587.689, "movingDuration": 3558.761, "elevationGain": 38.0, "elevationLoss":
+        37.0, "averageSpeed": 3.2039999961853027, "averageMovingSpeed": 3.237150660725468,
+        "maxSpeed": 8.807999610900879, "calories": 865.0, "bmrCalories": 88.0, "averageHR":
+        127.0, "maxHR": 147.0, "averageRunCadence": 166.71875, "maxRunCadence": 248.0,
+        "averageTemperature": 30.0, "maxTemperature": 34.0, "minTemperature": 27.0,
+        "averagePower": 384.0, "maxPower": 1145.0, "normalizedPower": 386.0, "groundContactTime":
+        259.0, "strideLength": 114.91999511718751, "verticalOscillation": 8.90999984741211,
+        "verticalRatio": 7.949999809265137, "totalExerciseReps": 0, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 3.2679998874664307, "splitType": "RWD_RUN",
+        "noOfSplits": 24, "maxElevationGain": 15.0, "averageElevationGain": 2.0, "maxDistance":
+        3261, "maxDistanceWithPrecision": 3261.19, "avgStepFrequency": 166.71875,
+        "avgStepLength": 1.1491999511718751}, {"distance": 7565.38, "duration": 2248.962,
+        "movingDuration": 2244.0, "elevationGain": 27.0, "elevationLoss": 15.0, "averageSpeed":
+        3.364000082015991, "averageMovingSpeed": 3.3713814094529857, "maxSpeed": 3.947000026702881,
+        "calories": 585.0, "bmrCalories": 55.0, "averageHR": 128.0, "maxHR": 142.0,
+        "averageRunCadence": 171.21875, "maxRunCadence": 211.0, "averageTemperature":
+        29.0, "maxTemperature": 32.0, "minTemperature": 27.0, "averagePower": 403.0,
+        "maxPower": 504.0, "normalizedPower": 406.0, "groundContactTime": 252.3000030517578,
+        "strideLength": 118.0300048828125, "verticalOscillation": 9.09000015258789,
+        "verticalRatio": 7.71999979019165, "totalExerciseReps": 0, "avgVerticalSpeed":
+        0.004999999888241291, "avgGradeAdjustedSpeed": 3.381999969482422, "splitType":
+        "INTERVAL_WARMUP", "noOfSplits": 1, "maxElevationGain": 27.0, "averageElevationGain":
+        27.0, "maxDistance": 7565, "maxDistanceWithPrecision": 7565.38, "avgStepFrequency":
+        171.21875, "avgStepLength": 1.180300048828125}, {"distance": 1193.17, "duration":
+        1219.339, "movingDuration": 796.0, "elevationGain": 12.0, "elevationLoss":
+        0.0, "averageSpeed": 0.9789999723434448, "averageMovingSpeed": 1.55854853916781,
+        "maxSpeed": 7.847000122070313, "calories": 189.0, "bmrCalories": 30.0, "averageHR":
+        116.0, "maxHR": 147.0, "averageRunCadence": 67.109375, "maxRunCadence": 248.0,
+        "averageTemperature": 32.0, "maxTemperature": 33.0, "minTemperature": 31.0,
+        "averagePower": 101.0, "maxPower": 950.0, "normalizedPower": 280.0, "groundContactTime":
+        283.79998779296875, "strideLength": 86.12999877929688, "verticalOscillation":
+        6.279999923706055, "verticalRatio": 8.390000343322754, "totalExerciseReps":
+        0, "avgVerticalSpeed": 0.009999999776482582, "avgGradeAdjustedSpeed": 1.1150000095367432,
+        "splitType": "INTERVAL_RECOVERY", "noOfSplits": 9, "maxElevationGain": 2.0,
+        "averageElevationGain": 1.0, "maxDistance": 215, "maxDistanceWithPrecision":
+        215.24, "avgStepFrequency": 67.109375, "avgStepLength": 0.8612999877929688},
+        {"distance": 2807.48, "duration": 993.812, "movingDuration": 993.812, "elevationGain":
+        3.0, "elevationLoss": 10.0, "averageSpeed": 2.825000047683716, "averageMovingSpeed":
+        2.8249608048239914, "maxSpeed": 3.2939999103546147, "calories": 224.0, "bmrCalories":
+        24.0, "averageHR": 127.0, "maxHR": 137.0, "averageRunCadence": 165.078125,
+        "maxRunCadence": 245.0, "averageTemperature": 32.0, "maxTemperature": 34.0,
+        "minTemperature": 31.0, "averagePower": 343.0, "maxPower": 451.0, "normalizedPower":
+        349.0, "groundContactTime": 271.79998779296875, "strideLength": 103.80999755859375,
+        "verticalOscillation": 8.819999694824219, "verticalRatio": 8.529999732971191,
+        "totalExerciseReps": 0, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        2.8510000705718994, "splitType": "INTERVAL_COOLDOWN", "noOfSplits": 1, "maxElevationGain":
+        3.0, "averageElevationGain": 3.0, "maxDistance": 2807, "maxDistanceWithPrecision":
+        2807.48, "avgStepFrequency": 165.078125, "avgStepLength": 1.0380999755859375},
+        {"distance": 702.26, "duration": 106.141, "movingDuration": 79.892, "elevationGain":
+        0.0, "elevationLoss": 12.0, "averageSpeed": 6.616000175476074, "averageMovingSpeed":
+        8.593277704849578, "maxSpeed": 8.807999610900879, "calories": 13.0, "bmrCalories":
+        3.0, "averageHR": 111.0, "maxHR": 136.0, "averageRunCadence": 123.90625, "maxRunCadence":
+        248.0, "averageTemperature": 32.0, "maxTemperature": 33.0, "minTemperature":
+        31.0, "averagePower": 496.0, "maxPower": 1145.0, "normalizedPower": 185.0,
+        "groundContactTime": 222.6999969482422, "strideLength": 221.48000488281252,
+        "verticalOscillation": 10.0, "verticalRatio": 4.349999904632568, "totalExerciseReps":
+        0, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 5.373000144958496, "splitType":
+        "INTERVAL_ACTIVE", "noOfSplits": 10, "maxElevationGain": 0.0, "averageElevationGain":
+        0.0, "maxDistance": 100, "maxDistanceWithPrecision": 100.0, "avgStepFrequency":
+        123.90625, "avgStepLength": 2.2148000488281254}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 27 Aug 2026 08:30:09 GMT
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '10282'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/activity-service/activity/22427297044/typedsplits
+  response:
+    body:
+      string: '{"activityId": 22427297044, "activityUUID": {"uuid": "7d7a1f74-0f67-47f3-9a40-a1d2b179fe1b"},
+        "splits": [{"startTimeLocal": "2026-04-06T13:18:54.0", "startTimeGMT": "2026-04-06T11:18:54.0",
+        "startLatitude": 45.60911390930414, "startLongitude": 9.61672531440854, "distance":
+        1911.32, "duration": 602.272, "movingDuration": 601.0, "elapsedDuration":
+        613.001, "elevationGain": 10.0, "elevationLoss": 0.0, "averageSpeed": 3.1740000247955322,
+        "averageMovingSpeed": 3.1802328557222337, "maxSpeed": 3.6110000610351567,
+        "calories": 150.0, "bmrCalories": 15.0, "averageHR": 120.0, "maxHR": 130.0,
+        "averageRunCadence": 170.671875, "maxRunCadence": 174.0, "averageTemperature":
+        28.0, "maxTemperature": 31.0, "minTemperature": 27.0, "averagePower": 382.0,
+        "maxPower": 447.0, "normalizedPower": 384.0, "groundContactTime": 259.5, "strideLength":
+        111.95999755859376, "verticalOscillation": 8.980000305175782, "verticalRatio":
+        8.020000457763672, "totalExerciseReps": 0, "endLatitude": 45.61974727548659,
+        "endLongitude": 9.623981695622206, "avgVerticalSpeed": 0.01600000075995922,
+        "avgGradeAdjustedSpeed": 3.203000068664551, "avgElapsedDurationVerticalSpeed":
+        0.015307840610700915, "type": "RWD_RUN", "messageIndex": 0, "endTimeGMT":
+        "2026-04-06T11:28:56.0", "startElevation": 175.8, "avgStepLength": 1.1195999755859376},
+        {"startTimeLocal": "2026-04-06T13:18:54.0", "startTimeGMT": "2026-04-06T11:18:54.0",
+        "startLatitude": 45.60911390930414, "startLongitude": 9.61672531440854, "distance":
+        7565.38, "duration": 2248.962, "movingDuration": 2244.0, "elapsedDuration":
+        3313.839, "elevationGain": 27.0, "elevationLoss": 15.0, "averageSpeed": 3.364000082015991,
+        "averageMovingSpeed": 3.3713814094529857, "maxSpeed": 3.947000026702881, "calories":
+        585.0, "bmrCalories": 55.0, "averageHR": 128.0, "maxHR": 142.0, "averageRunCadence":
+        171.21875, "maxRunCadence": 211.0, "averageTemperature": 29.0, "maxTemperature":
+        32.0, "minTemperature": 27.0, "averagePower": 403.0, "maxPower": 504.0, "normalizedPower":
+        406.0, "groundContactTime": 252.3000030517578, "strideLength": 118.0300048828125,
+        "verticalOscillation": 9.09000015258789, "verticalRatio": 7.71999979019165,
+        "totalExerciseReps": 0, "endLatitude": 45.624262942001224, "endLongitude":
+        9.630024544894695, "avgVerticalSpeed": 0.004999999888241291, "avgGradeAdjustedSpeed":
+        3.381999969482422, "avgElapsedDurationVerticalSpeed": -0.02940770854120669,
+        "type": "INTERVAL_WARMUP", "messageIndex": 1, "lapIndexes": [1, 2, 3, 4, 5,
+        6, 7, 8], "endTimeGMT": "2026-04-06T12:14:07.0", "startElevation": 175.8,
+        "avgStepLength": 1.180300048828125}, {"startTimeLocal": "2026-04-06T13:29:17.0",
+        "startTimeGMT": "2026-04-06T11:29:17.0", "duration": 0.0, "elapsedDuration":
+        11.0, "totalExerciseReps": 0, "endLatitude": 45.619738306850195, "endLongitude":
+        9.624053025618196, "type": "RWD_WALK", "messageIndex": 2, "endTimeGMT": "2026-04-06T11:29:17.0"},
+        {"startTimeLocal": "2026-04-06T13:29:36.0", "startTimeGMT": "2026-04-06T11:29:36.0",
+        "duration": 0.0, "elapsedDuration": 19.0, "totalExerciseReps": 0, "endLatitude":
+        45.61977862380445, "endLongitude": 9.62404497899115, "type": "RWD_STAND",
+        "messageIndex": 3, "endTimeGMT": "2026-04-06T11:29:36.0"}, {"startTimeLocal":
+        "2026-04-06T13:29:55.0", "startTimeGMT": "2026-04-06T11:29:55.0", "duration":
+        0.0, "elapsedDuration": 19.001, "totalExerciseReps": 0, "endLatitude": 45.61988214030862,
+        "endLongitude": 9.624035758897662, "type": "RWD_WALK", "messageIndex": 4,
+        "endTimeGMT": "2026-04-06T11:29:55.0"}, {"startTimeLocal": "2026-04-06T13:30:33.0",
+        "startTimeGMT": "2026-04-06T11:30:33.0", "duration": 0.0, "elapsedDuration":
+        37.999, "totalExerciseReps": 0, "endLatitude": 45.61984173953533, "endLongitude":
+        9.624020922929049, "type": "RWD_STAND", "messageIndex": 5, "endTimeGMT": "2026-04-06T11:30:33.0"},
+        {"startTimeLocal": "2026-04-06T13:32:46.0", "startTimeGMT": "2026-04-06T11:32:46.0",
+        "duration": 0.0, "elapsedDuration": 133.0, "totalExerciseReps": 0, "endLatitude":
+        45.61993268318474, "endLongitude": 9.62395453825593, "type": "RWD_WALK", "messageIndex":
+        6, "endTimeGMT": "2026-04-06T11:32:46.0"}, {"startTimeLocal": "2026-04-06T13:33:00.0",
+        "startTimeGMT": "2026-04-06T11:33:00.0", "duration": 0.0, "elapsedDuration":
+        14.0, "totalExerciseReps": 0, "endLatitude": 45.62004089355469, "endLongitude":
+        9.623885303735733, "type": "RWD_RUN", "messageIndex": 7, "endTimeGMT": "2026-04-06T11:33:00.0"},
+        {"startTimeLocal": "2026-04-06T13:33:29.0", "startTimeGMT": "2026-04-06T11:33:29.0",
+        "duration": 0.0, "elapsedDuration": 29.0, "totalExerciseReps": 0, "endLatitude":
+        45.619825813919306, "endLongitude": 9.624012457206845, "type": "RWD_WALK",
+        "messageIndex": 8, "endTimeGMT": "2026-04-06T11:33:29.0"}, {"startTimeLocal":
+        "2026-04-06T13:33:53.0", "startTimeGMT": "2026-04-06T11:33:53.0", "duration":
+        0.0, "elapsedDuration": 24.0, "totalExerciseReps": 0, "endLatitude": 45.62000619247556,
+        "endLongitude": 9.623901564627886, "type": "RWD_RUN", "messageIndex": 9, "endTimeGMT":
+        "2026-04-06T11:33:53.0"}, {"startTimeLocal": "2026-04-06T13:34:32.0", "startTimeGMT":
+        "2026-04-06T11:34:32.0", "duration": 0.0, "elapsedDuration": 39.0, "totalExerciseReps":
+        0, "endLatitude": 45.619937125593424, "endLongitude": 9.62394523434341, "type":
+        "RWD_WALK", "messageIndex": 10, "endTimeGMT": "2026-04-06T11:34:32.0"}, {"startTimeLocal":
+        "2026-04-06T13:34:44.0", "startTimeGMT": "2026-04-06T11:34:44.0", "duration":
+        0.0, "elapsedDuration": 12.0, "totalExerciseReps": 0, "endLatitude": 45.61997953802347,
+        "endLongitude": 9.623901816084981, "type": "RWD_RUN", "messageIndex": 11,
+        "endTimeGMT": "2026-04-06T11:34:44.0"}, {"startTimeLocal": "2026-04-06T13:35:24.0",
+        "startTimeGMT": "2026-04-06T11:35:24.0", "duration": 0.0, "elapsedDuration":
+        40.0, "totalExerciseReps": 0, "endLatitude": 45.619852133095264, "endLongitude":
+        9.623998878523707, "type": "RWD_WALK", "messageIndex": 12, "endTimeGMT": "2026-04-06T11:35:24.0"},
+        {"startTimeLocal": "2026-04-06T13:35:48.0", "startTimeGMT": "2026-04-06T11:35:48.0",
+        "duration": 0.0, "elapsedDuration": 24.0, "totalExerciseReps": 0, "endLatitude":
+        45.62011959962547, "endLongitude": 9.62384071201086, "type": "RWD_RUN", "messageIndex":
+        13, "endTimeGMT": "2026-04-06T11:35:48.0"}, {"startTimeLocal": "2026-04-06T13:36:23.0",
+        "startTimeGMT": "2026-04-06T11:36:23.0", "duration": 0.0, "elapsedDuration":
+        35.0, "totalExerciseReps": 0, "endLatitude": 45.619917595759034, "endLongitude":
+        9.623973481357098, "type": "RWD_WALK", "messageIndex": 14, "endTimeGMT": "2026-04-06T11:36:23.0"},
+        {"startTimeLocal": "2026-04-06T13:36:33.0", "startTimeGMT": "2026-04-06T11:36:33.0",
+        "duration": 0.0, "elapsedDuration": 10.001, "totalExerciseReps": 0, "endLatitude":
+        45.62009587883949, "endLongitude": 9.62387340143323, "type": "RWD_RUN", "messageIndex":
+        15, "endTimeGMT": "2026-04-06T11:36:33.0"}, {"startTimeLocal": "2026-04-06T13:36:35.0",
+        "startTimeGMT": "2026-04-06T11:36:35.0", "duration": 0.0, "elapsedDuration":
+        2.0, "totalExerciseReps": 0, "endLatitude": 45.620140973478556, "endLongitude":
+        9.62384951300919, "type": "RWD_WALK", "messageIndex": 16, "endTimeGMT": "2026-04-06T11:36:35.0"},
+        {"startTimeLocal": "2026-04-06T13:36:44.0", "startTimeGMT": "2026-04-06T11:36:44.0",
+        "duration": 0.0, "elapsedDuration": 8.999, "totalExerciseReps": 0, "endLatitude":
+        45.62011088244617, "endLongitude": 9.623828306794167, "type": "RWD_RUN", "messageIndex":
+        17, "endTimeGMT": "2026-04-06T11:36:44.0"}, {"startTimeLocal": "2026-04-06T13:37:14.0",
+        "startTimeGMT": "2026-04-06T11:37:14.0", "duration": 0.0, "elapsedDuration":
+        30.0, "totalExerciseReps": 0, "endLatitude": 45.619894629344344, "endLongitude":
+        9.623997202143073, "type": "RWD_WALK", "messageIndex": 18, "endTimeGMT": "2026-04-06T11:37:14.0"},
+        {"startTimeLocal": "2026-04-06T13:37:33.0", "startTimeGMT": "2026-04-06T11:37:33.0",
+        "duration": 0.0, "elapsedDuration": 19.0, "totalExerciseReps": 0, "endLatitude":
+        45.62020224519074, "endLongitude": 9.62377273477614, "type": "RWD_RUN", "messageIndex":
+        19, "endTimeGMT": "2026-04-06T11:37:33.0"}, {"startTimeLocal": "2026-04-06T13:38:03.0",
+        "startTimeGMT": "2026-04-06T11:38:03.0", "startLatitude": 45.620467867702246,
+        "startLongitude": 9.623610796406865, "distance": 1.92, "duration": 0.868,
+        "elapsedDuration": 30.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        2.2119998931884766, "maxSpeed": 1.0640000104904175, "calories": 0.0, "bmrCalories":
+        0.0, "averageHR": 111.0, "maxHR": 111.0, "averageRunCadence": 211.0, "maxRunCadence":
+        211.0, "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature":
+        32.0, "averagePower": 119.0, "maxPower": 119.0, "normalizedPower": 64.0, "strideLength":
+        62.89995046928315, "verticalOscillation": 5.590000152587891, "totalExerciseReps":
+        0, "endLatitude": 45.620467867702246, "endLongitude": 9.623610796406865, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 1.1160000562667847, "type": "RWD_WALK", "messageIndex":
+        20, "endTimeGMT": "2026-04-06T11:38:03.0", "startElevation": 182.8}, {"startTimeLocal":
+        "2026-04-06T13:38:04.0", "startTimeGMT": "2026-04-06T11:38:04.0", "startLatitude":
+        45.62049385160208, "startLongitude": 9.623597888275981, "distance": 2381.49,
+        "duration": 672.761, "movingDuration": 672.761, "elapsedDuration": 684.0,
+        "elevationGain": 2.0, "elevationLoss": 9.0, "averageSpeed": 3.5399999618530273,
+        "averageMovingSpeed": 3.5398752880013964, "maxSpeed": 3.8350000381469727,
+        "calories": 184.0, "bmrCalories": 17.0, "averageHR": 134.0, "maxHR": 142.0,
+        "averageRunCadence": 173.78125, "maxRunCadence": 211.0, "averageTemperature":
+        30.0, "maxTemperature": 32.0, "minTemperature": 29.0, "averagePower": 422.0,
+        "maxPower": 465.0, "normalizedPower": 420.0, "groundContactTime": 246.0, "strideLength":
+        121.84000244140626, "verticalOscillation": 9.10999984741211, "verticalRatio":
+        7.480000019073486, "totalExerciseReps": 0, "endLatitude": 45.6078639999032,
+        "endLongitude": 9.613145655021071, "avgVerticalSpeed": -0.010999999940395355,
+        "avgGradeAdjustedSpeed": 3.516999959945679, "avgElapsedDurationVerticalSpeed":
+        -0.01010401642163122, "type": "RWD_RUN", "messageIndex": 21, "endTimeGMT":
+        "2026-04-06T11:49:17.0", "startElevation": 182.6, "avgStepLength": 1.2184000244140625},
+        {"startTimeLocal": "2026-04-06T13:49:33.0", "startTimeGMT": "2026-04-06T11:49:33.0",
+        "duration": 0.0, "elapsedDuration": 6.0, "totalExerciseReps": 0, "endLatitude":
+        45.607859808951616, "endLongitude": 9.613119587302208, "type": "RWD_WALK",
+        "messageIndex": 22, "endTimeGMT": "2026-04-06T11:49:33.0"}, {"startTimeLocal":
+        "2026-04-06T13:49:36.0", "startTimeGMT": "2026-04-06T11:49:36.0", "duration":
+        0.0, "elapsedDuration": 3.001, "totalExerciseReps": 0, "endLatitude": 45.607864586636424,
+        "endLongitude": 9.613089244812727, "type": "RWD_STAND", "messageIndex": 23,
+        "endTimeGMT": "2026-04-06T11:49:36.0"}, {"startTimeLocal": "2026-04-06T13:49:42.0",
+        "startTimeGMT": "2026-04-06T11:49:42.0", "duration": 0.0, "elapsedDuration":
+        6.0, "totalExerciseReps": 0, "endLatitude": 45.60786886140704, "endLongitude":
+        9.613092597573996, "type": "RWD_WALK", "messageIndex": 24, "endTimeGMT": "2026-04-06T11:49:42.0"},
+        {"startTimeLocal": "2026-04-06T13:51:01.0", "startTimeGMT": "2026-04-06T11:51:01.0",
+        "duration": 0.0, "elapsedDuration": 78.999, "totalExerciseReps": 0, "endLatitude":
+        45.60787724331021, "endLongitude": 9.613078851252794, "type": "RWD_STAND",
+        "messageIndex": 25, "endTimeGMT": "2026-04-06T11:51:01.0"}, {"startTimeLocal":
+        "2026-04-06T13:51:08.0", "startTimeGMT": "2026-04-06T11:51:08.0", "duration":
+        0.0, "elapsedDuration": 7.0, "totalExerciseReps": 0, "endLatitude": 45.6078727170825,
+        "endLongitude": 9.613103745505214, "type": "RWD_WALK", "messageIndex": 26,
+        "endTimeGMT": "2026-04-06T11:51:08.0"}, {"startTimeLocal": "2026-04-06T13:51:15.0",
+        "startTimeGMT": "2026-04-06T11:51:15.0", "duration": 0.0, "elapsedDuration":
+        7.0, "totalExerciseReps": 0, "endLatitude": 45.60785494744778, "endLongitude":
+        9.613046580925584, "type": "RWD_STAND", "messageIndex": 27, "endTimeGMT":
+        "2026-04-06T11:51:15.0"}, {"startTimeLocal": "2026-04-06T13:51:24.0", "startTimeGMT":
+        "2026-04-06T11:51:24.0", "duration": 0.0, "elapsedDuration": 9.0, "totalExerciseReps":
+        0, "endLatitude": 45.60784304514527, "endLongitude": 9.612986734136939, "type":
+        "RWD_WALK", "messageIndex": 28, "endTimeGMT": "2026-04-06T11:51:24.0"}, {"startTimeLocal":
+        "2026-04-06T13:51:45.0", "startTimeGMT": "2026-04-06T11:51:45.0", "duration":
+        0.0, "elapsedDuration": 21.0, "totalExerciseReps": 0, "endLatitude": 45.607821168377995,
+        "endLongitude": 9.612922361120582, "type": "RWD_STAND", "messageIndex": 29,
+        "endTimeGMT": "2026-04-06T11:51:45.0"}, {"startTimeLocal": "2026-04-06T13:51:51.0",
+        "startTimeGMT": "2026-04-06T11:51:51.0", "duration": 0.0, "elapsedDuration":
+        6.0, "totalExerciseReps": 0, "endLatitude": 45.607845140621066, "endLongitude":
+        9.612915655598044, "type": "RWD_WALK", "messageIndex": 30, "endTimeGMT": "2026-04-06T11:51:51.0"},
+        {"startTimeLocal": "2026-04-06T13:51:55.0", "startTimeGMT": "2026-04-06T11:51:55.0",
+        "duration": 0.0, "elapsedDuration": 4.001, "totalExerciseReps": 0, "endLatitude":
+        45.60789752751589, "endLongitude": 9.61290375329554, "type": "RWD_STAND",
+        "messageIndex": 31, "endTimeGMT": "2026-04-06T11:51:55.0"}, {"startTimeLocal":
+        "2026-04-06T13:52:05.0", "startTimeGMT": "2026-04-06T11:52:05.0", "duration":
+        0.0, "elapsedDuration": 9.999, "totalExerciseReps": 0, "endLatitude": 45.60795636847615,
+        "endLongitude": 9.612936610355973, "type": "RWD_WALK", "messageIndex": 32,
+        "endTimeGMT": "2026-04-06T11:52:05.0"}, {"startTimeLocal": "2026-04-06T13:52:52.0",
+        "startTimeGMT": "2026-04-06T11:52:52.0", "duration": 0.0, "elapsedDuration":
+        47.0, "totalExerciseReps": 0, "endLatitude": 45.60788361355662, "endLongitude":
+        9.612990925088525, "type": "RWD_STAND", "messageIndex": 33, "endTimeGMT":
+        "2026-04-06T11:52:52.0"}, {"startTimeLocal": "2026-04-06T13:52:59.0", "startTimeGMT":
+        "2026-04-06T11:52:59.0", "duration": 0.0, "elapsedDuration": 7.0, "totalExerciseReps":
+        0, "endLatitude": 45.60790431685746, "endLongitude": 9.612951278686523, "type":
+        "RWD_WALK", "messageIndex": 34, "endTimeGMT": "2026-04-06T11:52:59.0"}, {"startTimeLocal":
+        "2026-04-06T13:53:00.0", "startTimeGMT": "2026-04-06T11:53:00.0", "duration":
+        0.0, "elapsedDuration": 1.0, "totalExerciseReps": 0, "endLatitude": 45.60791672207415,
+        "endLongitude": 9.612955721095204, "type": "RWD_STAND", "messageIndex": 35,
+        "endTimeGMT": "2026-04-06T11:53:00.0"}, {"startTimeLocal": "2026-04-06T13:53:05.0",
+        "startTimeGMT": "2026-04-06T11:53:05.0", "duration": 0.0, "elapsedDuration":
+        5.001, "totalExerciseReps": 0, "endLatitude": 45.60791898518801, "endLongitude":
+        9.61299017071724, "type": "RWD_WALK", "messageIndex": 36, "endTimeGMT": "2026-04-06T11:53:05.0"},
+        {"startTimeLocal": "2026-04-06T13:53:26.0", "startTimeGMT": "2026-04-06T11:53:26.0",
+        "duration": 0.0, "elapsedDuration": 20.999, "totalExerciseReps": 0, "endLatitude":
+        45.60791026800871, "endLongitude": 9.612946836277843, "type": "RWD_STAND",
+        "messageIndex": 37, "endTimeGMT": "2026-04-06T11:53:26.0"}, {"startTimeLocal":
+        "2026-04-06T13:53:50.0", "startTimeGMT": "2026-04-06T11:53:50.0", "duration":
+        0.0, "elapsedDuration": 24.0, "totalExerciseReps": 0, "endLatitude": 45.607851007953286,
+        "endLongitude": 9.612977262586355, "type": "RWD_WALK", "messageIndex": 38,
+        "endTimeGMT": "2026-04-06T11:53:50.0"}, {"startTimeLocal": "2026-04-06T13:53:54.0",
+        "startTimeGMT": "2026-04-06T11:53:54.0", "duration": 0.0, "elapsedDuration":
+        4.0, "totalExerciseReps": 0, "endLatitude": 45.60784279368818, "endLongitude":
+        9.613045072183013, "type": "RWD_STAND", "messageIndex": 39, "endTimeGMT":
+        "2026-04-06T11:53:54.0"}, {"startTimeLocal": "2026-04-06T13:54:10.0", "startTimeGMT":
+        "2026-04-06T11:54:10.0", "duration": 0.0, "elapsedDuration": 16.0, "totalExerciseReps":
+        0, "endLatitude": 45.60785846784711, "endLongitude": 9.61317490786314, "type":
+        "RWD_WALK", "messageIndex": 40, "endTimeGMT": "2026-04-06T11:54:10.0"}, {"startTimeLocal":
+        "2026-04-06T13:54:14.0", "startTimeGMT": "2026-04-06T11:54:14.0", "duration":
+        0.0, "elapsedDuration": 4.002, "totalExerciseReps": 0, "endLatitude": 45.60783013701439,
+        "endLongitude": 9.613195611163974, "type": "RWD_STAND", "messageIndex": 41,
+        "endTimeGMT": "2026-04-06T11:54:14.0"}, {"startTimeLocal": "2026-04-06T13:54:15.0",
+        "startTimeGMT": "2026-04-06T11:54:15.0", "startLatitude": 45.60781999491155,
+        "startLongitude": 9.613207345828414, "distance": 8.34, "duration": 3.364,
+        "movingDuration": 2.0, "elapsedDuration": 3.998, "elevationGain": 0.0, "elevationLoss":
+        0.0, "averageSpeed": 2.4790000915527344, "averageMovingSpeed": 4.170000076293945,
+        "maxSpeed": 1.8289999961853027, "calories": 0.0, "bmrCalories": 0.0, "averageHR":
+        83.0, "maxHR": 84.0, "averageRunCadence": 93.75, "maxRunCadence": 125.0, "averageTemperature":
+        30.0, "maxTemperature": 30.0, "minTemperature": 30.0, "averagePower": 90.0,
+        "maxPower": 133.0, "normalizedPower": 57.0, "strideLength": 158.66825111542542,
+        "verticalOscillation": 5.579999923706055, "totalExerciseReps": 0, "endLatitude":
+        45.60775143094361, "endLongitude": 9.613248500972986, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 1.25, "avgElapsedDurationVerticalSpeed": 0.0,
+        "type": "RWD_WALK", "messageIndex": 42, "endTimeGMT": "2026-04-06T11:54:18.0",
+        "startElevation": 176.8}, {"startTimeLocal": "2026-04-06T13:54:19.0", "startTimeGMT":
+        "2026-04-06T11:54:19.0", "startLatitude": 45.60771295800805, "startLongitude":
+        9.613261660560966, "distance": 3261.19, "duration": 964.522, "movingDuration":
+        964.0, "elapsedDuration": 980.0, "elevationGain": 15.0, "elevationLoss": 6.0,
+        "averageSpeed": 3.3810000419616704, "averageMovingSpeed": 3.3829771176413383,
+        "maxSpeed": 3.947000026702881, "calories": 251.0, "bmrCalories": 24.0, "averageHR":
+        130.0, "maxHR": 140.0, "averageRunCadence": 171.09375, "maxRunCadence": 178.0,
+        "averageTemperature": 28.0, "maxTemperature": 31.0, "minTemperature": 27.0,
+        "averagePower": 407.0, "maxPower": 504.0, "normalizedPower": 409.0, "groundContactTime":
+        252.3000030517578, "strideLength": 119.15999755859376, "verticalOscillation":
+        9.15, "verticalRatio": 7.699999809265137, "totalExerciseReps": 0, "endLatitude":
+        45.62273911200464, "endLongitude": 9.630218837410212, "avgVerticalSpeed":
+        0.008999999612569809, "avgGradeAdjustedSpeed": 3.4309999942779545, "avgElapsedDurationVerticalSpeed":
+        0.009543565299006419, "type": "RWD_RUN", "messageIndex": 43, "endTimeGMT":
+        "2026-04-06T12:10:23.0", "startElevation": 176.8, "avgStepLength": 1.1915999755859377},
+        {"startTimeLocal": "2026-04-06T14:11:32.0", "startTimeGMT": "2026-04-06T12:11:32.0",
+        "duration": 0.0, "elapsedDuration": 54.0, "totalExerciseReps": 0, "endLatitude":
+        45.62282435595989, "endLongitude": 9.629393806681037, "type": "RWD_WALK",
+        "messageIndex": 44, "endTimeGMT": "2026-04-06T12:11:32.0"}, {"startTimeLocal":
+        "2026-04-06T14:11:54.0", "startTimeGMT": "2026-04-06T12:11:54.0", "duration":
+        0.0, "elapsedDuration": 22.0, "totalExerciseReps": 0, "endLatitude": 45.62282435595989,
+        "endLongitude": 9.629393806681037, "type": "RWD_STAND", "messageIndex": 45,
+        "endTimeGMT": "2026-04-06T12:11:54.0"}, {"startTimeLocal": "2026-04-06T14:14:02.0",
+        "startTimeGMT": "2026-04-06T12:14:02.0", "startLatitude": 45.624267635867,
+        "startLongitude": 9.630019515752792, "distance": 0.09, "duration": 3.337,
+        "movingDuration": 0.0, "elapsedDuration": 131.0, "elevationGain": 0.0, "elevationLoss":
+        0.0, "averageSpeed": 0.027000000700354576, "maxSpeed": 1.315999984741211,
+        "calories": 0.0, "bmrCalories": 0.0, "averageHR": 101.0, "maxHR": 101.0, "averageRunCadence":
+        0.0, "maxRunCadence": 0.0, "averageTemperature": 32.0, "maxTemperature": 32.0,
+        "minTemperature": 32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower":
+        115.0, "totalExerciseReps": 0, "endLatitude": 45.62427199445665, "endLongitude":
+        9.630027478560805, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 0.3310000002384185,
+        "avgElapsedDurationVerticalSpeed": 0.0, "type": "RWD_WALK", "messageIndex":
+        46, "endTimeGMT": "2026-04-06T12:14:05.0", "startElevation": 186.0}, {"startTimeLocal":
+        "2026-04-06T14:14:06.0", "startTimeGMT": "2026-04-06T12:14:06.0", "startLatitude":
+        45.62427140772343, "startLongitude": 9.630026388913393, "distance": 6.11,
+        "duration": 4.0, "movingDuration": 0.0, "elapsedDuration": 4.0, "elevationGain":
+        0.0, "elevationLoss": 0.0, "averageSpeed": 1.5269999504089355, "maxSpeed":
+        0.0, "calories": 0.0, "bmrCalories": 0.0, "averageHR": 100.0, "maxHR": 100.0,
+        "averageRunCadence": 25.0, "maxRunCadence": 100.0, "averageTemperature": 32.0,
+        "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0, "maxPower":
+        0.0, "normalizedPower": 99.0, "strideLength": 366.60000801086426, "totalExerciseReps":
+        0, "endLatitude": 45.624219523742795, "endLongitude": 9.630005182698369, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.0, "avgElapsedDurationVerticalSpeed": 0.0,
+        "type": "RWD_STAND", "messageIndex": 47, "endTimeGMT": "2026-04-06T12:14:09.0",
+        "startElevation": 186.0}, {"startTimeLocal": "2026-04-06T14:14:08.0", "startTimeGMT":
+        "2026-04-06T12:14:08.0", "startLatitude": 45.624249363318086, "startLongitude":
+        9.630021946504712, "distance": 100.0, "duration": 15.089, "movingDuration":
+        10.0, "elapsedDuration": 15.089, "elevationGain": 0.0, "elevationLoss": 2.0,
+        "averageSpeed": 6.626999855041504, "averageMovingSpeed": 10.0, "maxSpeed":
+        7.370999813079835, "calories": 1.0, "bmrCalories": 0.0, "averageHR": 107.0,
+        "maxHR": 122.0, "averageRunCadence": 194.125, "maxRunCadence": 248.0, "averageTemperature":
+        32.0, "maxTemperature": 32.0, "minTemperature": 31.0, "averagePower": 565.0,
+        "maxPower": 919.0, "normalizedPower": 221.0, "groundContactTime": 205.5, "strideLength":
+        202.39000244140627, "verticalOscillation": 8.61999969482422, "verticalRatio":
+        4.090000152587891, "totalExerciseReps": 0, "endLatitude": 45.623345877975225,
+        "endLongitude": 9.629647862166166, "avgVerticalSpeed": -0.14399999380111694,
+        "avgGradeAdjustedSpeed": 4.697999954223633, "avgElapsedDurationVerticalSpeed":
+        -0.14666646321614582, "type": "INTERVAL_ACTIVE", "messageIndex": 48, "lapIndexes":
+        [9], "endTimeGMT": "2026-04-06T12:14:23.0", "startElevation": 186.0, "avgStepLength":
+        2.0239000244140626}, {"startTimeLocal": "2026-04-06T14:14:10.0", "startTimeGMT":
+        "2026-04-06T12:14:10.0", "startLatitude": 45.62417526729405, "startLongitude":
+        9.629984395578504, "distance": 5.18, "duration": 1.0, "elapsedDuration": 1.0,
+        "averageSpeed": 5.179999828338622, "maxSpeed": 0.0, "calories": 0.0, "bmrCalories":
+        0.0, "averageHR": 103.0, "maxHR": 103.0, "averageRunCadence": 207.0, "maxRunCadence":
+        207.0, "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature":
+        32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower": 80.0, "strideLength":
+        150.14492256053978, "totalExerciseReps": 0, "endLatitude": 45.62417526729405,
+        "endLongitude": 9.629984395578504, "avgGradeAdjustedSpeed": 0.0, "type": "RWD_WALK",
+        "messageIndex": 49, "endTimeGMT": "2026-04-06T12:14:10.0"}, {"startTimeLocal":
+        "2026-04-06T14:14:11.0", "startTimeGMT": "2026-04-06T12:14:11.0", "startLatitude":
+        45.624117432162166, "startLongitude": 9.629957573488355, "distance": 143.33,
+        "duration": 29.0, "movingDuration": 26.0, "elapsedDuration": 29.0, "elevationGain":
+        1.0, "elevationLoss": 2.0, "averageSpeed": 4.941999912261963, "averageMovingSpeed":
+        5.512692378117488, "maxSpeed": 7.511000156402588, "calories": 5.0, "bmrCalories":
+        1.0, "averageHR": 125.0, "maxHR": 143.0, "averageRunCadence": 179.78125, "maxRunCadence":
+        248.0, "averageTemperature": 31.0, "maxTemperature": 32.0, "minTemperature":
+        31.0, "averagePower": 540.0, "maxPower": 919.0, "normalizedPower": 431.0,
+        "groundContactTime": 185.0, "strideLength": 178.48000488281252, "verticalOscillation":
+        7.169999694824219, "verticalRatio": 4.070000171661377, "totalExerciseReps":
+        0, "endLatitude": 45.62307648360729, "endLongitude": 9.629589272662997, "avgVerticalSpeed":
+        -0.03700000047683716, "avgGradeAdjustedSpeed": 5.061999797821045, "avgElapsedDurationVerticalSpeed":
+        -0.02142878941127232, "type": "RWD_RUN", "messageIndex": 50, "endTimeGMT":
+        "2026-04-06T12:14:39.0", "startElevation": 186.0, "avgStepLength": 1.7848000488281253},
+        {"startTimeLocal": "2026-04-06T14:14:24.0", "startTimeGMT": "2026-04-06T12:14:24.0",
+        "startLatitude": 45.623283265158534, "startLongitude": 9.62962606921792, "distance":
+        215.24, "duration": 168.952, "movingDuration": 111.0, "elapsedDuration": 168.952,
+        "elevationGain": 2.0, "elevationLoss": 0.0, "averageSpeed": 1.27400004863739,
+        "averageMovingSpeed": 1.9390991485870637, "maxSpeed": 7.511000156402588, "calories":
+        28.0, "bmrCalories": 4.0, "averageHR": 114.0, "maxHR": 143.0, "averageRunCadence":
+        83.375, "maxRunCadence": 248.0, "averageTemperature": 31.0, "maxTemperature":
+        32.0, "minTemperature": 31.0, "averagePower": 142.0, "maxPower": 856.0, "normalizedPower":
+        318.0, "groundContactTime": 281.6000061035156, "strideLength": 85.15, "verticalOscillation":
+        7.090000152587891, "verticalRatio": 9.149999618530273, "totalExerciseReps":
+        0, "endLatitude": 45.62426067888737, "endLongitude": 9.63003502227366, "avgVerticalSpeed":
+        0.013000000268220901, "avgGradeAdjustedSpeed": 1.409000039100647, "avgElapsedDurationVerticalSpeed":
+        0.01077846138777133, "type": "INTERVAL_RECOVERY", "messageIndex": 51, "lapIndexes":
+        [10], "endTimeGMT": "2026-04-06T12:17:11.0", "startElevation": 184.8, "avgStepLength":
+        0.8515}, {"startTimeLocal": "2026-04-06T14:14:40.0", "startTimeGMT": "2026-04-06T12:14:40.0",
+        "startLatitude": 45.623084949329495, "startLongitude": 9.629587009549141,
+        "distance": 4.66, "duration": 7.0, "movingDuration": 4.0, "elapsedDuration":
+        7.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 0.6660000085830688,
+        "averageMovingSpeed": 1.1649999618530273, "maxSpeed": 1.6610000133514404,
+        "calories": 2.0, "bmrCalories": 0.0, "averageHR": 136.0, "maxHR": 138.0, "averageRunCadence":
+        0.0, "maxRunCadence": 0.0, "averageTemperature": 31.0, "maxTemperature": 31.0,
+        "minTemperature": 31.0, "averagePower": 23.0, "maxPower": 158.0, "normalizedPower":
+        505.0, "strideLength": 92.2, "verticalOscillation": 6.070000076293946, "verticalRatio":
+        6.579999923706055, "totalExerciseReps": 0, "endLatitude": 45.623120572417974,
+        "endLongitude": 9.629597403109074, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        0.859000027179718, "avgElapsedDurationVerticalSpeed": 0.09999847412109375,
+        "type": "RWD_WALK", "messageIndex": 52, "endTimeGMT": "2026-04-06T12:14:46.0",
+        "startElevation": 185.8, "avgStepLength": 0.922}, {"startTimeLocal": "2026-04-06T14:14:47.0",
+        "startTimeGMT": "2026-04-06T12:14:47.0", "startLatitude": 45.62312224879861,
+        "startLongitude": 9.629599079489708, "distance": 5.24, "duration": 19.0, "movingDuration":
+        0.0, "elapsedDuration": 19.0, "elevationGain": 0.0, "elevationLoss": 0.0,
+        "averageSpeed": 0.2759999930858612, "maxSpeed": 0.0, "calories": 5.0, "bmrCalories":
+        0.0, "averageHR": 129.0, "maxHR": 134.0, "averageRunCadence": 4.734375, "maxRunCadence":
+        90.0, "averageTemperature": 31.0, "maxTemperature": 31.0, "minTemperature":
+        31.0, "averagePower": 1.0, "maxPower": 15.0, "normalizedPower": 261.0, "strideLength":
+        349.51535732315006, "totalExerciseReps": 0, "endLatitude": 45.62311193905771,
+        "endLongitude": 9.629598995670676, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        0.0, "avgElapsedDurationVerticalSpeed": -0.022221883138020832, "type": "RWD_STAND",
+        "messageIndex": 53, "endTimeGMT": "2026-04-06T12:15:05.0", "startElevation":
+        186.2}, {"startTimeLocal": "2026-04-06T14:15:06.0", "startTimeGMT": "2026-04-06T12:15:06.0",
+        "startLatitude": 45.62311193905771, "startLongitude": 9.629598995670676, "distance":
+        0.52, "duration": 6.002, "movingDuration": 0.0, "elapsedDuration": 6.002,
+        "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 0.0869999974966049,
+        "maxSpeed": 0.0, "calories": 1.0, "bmrCalories": 0.0, "averageHR": 124.0,
+        "maxHR": 126.0, "averageRunCadence": 45.0, "maxRunCadence": 90.0, "averageTemperature":
+        31.0, "maxTemperature": 31.0, "minTemperature": 31.0, "averagePower": 15.0,
+        "maxPower": 37.0, "normalizedPower": 9.0, "strideLength": 11.551704842505762,
+        "totalExerciseReps": 0, "endLatitude": 45.62311193905771, "endLongitude":
+        9.629598995670676, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 0.0,
+        "avgElapsedDurationVerticalSpeed": 0.079998779296875, "type": "RWD_WALK",
+        "messageIndex": 54, "endTimeGMT": "2026-04-06T12:15:11.0", "startElevation":
+        186.0}, {"startTimeLocal": "2026-04-06T14:15:12.0", "startTimeGMT": "2026-04-06T12:15:12.0",
+        "startLatitude": 45.62311193905771, "startLongitude": 9.629598995670676, "distance":
+        6.48, "duration": 15.998, "movingDuration": 0.0, "elapsedDuration": 15.998,
+        "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 0.4050000011920929,
+        "maxSpeed": 0.0, "calories": 3.0, "bmrCalories": 0.0, "averageHR": 118.0,
+        "maxHR": 121.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        31.0, "maxTemperature": 31.0, "minTemperature": 31.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 5.0, "totalExerciseReps": 0, "endLatitude":
+        45.62317622825503, "endLongitude": 9.629590529948473, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.0, "avgElapsedDurationVerticalSpeed": -0.05333251953125,
+        "type": "RWD_STAND", "messageIndex": 55, "endTimeGMT": "2026-04-06T12:15:27.0",
+        "startElevation": 186.4}, {"startTimeLocal": "2026-04-06T14:15:28.0", "startTimeGMT":
+        "2026-04-06T12:15:28.0", "startLatitude": 45.62319374643266, "startLongitude":
+        9.629589105024934, "distance": 30.97, "duration": 28.0, "movingDuration":
+        24.0, "elapsedDuration": 28.0, "elevationGain": 0.0, "elevationLoss": 0.0,
+        "averageSpeed": 1.1059999465942383, "averageMovingSpeed": 1.290416638056437,
+        "maxSpeed": 2.062000036239624, "calories": 3.0, "bmrCalories": 1.0, "averageHR":
+        106.0, "maxHR": 116.0, "averageRunCadence": 64.53125, "maxRunCadence": 161.0,
+        "averageTemperature": 31.0, "maxTemperature": 31.0, "minTemperature": 31.0,
+        "averagePower": 66.0, "maxPower": 232.0, "normalizedPower": 34.0, "groundContactTime":
+        309.0, "strideLength": 71.0, "verticalOscillation": 5.800000000000001, "verticalRatio":
+        8.5600004196167, "totalExerciseReps": 0, "endLatitude": 45.62333447858691,
+        "endLongitude": 9.629602851346135, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        1.0880000591278076, "avgElapsedDurationVerticalSpeed": 0.007407859519675926,
+        "type": "RWD_WALK", "messageIndex": 56, "endTimeGMT": "2026-04-06T12:15:55.0",
+        "startElevation": 185.4, "avgStepLength": 0.71}, {"startTimeLocal": "2026-04-06T14:15:56.0",
+        "startTimeGMT": "2026-04-06T12:15:56.0", "startLatitude": 45.62335551716387,
+        "startLongitude": 9.629607209935784, "distance": 111.61, "duration": 62.0,
+        "movingDuration": 61.0, "elapsedDuration": 62.0, "elevationGain": 1.0, "elevationLoss":
+        0.0, "averageSpeed": 1.7999999523162842, "averageMovingSpeed": 1.8296721411533046,
+        "maxSpeed": 2.2300000190734863, "calories": 9.0, "bmrCalories": 2.0, "averageHR":
+        106.0, "maxHR": 108.0, "averageRunCadence": 152.03125, "maxRunCadence": 167.0,
+        "averageTemperature": 31.0, "maxTemperature": 32.0, "minTemperature": 31.0,
+        "averagePower": 242.0, "maxPower": 297.0, "normalizedPower": 240.0, "groundContactTime":
+        300.70001220703125, "strideLength": 76.05999755859375, "verticalOscillation":
+        7.680000305175781, "verticalRatio": 10.149999618530273, "totalExerciseReps":
+        0, "endLatitude": 45.62426847405732, "endLongitude": 9.630032507702708, "avgVerticalSpeed":
+        0.017000000923871994, "avgGradeAdjustedSpeed": 2.013000011444092, "avgElapsedDurationVerticalSpeed":
+        0.0032786384957735654, "type": "RWD_RUN", "messageIndex": 57, "endTimeGMT":
+        "2026-04-06T12:16:57.0", "startElevation": 186.0, "avgStepLength": 0.7605999755859375},
+        {"startTimeLocal": "2026-04-06T14:16:58.0", "startTimeGMT": "2026-04-06T12:16:58.0",
+        "startLatitude": 45.62426193617284, "startLongitude": 9.630032842978835, "distance":
+        0.74, "duration": 6.0, "movingDuration": 3.0, "elapsedDuration": 6.0, "elevationGain":
+        0.0, "elevationLoss": 0.0, "averageSpeed": 0.12300000339746475, "averageMovingSpeed":
+        0.24666666984558105, "maxSpeed": 1.0260000228881836, "calories": 1.0, "bmrCalories":
+        0.0, "averageHR": 105.0, "maxHR": 108.0, "averageRunCadence": 0.0, "maxRunCadence":
+        0.0, "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature":
+        31.0, "averagePower": 16.0, "maxPower": 97.0, "normalizedPower": 186.0, "verticalOscillation":
+        5.55999984741211, "totalExerciseReps": 0, "endLatitude": 45.62426067888737,
+        "endLongitude": 9.63003502227366, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        0.4320000112056732, "avgElapsedDurationVerticalSpeed": -0.12000122070312501,
+        "type": "RWD_WALK", "messageIndex": 58, "endTimeGMT": "2026-04-06T12:17:03.0",
+        "startElevation": 185.8}, {"startTimeLocal": "2026-04-06T14:17:04.0", "startTimeGMT":
+        "2026-04-06T12:17:04.0", "startLatitude": 45.62426067888737, "startLongitude":
+        9.63003502227366, "distance": 0.0, "duration": 6.0, "movingDuration": 0.0,
+        "elapsedDuration": 6.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        0.0, "maxSpeed": 0.0, "calories": 0.0, "bmrCalories": 0.0, "averageHR": 96.0,
+        "maxHR": 98.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        31.0, "maxTemperature": 32.0, "minTemperature": 31.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 139.0, "totalExerciseReps": 0, "endLatitude":
+        45.62425187788904, "endLongitude": 9.630050025880337, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.0, "avgElapsedDurationVerticalSpeed": 0.079998779296875,
+        "type": "RWD_STAND", "messageIndex": 59, "endTimeGMT": "2026-04-06T12:17:09.0",
+        "startElevation": 185.6}, {"startTimeLocal": "2026-04-06T14:17:10.0", "startTimeGMT":
+        "2026-04-06T12:17:10.0", "startLatitude": 45.62426067888737, "startLongitude":
+        9.63003502227366, "distance": 10.43, "duration": 5.0, "movingDuration": 4.0,
+        "elapsedDuration": 5.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        2.0859999656677246, "averageMovingSpeed": 2.6075000762939453, "maxSpeed":
+        1.277999997138977, "calories": 0.0, "bmrCalories": 0.0, "averageHR": 96.0,
+        "maxHR": 101.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        32.0, "maxTemperature": 32.0, "minTemperature": 31.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 90.0, "totalExerciseReps": 0, "endLatitude":
+        45.62418348155916, "endLongitude": 9.6300208568573, "avgVerticalSpeed": 0.0,
+        "avgGradeAdjustedSpeed": 0.8610000014305115, "avgElapsedDurationVerticalSpeed":
+        0.0, "type": "RWD_WALK", "messageIndex": 60, "endTimeGMT": "2026-04-06T12:17:14.0",
+        "startElevation": 186.0}, {"startTimeLocal": "2026-04-06T14:17:12.0", "startTimeGMT":
+        "2026-04-06T12:17:12.0", "startLatitude": 45.62425212934613, "startLongitude":
+        9.630049020051956, "distance": 100.0, "duration": 14.892, "movingDuration":
+        14.892, "elapsedDuration": 14.892, "elevationGain": 0.0, "elevationLoss":
+        2.0, "averageSpeed": 6.715000152587891, "averageMovingSpeed": 6.715014683587235,
+        "maxSpeed": 7.697999954223633, "calories": 2.0, "bmrCalories": 0.0, "averageHR":
+        102.0, "maxHR": 108.0, "averageRunCadence": 70.9375, "maxRunCadence": 128.0,
+        "averageTemperature": 31.0, "maxTemperature": 32.0, "minTemperature": 31.0,
+        "averagePower": 467.0, "maxPower": 987.0, "normalizedPower": 159.0, "groundContactTime":
+        285.0, "strideLength": 250.0, "verticalOscillation": 14.0, "verticalRatio":
+        5.599999904632568, "totalExerciseReps": 0, "endLatitude": 45.62334654852748,
+        "endLongitude": 9.629610478878021, "avgVerticalSpeed": -0.15299999713897705,
+        "avgGradeAdjustedSpeed": 6.007999897003174, "avgElapsedDurationVerticalSpeed":
+        -0.09333292643229167, "type": "INTERVAL_ACTIVE", "messageIndex": 61, "lapIndexes":
+        [11], "endTimeGMT": "2026-04-06T12:17:27.0", "startElevation": 186.0, "avgStepLength":
+        2.5}, {"startTimeLocal": "2026-04-06T14:17:15.0", "startTimeGMT": "2026-04-06T12:17:15.0",
+        "startLatitude": 45.624119779095054, "startLongitude": 9.62999545969069, "distance":
+        136.49, "duration": 29.0, "movingDuration": 28.0, "elapsedDuration": 29.0,
+        "elevationGain": 1.0, "elevationLoss": 2.0, "averageSpeed": 4.706999778747559,
+        "averageMovingSpeed": 4.874643053327288, "maxSpeed": 7.697999954223633, "calories":
+        5.0, "bmrCalories": 1.0, "averageHR": 120.0, "maxHR": 143.0, "averageRunCadence":
+        89.375, "maxRunCadence": 244.0, "averageTemperature": 31.0, "maxTemperature":
+        32.0, "minTemperature": 31.0, "averagePower": 458.0, "maxPower": 987.0, "normalizedPower":
+        363.0, "groundContactTime": 290.8999938964844, "strideLength": 209.139990234375,
+        "verticalOscillation": 12.390000152587891, "verticalRatio": 6.420000076293945,
+        "totalExerciseReps": 0, "endLatitude": 45.623131887987256, "endLongitude":
+        9.629609137773514, "avgVerticalSpeed": -0.03799999877810478, "avgGradeAdjustedSpeed":
+        5.363999843597412, "avgElapsedDurationVerticalSpeed": 0.0, "type": "RWD_RUN",
+        "messageIndex": 62, "endTimeGMT": "2026-04-06T12:17:43.0", "startElevation":
+        185.8, "avgStepLength": 2.09139990234375}, {"startTimeLocal": "2026-04-06T14:17:28.0",
+        "startTimeGMT": "2026-04-06T12:17:28.0", "startLatitude": 45.62328175641596,
+        "startLongitude": 9.629582315683365, "distance": 178.05, "duration": 135.113,
+        "movingDuration": 133.0, "elapsedDuration": 135.113, "elevationGain": 2.0,
+        "elevationLoss": 0.0, "averageSpeed": 1.3179999589920044, "averageMovingSpeed":
+        1.3387218274568253, "maxSpeed": 7.482999801635742, "calories": 19.0, "bmrCalories":
+        3.0, "averageHR": 118.0, "maxHR": 143.0, "averageRunCadence": 87.390625, "maxRunCadence":
+        244.0, "averageTemperature": 31.0, "maxTemperature": 32.0, "minTemperature":
+        31.0, "averagePower": 124.0, "maxPower": 899.0, "normalizedPower": 282.0,
+        "groundContactTime": 295.6000061035156, "strideLength": 88.82999877929689,
+        "verticalOscillation": 6.20999984741211, "verticalRatio": 8.079999923706055,
+        "totalExerciseReps": 0, "endLatitude": 45.624256236478686, "endLongitude":
+        9.630028568208218, "avgVerticalSpeed": 0.017999999225139618, "avgGradeAdjustedSpeed":
+        1.5080000162124634, "avgElapsedDurationVerticalSpeed": 0.010526384626116072,
+        "type": "INTERVAL_RECOVERY", "messageIndex": 63, "lapIndexes": [12], "endTimeGMT":
+        "2026-04-06T12:19:41.0", "startElevation": 185.4, "avgStepLength": 0.8882999877929688},
+        {"startTimeLocal": "2026-04-06T14:17:44.0", "startTimeGMT": "2026-04-06T12:17:44.0",
+        "startLatitude": 45.623146556317806, "startLongitude": 9.629612155258656,
+        "distance": 134.97, "duration": 120.0, "movingDuration": 117.0, "elapsedDuration":
+        120.0, "elevationGain": 1.0, "elevationLoss": 0.0, "averageSpeed": 1.125,
+        "averageMovingSpeed": 1.1535897540231037, "maxSpeed": 1.277999997138977, "calories":
+        17.0, "bmrCalories": 3.0, "averageHR": 116.0, "maxHR": 143.0, "averageRunCadence":
+        85.453125, "maxRunCadence": 111.0, "averageTemperature": 31.0, "maxTemperature":
+        32.0, "minTemperature": 31.0, "averagePower": 90.0, "maxPower": 125.0, "normalizedPower":
+        233.0, "strideLength": 69.35999755859375, "verticalOscillation": 5.7, "verticalRatio":
+        8.300000190734863, "totalExerciseReps": 0, "endLatitude": 45.62423595227301,
+        "endLongitude": 9.630015743896365, "avgVerticalSpeed": 0.009999999776482582,
+        "avgGradeAdjustedSpeed": 1.1629999876022339, "avgElapsedDurationVerticalSpeed":
+        0.010084007968421743, "type": "RWD_WALK", "messageIndex": 64, "endTimeGMT":
+        "2026-04-06T12:19:43.0", "startElevation": 185.8, "avgStepLength": 0.6935999755859374},
+        {"startTimeLocal": "2026-04-06T14:19:42.0", "startTimeGMT": "2026-04-06T12:19:42.0",
+        "startLatitude": 45.62425238080323, "startLongitude": 9.630026556551456, "distance":
+        100.0, "duration": 14.775, "movingDuration": 11.0, "elapsedDuration": 14.775,
+        "elevationGain": 0.0, "elevationLoss": 1.0, "averageSpeed": 6.76800012588501,
+        "averageMovingSpeed": 9.090909090909092, "maxSpeed": 8.052000045776367, "calories":
+        3.0, "bmrCalories": 0.0, "averageHR": 122.0, "maxHR": 136.0, "averageRunCadence":
+        132.125, "maxRunCadence": 247.0, "averageTemperature": 31.0, "maxTemperature":
+        32.0, "minTemperature": 31.0, "averagePower": 429.0, "maxPower": 1049.0, "normalizedPower":
+        171.0, "groundContactTime": 187.0, "strideLength": 206.810009765625, "verticalOscillation":
+        7.640000152587891, "verticalRatio": 3.549999952316284, "totalExerciseReps":
+        0, "endLatitude": 45.62338728457689, "endLongitude": 9.629662111401558, "avgVerticalSpeed":
+        -0.09600000083446504, "avgGradeAdjustedSpeed": 5.10699987411499, "avgElapsedDurationVerticalSpeed":
+        -0.11428615025111608, "type": "INTERVAL_ACTIVE", "messageIndex": 65, "lapIndexes":
+        [13], "endTimeGMT": "2026-04-06T12:19:56.0", "startElevation": 186.8, "avgStepLength":
+        2.06810009765625}, {"startTimeLocal": "2026-04-06T14:19:44.0", "startTimeGMT":
+        "2026-04-06T12:19:44.0", "startLatitude": 45.62419236637652, "startLongitude":
+        9.629993196576834, "distance": 5.12, "duration": 1.0, "elapsedDuration": 1.0,
+        "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 5.119999885559082,
+        "maxSpeed": 0.0, "calories": 0.0, "bmrCalories": 0.0, "averageHR": 111.0,
+        "maxHR": 111.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        32.0, "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 100.0, "totalExerciseReps": 0, "endLatitude":
+        45.62419236637652, "endLongitude": 9.629993196576834, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.0, "type": "RWD_STAND", "messageIndex": 66,
+        "endTimeGMT": "2026-04-06T12:19:44.0", "startElevation": 186.4}, {"startTimeLocal":
+        "2026-04-06T14:19:45.0", "startTimeGMT": "2026-04-06T12:19:45.0", "startLatitude":
+        45.62412606552243, "startLongitude": 9.629964530467987, "distance": 7.67,
+        "duration": 1.001, "elapsedDuration": 1.001, "averageSpeed": 7.6620001792907715,
+        "maxSpeed": 0.7459999918937683, "calories": 0.0, "bmrCalories": 0.0, "averageHR":
+        115.0, "maxHR": 115.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        31.0, "maxTemperature": 31.0, "minTemperature": 31.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 97.0, "totalExerciseReps": 0, "endLatitude":
+        45.62412606552243, "endLongitude": 9.629964530467987, "avgGradeAdjustedSpeed":
+        0.7519999742507935, "type": "RWD_WALK", "messageIndex": 67, "endTimeGMT":
+        "2026-04-06T12:19:45.0"}, {"startTimeLocal": "2026-04-06T14:19:46.0", "startTimeGMT":
+        "2026-04-06T12:19:46.0", "startLatitude": 45.62405264005065, "startLongitude":
+        9.629933349788189, "distance": 117.21, "duration": 24.999, "movingDuration":
+        22.0, "elapsedDuration": 24.999, "elevationGain": 1.0, "elevationLoss": 1.0,
+        "averageSpeed": 4.689000129699707, "averageMovingSpeed": 5.3277272311123935,
+        "maxSpeed": 8.052000045776367, "calories": 7.0, "bmrCalories": 1.0, "averageHR":
+        136.0, "maxHR": 147.0, "averageRunCadence": 168.1875, "maxRunCadence": 247.0,
+        "averageTemperature": 31.0, "maxTemperature": 32.0, "minTemperature": 31.0,
+        "averagePower": 484.0, "maxPower": 1049.0, "normalizedPower": 337.0, "groundContactTime":
+        183.10000610351562, "strideLength": 171.60999755859376, "verticalOscillation":
+        6.20999984741211, "verticalRatio": 3.940000057220459, "totalExerciseReps":
+        0, "endLatitude": 45.623121578246355, "endLongitude": 9.62957477197051, "avgVerticalSpeed":
+        -0.007000000216066837, "avgGradeAdjustedSpeed": 5.1030001640319815, "avgElapsedDurationVerticalSpeed":
+        -0.025000254313151046, "type": "RWD_RUN", "messageIndex": 68, "endTimeGMT":
+        "2026-04-06T12:20:10.0", "startElevation": 185.6, "avgStepLength": 1.7160999755859376},
+        {"startTimeLocal": "2026-04-06T14:19:57.0", "startTimeGMT": "2026-04-06T12:19:57.0",
+        "startLatitude": 45.62332785688341, "startLongitude": 9.629634702578187, "distance":
+        170.85, "duration": 162.825, "movingDuration": 117.0, "elapsedDuration": 162.825,
+        "elevationGain": 2.0, "elevationLoss": 0.0, "averageSpeed": 1.0490000247955322,
+        "averageMovingSpeed": 1.4602564624232102, "maxSpeed": 7.287000179290772, "calories":
+        27.0, "bmrCalories": 4.0, "averageHR": 119.0, "maxHR": 147.0, "averageRunCadence":
+        82.671875, "maxRunCadence": 247.0, "averageTemperature": 31.0, "maxTemperature":
+        32.0, "minTemperature": 31.0, "averagePower": 121.0, "maxPower": 812.0, "normalizedPower":
+        255.0, "groundContactTime": 277.1000061035156, "strideLength": 77.25999755859375,
+        "verticalOscillation": 6.1000000000000005, "verticalRatio": 8.729999542236328,
+        "totalExerciseReps": 0, "endLatitude": 45.6242607627064, "endLongitude": 9.630034770816565,
+        "avgVerticalSpeed": 0.014999999664723875, "avgGradeAdjustedSpeed": 1.2139999866485596,
+        "avgElapsedDurationVerticalSpeed": 0.008695614263878106, "type": "INTERVAL_RECOVERY",
+        "messageIndex": 69, "lapIndexes": [14], "endTimeGMT": "2026-04-06T12:22:38.0",
+        "startElevation": 186.0, "avgStepLength": 0.7725999755859375}, {"startTimeLocal":
+        "2026-04-06T14:20:11.0", "startTimeGMT": "2026-04-06T12:20:11.0", "startLatitude":
+        45.6231193151325, "startLongitude": 9.62958156131208, "distance": 4.62, "duration":
+        35.0, "movingDuration": 0.0, "elapsedDuration": 35.0, "elevationGain": 0.0,
+        "elevationLoss": 0.0, "averageSpeed": 0.13199999928474426, "maxSpeed": 0.0,
+        "calories": 9.0, "bmrCalories": 1.0, "averageHR": 136.0, "maxHR": 144.0, "averageRunCadence":
+        0.0, "maxRunCadence": 0.0, "averageTemperature": 31.0, "maxTemperature": 31.0,
+        "minTemperature": 31.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower":
+        307.0, "totalExerciseReps": 0, "endLatitude": 45.62314102426171, "endLongitude":
+        9.629595475271344, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 0.0,
+        "avgElapsedDurationVerticalSpeed": 0.017647238338694853, "type": "RWD_STAND",
+        "messageIndex": 70, "endTimeGMT": "2026-04-06T12:20:45.0", "startElevation":
+        185.6}, {"startTimeLocal": "2026-04-06T14:20:46.0", "startTimeGMT": "2026-04-06T12:20:46.0",
+        "startLatitude": 45.62314630486071, "startLongitude": 9.629593966528773, "distance":
+        71.17, "duration": 56.0, "movingDuration": 55.0, "elapsedDuration": 56.0,
+        "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 1.2710000276565552,
+        "averageMovingSpeed": 1.2939999667080966, "maxSpeed": 1.315999984741211, "calories":
+        7.0, "bmrCalories": 1.0, "averageHR": 115.0, "maxHR": 129.0, "averageRunCadence":
+        93.546875, "maxRunCadence": 155.0, "averageTemperature": 31.0, "maxTemperature":
+        32.0, "minTemperature": 31.0, "averagePower": 97.0, "maxPower": 185.0, "normalizedPower":
+        86.0, "groundContactTime": 326.0, "strideLength": 68.22000122070312, "verticalOscillation":
+        5.75, "verticalRatio": 8.520000457763672, "totalExerciseReps": 0, "endLatitude":
+        45.62375499866903, "endLongitude": 9.629842322319746, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 1.2269999980926514, "avgElapsedDurationVerticalSpeed":
+        0.010909201882102273, "type": "RWD_WALK", "messageIndex": 71, "endTimeGMT":
+        "2026-04-06T12:21:41.0", "startElevation": 186.0, "avgStepLength": 0.6822000122070313},
+        {"startTimeLocal": "2026-04-06T14:21:42.0", "startTimeGMT": "2026-04-06T12:21:42.0",
+        "startLatitude": 45.62377008609474, "startLongitude": 9.629851374775171, "distance":
+        45.99, "duration": 31.0, "movingDuration": 30.0, "elapsedDuration": 31.0,
+        "elevationGain": 1.0, "elevationLoss": 0.0, "averageSpeed": 1.4839999675750732,
+        "averageMovingSpeed": 1.5330000559488932, "maxSpeed": 1.8009999990463257,
+        "calories": 4.0, "bmrCalories": 1.0, "averageHR": 107.0, "maxHR": 110.0, "averageRunCadence":
+        146.640625, "maxRunCadence": 161.0, "averageTemperature": 31.0, "maxTemperature":
+        32.0, "minTemperature": 31.0, "averagePower": 224.0, "maxPower": 272.0, "normalizedPower":
+        195.0, "groundContactTime": 314.0, "strideLength": 69.14000244140625, "verticalOscillation":
+        7.1099998474121096, "verticalRatio": 10.4399995803833, "totalExerciseReps":
+        0, "endLatitude": 45.624150121584535, "endLongitude": 9.630014738067985, "avgVerticalSpeed":
+        0.03700000047683716, "avgGradeAdjustedSpeed": 1.7569999694824219, "avgElapsedDurationVerticalSpeed":
+        0.0, "type": "RWD_RUN", "messageIndex": 72, "endTimeGMT": "2026-04-06T12:22:12.0",
+        "startElevation": 186.8, "avgStepLength": 0.6914000244140626}, {"startTimeLocal":
+        "2026-04-06T14:22:13.0", "startTimeGMT": "2026-04-06T12:22:13.0", "startLatitude":
+        45.624159425497055, "startLongitude": 9.630020186305046, "distance": 16.66,
+        "duration": 25.0, "movingDuration": 19.0, "elapsedDuration": 25.0, "elevationGain":
+        0.0, "elevationLoss": 0.0, "averageSpeed": 0.6660000085830688, "averageMovingSpeed":
+        0.8768420972322163, "maxSpeed": 1.343999981880188, "calories": 2.0, "bmrCalories":
+        1.0, "averageHR": 103.0, "maxHR": 107.0, "averageRunCadence": 55.390625, "maxRunCadence":
+        108.0, "averageTemperature": 31.0, "maxTemperature": 32.0, "minTemperature":
+        31.0, "averagePower": 60.0, "maxPower": 112.0, "normalizedPower": 172.0, "strideLength":
+        71.85000000000001, "verticalOscillation": 5.75, "verticalRatio": 8.039999961853027,
+        "totalExerciseReps": 0, "endLatitude": 45.6242607627064, "endLongitude": 9.630034770816565,
+        "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 0.8709999918937683, "avgElapsedDurationVerticalSpeed":
+        0.016666412353515625, "type": "RWD_WALK", "messageIndex": 73, "endTimeGMT":
+        "2026-04-06T12:22:37.0", "startElevation": 187.0, "avgStepLength": 0.7185000000000001},
+        {"startTimeLocal": "2026-04-06T14:22:38.0", "startTimeGMT": "2026-04-06T12:22:38.0",
+        "startLatitude": 45.6242607627064, "startLongitude": 9.630034770816565, "distance":
+        10.62, "duration": 5.0, "movingDuration": 0.0, "elapsedDuration": 5.0, "elevationGain":
+        0.0, "elevationLoss": 0.0, "averageSpeed": 2.124000072479248, "maxSpeed":
+        0.0, "calories": 0.0, "bmrCalories": 0.0, "averageHR": 105.0, "maxHR": 106.0,
+        "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature": 31.0,
+        "maxTemperature": 32.0, "minTemperature": 31.0, "averagePower": 0.0, "maxPower":
+        0.0, "normalizedPower": 59.0, "totalExerciseReps": 0, "endLatitude": 45.62416638247669,
+        "endLongitude": 9.630007445812225, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        0.0, "avgElapsedDurationVerticalSpeed": 0.10000228881835938, "type": "RWD_STAND",
+        "messageIndex": 74, "endTimeGMT": "2026-04-06T12:22:42.0", "startElevation":
+        187.4}, {"startTimeLocal": "2026-04-06T14:22:39.0", "startTimeGMT": "2026-04-06T12:22:39.0",
+        "startLatitude": 45.6242607627064, "startLongitude": 9.630034770816565, "distance":
+        100.0, "duration": 14.6, "movingDuration": 11.0, "elapsedDuration": 14.6,
+        "elevationGain": 0.0, "elevationLoss": 2.0, "averageSpeed": 6.848999977111816,
+        "averageMovingSpeed": 9.090909090909092, "maxSpeed": 7.959000110626221, "calories":
+        2.0, "bmrCalories": 0.0, "averageHR": 117.0, "maxHR": 133.0, "averageRunCadence":
+        125.0, "maxRunCadence": 247.0, "averageTemperature": 31.0, "maxTemperature":
+        32.0, "minTemperature": 31.0, "averagePower": 607.0, "maxPower": 951.0, "normalizedPower":
+        218.0, "groundContactTime": 230.5, "strideLength": 230.96999511718752, "verticalOscillation":
+        10.950000000000001, "verticalRatio": 4.599999904632568, "totalExerciseReps":
+        0, "endLatitude": 45.62335308641195, "endLongitude": 9.629660435020924, "avgVerticalSpeed":
+        -0.10499999672174454, "avgGradeAdjustedSpeed": 5.730000019073486, "avgElapsedDurationVerticalSpeed":
+        -0.11999918619791668, "type": "INTERVAL_ACTIVE", "messageIndex": 75, "lapIndexes":
+        [15], "endTimeGMT": "2026-04-06T12:22:54.0", "startElevation": 187.4, "avgStepLength":
+        2.309699951171875}, {"startTimeLocal": "2026-04-06T14:22:43.0", "startTimeGMT":
+        "2026-04-06T12:22:43.0", "startLatitude": 45.624103266745806, "startLongitude":
+        9.629982132464647, "distance": 120.09, "duration": 24.0, "movingDuration":
+        21.0, "elapsedDuration": 24.0, "elevationGain": 0.0, "elevationLoss": 2.0,
+        "averageSpeed": 5.004000186920166, "averageMovingSpeed": 5.718571254185268,
+        "maxSpeed": 7.959000110626221, "calories": 5.0, "bmrCalories": 1.0, "averageHR":
+        132.0, "maxHR": 147.0, "averageRunCadence": 144.90625, "maxRunCadence": 247.0,
+        "averageTemperature": 31.0, "maxTemperature": 32.0, "minTemperature": 31.0,
+        "averagePower": 610.0, "maxPower": 951.0, "normalizedPower": 395.0, "groundContactTime":
+        218.5, "strideLength": 203.79000244140627, "verticalOscillation": 9.569999694824219,
+        "verticalRatio": 4.869999885559082, "totalExerciseReps": 0, "endLatitude":
+        45.62314102426171, "endLongitude": 9.629558343440294, "avgVerticalSpeed":
+        -0.06400000303983688, "avgGradeAdjustedSpeed": 5.947999954223633, "avgElapsedDurationVerticalSpeed":
+        -0.08695652173913043, "type": "RWD_RUN", "messageIndex": 76, "endTimeGMT":
+        "2026-04-06T12:23:06.0", "startElevation": 185.4, "avgStepLength": 2.037900024414063},
+        {"startTimeLocal": "2026-04-06T14:22:55.0", "startTimeGMT": "2026-04-06T12:22:55.0",
+        "startLatitude": 45.623290641233325, "startLongitude": 9.629631601274014,
+        "distance": 186.68, "duration": 179.836, "movingDuration": 148.0, "elapsedDuration":
+        179.836, "elevationGain": 2.0, "elevationLoss": 0.0, "averageSpeed": 1.0379999876022339,
+        "averageMovingSpeed": 1.2613513018633866, "maxSpeed": 7.847000122070313, "calories":
+        28.0, "bmrCalories": 4.0, "averageHR": 117.0, "maxHR": 147.0, "averageRunCadence":
+        89.421875, "maxRunCadence": 245.0, "averageTemperature": 31.0, "maxTemperature":
+        32.0, "minTemperature": 31.0, "averagePower": 115.0, "maxPower": 837.0, "normalizedPower":
+        286.0, "groundContactTime": 302.1000061035156, "strideLength": 83.27999877929688,
+        "verticalOscillation": 5.920000076293945, "verticalRatio": 9.020000457763672,
+        "totalExerciseReps": 0, "endLatitude": 45.62425497919321, "endLongitude":
+        9.630044242367148, "avgVerticalSpeed": 0.01200000010430813, "avgGradeAdjustedSpeed":
+        1.1710000038146973, "avgElapsedDurationVerticalSpeed": 0.011235955056179775,
+        "type": "INTERVAL_RECOVERY", "messageIndex": 77, "lapIndexes": [16], "endTimeGMT":
+        "2026-04-06T12:25:53.0", "startElevation": 185.4, "avgStepLength": 0.8327999877929687},
+        {"startTimeLocal": "2026-04-06T14:23:07.0", "startTimeGMT": "2026-04-06T12:23:07.0",
+        "startLatitude": 45.62313985079527, "startLongitude": 9.62956203147769, "distance":
+        2.35, "duration": 7.0, "movingDuration": 0.0, "elapsedDuration": 7.0, "elevationGain":
+        0.0, "elevationLoss": 0.0, "averageSpeed": 0.335999995470047, "maxSpeed":
+        0.0, "calories": 2.0, "bmrCalories": 0.0, "averageHR": 142.0, "maxHR": 144.0,
+        "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature": 31.0,
+        "maxTemperature": 31.0, "minTemperature": 31.0, "averagePower": 0.0, "maxPower":
+        0.0, "normalizedPower": 502.0, "totalExerciseReps": 0, "endLatitude": 45.62313272617757,
+        "endLongitude": 9.629590613767505, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        0.0, "avgElapsedDurationVerticalSpeed": 0.09999847412109375, "type": "RWD_STAND",
+        "messageIndex": 78, "endTimeGMT": "2026-04-06T12:23:13.0", "startElevation":
+        185.6}, {"startTimeLocal": "2026-04-06T14:23:14.0", "startTimeGMT": "2026-04-06T12:23:14.0",
+        "startLatitude": 45.62313389964402, "startLongitude": 9.629596481099725, "distance":
+        0.79, "duration": 7.0, "movingDuration": 4.0, "elapsedDuration": 7.0, "elevationGain":
+        0.0, "elevationLoss": 0.0, "averageSpeed": 0.11299999803304672, "averageMovingSpeed":
+        0.19750000536441803, "maxSpeed": 0.6159999966621399, "calories": 2.0, "bmrCalories":
+        0.0, "averageHR": 138.0, "maxHR": 139.0, "averageRunCadence": 0.0, "maxRunCadence":
+        0.0, "averageTemperature": 31.0, "maxTemperature": 31.0, "minTemperature":
+        31.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower": 391.0, "totalExerciseReps":
+        0, "endLatitude": 45.623133732005954, "endLongitude": 9.629603689536452, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.35199999809265137, "avgElapsedDurationVerticalSpeed":
+        -0.03333282470703125, "type": "RWD_WALK", "messageIndex": 79, "endTimeGMT":
+        "2026-04-06T12:23:20.0", "startElevation": 186.4}, {"startTimeLocal": "2026-04-06T14:23:21.0",
+        "startTimeGMT": "2026-04-06T12:23:21.0", "startLatitude": 45.623133732005954,
+        "startLongitude": 9.629603689536452, "distance": 3.3, "duration": 8.0, "movingDuration":
+        0.0, "elapsedDuration": 8.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        0.4129999876022339, "maxSpeed": 0.0, "calories": 2.0, "bmrCalories": 0.0,
+        "averageHR": 135.0, "maxHR": 138.0, "averageRunCadence": 11.875, "maxRunCadence":
+        95.0, "averageTemperature": 31.0, "maxTemperature": 31.0, "minTemperature":
+        31.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower": 184.0, "strideLength":
+        208.42104961997586, "totalExerciseReps": 0, "endLatitude": 45.62316541559994,
+        "endLongitude": 9.629605449736118, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        0.0, "avgElapsedDurationVerticalSpeed": 0.11428615025111608, "type": "RWD_STAND",
+        "messageIndex": 80, "endTimeGMT": "2026-04-06T12:23:28.0", "startElevation":
+        186.0}, {"startTimeLocal": "2026-04-06T14:23:29.0", "startTimeGMT": "2026-04-06T12:23:29.0",
+        "startLatitude": 45.62317715026438, "startLongitude": 9.62960410863161, "distance":
+        75.55, "duration": 66.0, "movingDuration": 65.0, "elapsedDuration": 66.0,
+        "elevationGain": 1.0, "elevationLoss": 0.0, "averageSpeed": 1.1449999809265137,
+        "averageMovingSpeed": 1.1623077392578125, "maxSpeed": 1.2599999904632568,
+        "calories": 12.0, "bmrCalories": 2.0, "averageHR": 121.0, "maxHR": 135.0,
+        "averageRunCadence": 100.265625, "maxRunCadence": 155.0, "averageTemperature":
+        31.0, "maxTemperature": 32.0, "minTemperature": 31.0, "averagePower": 110.0,
+        "maxPower": 144.0, "normalizedPower": 102.0, "strideLength": 78.7, "verticalOscillation":
+        5.65, "verticalRatio": 7.300000190734863, "totalExerciseReps": 0, "endLatitude":
+        45.623811073601246, "endLongitude": 9.62987769395113, "avgVerticalSpeed":
+        0.014999999664723875, "avgGradeAdjustedSpeed": 1.1740000247955322, "avgElapsedDurationVerticalSpeed":
+        0.0123077392578125, "type": "RWD_WALK", "messageIndex": 81, "endTimeGMT":
+        "2026-04-06T12:24:34.0", "startElevation": 186.8, "avgStepLength": 0.787},
+        {"startTimeLocal": "2026-04-06T14:24:35.0", "startTimeGMT": "2026-04-06T12:24:35.0",
+        "startLatitude": 45.62382440082729, "startLongitude": 9.629884399473667, "distance":
+        41.54, "duration": 29.0, "movingDuration": 28.0, "elapsedDuration": 29.0,
+        "elevationGain": 1.0, "elevationLoss": 0.0, "averageSpeed": 1.4320000410079954,
+        "averageMovingSpeed": 1.4835714612688338, "maxSpeed": 1.5490000247955322,
+        "calories": 3.0, "bmrCalories": 1.0, "averageHR": 109.0, "maxHR": 113.0, "averageRunCadence":
+        145.578125, "maxRunCadence": 159.0, "averageTemperature": 31.0, "maxTemperature":
+        32.0, "minTemperature": 31.0, "averagePower": 173.0, "maxPower": 200.0, "normalizedPower":
+        143.0, "groundContactTime": 325.1000061035156, "strideLength": 58.7, "verticalOscillation":
+        6.4, "verticalRatio": 11.369999885559082, "totalExerciseReps": 0, "endLatitude":
+        45.62416738830507, "endLongitude": 9.630036447197199, "avgVerticalSpeed":
+        0.03799999877810478, "avgGradeAdjustedSpeed": 1.3489999771118162, "avgElapsedDurationVerticalSpeed":
+        -0.014286041259765625, "type": "RWD_RUN", "messageIndex": 82, "endTimeGMT":
+        "2026-04-06T12:25:03.0", "startElevation": 187.6, "avgStepLength": 0.5870000000000001},
+        {"startTimeLocal": "2026-04-06T14:25:04.0", "startTimeGMT": "2026-04-06T12:25:04.0",
+        "startLatitude": 45.624176943674684, "startLongitude": 9.630037117749453,
+        "distance": 20.68, "duration": 26.0, "movingDuration": 24.0, "elapsedDuration":
+        26.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 0.7950000166893006,
+        "averageMovingSpeed": 0.8616666793823242, "maxSpeed": 1.4179999828338623,
+        "calories": 2.0, "bmrCalories": 1.0, "averageHR": 104.0, "maxHR": 107.0, "averageRunCadence":
+        91.03125, "maxRunCadence": 143.0, "averageTemperature": 32.0, "maxTemperature":
+        32.0, "minTemperature": 31.0, "averagePower": 89.0, "maxPower": 118.0, "normalizedPower":
+        142.0, "strideLength": 75.30999755859375, "verticalOscillation": 5.690000152587891,
+        "verticalRatio": 7.699999809265137, "totalExerciseReps": 0, "endLatitude":
+        45.62430828809738, "endLongitude": 9.630064526572824, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 1.0789999961853027, "avgElapsedDurationVerticalSpeed":
+        0.0079998779296875, "type": "RWD_WALK", "messageIndex": 83, "endTimeGMT":
+        "2026-04-06T12:25:29.0", "startElevation": 187.2, "avgStepLength": 0.7530999755859376},
+        {"startTimeLocal": "2026-04-06T14:25:30.0", "startTimeGMT": "2026-04-06T12:25:30.0",
+        "startLatitude": 45.624302588403225, "startLongitude": 9.630071567371488,
+        "distance": 11.76, "duration": 19.0, "movingDuration": 16.0, "elapsedDuration":
+        19.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 0.6190000176429749,
+        "averageMovingSpeed": 0.7350000143051147, "maxSpeed": 0.8209999799728394,
+        "calories": 1.0, "bmrCalories": 0.0, "averageHR": 100.0, "maxHR": 103.0, "averageRunCadence":
+        64.671875, "maxRunCadence": 160.0, "averageTemperature": 32.0, "maxTemperature":
+        32.0, "minTemperature": 32.0, "averagePower": 52.0, "maxPower": 132.0, "normalizedPower":
+        78.0, "groundContactTime": 341.0, "strideLength": 57.42348250773293, "verticalOscillation":
+        5.340000152587891, "totalExerciseReps": 0, "endLatitude": 45.62425497919321,
+        "endLongitude": 9.630044242367148, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        0.6000000238418579, "avgElapsedDurationVerticalSpeed": 0.011111789279513888,
+        "type": "RWD_RUN", "messageIndex": 84, "endTimeGMT": "2026-04-06T12:25:48.0",
+        "startElevation": 187.4}, {"startTimeLocal": "2026-04-06T14:25:49.0", "startTimeGMT":
+        "2026-04-06T12:25:49.0", "startLatitude": 45.62425497919321, "startLongitude":
+        9.630044242367148, "distance": 0.0, "duration": 1.0, "elapsedDuration": 1.0,
+        "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 0.0, "maxSpeed":
+        0.0, "calories": 0.0, "bmrCalories": 0.0, "averageHR": 101.0, "maxHR": 101.0,
+        "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature": 32.0,
+        "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0, "maxPower":
+        0.0, "normalizedPower": 61.0, "totalExerciseReps": 0, "endLatitude": 45.62425497919321,
+        "endLongitude": 9.630044242367148, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        0.0, "type": "RWD_WALK", "messageIndex": 85, "endTimeGMT": "2026-04-06T12:25:49.0",
+        "startElevation": 187.4}, {"startTimeLocal": "2026-04-06T14:25:50.0", "startTimeGMT":
+        "2026-04-06T12:25:50.0", "startLatitude": 45.62425497919321, "startLongitude":
+        9.630044242367148, "distance": 8.76, "duration": 7.0, "movingDuration": 0.0,
+        "elapsedDuration": 7.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        1.2510000467300415, "maxSpeed": 0.0, "calories": 0.0, "bmrCalories": 0.0,
+        "averageHR": 102.0, "maxHR": 102.0, "averageRunCadence": 0.0, "maxRunCadence":
+        0.0, "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature":
+        32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower": 47.0, "totalExerciseReps":
+        0, "endLatitude": 45.62417862005532, "endLongitude": 9.630016582086682, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.0, "avgElapsedDurationVerticalSpeed": 0.033335367838541664,
+        "type": "RWD_STAND", "messageIndex": 86, "endTimeGMT": "2026-04-06T12:25:56.0",
+        "startElevation": 187.4}, {"startTimeLocal": "2026-04-06T14:25:54.0", "startTimeGMT":
+        "2026-04-06T12:25:54.0", "startLatitude": 45.62425506301224, "startLongitude":
+        9.630044242367148, "distance": 100.0, "duration": 14.568, "movingDuration":
+        11.0, "elapsedDuration": 14.568, "elevationGain": 0.0, "elevationLoss": 2.0,
+        "averageSpeed": 6.863999843597412, "averageMovingSpeed": 9.090909090909092,
+        "maxSpeed": 7.986999988555908, "calories": 2.0, "bmrCalories": 0.0, "averageHR":
+        110.0, "maxHR": 126.0, "averageRunCadence": 99.59375, "maxRunCadence": 247.0,
+        "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature": 32.0,
+        "averagePower": 511.0, "maxPower": 1002.0, "normalizedPower": 173.0, "groundContactTime":
+        237.5, "strideLength": 230.96000976562502, "verticalOscillation": 10.790000152587892,
+        "verticalRatio": 4.519999980926514, "totalExerciseReps": 0, "endLatitude":
+        45.62338267453015, "endLongitude": 9.62964903563261, "avgVerticalSpeed": -0.13899999856948853,
+        "avgGradeAdjustedSpeed": 5.447999954223633, "avgElapsedDurationVerticalSpeed":
+        -0.15714263916015625, "type": "INTERVAL_ACTIVE", "messageIndex": 87, "lapIndexes":
+        [17], "endTimeGMT": "2026-04-06T12:26:08.0", "startElevation": 187.8, "avgStepLength":
+        2.3096000976562503}, {"startTimeLocal": "2026-04-06T14:25:57.0", "startTimeGMT":
+        "2026-04-06T12:25:57.0", "startLatitude": 45.62411273829639, "startLongitude":
+        9.629990262910724, "distance": 123.15, "duration": 26.0, "movingDuration":
+        23.0, "elapsedDuration": 26.0, "elevationGain": 0.0, "elevationLoss": 2.0,
+        "averageSpeed": 4.736999988555908, "averageMovingSpeed": 5.354347892429517,
+        "maxSpeed": 7.986999988555908, "calories": 5.0, "bmrCalories": 1.0, "averageHR":
+        128.0, "maxHR": 147.0, "averageRunCadence": 100.0, "maxRunCadence": 247.0,
+        "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature": 32.0,
+        "averagePower": 576.0, "maxPower": 1002.0, "normalizedPower": 399.0, "groundContactTime":
+        251.0, "strideLength": 237.039990234375, "verticalOscillation": 10.60999984741211,
+        "verticalRatio": 4.400000095367432, "totalExerciseReps": 0, "endLatitude":
+        45.6231330614537, "endLongitude": 9.629555158317089, "avgVerticalSpeed": -0.07800000160932541,
+        "avgGradeAdjustedSpeed": 5.59499979019165, "avgElapsedDurationVerticalSpeed":
+        -0.064000244140625, "type": "RWD_RUN", "messageIndex": 88, "endTimeGMT": "2026-04-06T12:26:22.0",
+        "startElevation": 186.4, "avgStepLength": 2.3703999023437503}, {"startTimeLocal":
+        "2026-04-06T14:26:09.0", "startTimeGMT": "2026-04-06T12:26:09.0", "startLatitude":
+        45.623317966237664, "startLongitude": 9.6296202018857, "distance": 188.93,
+        "duration": 221.156, "movingDuration": 136.0, "elapsedDuration": 221.156,
+        "elevationGain": 1.0, "elevationLoss": 0.0, "averageSpeed": 0.8539999723434449,
+        "averageMovingSpeed": 1.3891911226160385, "maxSpeed": 7.38100004196167, "calories":
+        31.0, "bmrCalories": 5.0, "averageHR": 113.0, "maxHR": 147.0, "averageRunCadence":
+        55.5625, "maxRunCadence": 161.0, "averageTemperature": 32.0, "maxTemperature":
+        32.0, "minTemperature": 32.0, "averagePower": 88.0, "maxPower": 950.0, "normalizedPower":
+        286.0, "groundContactTime": 314.6000061035156, "strideLength": 89.07999877929689,
+        "verticalOscillation": 6.320000076293946, "verticalRatio": 8.130000114440918,
+        "totalExerciseReps": 0, "endLatitude": 45.62425699084997, "endLongitude":
+        9.63003552518785, "avgVerticalSpeed": 0.006000000052154065, "avgGradeAdjustedSpeed":
+        0.9990000128746033, "avgElapsedDurationVerticalSpeed": 0.0045662100456621,
+        "type": "INTERVAL_RECOVERY", "messageIndex": 89, "lapIndexes": [18], "endTimeGMT":
+        "2026-04-06T12:29:48.0", "startElevation": 186.0, "avgStepLength": 0.8907999877929689},
+        {"startTimeLocal": "2026-04-06T14:26:23.0", "startTimeGMT": "2026-04-06T12:26:23.0",
+        "startLatitude": 45.62313356436789, "startLongitude": 9.62955716997385, "distance":
+        1.4, "duration": 7.001, "movingDuration": 0.0, "elapsedDuration": 7.001, "elevationGain":
+        0.0, "elevationLoss": 0.0, "averageSpeed": 0.20000000298023224, "maxSpeed":
+        0.0, "calories": 2.0, "bmrCalories": 0.0, "averageHR": 142.0, "maxHR": 145.0,
+        "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature": 32.0,
+        "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0, "maxPower":
+        0.0, "normalizedPower": 539.0, "totalExerciseReps": 0, "endLatitude": 45.62313113361597,
+        "endLongitude": 9.62957083247602, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        0.0, "avgElapsedDurationVerticalSpeed": 0.09999847412109375, "type": "RWD_STAND",
+        "messageIndex": 90, "endTimeGMT": "2026-04-06T12:26:29.0", "startElevation":
+        185.8}, {"startTimeLocal": "2026-04-06T14:26:30.0", "startTimeGMT": "2026-04-06T12:26:30.0",
+        "startLatitude": 45.623127864673734, "startLongitude": 9.629574604332447,
+        "distance": 1.78, "duration": 7.0, "movingDuration": 4.0, "elapsedDuration":
+        7.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 0.2540000081062317,
+        "averageMovingSpeed": 0.4449999928474427, "maxSpeed": 0.5879999995231628,
+        "calories": 2.0, "bmrCalories": 0.0, "averageHR": 139.0, "maxHR": 141.0, "averageRunCadence":
+        0.0, "maxRunCadence": 0.0, "averageTemperature": 32.0, "maxTemperature": 32.0,
+        "minTemperature": 32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower":
+        416.0, "totalExerciseReps": 0, "endLatitude": 45.62312417663634, "endLongitude":
+        9.629579549655318, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 0.33399999141693115,
+        "avgElapsedDurationVerticalSpeed": -0.033335367838541664, "type": "RWD_WALK",
+        "messageIndex": 91, "endTimeGMT": "2026-04-06T12:26:36.0", "startElevation":
+        186.8}, {"startTimeLocal": "2026-04-06T14:26:37.0", "startTimeGMT": "2026-04-06T12:26:37.0",
+        "startLatitude": 45.62312417663634, "startLongitude": 9.629579549655318, "distance":
+        4.32, "duration": 39.999, "movingDuration": 0.0, "elapsedDuration": 39.999,
+        "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 0.1080000028014183,
+        "maxSpeed": 0.0, "calories": 10.0, "bmrCalories": 1.0, "averageHR": 130.0,
+        "maxHR": 140.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        32.0, "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 135.0, "totalExerciseReps": 0, "endLatitude":
+        45.62313348054886, "endLongitude": 9.62960410863161, "avgVerticalSpeed": 0.0,
+        "avgGradeAdjustedSpeed": 0.0, "avgElapsedDurationVerticalSpeed": 0.010256645007011216,
+        "type": "RWD_STAND", "messageIndex": 92, "endTimeGMT": "2026-04-06T12:27:16.0",
+        "startElevation": 186.2}, {"startTimeLocal": "2026-04-06T14:27:17.0", "startTimeGMT":
+        "2026-04-06T12:27:17.0", "startLatitude": 45.62313926406205, "startLongitude":
+        9.629609137773514, "distance": 109.83, "duration": 85.0, "movingDuration":
+        81.0, "elapsedDuration": 85.0, "elevationGain": 1.0, "elevationLoss": 0.0,
+        "averageSpeed": 1.2920000553131101, "averageMovingSpeed": 1.3559259485315394,
+        "maxSpeed": 1.7640000581741333, "calories": 8.0, "bmrCalories": 2.0, "averageHR":
+        108.0, "maxHR": 119.0, "averageRunCadence": 94.09375, "maxRunCadence": 150.0,
+        "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature": 32.0,
+        "averagePower": 98.0, "maxPower": 147.0, "normalizedPower": 101.0, "strideLength":
+        73.22000122070312, "verticalOscillation": 5.820000076293946, "verticalRatio":
+        7.960000038146973, "totalExerciseReps": 0, "endLatitude": 45.62408138997853,
+        "endLongitude": 9.629990933462977, "avgVerticalSpeed": 0.01600000075995922,
+        "avgGradeAdjustedSpeed": 1.2920000553131101, "avgElapsedDurationVerticalSpeed":
+        0.002380916050502232, "type": "RWD_WALK", "messageIndex": 93, "endTimeGMT":
+        "2026-04-06T12:28:41.0", "startElevation": 187.2, "avgStepLength": 0.7322000122070312},
+        {"startTimeLocal": "2026-04-06T14:28:42.0", "startTimeGMT": "2026-04-06T12:28:42.0",
+        "startLatitude": 45.62409698031843, "startLongitude": 9.629998728632927, "distance":
+        20.95, "duration": 17.001, "movingDuration": 16.0, "elapsedDuration": 17.001,
+        "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 1.2319999933242798,
+        "averageMovingSpeed": 1.3093750476837158, "maxSpeed": 1.465000033378601, "calories":
+        2.0, "bmrCalories": 0.0, "averageHR": 103.0, "maxHR": 106.0, "averageRunCadence":
+        137.171875, "maxRunCadence": 161.0, "averageTemperature": 32.0, "maxTemperature":
+        32.0, "minTemperature": 32.0, "averagePower": 165.0, "maxPower": 202.0, "normalizedPower":
+        138.0, "groundContactTime": 322.1000061035156, "strideLength": 58.050000000000004,
+        "verticalOscillation": 6.379999923706055, "verticalRatio": 11.40999984741211,
+        "totalExerciseReps": 0, "endLatitude": 45.62426310963929, "endLongitude":
+        9.630057066679, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 1.3669999837875364,
+        "avgElapsedDurationVerticalSpeed": -0.012499809265136719, "type": "RWD_RUN",
+        "messageIndex": 94, "endTimeGMT": "2026-04-06T12:28:58.0", "startElevation":
+        187.2, "avgStepLength": 0.5805}, {"startTimeLocal": "2026-04-06T14:28:59.0",
+        "startTimeGMT": "2026-04-06T12:28:59.0", "startLatitude": 45.6242710724473,
+        "startLongitude": 9.630054300650954, "distance": 8.0, "duration": 14.999,
+        "movingDuration": 12.0, "elapsedDuration": 14.999, "elevationGain": 0.0, "elevationLoss":
+        0.0, "averageSpeed": 0.5329999923706055, "averageMovingSpeed": 0.6666666666666666,
+        "maxSpeed": 1.1759999990463257, "calories": 1.0, "bmrCalories": 0.0, "averageHR":
+        98.0, "maxHR": 100.0, "averageRunCadence": 52.65625, "maxRunCadence": 102.0,
+        "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature": 32.0,
+        "averagePower": 56.0, "maxPower": 102.0, "normalizedPower": 137.0, "strideLength":
+        60.775566695900864, "verticalOscillation": 5.6000000000000005, "totalExerciseReps":
+        0, "endLatitude": 45.62428372912109, "endLongitude": 9.630026556551456, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.8050000071525574, "avgElapsedDurationVerticalSpeed":
+        -0.05714307512555804, "type": "RWD_WALK", "messageIndex": 95, "endTimeGMT":
+        "2026-04-06T12:29:13.0", "startElevation": 186.8}, {"startTimeLocal": "2026-04-06T14:29:14.0",
+        "startTimeGMT": "2026-04-06T12:29:14.0", "startLatitude": 45.62427484430373,
+        "startLongitude": 9.630020102486014, "distance": 3.31, "duration": 5.0, "movingDuration":
+        0.0, "elapsedDuration": 5.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        0.662000000476837, "maxSpeed": 0.0, "calories": 0.0, "bmrCalories": 0.0, "averageHR":
+        98.0, "maxHR": 99.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        32.0, "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 95.0, "totalExerciseReps": 0, "endLatitude":
+        45.62426554039121, "endLongitude": 9.63004533201456, "avgVerticalSpeed": 0.0,
+        "avgGradeAdjustedSpeed": 0.0, "avgElapsedDurationVerticalSpeed": 0.049999237060546875,
+        "type": "RWD_STAND", "messageIndex": 96, "endTimeGMT": "2026-04-06T12:29:18.0",
+        "startElevation": 185.6}, {"startTimeLocal": "2026-04-06T14:29:19.0", "startTimeGMT":
+        "2026-04-06T12:29:19.0", "startLatitude": 45.62426528893411, "startLongitude":
+        9.630050612613559, "distance": 1.89, "duration": 5.0, "movingDuration": 2.0,
+        "elapsedDuration": 5.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        0.3779999911785126, "averageMovingSpeed": 0.9449999928474426, "maxSpeed":
+        0.6159999966621399, "calories": 0.0, "bmrCalories": 0.0, "averageHR": 97.0,
+        "maxHR": 98.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        32.0, "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 60.0, "totalExerciseReps": 0, "endLatitude":
+        45.6242745090276, "endLongitude": 9.630049020051956, "avgVerticalSpeed": 0.0,
+        "avgGradeAdjustedSpeed": 0.2460000067949295, "avgElapsedDurationVerticalSpeed":
+        0.25, "type": "RWD_WALK", "messageIndex": 97, "endTimeGMT": "2026-04-06T12:29:23.0",
+        "startElevation": 186.4}, {"startTimeLocal": "2026-04-06T14:29:24.0", "startTimeGMT":
+        "2026-04-06T12:29:24.0", "startLatitude": 45.62427165918052, "startLongitude":
+        9.630047427490354, "distance": 0.99, "duration": 4.0, "movingDuration": 0.0,
+        "elapsedDuration": 4.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        0.24799999594688416, "maxSpeed": 0.0, "calories": 0.0, "bmrCalories": 0.0,
+        "averageHR": 93.0, "maxHR": 93.0, "averageRunCadence": 0.0, "maxRunCadence":
+        0.0, "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature":
+        32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower": 38.0, "totalExerciseReps":
+        0, "endLatitude": 45.62427165918052, "endLongitude": 9.630047427490354, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.0, "avgElapsedDurationVerticalSpeed": -0.26666259765625,
+        "type": "RWD_STAND", "messageIndex": 98, "endTimeGMT": "2026-04-06T12:29:27.0",
+        "startElevation": 187.4}, {"startTimeLocal": "2026-04-06T14:29:28.0", "startTimeGMT":
+        "2026-04-06T12:29:28.0", "startLatitude": 45.62427165918052, "startLongitude":
+        9.630047427490354, "distance": 0.0, "duration": 5.0, "movingDuration": 2.0,
+        "elapsedDuration": 5.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        0.0, "averageMovingSpeed": 0.0, "maxSpeed": 0.8579999804496765, "calories":
+        0.0, "bmrCalories": 0.0, "averageHR": 97.0, "maxHR": 99.0, "averageRunCadence":
+        0.0, "maxRunCadence": 0.0, "averageTemperature": 32.0, "maxTemperature": 32.0,
+        "minTemperature": 32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower":
+        23.0, "totalExerciseReps": 0, "endLatitude": 45.62426000833511, "endLongitude":
+        9.63003946468234, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 0.34200000762939453,
+        "avgElapsedDurationVerticalSpeed": 0.20000076293945312, "type": "RWD_WALK",
+        "messageIndex": 99, "endTimeGMT": "2026-04-06T12:29:32.0", "startElevation":
+        185.8}, {"startTimeLocal": "2026-04-06T14:29:33.0", "startTimeGMT": "2026-04-06T12:29:33.0",
+        "startLatitude": 45.62427165918052, "startLongitude": 9.630047427490354, "distance":
+        0.26, "duration": 1.0, "elapsedDuration": 1.0, "elevationGain": 0.0, "elevationLoss":
+        0.0, "averageSpeed": 0.25999999046325684, "maxSpeed": 0.0, "calories": 0.0,
+        "bmrCalories": 0.0, "averageHR": 100.0, "maxHR": 100.0, "averageRunCadence":
+        0.0, "maxRunCadence": 0.0, "averageTemperature": 32.0, "maxTemperature": 32.0,
+        "minTemperature": 32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower":
+        12.0, "totalExerciseReps": 0, "endLatitude": 45.62427165918052, "endLongitude":
+        9.630047427490354, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 0.0,
+        "type": "RWD_STAND", "messageIndex": 100, "endTimeGMT": "2026-04-06T12:29:33.0",
+        "startElevation": 187.2}, {"startTimeLocal": "2026-04-06T14:29:34.0", "startTimeGMT":
+        "2026-04-06T12:29:34.0", "startLatitude": 45.62426176853478, "startLongitude":
+        9.630035860463977, "distance": 2.4, "duration": 9.0, "movingDuration": 6.0,
+        "elapsedDuration": 9.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        0.2669999897480011, "averageMovingSpeed": 0.40000001589457196, "maxSpeed":
+        1.38100004196167, "calories": 1.0, "bmrCalories": 0.0, "averageHR": 98.0,
+        "maxHR": 101.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        32.0, "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 5.0, "totalExerciseReps": 0, "endLatitude":
+        45.62426897697151, "endLongitude": 9.630050444975495, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.6290000081062317, "avgElapsedDurationVerticalSpeed":
+        -0.024999618530273438, "type": "RWD_WALK", "messageIndex": 101, "endTimeGMT":
+        "2026-04-06T12:29:42.0", "startElevation": 187.4}, {"startTimeLocal": "2026-04-06T14:29:43.0",
+        "startTimeGMT": "2026-04-06T12:29:43.0", "startLatitude": 45.62426269054413,
+        "startLongitude": 9.630049271509051, "distance": 7.39, "duration": 10.001,
+        "movingDuration": 0.0, "elapsedDuration": 10.001, "elevationGain": 0.0, "elevationLoss":
+        0.0, "averageSpeed": 0.7390000224113464, "maxSpeed": 0.0, "calories": 1.0,
+        "bmrCalories": 0.0, "averageHR": 98.0, "maxHR": 105.0, "averageRunCadence":
+        0.0, "maxRunCadence": 0.0, "averageTemperature": 32.0, "maxTemperature": 32.0,
+        "minTemperature": 32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower":
+        0.0, "totalExerciseReps": 0, "endLatitude": 45.6241968087852, "endLongitude":
+        9.63002328760922, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 0.0, "avgElapsedDurationVerticalSpeed":
+        0.08888922797309028, "type": "RWD_STAND", "messageIndex": 102, "endTimeGMT":
+        "2026-04-06T12:29:52.0", "startElevation": 186.4}, {"startTimeLocal": "2026-04-06T14:29:49.0",
+        "startTimeGMT": "2026-04-06T12:29:49.0", "startLatitude": 45.624256655573845,
+        "startLongitude": 9.630039129406214, "distance": 100.0, "duration": 14.452,
+        "movingDuration": 11.0, "elapsedDuration": 14.452, "elevationGain": 0.0, "elevationLoss":
+        1.0, "averageSpeed": 6.919000148773193, "averageMovingSpeed": 9.090909090909092,
+        "maxSpeed": 8.807999610900879, "calories": 2.0, "bmrCalories": 0.0, "averageHR":
+        117.0, "maxHR": 135.0, "averageRunCadence": 93.4375, "maxRunCadence": 247.0,
+        "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature": 32.0,
+        "averagePower": 440.0, "maxPower": 1145.0, "normalizedPower": 142.0, "groundContactTime":
+        254.0, "strideLength": 236.389990234375, "verticalOscillation": 11.890000152587891,
+        "verticalRatio": 4.909999847412109, "totalExerciseReps": 0, "endLatitude":
+        45.62334914691746, "endLongitude": 9.62963730096817, "avgVerticalSpeed": -0.07999999821186066,
+        "avgGradeAdjustedSpeed": 5.842000007629394, "avgElapsedDurationVerticalSpeed":
+        0.0, "type": "INTERVAL_ACTIVE", "messageIndex": 103, "lapIndexes": [19], "endTimeGMT":
+        "2026-04-06T12:30:04.0", "startElevation": 187.6, "avgStepLength": 2.36389990234375},
+        {"startTimeLocal": "2026-04-06T14:29:53.0", "startTimeGMT": "2026-04-06T12:29:53.0",
+        "startLatitude": 45.624126149341464, "startLongitude": 9.63000375777483, "distance":
+        7.99, "duration": 0.999, "elapsedDuration": 0.999, "elevationGain": 0.0, "elevationLoss":
+        0.0, "averageSpeed": 7.998000144958497, "maxSpeed": 0.5320000052452087, "calories":
+        0.0, "bmrCalories": 0.0, "averageHR": 108.0, "maxHR": 108.0, "averageRunCadence":
+        0.0, "maxRunCadence": 0.0, "averageTemperature": 32.0, "maxTemperature": 32.0,
+        "minTemperature": 32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower":
+        0.0, "totalExerciseReps": 0, "endLatitude": 45.624126149341464, "endLongitude":
+        9.63000375777483, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 0.5299999713897705,
+        "type": "RWD_WALK", "messageIndex": 104, "endTimeGMT": "2026-04-06T12:29:53.0",
+        "startElevation": 187.6}, {"startTimeLocal": "2026-04-06T14:29:54.0", "startTimeGMT":
+        "2026-04-06T12:29:54.0", "startLatitude": 45.624042665585876, "startLongitude":
+        9.62996855378151, "distance": 117.6, "duration": 25.0, "movingDuration": 22.0,
+        "elapsedDuration": 25.0, "elevationGain": 0.0, "elevationLoss": 1.0, "averageSpeed":
+        4.703999996185303, "averageMovingSpeed": 5.345454476096412, "maxSpeed": 8.807999610900879,
+        "calories": 5.0, "bmrCalories": 1.0, "averageHR": 134.0, "maxHR": 145.0, "averageRunCadence":
+        140.546875, "maxRunCadence": 247.0, "averageTemperature": 32.0, "maxTemperature":
+        32.0, "minTemperature": 32.0, "averagePower": 511.0, "maxPower": 1145.0, "normalizedPower":
+        341.0, "groundContactTime": 207.10000610351562, "strideLength": 184.4300048828125,
+        "verticalOscillation": 8.430000305175781, "verticalRatio": 4.519999980926514,
+        "totalExerciseReps": 0, "endLatitude": 45.62313272617757, "endLongitude":
+        9.629566809162498, "avgVerticalSpeed": -0.04600000008940697, "avgGradeAdjustedSpeed":
+        5.84499979019165, "avgElapsedDurationVerticalSpeed": -0.08333333333333333,
+        "type": "RWD_RUN", "messageIndex": 105, "endTimeGMT": "2026-04-06T12:30:18.0",
+        "startElevation": 185.4, "avgStepLength": 1.8443000488281251}, {"startTimeLocal":
+        "2026-04-06T14:30:05.0", "startTimeGMT": "2026-04-06T12:30:05.0", "startLatitude":
+        45.623284270986915, "startLongitude": 9.629611065611243, "distance": 188.31,
+        "duration": 220.138, "movingDuration": 120.0, "elapsedDuration": 220.138,
+        "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 0.8550000190734863,
+        "averageMovingSpeed": 1.569249979654948, "maxSpeed": 7.605000019073486, "calories":
+        33.0, "bmrCalories": 5.0, "averageHR": 114.0, "maxHR": 145.0, "averageRunCadence":
+        58.328125, "maxRunCadence": 241.0, "averageTemperature": 32.0, "maxTemperature":
+        32.0, "minTemperature": 32.0, "averagePower": 85.0, "maxPower": 845.0, "normalizedPower":
+        241.0, "groundContactTime": 253.0, "strideLength": 83.25, "verticalOscillation":
+        6.079999923706055, "verticalRatio": 7.78000020980835, "totalExerciseReps":
+        0, "endLatitude": 45.62425774522126, "endLongitude": 9.630035441368818, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.9490000009536743, "avgElapsedDurationVerticalSpeed":
+        -0.0009174171937715024, "type": "INTERVAL_RECOVERY", "messageIndex": 106,
+        "lapIndexes": [20], "endTimeGMT": "2026-04-06T12:33:43.0", "startElevation":
+        186.8, "avgStepLength": 0.8325}, {"startTimeLocal": "2026-04-06T14:30:19.0",
+        "startTimeGMT": "2026-04-06T12:30:19.0", "startLatitude": 45.62313264235854,
+        "startLongitude": 9.629570161923766, "distance": 7.86, "duration": 72.002,
+        "movingDuration": 0.0, "elapsedDuration": 72.002, "elevationGain": 0.0, "elevationLoss":
+        0.0, "averageSpeed": 0.10899999737739564, "maxSpeed": 0.0, "calories": 17.0,
+        "bmrCalories": 2.0, "averageHR": 129.0, "maxHR": 144.0, "averageRunCadence":
+        0.0, "maxRunCadence": 0.0, "averageTemperature": 32.0, "maxTemperature": 32.0,
+        "minTemperature": 32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower":
+        269.0, "totalExerciseReps": 0, "endLatitude": 45.62315762042999, "endLongitude":
+        9.629591787233949, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 0.0,
+        "avgElapsedDurationVerticalSpeed": 0.0056337168518926055, "type": "RWD_STAND",
+        "messageIndex": 107, "endTimeGMT": "2026-04-06T12:31:30.0", "startElevation":
+        185.6}, {"startTimeLocal": "2026-04-06T14:31:31.0", "startTimeGMT": "2026-04-06T12:31:31.0",
+        "startLatitude": 45.62317069619894, "startLongitude": 9.629587512463331, "distance":
+        14.76, "duration": 10.998, "movingDuration": 10.0, "elapsedDuration": 10.998,
+        "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 1.3420000076293943,
+        "averageMovingSpeed": 1.4760000228881835, "maxSpeed": 1.791000008583069, "calories":
+        1.0, "bmrCalories": 0.0, "averageHR": 115.0, "maxHR": 117.0, "averageRunCadence":
+        14.359375, "maxRunCadence": 158.0, "averageTemperature": 32.0, "maxTemperature":
+        32.0, "minTemperature": 32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower":
+        0.0, "strideLength": 560.7746282473745, "totalExerciseReps": 0, "endLatitude":
+        45.623282343149185, "endLongitude": 9.629649287089705, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 1.3480000495910645, "avgElapsedDurationVerticalSpeed":
+        0.0399993896484375, "type": "RWD_WALK", "messageIndex": 108, "endTimeGMT":
+        "2026-04-06T12:31:41.0", "startElevation": 186.0}, {"startTimeLocal": "2026-04-06T14:31:42.0",
+        "startTimeGMT": "2026-04-06T12:31:42.0", "startLatitude": 45.62329826876521,
+        "startLongitude": 9.629655489698052, "distance": 32.13, "duration": 21.0,
+        "movingDuration": 20.0, "elapsedDuration": 21.0, "elevationGain": 0.0, "elevationLoss":
+        0.0, "averageSpeed": 1.5299999713897705, "averageMovingSpeed": 1.6065000534057616,
+        "maxSpeed": 1.940999984741211, "calories": 3.0, "bmrCalories": 1.0, "averageHR":
+        114.0, "maxHR": 115.0, "averageRunCadence": 145.609375, "maxRunCadence": 162.0,
+        "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature": 32.0,
+        "averagePower": 196.0, "maxPower": 242.0, "normalizedPower": 102.0, "groundContactTime":
+        305.5, "strideLength": 68.7, "verticalOscillation": 6.9, "verticalRatio":
+        10.59000015258789, "totalExerciseReps": 0, "endLatitude": 45.62356615439057,
+        "endLongitude": 9.629751378670335, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        1.6510000228881838, "avgElapsedDurationVerticalSpeed": -0.01999969482421875,
+        "type": "RWD_RUN", "messageIndex": 109, "endTimeGMT": "2026-04-06T12:32:02.0",
+        "startElevation": 186.4, "avgStepLength": 0.687}, {"startTimeLocal": "2026-04-06T14:32:03.0",
+        "startTimeGMT": "2026-04-06T12:32:03.0", "startLatitude": 45.623581409454346,
+        "startLongitude": 9.629752887412906, "distance": 91.12, "duration": 75.0,
+        "movingDuration": 72.0, "elapsedDuration": 75.0, "elevationGain": 0.0, "elevationLoss":
+        0.0, "averageSpeed": 1.215000033378601, "averageMovingSpeed": 1.2655555937025282,
+        "maxSpeed": 1.819000005722046, "calories": 7.0, "bmrCalories": 2.0, "averageHR":
+        101.0, "maxHR": 110.0, "averageRunCadence": 100.546875, "maxRunCadence": 120.0,
+        "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature": 32.0,
+        "averagePower": 116.0, "maxPower": 173.0, "normalizedPower": 140.0, "strideLength":
+        77.87999877929688, "verticalOscillation": 5.890000152587891, "verticalRatio":
+        7.599999904632568, "totalExerciseReps": 0, "endLatitude": 45.624296218156815,
+        "endLongitude": 9.630036111921072, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        1.3589999675750732, "avgElapsedDurationVerticalSpeed": 0.008108190588048986,
+        "type": "RWD_WALK", "messageIndex": 110, "endTimeGMT": "2026-04-06T12:33:17.0",
+        "startElevation": 186.2, "avgStepLength": 0.7787999877929689}, {"startTimeLocal":
+        "2026-04-06T14:33:18.0", "startTimeGMT": "2026-04-06T12:33:18.0", "startLatitude":
+        45.62429320067167, "startLongitude": 9.630036698654294, "distance": 2.97,
+        "duration": 4.001, "movingDuration": 0.0, "elapsedDuration": 4.001, "elevationGain":
+        0.0, "elevationLoss": 0.0, "averageSpeed": 0.7419999837875366, "maxSpeed":
+        0.0, "calories": 0.0, "bmrCalories": 0.0, "averageHR": 99.0, "maxHR": 99.0,
+        "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature": 32.0,
+        "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0, "maxPower":
+        0.0, "normalizedPower": 88.0, "totalExerciseReps": 0, "endLatitude": 45.624268809333444,
+        "endLongitude": 9.63003795593977, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        0.0, "avgElapsedDurationVerticalSpeed": -0.0666656494140625, "type": "RWD_STAND",
+        "messageIndex": 111, "endTimeGMT": "2026-04-06T12:33:21.0", "startElevation":
+        186.2}, {"startTimeLocal": "2026-04-06T14:33:22.0", "startTimeGMT": "2026-04-06T12:33:22.0",
+        "startLatitude": 45.624265456572175, "startLongitude": 9.63003602810204, "distance":
+        4.14, "duration": 9.999, "movingDuration": 5.0, "elapsedDuration": 9.999,
+        "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 0.414000004529953,
+        "averageMovingSpeed": 0.8279999732971192, "maxSpeed": 0.7179999947547913,
+        "calories": 0.0, "bmrCalories": 0.0, "averageHR": 97.0, "maxHR": 98.0, "averageRunCadence":
+        0.0, "maxRunCadence": 0.0, "averageTemperature": 32.0, "maxTemperature": 32.0,
+        "minTemperature": 32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower":
+        58.0, "totalExerciseReps": 0, "endLatitude": 45.62429420650005, "endLongitude":
+        9.630049858242273, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed": 0.32100000977516174,
+        "avgElapsedDurationVerticalSpeed": 0.1111111111111111, "type": "RWD_WALK",
+        "messageIndex": 112, "endTimeGMT": "2026-04-06T12:33:31.0", "startElevation":
+        186.2}, {"startTimeLocal": "2026-04-06T14:33:32.0", "startTimeGMT": "2026-04-06T12:33:32.0",
+        "startLatitude": 45.62428867444396, "startLongitude": 9.630050109699368, "distance":
+        13.02, "duration": 15.0, "movingDuration": 0.0, "elapsedDuration": 15.0, "elevationGain":
+        0.0, "elevationLoss": 0.0, "averageSpeed": 0.8679999709129333, "maxSpeed":
+        0.0, "calories": 1.0, "bmrCalories": 0.0, "averageHR": 99.0, "maxHR": 104.0,
+        "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature": 32.0,
+        "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0, "maxPower":
+        0.0, "normalizedPower": 21.0, "totalExerciseReps": 0, "endLatitude": 45.62418297864497,
+        "endLongitude": 9.62999981828034, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        0.0, "avgElapsedDurationVerticalSpeed": 0.014285496303013392, "type": "RWD_STAND",
+        "messageIndex": 113, "endTimeGMT": "2026-04-06T12:33:46.0", "startElevation":
+        186.6}, {"startTimeLocal": "2026-04-06T14:33:44.0", "startTimeGMT": "2026-04-06T12:33:44.0",
+        "startLatitude": 45.62425774522126, "startLongitude": 9.630035441368818, "distance":
+        100.0, "duration": 14.338, "movingDuration": 11.0, "elapsedDuration": 14.338,
+        "elevationGain": 0.0, "elevationLoss": 1.0, "averageSpeed": 6.973999977111816,
+        "averageMovingSpeed": 9.090909090909092, "maxSpeed": 7.949999809265137, "calories":
+        1.0, "bmrCalories": 0.0, "averageHR": 106.0, "maxHR": 115.0, "averageRunCadence":
+        152.921875, "maxRunCadence": 244.0, "averageTemperature": 32.0, "maxTemperature":
+        32.0, "minTemperature": 32.0, "averagePower": 546.0, "maxPower": 993.0, "normalizedPower":
+        173.0, "groundContactTime": 169.6999969482422, "strideLength": 199.23000488281252,
+        "verticalOscillation": 6.7, "verticalRatio": 3.2899999618530273, "totalExerciseReps":
+        0, "endLatitude": 45.62339147552848, "endLongitude": 9.62963872589171, "avgVerticalSpeed":
+        -0.09700000286102295, "avgGradeAdjustedSpeed": 5.730000019073486, "avgElapsedDurationVerticalSpeed":
+        -0.25714220319475445, "type": "INTERVAL_ACTIVE", "messageIndex": 114, "lapIndexes":
+        [21], "endTimeGMT": "2026-04-06T12:33:58.0", "startElevation": 187.4, "avgStepLength":
+        1.9923000488281253}, {"startTimeLocal": "2026-04-06T14:33:47.0", "startTimeGMT":
+        "2026-04-06T12:33:47.0", "startLatitude": 45.624120282009244, "startLongitude":
+        9.629977187141776, "distance": 122.48, "duration": 25.001, "movingDuration":
+        22.0, "elapsedDuration": 25.001, "elevationGain": 1.0, "elevationLoss": 1.0,
+        "averageSpeed": 4.89900016784668, "averageMovingSpeed": 5.567272879860618,
+        "maxSpeed": 7.949999809265137, "calories": 4.0, "bmrCalories": 1.0, "averageHR":
+        122.0, "maxHR": 143.0, "averageRunCadence": 121.390625, "maxRunCadence": 247.0,
+        "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature": 32.0,
+        "averagePower": 498.0, "maxPower": 993.0, "normalizedPower": 370.0, "groundContactTime":
+        188.0, "strideLength": 212.93999023437502, "verticalOscillation": 8.069999694824219,
+        "verticalRatio": 3.6700000762939453, "totalExerciseReps": 0, "endLatitude":
+        45.62313750386238, "endLongitude": 9.629564378410578, "avgVerticalSpeed":
+        0.0010000000474974513, "avgGradeAdjustedSpeed": 5.692999839782715, "avgElapsedDurationVerticalSpeed":
+        -0.041666666666666664, "type": "RWD_RUN", "messageIndex": 115, "endTimeGMT":
+        "2026-04-06T12:34:11.0", "startElevation": 185.2, "avgStepLength": 2.12939990234375},
+        {"startTimeLocal": "2026-04-06T14:33:59.0", "startTimeGMT": "2026-04-06T12:33:59.0",
+        "startLatitude": 45.62332718633115, "startLongitude": 9.629605701193213, "distance":
+        51.85, "duration": 109.114, "movingDuration": 23.0, "elapsedDuration": 109.114,
+        "elevationGain": 1.0, "elevationLoss": 0.0, "averageSpeed": 0.4749999940395355,
+        "averageMovingSpeed": 2.2543477597443955, "maxSpeed": 7.520999908447266, "calories":
+        23.0, "bmrCalories": 3.0, "averageHR": 126.0, "maxHR": 143.0, "averageRunCadence":
+        6.859375, "maxRunCadence": 247.0, "averageTemperature": 32.0, "maxTemperature":
+        32.0, "minTemperature": 32.0, "averagePower": 39.0, "maxPower": 905.0, "normalizedPower":
+        293.0, "groundContactTime": 243.0, "strideLength": 237.60000000000002, "verticalOscillation":
+        10.51999969482422, "verticalRatio": 4.349999904632568, "totalExerciseReps":
+        0, "endLatitude": 45.623110346496105, "endLongitude": 9.629610143601894, "avgVerticalSpeed":
+        0.013000000268220901, "avgGradeAdjustedSpeed": 0.6510000228881836, "avgElapsedDurationVerticalSpeed":
+        0.018691588785046728, "type": "INTERVAL_RECOVERY", "messageIndex": 116, "lapIndexes":
+        [22], "endTimeGMT": "2026-04-06T12:35:46.0", "startElevation": 183.8, "avgStepLength":
+        2.3760000000000003}, {"startTimeLocal": "2026-04-06T14:34:12.0", "startTimeGMT":
+        "2026-04-06T12:34:12.0", "startLatitude": 45.623138677328825, "startLongitude":
+        9.629564881324768, "distance": 4.3, "duration": 11.999, "movingDuration":
+        0.0, "elapsedDuration": 11.999, "elevationGain": 0.0, "elevationLoss": 0.0,
+        "averageSpeed": 0.35800001025199885, "maxSpeed": 0.0, "calories": 3.0, "bmrCalories":
+        0.0, "averageHR": 138.0, "maxHR": 143.0, "averageRunCadence": 0.0, "maxRunCadence":
+        0.0, "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature":
+        32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower": 407.0, "totalExerciseReps":
+        0, "endLatitude": 45.62312635593116, "endLongitude": 9.62960209697485, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.0, "avgElapsedDurationVerticalSpeed": 0.07272755015980113,
+        "type": "RWD_STAND", "messageIndex": 117, "endTimeGMT": "2026-04-06T12:34:23.0",
+        "startElevation": 185.4}, {"startTimeLocal": "2026-04-06T14:34:24.0", "startTimeGMT":
+        "2026-04-06T12:34:24.0", "startLatitude": 45.62312367372215, "startLongitude":
+        9.6296133287251, "distance": 2.28, "duration": 7.0, "movingDuration": 4.0,
+        "elapsedDuration": 7.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        0.32600000500679016, "averageMovingSpeed": 0.5699999928474426, "maxSpeed":
+        1.0640000104904175, "calories": 2.0, "bmrCalories": 0.0, "averageHR": 135.0,
+        "maxHR": 136.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        32.0, "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 196.0, "totalExerciseReps": 0, "endLatitude":
+        45.6231245957315, "endLongitude": 9.629625398665667, "avgVerticalSpeed": 0.0,
+        "avgGradeAdjustedSpeed": 0.6669999957084656, "avgElapsedDurationVerticalSpeed":
+        0.10000101725260419, "type": "RWD_WALK", "messageIndex": 118, "endTimeGMT":
+        "2026-04-06T12:34:30.0", "startElevation": 186.2}, {"startTimeLocal": "2026-04-06T14:34:31.0",
+        "startTimeGMT": "2026-04-06T12:34:31.0", "startLatitude": 45.6231245957315,
+        "startLongitude": 9.629625398665667, "distance": 2.95, "duration": 6.0, "movingDuration":
+        0.0, "elapsedDuration": 6.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        0.492000013589859, "maxSpeed": 0.0, "calories": 2.0, "bmrCalories": 0.0, "averageHR":
+        133.0, "maxHR": 135.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        32.0, "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 36.0, "totalExerciseReps": 0, "endLatitude":
+        45.62313213944435, "endLongitude": 9.629588769748807, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.0, "avgElapsedDurationVerticalSpeed": -0.0399993896484375,
+        "type": "RWD_STAND", "messageIndex": 119, "endTimeGMT": "2026-04-06T12:34:36.0",
+        "startElevation": 186.8}, {"startTimeLocal": "2026-04-06T14:34:37.0", "startTimeGMT":
+        "2026-04-06T12:34:37.0", "startLatitude": 45.623137168586254, "startLongitude":
+        9.629576448351145, "distance": 4.47, "duration": 11.0, "movingDuration": 6.0,
+        "elapsedDuration": 11.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        0.4059999883174896, "averageMovingSpeed": 0.7449999650319418, "maxSpeed":
+        1.2039999961853027, "calories": 3.0, "bmrCalories": 0.0, "averageHR": 130.0,
+        "maxHR": 131.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        32.0, "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 0.0, "totalExerciseReps": 0, "endLatitude":
+        45.62311395071447, "endLongitude": 9.62959723547101, "avgVerticalSpeed": 0.0,
+        "avgGradeAdjustedSpeed": 0.6420000195503235, "avgElapsedDurationVerticalSpeed":
+        -0.020001220703125, "type": "RWD_WALK", "messageIndex": 120, "endTimeGMT":
+        "2026-04-06T12:34:47.0", "startElevation": 186.4}, {"startTimeLocal": "2026-04-06T14:34:48.0",
+        "startTimeGMT": "2026-04-06T12:34:48.0", "startLatitude": 45.62311395071447,
+        "startLongitude": 9.62959723547101, "distance": 3.68, "duration": 12.0, "movingDuration":
+        0.0, "elapsedDuration": 12.0, "elevationGain": 0.0, "elevationLoss": 0.0,
+        "averageSpeed": 0.3070000112056732, "maxSpeed": 0.0, "calories": 3.0, "bmrCalories":
+        0.0, "averageHR": 129.0, "maxHR": 130.0, "averageRunCadence": 0.0, "maxRunCadence":
+        0.0, "averageTemperature": 32.0, "maxTemperature": 32.0, "minTemperature":
+        32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower": 0.0, "totalExerciseReps":
+        0, "endLatitude": 45.62312023714185, "endLongitude": 9.629594720900059, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.0, "avgElapsedDurationVerticalSpeed": 0.03636446866122159,
+        "type": "RWD_STAND", "messageIndex": 121, "endTimeGMT": "2026-04-06T12:34:59.0",
+        "startElevation": 186.4}, {"startTimeLocal": "2026-04-06T14:35:00.0", "startTimeGMT":
+        "2026-04-06T12:35:00.0", "startLatitude": 45.62311395071447, "startLongitude":
+        9.62959723547101, "distance": 0.69, "duration": 6.0, "movingDuration": 3.0,
+        "elapsedDuration": 6.0, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        0.11500000208616257, "averageMovingSpeed": 0.2299999992052714, "maxSpeed":
+        0.6529999971389769, "calories": 1.0, "bmrCalories": 0.0, "averageHR": 125.0,
+        "maxHR": 127.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        32.0, "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 0.0, "totalExerciseReps": 0, "endLatitude":
+        45.62311395071447, "endLongitude": 9.62959723547101, "avgVerticalSpeed": 0.0,
+        "avgGradeAdjustedSpeed": 0.35800001025199885, "avgElapsedDurationVerticalSpeed":
+        0.0399993896484375, "type": "RWD_WALK", "messageIndex": 122, "endTimeGMT":
+        "2026-04-06T12:35:05.0", "startElevation": 186.8}, {"startTimeLocal": "2026-04-06T14:35:06.0",
+        "startTimeGMT": "2026-04-06T12:35:06.0", "startLatitude": 45.62311395071447,
+        "startLongitude": 9.62959723547101, "distance": 8.08, "duration": 56.0, "movingDuration":
+        0.0, "elapsedDuration": 56.0, "elevationGain": 0.0, "elevationLoss": 0.0,
+        "averageSpeed": 0.14399999380111694, "maxSpeed": 0.0, "calories": 7.0, "bmrCalories":
+        1.0, "averageHR": 112.0, "maxHR": 122.0, "averageRunCadence": 0.0, "maxRunCadence":
+        0.0, "averageTemperature": 32.0, "maxTemperature": 33.0, "minTemperature":
+        32.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower": 0.0, "totalExerciseReps":
+        0, "endLatitude": 45.62308385968208, "endLongitude": 9.629544848576188, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.0, "avgElapsedDurationVerticalSpeed": -0.014545510031960227,
+        "type": "RWD_STAND", "messageIndex": 123, "endTimeGMT": "2026-04-06T12:36:01.0",
+        "startElevation": 187.2}, {"startTimeLocal": "2026-04-06T14:35:47.0", "startTimeGMT":
+        "2026-04-06T12:35:47.0", "startLatitude": 45.62310364097357, "startLongitude":
+        9.629597319290042, "distance": 1.1, "duration": 0.945, "elapsedDuration":
+        0.945, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 1.1640000343322754,
+        "maxSpeed": 0.0, "calories": 0.0, "bmrCalories": 0.0, "averageHR": 102.0,
+        "maxHR": 102.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        32.0, "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 0.0, "totalExerciseReps": 0, "endLatitude":
+        45.62310364097357, "endLongitude": 9.629597319290042, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.0, "type": "INTERVAL_ACTIVE", "messageIndex":
+        124, "lapIndexes": [23], "endTimeGMT": "2026-04-06T12:35:47.0", "startElevation":
+        186.0}, {"startTimeLocal": "2026-04-06T14:35:48.0", "startTimeGMT": "2026-04-06T12:35:48.0",
+        "startLatitude": 45.62309777364135, "startLongitude": 9.629593044519424, "distance":
+        0.87, "duration": 3.711, "movingDuration": 0.0, "elapsedDuration": 3.711,
+        "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 0.23399999737739563,
+        "maxSpeed": 0.0, "calories": 0.0, "bmrCalories": 0.0, "averageHR": 103.0,
+        "maxHR": 104.0, "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature":
+        32.0, "maxTemperature": 32.0, "minTemperature": 32.0, "averagePower": 0.0,
+        "maxPower": 0.0, "normalizedPower": 0.0, "totalExerciseReps": 0, "endLatitude":
+        45.62309701927006, "endLongitude": 9.629591116681695, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.0, "avgElapsedDurationVerticalSpeed": 0.133331298828125,
+        "type": "INTERVAL_RECOVERY", "messageIndex": 125, "lapIndexes": [24], "endTimeGMT":
+        "2026-04-06T12:35:51.0", "startElevation": 186.2}, {"startTimeLocal": "2026-04-06T14:35:52.0",
+        "startTimeGMT": "2026-04-06T12:35:52.0", "startLatitude": 45.62309701927006,
+        "startLongitude": 9.629591116681695, "distance": 0.0, "duration": 1.305, "elapsedDuration":
+        1.305, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed": 0.0, "maxSpeed":
+        0.0, "calories": 0.0, "bmrCalories": 0.0, "averageHR": 104.0, "maxHR": 104.0,
+        "averageRunCadence": 0.0, "maxRunCadence": 0.0, "averageTemperature": 33.0,
+        "maxTemperature": 33.0, "minTemperature": 33.0, "averagePower": 0.0, "maxPower":
+        0.0, "normalizedPower": 0.0, "totalExerciseReps": 0, "endLatitude": 45.62309701927006,
+        "endLongitude": 9.629591116681695, "avgVerticalSpeed": 0.0, "avgGradeAdjustedSpeed":
+        0.0, "type": "INTERVAL_ACTIVE", "messageIndex": 126, "lapIndexes": [25], "endTimeGMT":
+        "2026-04-06T12:35:52.0", "startElevation": 186.6}, {"startTimeLocal": "2026-04-06T14:35:53.0",
+        "startTimeGMT": "2026-04-06T12:35:53.0", "startLatitude": 45.62309701927006,
+        "startLongitude": 9.629591116681695, "distance": 12.39, "duration": 18.494,
+        "movingDuration": 8.0, "elapsedDuration": 18.494, "elevationGain": 0.0, "elevationLoss":
+        0.0, "averageSpeed": 0.6700000166893005, "averageMovingSpeed": 1.5487500429153445,
+        "maxSpeed": 1.0080000162124634, "calories": 1.0, "bmrCalories": 0.0, "averageHR":
+        103.0, "maxHR": 105.0, "averageRunCadence": 14.515625, "maxRunCadence": 92.0,
+        "averageTemperature": 33.0, "maxTemperature": 33.0, "minTemperature": 32.0,
+        "averagePower": 14.0, "maxPower": 88.0, "normalizedPower": 6.0, "strideLength":
+        276.9210614900472, "verticalOscillation": 5.479999923706055, "totalExerciseReps":
+        0, "endLatitude": 45.62301881611347, "endLongitude": 9.629501095041633, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.479999989271164, "avgElapsedDurationVerticalSpeed":
+        -0.022222730848524302, "type": "INTERVAL_RECOVERY", "messageIndex": 127, "lapIndexes":
+        [26], "endTimeGMT": "2026-04-06T12:36:11.0", "startElevation": 186.6}, {"startTimeLocal":
+        "2026-04-06T14:36:02.0", "startTimeGMT": "2026-04-06T12:36:02.0", "startLatitude":
+        45.623078998178244, "startLongitude": 9.62953520938754, "distance": 21.09,
+        "duration": 19.0, "movingDuration": 17.0, "elapsedDuration": 19.0, "elevationGain":
+        0.0, "elevationLoss": 0.0, "averageSpeed": 1.1100000143051147, "averageMovingSpeed":
+        1.240588244269876, "maxSpeed": 1.0360000133514404, "calories": 1.0, "bmrCalories":
+        0.0, "averageHR": 103.0, "maxHR": 106.0, "averageRunCadence": 22.828125, "maxRunCadence":
+        158.0, "averageTemperature": 33.0, "maxTemperature": 33.0, "minTemperature":
+        33.0, "averagePower": 14.0, "maxPower": 88.0, "normalizedPower": 13.0, "strideLength":
+        291.74538198759865, "verticalOscillation": 5.479999923706055, "totalExerciseReps":
+        0, "endLatitude": 45.62291219830513, "endLongitude": 9.629472764208913, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 0.9570000171661377, "avgElapsedDurationVerticalSpeed":
+        -0.03333282470703125, "type": "RWD_WALK", "messageIndex": 128, "endTimeGMT":
+        "2026-04-06T12:36:20.0", "startElevation": 186.4}, {"startTimeLocal": "2026-04-06T14:36:12.0",
+        "startTimeGMT": "2026-04-06T12:36:12.0", "startLatitude": 45.623010182753205,
+        "startLongitude": 9.629492126405239, "distance": 1.16, "duration": 1.177,
+        "elapsedDuration": 1.177, "elevationGain": 0.0, "elevationLoss": 0.0, "averageSpeed":
+        0.9860000014305115, "maxSpeed": 1.0360000133514404, "calories": 0.0, "bmrCalories":
+        0.0, "averageHR": 103.0, "maxHR": 103.0, "averageRunCadence": 0.0, "maxRunCadence":
+        0.0, "averageTemperature": 33.0, "maxTemperature": 33.0, "minTemperature":
+        33.0, "averagePower": 0.0, "maxPower": 0.0, "normalizedPower": 15.0, "totalExerciseReps":
+        0, "endLatitude": 45.623010182753205, "endLongitude": 9.629492126405239, "avgVerticalSpeed":
+        0.0, "avgGradeAdjustedSpeed": 1.1009999513626099, "type": "INTERVAL_ACTIVE",
+        "messageIndex": 129, "lapIndexes": [27], "endTimeGMT": "2026-04-06T12:36:12.0",
+        "startElevation": 186.0}, {"startTimeLocal": "2026-04-06T14:36:13.0", "startTimeGMT":
+        "2026-04-06T12:36:13.0", "startLatitude": 45.62300800345838, "startLongitude":
+        9.629488857463002, "distance": 2807.48, "duration": 993.812, "movingDuration":
+        993.812, "elapsedDuration": 1026.138, "elevationGain": 3.0, "elevationLoss":
+        10.0, "averageSpeed": 2.825000047683716, "averageMovingSpeed": 2.8249608048239914,
+        "maxSpeed": 3.2939999103546147, "calories": 224.0, "bmrCalories": 24.0, "averageHR":
+        127.0, "maxHR": 137.0, "averageRunCadence": 165.078125, "maxRunCadence": 245.0,
+        "averageTemperature": 32.0, "maxTemperature": 34.0, "minTemperature": 31.0,
+        "averagePower": 343.0, "maxPower": 451.0, "normalizedPower": 349.0, "groundContactTime":
+        271.79998779296875, "strideLength": 103.80999755859375, "verticalOscillation":
+        8.819999694824219, "verticalRatio": 8.529999732971191, "totalExerciseReps":
+        0, "endLatitude": 45.608930261805654, "endLongitude": 9.616540409624577, "avgVerticalSpeed":
+        -0.007000000216066837, "avgGradeAdjustedSpeed": 2.8510000705718994, "avgElapsedDurationVerticalSpeed":
+        -0.007444661867690518, "type": "INTERVAL_COOLDOWN", "messageIndex": 130, "lapIndexes":
+        [28, 29, 30, 31], "endTimeGMT": "2026-04-06T12:52:47.0", "startElevation":
+        186.0, "avgStepLength": 1.0380999755859375}, {"startTimeLocal": "2026-04-06T14:36:21.0",
+        "startTimeGMT": "2026-04-06T12:36:21.0", "startLatitude": 45.62289266847074,
+        "startLongitude": 9.629483241587877, "distance": 2796.05, "duration": 986.133,
+        "movingDuration": 986.0, "elapsedDuration": 993.0, "elevationGain": 3.0, "elevationLoss":
+        10.0, "averageSpeed": 2.835000038146972, "averageMovingSpeed": 2.8357505566208165,
+        "maxSpeed": 3.2939999103546147, "calories": 224.0, "bmrCalories": 24.0, "averageHR":
+        127.0, "maxHR": 137.0, "averageRunCadence": 166.265625, "maxRunCadence": 245.0,
+        "averageTemperature": 32.0, "maxTemperature": 34.0, "minTemperature": 31.0,
+        "averagePower": 345.0, "maxPower": 451.0, "normalizedPower": 350.0, "groundContactTime":
+        271.79998779296875, "strideLength": 103.80999755859375, "verticalOscillation":
+        8.819999694824219, "verticalRatio": 8.529999732971191, "totalExerciseReps":
+        0, "endLatitude": 45.60907132923603, "endLongitude": 9.616657253354788, "avgVerticalSpeed":
+        -0.007000000216066837, "avgGradeAdjustedSpeed": 2.865999937057495, "avgElapsedDurationVerticalSpeed":
+        -0.007099391480730223, "type": "RWD_RUN", "messageIndex": 131, "endTimeGMT":
+        "2026-04-06T12:52:47.0", "startElevation": 185.6, "avgStepLength": 1.0380999755859375}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 27 Aug 2026 08:30:10 GMT
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '100865'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+version: 1

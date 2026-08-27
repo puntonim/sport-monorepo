@@ -35,7 +35,7 @@ class ActivityIdType(click.ParamType):
 
     name = "activity_id"
 
-    def convert(self, value, param, ctx) -> int | tuple[str, int]:
+    def convert(self, value, param=None, ctx=None) -> int | tuple[str, int]:
         if isinstance(value, int):
             return value
 

@@ -1,11 +1,28 @@
 
-
 - usa sempre domande interattive, dovunque ma in particolare per interval run
   vedi qto già fatto in `search_strava_api_cli.py`
+
+- in tutti i tests, per le img generate, usa: inspect.currentframe().f_code.co_qualname
+
+- sbarrare Z3 in 80/20
+ plot.base_plot.py line 582, sotto `z3_x0, z3_x1 = _get_bpm_range_for_hr_zone(3, hr_min, hr_max_ever)`
+        axes.axvspan(
+        z3_x0,
+        z3_x1,
+        # color="grey",
+        alpha=0.2,
+        hatch="//",
+        facecolor="none",
+        edgecolor="grey",
+        linewidth=0,
+        )
+
+- BUG: per activity 23971011920 esce P98 Z6-9bpm
 
 - 1 chart largo sopra con i tempi, per interval run
   3 sotto piccoli
   non rosso, ma violetto
+
 - replace get_string_from_env() e override_settings in settings_module.py con settings_utils lib
 - activity_id: strava-* or garmin-* (oppure --stravaid=123)
   usala in search-matching-strava-activity, rename to search-matching-activity
@@ -13,8 +30,13 @@
 - UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   in interval run
 
+- in climb ride aggiungi 2 args:
+    --no-zones-boundaries-in-hr-hist
+    --no-time-in-hr-hist
+  to solve the overlapping labels (see plot_climb_ride_api.png)
+
 - usa ConsoleAdapterMock() come in test_search_strava_api_cmd.py?
-- san get-activity strava-123
+- san print-activity strava-123
   console print summary e details
 
 - Unire piu comandi:
