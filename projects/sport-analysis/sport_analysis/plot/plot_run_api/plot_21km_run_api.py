@@ -111,12 +111,4 @@ def plot_21km_run_api_cli_view(
 #  I did for plot_interval_run_api.
 
 
-class Plot21KmRunApi(BasePlotRunApi):
-    DEFAULT_ACTIVITY_IDS_TO_COMPARE = [
-        18891426764,  # Training on 21/04/2025 with HRM 200.
-        12877651519,  # Old PR, Milano 21 on 26/11/2023, with HRM Dual.
-        18480727776,  # PR, Monza on 09/03/2025, without HRM.
-        # 13381573831,  # Mezza sul Brembo on 06/01/2024 with HRM Dual.
-        # 12788473433,  # Verona Marathon on 19/09/2023 without HRM.
-        # 18416327144,  # Mezza Due Laghi on 02/03/2025 without HRM.
-    ]
+class Plot21KmRunApi(BasePlotRunApi): ...

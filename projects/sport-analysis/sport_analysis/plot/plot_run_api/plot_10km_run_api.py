@@ -39,6 +39,16 @@ from .base_plot_run_api import BasePlotRunApi
     help="Garmin activity id to compare; it can be used multiple times",
 )
 @click.option(
+    # OPTIONAL arg.
+    "--hr-zone-to-hatch",
+    "-hatch",
+    # Note: "hr_zones_*" is plural as this option can be repeated multiple times.
+    "hr_zones_to_hatch",
+    type=click.Choice(("Z0", "Z1", "Z2", "Z3", "Z4", "Z5"), case_sensitive=False),
+    multiple=True,
+    help='Optional HR zone to "disable" by hatching (45deg grey lines); it can be used multiple times; eg. -hatch Z3 -hatch Z4 -hatch Z5',
+)
+@click.option(
     "--percentile-to-draw",
     type=click.Choice(tuple(x for x in PERCENTILE_TO_DRAW_ENUM), case_sensitive=False),
     help="Optional percentile to draw in histogram; P80 is great for a 80/20 run, P98 for a slow run; eg. P80 | P98",
@@ -77,9 +87,11 @@ def plot_10km_run_api_cli_view(
     # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
     garmin_activity_id: int | tuple[str, int],
     activity_ids_to_compare: tuple[int] | None = None,
+    # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
+    hr_zones_to_hatch: tuple[str] | None = None,
     percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | None = None,
     title: str | None = None,
-    figure_size: tuple[float, float] | None = None,
+    figure_size: tuple[float] | None = None,
     pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
     dir_or_file_path: Path = ROOT_DIR / "output-images",
 ) -> None:
@@ -101,10 +113,11 @@ def plot_10km_run_api_cli_view(
 
     plot_10k = Plot10KmRunApi(
         garmin_activity_id,
-        activity_ids_to_compare=[x for x in activity_ids_to_compare],  # Tuple to list.
+        activity_ids_to_compare=activity_ids_to_compare or None,
+        hr_zones_to_hatch=hr_zones_to_hatch or None,
         percentile_to_draw=percentile_to_draw,
         title=title,
-        figure_size=figure_size,
+        figure_size=figure_size or None,
         pace_plot_set_y_axis_bottom_to_slowest_pace_perc=pace_plot_set_y_axis_bottom_to_slowest_pace_perc,
     )
     return plot_10k.plot(save_to_png_file_path=save_to_png_file_path)
@@ -114,8 +127,4 @@ def plot_10km_run_api_cli_view(
 #  I did for plot_interval_run_api.
 
 
-class Plot10KmRunApi(BasePlotRunApi):
-    DEFAULT_ACTIVITY_IDS_TO_COMPARE = [
-        19005790234,  # Fosso BG 1 Cologno on 02/05/2025.
-        19074660632,  # Fosso BG 2 Camisano on 09/05/2025.
-    ]
+class Plot10KmRunApi(BasePlotRunApi): ...

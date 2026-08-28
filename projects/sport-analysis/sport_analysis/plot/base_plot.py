@@ -4,6 +4,7 @@ from functools import lru_cache
 from math import floor
 from pathlib import Path
 from statistics import mean
+from typing import Sequence
 
 import datetime_utils
 import matplotlib as mpl
@@ -230,6 +231,8 @@ class MixinHrPlot(BasePlot):
         secondary_hr_streams: list[list] | None = None,
         hr_min_ever: int = settings.HR_MIN,
         hr_max_ever: int = settings.HR_MAX_EVER_RUN,
+        # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
+        hr_zones_to_hatch: Sequence[str] | None = None,
         elevation_stream: list | None = None,
         time_stream: list | None = None,
         percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | str | None = None,
@@ -251,7 +254,10 @@ class MixinHrPlot(BasePlot):
             )
             secondary_hr_streams: optional, secondary HR streams from other activities
              to compare.
-            hr_max_ever: the max HR ever recorded for this type of activity.
+            hr_min_ever: the min HR ever recorded for this type of activity (sport).
+            hr_max_ever: the max HR ever recorded for this type of activity (sport).
+            hr_zones_to_hatch: list of HR zones that are "disabled" by hatching
+             (drawing 45deg grey lines). Eg. ["Z3", "Z4", "Z5"].
             elevation_stream: optional, to plot also elevation over time.
             time_stream: optional, to plot also elevation over time.
             percentile_to_draw: either P80 or P98 to draw as vertical line on the
@@ -260,6 +266,23 @@ class MixinHrPlot(BasePlot):
             segment_title: optional, if the hr_stream is a segment then you can
              add a title to highlight that.
         """
+        ## Validate some args: hr_zones_to_hatch, percentile_to_draw.
+        hr_zones_to_hatch = hr_zones_to_hatch or tuple()
+        if hr_zones_to_hatch:
+            for zone in hr_zones_to_hatch:
+                if zone.upper() not in ("Z0", "Z1", "Z2", "Z3", "Z4", "Z5"):
+                    raise ValueError(
+                        f"hr_zones_to_hatch invalid: {zone}\nValid values: Z0 | Z1 | Z2 | Z3 | Z4 | Z5"
+                    )
+            hr_zones_to_hatch = tuple(x.upper() for x in hr_zones_to_hatch)
+        if (
+            percentile_to_draw
+            and percentile_to_draw.upper() not in PERCENTILE_TO_DRAW_ENUM
+        ):
+            raise ValueError(
+                f"percentile_to_draw arg invalid: {percentile_to_draw}\nValid values: {' | '.join(PERCENTILE_TO_DRAW_ENUM)}"
+            )
+
         ## MAIN activity.
         ## Data.
         # Compute HR avg and max.
@@ -502,6 +525,17 @@ class MixinHrPlot(BasePlot):
             color="grey",
             alpha=0.2,
         )
+        if "Z0" in hr_zones_to_hatch:
+            axes.axvspan(
+                z0_x0,
+                z0_x1,
+                # color="grey",
+                alpha=0.2,
+                hatch="///",
+                facecolor="none",
+                edgecolor="grey",
+                linewidth=0,
+            )
         if z0_x1 - axes.get_xlim()[0] > 9:
             # Draw "Z0" only if there's enough room.
             axes.annotate(
@@ -526,6 +560,17 @@ class MixinHrPlot(BasePlot):
         )
         # Z1.
         z1_x0, z1_x1 = _get_bpm_range_for_hr_zone(1, hr_min, hr_max_ever)
+        if "Z1" in hr_zones_to_hatch:
+            axes.axvspan(
+                z1_x0,
+                z1_x1,
+                # color="grey",
+                alpha=0.2,
+                hatch="///",
+                facecolor="none",
+                edgecolor="grey",
+                linewidth=0,
+            )
         if z1_x1 - axes.get_xlim()[0] > 9:
             # Draw "Z1" only if there's enough room.
             axes.annotate(
@@ -556,6 +601,17 @@ class MixinHrPlot(BasePlot):
             color="grey",
             alpha=0.2,
         )
+        if "Z2" in hr_zones_to_hatch:
+            axes.axvspan(
+                z2_x0,
+                z2_x1,
+                # color="grey",
+                alpha=0.2,
+                hatch="///",
+                facecolor="none",
+                edgecolor="grey",
+                linewidth=0,
+            )
         if z2_x1 - axes.get_xlim()[0] > 9:
             # Draw "Z2" only if there's enough room.
             axes.annotate(
@@ -580,6 +636,17 @@ class MixinHrPlot(BasePlot):
         )
         # Z3.
         z3_x0, z3_x1 = _get_bpm_range_for_hr_zone(3, hr_min, hr_max_ever)
+        if "Z3" in hr_zones_to_hatch:
+            axes.axvspan(
+                z3_x0,
+                z3_x1,
+                # color="grey",
+                alpha=0.2,
+                hatch="///",
+                facecolor="none",
+                edgecolor="grey",
+                linewidth=0,
+            )
         if z3_x1 - axes.get_xlim()[0] > 9:
             # Draw "Z3" only if there's enough room.
             axes.annotate(
@@ -610,6 +677,17 @@ class MixinHrPlot(BasePlot):
             color="grey",
             alpha=0.2,
         )
+        if "Z4" in hr_zones_to_hatch:
+            axes.axvspan(
+                z4_x0,
+                z4_x1,
+                # color="grey",
+                alpha=0.2,
+                hatch="///",
+                facecolor="none",
+                edgecolor="grey",
+                linewidth=0,
+            )
         if z4_x1 - axes.get_xlim()[0] > 9:
             # Draw "Z4" only if there's enough room.
             axes.annotate(
@@ -634,6 +712,17 @@ class MixinHrPlot(BasePlot):
         )
         # Z5.
         z5_x0, z5_x1 = _get_bpm_range_for_hr_zone(5, hr_min, hr_max_ever)
+        if "Z5" in hr_zones_to_hatch:
+            axes.axvspan(
+                z5_x0,
+                z5_x1,
+                # color="grey",
+                alpha=0.2,
+                hatch="///",
+                facecolor="none",
+                edgecolor="grey",
+                linewidth=0,
+            )
         axes.annotate(
             "Z5",
             ((z5_x0 + z5_x1) / 2, axes.get_ylim()[1]),

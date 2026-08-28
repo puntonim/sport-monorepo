@@ -1,9 +1,4 @@
 
-- usa sempre domande interattive, dovunque ma in particolare per interval run
-  vedi qto già fatto in `search_strava_api_cli.py`
-
-- in tutti i tests, per le img generate, usa: inspect.currentframe().f_code.co_qualname
-
 - sbarrare Z3 in 80/20
  plot.base_plot.py line 582, sotto `z3_x0, z3_x1 = _get_bpm_range_for_hr_zone(3, hr_min, hr_max_ever)`
         axes.axvspan(
@@ -16,6 +11,26 @@
         edgecolor="grey",
         linewidth=0,
         )
+            DONE rimuovere DEFAULT_ACTIVITY_IDS_TO_COMPARE per 10km e per 21km (ride simple e climb e run intervals)
+            test per 10 km e hatched
+            rename all --activity-id-to-compare to prev_runs_activity_ids_to_compare
+            constrollare che stia tenstando tutto bene in 10km, 21, ...
+            fai codice e test per hatcehd anche per 21km, simple ride, climb ride
+
+- In questionary, per activity_id_to_compare suggerire il record su 21km e 10km
+  Stesso per verdellino adda e interval run
+
+- in tutti i tests, per le img generate, usa: inspect.currentframe().f_code.co_qualname
+  come fatto nei test per interval run
+
+- in tutti i plot, per il nome del file .png genratio usa il codice scritto in interval
+   run che sostituisce i : e . con -.
+
+- usa sempre domande interattive:
+    plot_10km
+    plot_21km
+    plot_simple_ride
+    plot_climb_ride
 
 - BUG: per activity 23971011920 esce P98 Z6-9bpm
 

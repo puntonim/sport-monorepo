@@ -1,6 +1,7 @@
 from abc import ABC
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Sequence
 
 import datetime_utils
 import matplotlib as mpl
@@ -48,15 +49,14 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
      optionally compared with previous activities.
     """
 
-    # IMP: TO BE DEFINED IN sub-classes.
-    DEFAULT_ACTIVITY_IDS_TO_COMPARE: list[int] | None = None
-
     def __init__(
         self,
         # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
         garmin_activity_id: int | tuple[str, int],
-        activity_ids_to_compare: list[int] | None = None,
+        activity_ids_to_compare: Sequence[int] | None = None,
         percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | str | None = None,
+        # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
+        hr_zones_to_hatch: Sequence[str] | None = None,
         title: str | None = None,
         figure_size: tuple[float, float] | None = None,
         pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
@@ -73,6 +73,8 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             percentile_to_draw: either P80 or P98 to draw as vertical line on the
              histogram. Note that both percentiles are always written as text under the
              histogram.
+            hr_zones_to_hatch: list of HR zones that are "disabled" by hatching
+             (drawing 45deg grey lines). Eg. ["Z3", "Z4", "Z5"].
             title: plot title.
             pace_plot_set_y_axis_bottom_to_slowest_pace_perc: eg. 0.45. In the
              MA(pace) chart, cutting out of the visible part of the chart the slowest
@@ -85,15 +87,30 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         super().__init__(garmin_connect_token_manager)
 
         self.garmin_activity_id = garmin_activity_id
-        self.activity_ids_to_compare = activity_ids_to_compare
-        if self.activity_ids_to_compare is None:
-            self.activity_ids_to_compare = self.DEFAULT_ACTIVITY_IDS_TO_COMPARE or []
-        self.percentile_to_draw = percentile_to_draw
+        self.activity_ids_to_compare = activity_ids_to_compare or tuple()
         self.title = title
-        self.figure_size = figure_size
+        self.figure_size = figure_size or tuple()
         self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc = (
             pace_plot_set_y_axis_bottom_to_slowest_pace_perc
         )
+
+        ## Validate some args: hr_zones_to_hatch, percentile_to_draw.
+        self.hr_zones_to_hatch = hr_zones_to_hatch or tuple()
+        if self.hr_zones_to_hatch:
+            for zone in hr_zones_to_hatch:
+                if zone.upper() not in ("Z0", "Z1", "Z2", "Z3", "Z4", "Z5"):
+                    raise ValueError(
+                        f"hr_zones_to_hatch invalid: {zone}\nValid values: Z0 | Z1 | Z2 | Z3 | Z4 | Z5"
+                    )
+            self.hr_zones_to_hatch = tuple(x.upper() for x in hr_zones_to_hatch)
+        self.percentile_to_draw = percentile_to_draw
+        if (
+            percentile_to_draw
+            and percentile_to_draw.upper() not in PERCENTILE_TO_DRAW_ENUM
+        ):
+            raise ValueError(
+                f"percentile_to_draw arg invalid: {percentile_to_draw}\nValid values: {' | '.join(PERCENTILE_TO_DRAW_ENUM)}"
+            )
 
         # It's the store for responses collected for all activities.
         self._s: list[CollectedData] = []
@@ -319,6 +336,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             main_hr_stream,
             secondary_hr_streams=secondary_hr_streams,
             hr_max_ever=settings.HR_MAX_EVER_RUN,
+            hr_zones_to_hatch=self.hr_zones_to_hatch,
             percentile_to_draw=self.percentile_to_draw,
         )
 
@@ -393,7 +411,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         )
 
         ## Collect summary and details for MAIN and SECONDARY activities.
-        for activity_id in [self.garmin_activity_id] + self.activity_ids_to_compare:
+        for activity_id in [self.garmin_activity_id] + [*self.activity_ids_to_compare]:
             self._s.append(
                 CollectedData(
                     summary_resp=self._api_get_activity_summary(activity_id),
@@ -503,7 +521,7 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                 width_ratios=[1],
                 height_ratios=[1.5, 0.22, 1],
             ),
-            figsize=self._make_figure_size(),
+            figsize=self.figure_size or self._make_figure_size(),
             layout="constrained",
         )
 

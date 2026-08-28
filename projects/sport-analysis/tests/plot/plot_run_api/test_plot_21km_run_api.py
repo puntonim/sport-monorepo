@@ -54,7 +54,7 @@ class TestPlot21KmRunApi:
             save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png")
         )
 
-    def test_latest(self):
+    def test_latest_2(self):
         garmin_activity_id = ("LATEST", -2)
         plot_half_marathon_api = Plot21KmRunApi(
             garmin_activity_id,
@@ -63,7 +63,7 @@ class TestPlot21KmRunApi:
         )
         plot_half_marathon_api.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlot21KmRunApi-test_latest.png",
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
     def test_percentile_p80(self):
@@ -76,7 +76,7 @@ class TestPlot21KmRunApi:
         )
         plot_half_marathon_api.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlot21KmRunApi-test_percentile_p80.png",
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
     def test_percentile_p98(self):
@@ -89,5 +89,5 @@ class TestPlot21KmRunApi:
         )
         plot_half_marathon_api.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlot21KmRunApi-test_percentile_p98.png",
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )

@@ -74,9 +74,10 @@ class TestPlot10KmRunApi:
         garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
         plot_api = Plot10KmRunApi(
             garmin_activity_id,
-            activity_ids_to_compare=[],
+            # activity_ids_to_compare=[],
             percentile_to_draw="p80",
             # title="Verdellino running",
+            hr_zones_to_hatch=("Z3",),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         plot_api.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "1.png"))
@@ -95,15 +96,27 @@ class TestPlot10KmRunApi:
         )
         plot_api.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "2.png"))
 
-    def test_latest(self):
-        garmin_activity_id = ("LATEST", -2)
+    def test_latest_3(self):
+        garmin_activity_id = ("LATEST", -3)
         plot_api = Plot10KmRunApi(
             garmin_activity_id,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         plot_api.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlot10KmRunApi-test_latest.png",
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_all_zones_hatched(self):
+        garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
+        plot_api = Plot10KmRunApi(
+            garmin_activity_id,
+            hr_zones_to_hatch=("z5", "Z0", "z1", "z2", "z4", "Z3"),
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        plot_api.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
     def test_percentile_p80(self):
@@ -117,7 +130,7 @@ class TestPlot10KmRunApi:
         )
         plot_api.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlot10KmRunApi-test_percentile_p80.png"
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
     def test_percentile_p98(self):
@@ -131,5 +144,5 @@ class TestPlot10KmRunApi:
         )
         plot_api.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlot10KmRunApi-test_percentile_p98.png"
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
