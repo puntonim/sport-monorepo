@@ -30,15 +30,15 @@ Commands:
 Ride (bike)
 -----------
 
-### Simple ride (api)
+### Simple ride (Garmin api)
 ```sh
 $ san plot-simple-ride 19795436851 --title "Verdellino - Adda 20km" --figure-size 5.0 6.5 -d ~/output-images/
 ```
 ![](sport_analysis/plot/plot_ride_api/plot_simple_ride_api.png)
 
-### Climb ride (api)
-Optionally pass a segment, by its start-end distance, to limit the bottom HR histogram
- to the segment only. 
+### Climb ride (Garmin api)
+Optionally pass a segment, by its start-end distance or Strava segment name, to limit
+ the bottom HR histogram to the segment only. 
 ```sh
 $ san plot-climb-ride 19792668968 --title "Re Stelvio Mapei" --segment-start-meters 0 --segment-end-meters 21110 --segment-title "Climb segment only" --figure-size 5.0 6.5 -d ~/output-images/
 ```
@@ -48,20 +48,14 @@ $ san plot-climb-ride 19792668968 --title "Re Stelvio Mapei" --segment-start-met
 Run
 ---
 
-### 10 km run or less (api)
+### Simple run (Garmin api)
 Optionally compare with previous runs.
 ```sh
 $ san plot-10km-run 19005790234 -vs 19074660632 --title "Fosso BG" --figure-size 5.0 6.5 --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 3.5 -d ~/output-images/
 ```
-![](sport_analysis/plot/plot_run_api/plot_10km_run_api1.png)
-![](sport_analysis/plot/plot_run_api/plot_10km_run_api2.png)
-
-### 21 km run (api)
-Optionally compare with the given runs.
-```sh
-$ san plot-21km-run 18948270166 -vs 18891426764 -vs 12877651519 --title "Sarnico-Lovere" --figure-size 5.0 6.5 --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 4.5 -d ~/output-images/
-```
-![](sport_analysis/plot/plot_run_api/plot_21km_run_api.png)
+![](sport_analysis/plot/plot_run_api/plot_simple_run_api_cmd-10km.png)
+![](sport_analysis/plot/plot_run_api/plot_simple_run_api_cmd-7km-comparison.png)
+![](sport_analysis/plot/plot_run_api/plot_simple_run_api_cmd-21km.png)
 
 ### 300 m interval run (api)
 ```sh

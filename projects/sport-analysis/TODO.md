@@ -1,22 +1,15 @@
 
 - sbarrare Z3 in 80/20
- plot.base_plot.py line 582, sotto `z3_x0, z3_x1 = _get_bpm_range_for_hr_zone(3, hr_min, hr_max_ever)`
-        axes.axvspan(
-        z3_x0,
-        z3_x1,
-        # color="grey",
-        alpha=0.2,
-        hatch="//",
-        facecolor="none",
-        edgecolor="grey",
-        linewidth=0,
-        )
             DONE rimuovere DEFAULT_ACTIVITY_IDS_TO_COMPARE per 10km e per 21km (ride simple e climb e run intervals)
             DONE test per 10 km e hatched
             DONE rename all --activity-id-to-compare to prev_runs_activity_ids_to_compare
-            unisci plot-10km e plot21km
-            constrollare che stia tenstando tutto bene in 10km, 21, ...
-            fai codice e test per hatcehd anche per 21km, simple ride, climb ride
+            DONE unisci plot-10km e plot21km
+            fai codice e test per hatcehd anche per simple ride, climb ride
+            controllare che stia testando bene in simple and climb ride
+
+- make test:
+	rm tests/test-output-images/*
+
 
 - In questionary, per activity_id_to_compare suggerire il record su 21km e 10km
   Stesso per verdellino adda e interval run

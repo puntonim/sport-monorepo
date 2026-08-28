@@ -6,20 +6,20 @@ import datetime_utils
 from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand
 from ...conf.settings_module import ROOT_DIR
 from ..base_plot import PERCENTILE_TO_DRAW_ENUM
-from .base_plot_run_api import BasePlotRunApi
+from .plot_simple_run_api_cmd import PlotSimpleRunApiCmd
 
 
 @click.command(
     cls=BaseClickCommand,
-    name="plot-10km-run",
+    name="plot-simple-run",
     help="""
-    Plot a 10km run.
+    Plot a simple run. It can be a 10km, 21km, 8km or any distance run.
     
     \b
     Examples
-    $ san plot-10km-run 19005790234 -vs 19074660632 -vs 18797516250 --title "Fosso BG" --figure-size 5.0 6.5 --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 3.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/
-    $ san plot-10km-run LATEST
-    $ san plot-10km-run LATEST-3
+    $ san plot-simple 19005790234 -vs 19074660632 -vs 18797516250 --title "Fosso BG" --figure-size 5.0 6.5 --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 3.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/
+    $ san plot-simple LATEST
+    $ san plot-simple LATEST-3
     """,
 )
 @click.argument(
@@ -60,8 +60,8 @@ from .base_plot_run_api import BasePlotRunApi
     # OPTIONAL arg.
     "--pace-plot-set-y-axis-bottom-to-slowest-pace-perc",
     type=float,
-    help="Optionally cutting out of the visible part of the MA(pace) chart"
-    " the slowest 0.45% pace datapoints; this is done because it is better visually:"
+    help="Optionally cutting out, of the visible part of the MA(pace) chart,"
+    " the slowest given % (eg. 0.45%) pace datapoints;"
     " the chart becomes less compressed vertically; eg. --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 0.45",
 )
 @click.option(
@@ -94,7 +94,7 @@ from .base_plot_run_api import BasePlotRunApi
     default=ROOT_DIR / "output-images",
     help="Optional DIR or FILE PATH; eg. -d output-images | -d /tmp/my-dir | -d /tmp/foo.png",
 )
-def plot_10km_run_api_cli_view(
+def plot_simple_run_api_cli_view(
     # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
     garmin_activity_id: int | tuple[str, int],
     prev_runs_activity_ids_to_compare: tuple[int] | None = None,
@@ -107,7 +107,7 @@ def plot_10km_run_api_cli_view(
     dir_or_file_path: Path = ROOT_DIR / "output-images",
 ) -> None:
     """
-    Plot the given Garmin activity id as a 10km run.
+    Plot the given Garmin activity id as a simple run.
     """
     if dir_or_file_path.suffix:
         if dir_or_file_path.suffix == ".png":  # It's a .png file.
@@ -122,7 +122,7 @@ def plot_10km_run_api_cli_view(
         ts = datetime_utils.now().isoformat()  # Eg. "2025-05-13T21:01:33.752427+02:00".
         save_to_png_file_path: Path = dir_or_file_path / f"{ts}.png"
 
-    plot_10k = Plot10KmRunApi(
+    p = PlotSimpleRunApiCmd(
         garmin_activity_id,
         prev_runs_activity_ids_to_compare=prev_runs_activity_ids_to_compare or None,
         hr_zones_to_hatch=hr_zones_to_hatch or None,
@@ -131,11 +131,4 @@ def plot_10km_run_api_cli_view(
         title=title,
         figure_size=figure_size or None,
     )
-    return plot_10k.plot(save_to_png_file_path=save_to_png_file_path)
-
-
-# TODO abandon the base super class and join the 10km and 21km in BasePlotRunApi, like
-#  I did for plot_interval_run_api.
-
-
-class Plot10KmRunApi(BasePlotRunApi): ...
+    return p.plot(save_to_png_file_path=save_to_png_file_path)

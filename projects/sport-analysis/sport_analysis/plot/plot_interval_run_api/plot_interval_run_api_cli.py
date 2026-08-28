@@ -379,7 +379,7 @@ def plot_interval_run_api_cli_view(
             f"dir_or_file_path: {save_to_png_file_path} | {type(save_to_png_file_path)}"
         )
 
-    plot_interval = PlotIntervalRunApiCmd(
+    p = PlotIntervalRunApiCmd(
         garmin_activity_id,
         distance=distance,
         n_expected_intervals=(
@@ -391,7 +391,7 @@ def plot_interval_run_api_cli_view(
         title=title,
         figure_size=figure_size,
     )
-    return plot_interval.plot(save_to_png_file_path=save_to_png_file_path)
+    return p.plot(save_to_png_file_path=save_to_png_file_path)
 
 
 def _parse_garmin_activity_id_input(value: str, format_like="24018992823 | LATEST-3"):

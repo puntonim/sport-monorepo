@@ -39,11 +39,7 @@ class CollectedData:
     splits_resp: ActivitySplitsResponse | None = None
 
 
-# TODO abandon the base super class and join the 10km and 21km in this class, like
-#  I did for plot_interval_run_api.
-
-
-class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
+class PlotSimpleRunApiCmd(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
     """
     Plot charts to support the analysis of a half-marathon run activity performance,
      optionally compared with previous runs.
