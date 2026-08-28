@@ -7,10 +7,6 @@
             fai codice e test per hatcehd anche per simple ride, climb ride
             controllare che stia testando bene in simple and climb ride
 
-- make test:
-	rm tests/test-output-images/*
-
-
 - In questionary, per activity_id_to_compare suggerire il record su 21km e 10km
   Stesso per verdellino adda e interval run
 

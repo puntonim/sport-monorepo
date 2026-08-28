@@ -56,6 +56,7 @@ deploy:
 
 .PHONY : test
 test:
+	rm tests/test-output-images/*
 	poetry run pytest -s tests/ -v -n auto --durations=5
 
 
