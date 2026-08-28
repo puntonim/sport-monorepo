@@ -78,8 +78,8 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
         garmin_activity_id: int | tuple[str, int],
         distance: DISTANCE_ENUM | int,
-        n_expected_intervals: list[int] | None = None,
-        prev_runs_activity_ids_to_compare: list[int] | None = None,
+        n_expected_intervals: Sequence[int] | None = None,
+        prev_runs_activity_ids_to_compare: Sequence[int] | None = None,
         n_prev_runs_to_auto_compare: int | None = None,
         txt_to_search_for_prev_runs_to_auto_compare: str | None = None,
         title: str | None = None,

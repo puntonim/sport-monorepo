@@ -23,20 +23,23 @@ from .base_plot_run_api import BasePlotRunApi
     """,
 )
 @click.argument(
+    # REQUIRED arg (via cli arg or questionary).
     # id (int) of Garmin activity to analyze or "LATEST" or "LATEST-3".
     "garmin-activity-id",
     nargs=1,
     type=ACTIVITY_ID_TYPE,
     # help="Garmin activity id or LATEST or LATEST-3",
+    # required=False,  # `click.argument` is required by default (unlike `click.option`).
 )
 @click.option(
+    # OPTIONAL arg.
     "--activity-id-to-compare",
     "-vs",
-    # Note: "ids" is plural as this option can be repeated multiple times.
-    "activity_ids_to_compare",
+    # Note: "prev_runs_activity_ids_*" is plural as this option can be repeated multiple times.
+    "prev_runs_activity_ids_to_compare",
     type=int,
     multiple=True,
-    help="Garmin activity id to compare; it can be used multiple times",
+    help="Optional Garmin activity id of a run to compare; it can be used multiple times; eg. -vs 24135607183 -vs 24110014772 -vs 24048184816",
 )
 @click.option(
     # OPTIONAL arg.
@@ -51,23 +54,31 @@ from .base_plot_run_api import BasePlotRunApi
 @click.option(
     "--percentile-to-draw",
     type=click.Choice(tuple(x for x in PERCENTILE_TO_DRAW_ENUM), case_sensitive=False),
-    help="Optional percentile to draw in histogram; P80 is great for a 80/20 run, P98 for a slow run; eg. P80 | P98",
+    help="Optional percentile to draw in histogram; P80 is great for a 80/20 run, P98 for a slow run; eg. --percentile-to-draw P80 | --percentile-to-draw P98",
 )
-@click.option("--title", type=str)
 @click.option(
+    # OPTIONAL arg.
+    "--pace-plot-set-y-axis-bottom-to-slowest-pace-perc",
+    type=float,
+    help="Optionally cutting out of the visible part of the MA(pace) chart"
+    " the slowest 0.45% pace datapoints; this is done because it is better visually:"
+    " the chart becomes less compressed vertically; eg. --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 0.45",
+)
+@click.option(
+    # OPTIONAL arg.
+    "--title",
+    type=str,
+    help="Optional title; eg. --title '80/20 run'",
+)
+@click.option(
+    # OPTIONAL arg.
     "--figure-size",
     nargs=2,
     type=click.Tuple([float, float]),
-    help="eg. 5.0 7.0; a tuple of floats",
+    help="Optional figure size; eg. --figure-size 5.0 7.0",
 )
 @click.option(
-    "--pace-plot-set-y-axis-bottom-to-slowest-pace-perc",
-    type=float,
-    help="eg. 0.45; in the MA(pace) chart, cutting out of the visible part of the chart"
-    " the slowest 0.45% pace datapoints; this is done because it is better visually:"
-    " the chart becomes less compressed vertically",
-)
-@click.option(
+    # OPTIONAL arg.
     "--dir",
     "-d",
     "dir_or_file_path",
@@ -81,18 +92,18 @@ from .base_plot_run_api import BasePlotRunApi
         path_type=Path,
     ),
     default=ROOT_DIR / "output-images",
-    help="Either dir or file path where to store the .png plot",
+    help="Optional DIR or FILE PATH; eg. -d output-images | -d /tmp/my-dir | -d /tmp/foo.png",
 )
 def plot_10km_run_api_cli_view(
     # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
     garmin_activity_id: int | tuple[str, int],
-    activity_ids_to_compare: tuple[int] | None = None,
+    prev_runs_activity_ids_to_compare: tuple[int] | None = None,
     # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
     hr_zones_to_hatch: tuple[str] | None = None,
     percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | None = None,
+    pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
     title: str | None = None,
     figure_size: tuple[float] | None = None,
-    pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
     dir_or_file_path: Path = ROOT_DIR / "output-images",
 ) -> None:
     """
@@ -113,12 +124,12 @@ def plot_10km_run_api_cli_view(
 
     plot_10k = Plot10KmRunApi(
         garmin_activity_id,
-        activity_ids_to_compare=activity_ids_to_compare or None,
+        prev_runs_activity_ids_to_compare=prev_runs_activity_ids_to_compare or None,
         hr_zones_to_hatch=hr_zones_to_hatch or None,
         percentile_to_draw=percentile_to_draw,
+        pace_plot_set_y_axis_bottom_to_slowest_pace_perc=pace_plot_set_y_axis_bottom_to_slowest_pace_perc,
         title=title,
         figure_size=figure_size or None,
-        pace_plot_set_y_axis_bottom_to_slowest_pace_perc=pace_plot_set_y_axis_bottom_to_slowest_pace_perc,
     )
     return plot_10k.plot(save_to_png_file_path=save_to_png_file_path)
 

@@ -46,20 +46,20 @@ class CollectedData:
 class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
     """
     Plot charts to support the analysis of a half-marathon run activity performance,
-     optionally compared with previous activities.
+     optionally compared with previous runs.
     """
 
     def __init__(
         self,
         # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
         garmin_activity_id: int | tuple[str, int],
-        activity_ids_to_compare: Sequence[int] | None = None,
+        prev_runs_activity_ids_to_compare: Sequence[int] | None = None,
         percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | str | None = None,
         # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
         hr_zones_to_hatch: Sequence[str] | None = None,
+        pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
         title: str | None = None,
         figure_size: tuple[float, float] | None = None,
-        pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
         garmin_connect_token_manager: (
             FileGarminConnectTokenManager | FakeTestGarminConnectTokenManager | None
         ) = None,
@@ -68,18 +68,18 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         Args:
             garmin_activity_id: id (int) of Garmin activity to analyze or ("LATEST", 0)
              or ("LATEST", -3).
-            activity_ids_to_compare: list of previous activities to compare
-             to the given activity. Default: a hardcoded list.
+            prev_runs_activity_ids_to_compare: list of previous activities (runs) to
+             compare to the given activity.
             percentile_to_draw: either P80 or P98 to draw as vertical line on the
              histogram. Note that both percentiles are always written as text under the
              histogram.
             hr_zones_to_hatch: list of HR zones that are "disabled" by hatching
              (drawing 45deg grey lines). Eg. ["Z3", "Z4", "Z5"].
-            title: plot title.
             pace_plot_set_y_axis_bottom_to_slowest_pace_perc: eg. 0.45. In the
              MA(pace) chart, cutting out of the visible part of the chart the slowest
              0.45% pace datapoints. This is done because it is better visually: the
              chart is less compressed vertically.
+            title: plot title.
             figure_size: customize the figure size, eg. (3.0, 5.5).
             garmin_connect_token_manager: use FakeTestGarminConnectTokenManager when
              replaying VCR episodes.
@@ -87,7 +87,9 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         super().__init__(garmin_connect_token_manager)
 
         self.garmin_activity_id = garmin_activity_id
-        self.activity_ids_to_compare = activity_ids_to_compare or tuple()
+        self.prev_runs_activity_ids_to_compare = (
+            prev_runs_activity_ids_to_compare or tuple()
+        )
         self.title = title
         self.figure_size = figure_size or tuple()
         self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc = (
@@ -411,7 +413,9 @@ class BasePlotRunApi(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         )
 
         ## Collect summary and details for MAIN and SECONDARY activities.
-        for activity_id in [self.garmin_activity_id] + [*self.activity_ids_to_compare]:
+        for activity_id in [self.garmin_activity_id] + [
+            *self.prev_runs_activity_ids_to_compare
+        ]:
             self._s.append(
                 CollectedData(
                     summary_resp=self._api_get_activity_summary(activity_id),

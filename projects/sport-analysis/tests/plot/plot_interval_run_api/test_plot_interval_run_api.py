@@ -111,7 +111,8 @@ class TestPlotIntervalRunApi:
         )
         p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-300m.png"))
 
-    def test_mandatory_args(self):
+    def test_required_args(self):
+        # Required args: garmin_activity_id, distance.
         with pytest.raises(TypeError):
             p = PlotIntervalRunApiCmd(
                 # TEST_ACTIVITIES[1]["garmin_activity_id"],
@@ -222,6 +223,30 @@ class TestPlotIntervalRunApi:
                 save_to_png_file_path=self.png_file_root
                 / f"{inspect.currentframe().f_code.co_qualname}.png"
             )
+
+    def test_prev_runs_activity_ids_to_compare_none(self):
+        p = PlotIntervalRunApiCmd(
+            TEST_ACTIVITIES[1]["garmin_activity_id"],
+            distance=1000,
+            prev_runs_activity_ids_to_compare=None,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_prev_runs_activity_ids_to_compare_empty_list(self):
+        p = PlotIntervalRunApiCmd(
+            TEST_ACTIVITIES[1]["garmin_activity_id"],
+            distance=1000,
+            prev_runs_activity_ids_to_compare=[],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
 
     def test_prev_runs_activity_ids_to_compare_1(self):
         p = PlotIntervalRunApiCmd(

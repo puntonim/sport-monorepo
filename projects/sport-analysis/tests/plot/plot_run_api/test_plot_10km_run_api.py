@@ -1,5 +1,6 @@
 import inspect
 
+import pytest
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
@@ -74,7 +75,7 @@ class TestPlot10KmRunApi:
         garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
         plot_api = Plot10KmRunApi(
             garmin_activity_id,
-            # activity_ids_to_compare=[],
+            # prev_runs_activity_ids_to_compare=[],
             percentile_to_draw="p80",
             # title="Verdellino running",
             hr_zones_to_hatch=("Z3",),
@@ -86,7 +87,7 @@ class TestPlot10KmRunApi:
         garmin_activity_id = TEST_ACTIVITIES[3]["garmin_activity_id"]
         plot_api = Plot10KmRunApi(
             garmin_activity_id,
-            activity_ids_to_compare=[
+            prev_runs_activity_ids_to_compare=[
                 TEST_ACTIVITIES[2]["garmin_activity_id"],
                 TEST_ACTIVITIES[1]["garmin_activity_id"],
                 TEST_ACTIVITIES[0]["garmin_activity_id"],
@@ -96,6 +97,16 @@ class TestPlot10KmRunApi:
         )
         plot_api.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "2.png"))
 
+    def test_required_args(self):
+        # Required args: garmin_activity_id.
+        with pytest.raises(TypeError):
+            Plot10KmRunApi()
+        p = Plot10KmRunApi(TEST_ACTIVITIES[3]["garmin_activity_id"])
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
     def test_latest_3(self):
         garmin_activity_id = ("LATEST", -3)
         plot_api = Plot10KmRunApi(
@@ -103,6 +114,58 @@ class TestPlot10KmRunApi:
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         plot_api.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_prev_runs_activity_ids_to_compare_none(self):
+        garmin_activity_id = TEST_ACTIVITIES[3]["garmin_activity_id"]
+        p = Plot10KmRunApi(
+            garmin_activity_id,
+            prev_runs_activity_ids_to_compare=None,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_prev_runs_activity_ids_to_compare_empty_list(self):
+        garmin_activity_id = TEST_ACTIVITIES[3]["garmin_activity_id"]
+        p = Plot10KmRunApi(
+            garmin_activity_id,
+            prev_runs_activity_ids_to_compare=[],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_prev_runs_activity_ids_to_compare_1(self):
+        garmin_activity_id = TEST_ACTIVITIES[3]["garmin_activity_id"]
+        p = Plot10KmRunApi(
+            garmin_activity_id,
+            prev_runs_activity_ids_to_compare=[
+                TEST_ACTIVITIES[2]["garmin_activity_id"]
+            ],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_prev_runs_activity_ids_to_compare_2(self):
+        garmin_activity_id = TEST_ACTIVITIES[3]["garmin_activity_id"]
+        p = Plot10KmRunApi(
+            garmin_activity_id,
+            prev_runs_activity_ids_to_compare=[
+                TEST_ACTIVITIES[1]["garmin_activity_id"]
+            ],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
             save_to_png_file_path=self.png_file_root
             / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
@@ -123,9 +186,7 @@ class TestPlot10KmRunApi:
         garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
         plot_api = Plot10KmRunApi(
             garmin_activity_id,
-            activity_ids_to_compare=[],
             percentile_to_draw="P80",
-            # title="Verdellino running",
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         plot_api.plot(
@@ -137,12 +198,55 @@ class TestPlot10KmRunApi:
         garmin_activity_id = TEST_ACTIVITIES[5]["garmin_activity_id"]
         plot_api = Plot10KmRunApi(
             garmin_activity_id,
-            activity_ids_to_compare=[],
             percentile_to_draw="p98",
-            # title="Verdellino running",
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         plot_api.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_percentile_invalid(self):
+        garmin_activity_id = TEST_ACTIVITIES[5]["garmin_activity_id"]
+        with pytest.raises(ValueError):
+            Plot10KmRunApi(
+                garmin_activity_id,
+                percentile_to_draw="XXX",
+                garmin_connect_token_manager=self.garmin_token_mgr,
+            )
+
+    def test_pace_plot_set_y_axis_bottom_to_slowest_pace_perc(self):
+        # To best test this we use a run with a fast pace and compare it with one with
+        #  a slow pace.
+        p = Plot10KmRunApi(
+            22975082447,
+            prev_runs_activity_ids_to_compare=(24048184816,),
+            garmin_connect_token_manager=self.garmin_token_mgr,
+            pace_plot_set_y_axis_bottom_to_slowest_pace_perc=4.0,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_title(self):
+        p = Plot10KmRunApi(
+            TEST_ACTIVITIES[4]["garmin_activity_id"],
+            title="My Title",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_figure_size(self):
+        p = Plot10KmRunApi(
+            TEST_ACTIVITIES[4]["garmin_activity_id"],
+            figure_size=(5, 8.5),
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
             save_to_png_file_path=self.png_file_root
             / f"{inspect.currentframe().f_code.co_qualname}.png"
         )

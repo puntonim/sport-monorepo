@@ -89,7 +89,7 @@ console = ConsoleAdapter()
     # OPTIONAL arg.
     "--title",
     type=str,
-    help="Optional title; eg. --title '80/20 run'",
+    help="Optional title; eg. --title '5x1000m'",
 )
 @click.option(
     # OPTIONAL arg.
@@ -383,11 +383,9 @@ def plot_interval_run_api_cli_view(
         garmin_activity_id,
         distance=distance,
         n_expected_intervals=(
-            [n_expected_intervals] if n_expected_intervals is not None else None
+            (n_expected_intervals,) if n_expected_intervals is not None else None
         ),
-        prev_runs_activity_ids_to_compare=[
-            x for x in prev_runs_activity_ids_to_compare  # Tuple to list.
-        ],
+        prev_runs_activity_ids_to_compare=prev_runs_activity_ids_to_compare or None,
         n_prev_runs_to_auto_compare=n_prev_runs_to_auto_compare,
         txt_to_search_for_prev_runs_to_auto_compare=txt_to_search_for_prev_runs_to_auto_compare,
         title=title,
