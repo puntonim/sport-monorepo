@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Sequence
 
 import click
 import datetime_utils
@@ -26,30 +27,50 @@ from ..base_plot import PERCENTILE_TO_DRAW_ENUM, _make_subtitle, _make_title
     Plot a simple bike ride.
     
     \b
-    Examples
+    EXAMPLES
     $ san plot-simple-ride 19795436851 --title "Verdellino - Adda 20km" --figure-size 5.0 6.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/
     """,
 )
 @click.argument(
+    # REQUIRED arg (via cli arg or questionary).
     # id (int) of Garmin activity to analyze or "LATEST" or "LATEST-3".
     "garmin-activity-id",
     nargs=1,
     type=ACTIVITY_ID_TYPE,
     # help="Garmin activity id or LATEST or LATEST-3",
+    # required=False,  # `click.argument` is required by default (unlike `click.option`).
 )
 @click.option(
+    # OPTIONAL arg.
+    "--hr-zone-to-hatch",
+    "-hatch",
+    # Note: "hr_zones_*" is plural as this option can be repeated multiple times.
+    "hr_zones_to_hatch",
+    type=click.Choice(("Z0", "Z1", "Z2", "Z3", "Z4", "Z5"), case_sensitive=False),
+    multiple=True,
+    help='Optional HR zone to "disable" by hatching (45deg grey lines); it can be used multiple times; eg. -hatch Z3 -hatch Z4 -hatch Z5',
+)
+@click.option(
+    # OPTIONAL arg.
     "--percentile-to-draw",
     type=click.Choice(tuple(x for x in PERCENTILE_TO_DRAW_ENUM), case_sensitive=False),
-    help="Optional percentile to draw in histogram; P80 is great for a 80/20 ride, P98 for a slow ride; eg. P80 | P98",
+    help="Optional percentile to draw in histogram; P80 is great for a 80/20 ride, P98 for a slow ride; eg. --percentile-to-draw P80 | --percentile-to-draw P98",
 )
-@click.option("--title", type=str)
 @click.option(
+    # OPTIONAL arg.
+    "--title",
+    type=str,
+    help="Optional title; eg. --title '80/20 run'",
+)
+@click.option(
+    # OPTIONAL arg.
     "--figure-size",
     nargs=2,
     type=click.Tuple([float, float]),
-    help="eg. 5.0 7.0; a tuple of floats",
+    help="Optional figure size; eg. --figure-size 5.0 7.0",
 )
 @click.option(
+    # OPTIONAL arg.
     "--dir",
     "-d",
     "dir_or_file_path",
@@ -63,11 +84,13 @@ from ..base_plot import PERCENTILE_TO_DRAW_ENUM, _make_subtitle, _make_title
         path_type=Path,
     ),
     default=ROOT_DIR / "output-images",
-    help="Either dir or file path where to store the .png plot",
+    help="Optional DIR or FILE PATH; eg. -d output-images | -d /tmp/my-dir | -d /tmp/foo.png",
 )
 def plot_simple_ride_api_cli_view(
     # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
     garmin_activity_id: int | tuple[str, int],
+    # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
+    hr_zones_to_hatch: tuple[str] | None = None,
     percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | None = None,
     title: str | None = None,
     figure_size: tuple[float, float] | None = None,
@@ -91,6 +114,7 @@ def plot_simple_ride_api_cli_view(
 
     plot_ride = PlotSimpleRideApi(
         garmin_activity_id,
+        hr_zones_to_hatch=hr_zones_to_hatch or None,
         percentile_to_draw=percentile_to_draw,
         title=title,
         figure_size=figure_size,
@@ -110,6 +134,8 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
         garmin_activity_id: int | tuple[str, int],
         percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | str | None = None,
+        # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
+        hr_zones_to_hatch: Sequence[str] | None = None,
         title: str | None = None,
         figure_size: tuple[float, float] | None = None,
         garmin_connect_token_manager: (
@@ -123,6 +149,8 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             percentile_to_draw: either P80 or P98 to draw as vertical line on the
              histogram. Note that both percentiles are always written as text under the
              histogram.
+            hr_zones_to_hatch: list of HR zones that are "disabled" by hatching
+             (drawing 45deg grey lines). Eg. ["Z3", "Z4", "Z5"].
             title: plot title.
             figure_size: customize the figure size, eg. (3.0, 5.5).
             garmin_connect_token_manager: use FakeTestGarminConnectTokenManager when
@@ -134,6 +162,24 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         self.percentile_to_draw = percentile_to_draw
         self.title = title
         self.figure_size = figure_size
+
+        ## Validate some args: hr_zones_to_hatch, percentile_to_draw.
+        self.hr_zones_to_hatch = hr_zones_to_hatch or tuple()
+        if self.hr_zones_to_hatch:
+            for zone in hr_zones_to_hatch:
+                if zone.upper() not in ("Z0", "Z1", "Z2", "Z3", "Z4", "Z5"):
+                    raise ValueError(
+                        f"hr_zones_to_hatch invalid: {zone}\nValid values: Z0 | Z1 | Z2 | Z3 | Z4 | Z5"
+                    )
+            self.hr_zones_to_hatch = tuple(x.upper() for x in hr_zones_to_hatch)
+        self.percentile_to_draw = percentile_to_draw
+        if (
+            percentile_to_draw
+            and percentile_to_draw.upper() not in PERCENTILE_TO_DRAW_ENUM
+        ):
+            raise ValueError(
+                f"percentile_to_draw arg invalid: {percentile_to_draw}\nValid values: {' | '.join(PERCENTILE_TO_DRAW_ENUM)}"
+            )
 
         # It's the store for responses collected for all activities.
         self._s: list[CollectedData] = []
@@ -152,6 +198,7 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             self._axes_mosaic["hr-hist"],
             hr_stream,
             hr_max_ever=settings.HR_MAX_EVER_RIDE,
+            hr_zones_to_hatch=self.hr_zones_to_hatch,
             percentile_to_draw=self.percentile_to_draw,
         )
 
@@ -266,6 +313,6 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
                 width_ratios=[1],
                 height_ratios=[5, 1],
             ),
-            figsize=self._make_figure_size(),
+            figsize=self.figure_size or self._make_figure_size(),
             layout="constrained",
         )

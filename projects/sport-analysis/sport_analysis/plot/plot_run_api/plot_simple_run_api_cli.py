@@ -16,7 +16,7 @@ from .plot_simple_run_api_cmd import PlotSimpleRunApiCmd
     Plot a simple run. It can be a 10km, 21km, 8km or any distance run.
     
     \b
-    Examples
+    EXAMPLES
     $ san plot-simple 19005790234 -vs 19074660632 -vs 18797516250 --title "Fosso BG" --figure-size 5.0 6.5 --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 3.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/
     $ san plot-simple LATEST
     $ san plot-simple LATEST-3
@@ -52,6 +52,7 @@ from .plot_simple_run_api_cmd import PlotSimpleRunApiCmd
     help='Optional HR zone to "disable" by hatching (45deg grey lines); it can be used multiple times; eg. -hatch Z3 -hatch Z4 -hatch Z5',
 )
 @click.option(
+    # OPTIONAL arg.
     "--percentile-to-draw",
     type=click.Choice(tuple(x for x in PERCENTILE_TO_DRAW_ENUM), case_sensitive=False),
     help="Optional percentile to draw in histogram; P80 is great for a 80/20 run, P98 for a slow run; eg. --percentile-to-draw P80 | --percentile-to-draw P98",

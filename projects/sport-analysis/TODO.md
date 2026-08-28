@@ -17,8 +17,7 @@
    run che sostituisce i : e . con -.
 
 - usa sempre domande interattive:
-    plot_10km
-    plot_21km
+    plot_simple_run
     plot_simple_ride
     plot_climb_ride
 
@@ -45,7 +44,7 @@
   console print summary e details
 
 - Unire piu comandi:
-    plot-run: che unisce plot-10km-run, plot-21km-run, plot-interval-run
+    plot-run: che unisce plot-simple-run, plot-interval-run
     plot-ride: che unisce plot-climb-ride, plot-simple-ride
 
 

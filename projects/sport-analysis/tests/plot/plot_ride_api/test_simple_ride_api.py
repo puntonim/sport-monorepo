@@ -57,6 +57,18 @@ class TestPlotSimpleRideApi:
             / "TestPlotSimpleRideApi-test_latest.png",
         )
 
+    def test_all_zones_hatched(self):
+        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
+        p = PlotSimpleRideApi(
+            garmin_activity_id,
+            hr_zones_to_hatch=("z5", "Z0", "z1", "z2", "z4", "Z3"),
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
     def test_percentile_p80(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
         plotter = PlotSimpleRideApi(
