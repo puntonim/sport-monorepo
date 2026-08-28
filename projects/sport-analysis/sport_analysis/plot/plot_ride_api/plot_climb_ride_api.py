@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Sequence
 
 import click
 import datetime_utils
@@ -36,44 +37,75 @@ from ..base_plot import PERCENTILE_TO_DRAW_ENUM, _make_subtitle, _make_title
     Plot a climb ride.
     
     \b
-    Examples
+    EXAMPLES
     $ san plot-climb-ride 19792668968 --title "Re Stelvio Mapei" --segment-start-meters 0 --segment-end-meters 21110 --segment-title "Climb segment only" --figure-size 5.0 6.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/
     """,
 )
 @click.argument(
+    # REQUIRED arg (via cli arg or questionary).
     # id (int) of Garmin activity to analyze or "LATEST" or "LATEST-3".
     "garmin-activity-id",
     nargs=1,
     type=ACTIVITY_ID_TYPE,
     # help="Garmin activity id or LATEST or LATEST-3",
+    # required=False,  # `click.argument` is required by default (unlike `click.option`).
 )
 @click.option(
+    # OPTIONAL arg.
+    "--hr-zone-to-hatch",
+    "-hatch",
+    # Note: "hr_zones_*" is plural as this option can be repeated multiple times.
+    "hr_zones_to_hatch",
+    type=click.Choice(("Z0", "Z1", "Z2", "Z3", "Z4", "Z5"), case_sensitive=False),
+    multiple=True,
+    help='Optional HR zone to "disable" by hatching (45deg grey lines); it can be used multiple times; eg. -hatch Z3 -hatch Z4 -hatch Z5',
+)
+@click.option(
+    # OPTIONAL arg.
     "--percentile-to-draw",
     type=click.Choice(tuple(x for x in PERCENTILE_TO_DRAW_ENUM), case_sensitive=False),
-    help="Optional percentile to draw in histogram; P80 is great for a 80/20 ride, P98 for a slow ride; eg. P80 | P98",
+    help="Optional percentile to draw in histogram; P80 is great for a 80/20 ride, P98 for a slow ride; eg. --percentile-to-draw P80 | --percentile-to-draw P98",
 )
-@click.option("--title", type=str)
 @click.option(
+    # OPTIONAL arg.
     "--segment-start-meters",
     type=int,
-    help="The start of the desired segment, in meters",
+    help="Optional start of the desired segment, in meters; eg. --segment-start-meters 0",
 )
 @click.option(
-    "--segment-end-meters", type=int, help="The end of the desired segment, in meters"
+    # OPTIONAL arg.
+    "--segment-end-meters",
+    type=int,
+    help="Optional end of the desired segment, in meters; eg. --segment-end-meters 21110",
 )
 @click.option(
+    # OPTIONAL arg.
     "--segment-strava-name",
     type=str,
-    help="Name of the Strava segment - it cannot be used together with segment_start|end_meters",
+    help="Optional name of the Strava segment; it cannot be used together with segment_start|end_meters; eg. --segment-strava-name 'Selvino Fontanella'",
 )
-@click.option("--segment-title", default="Segment only", type=str)
 @click.option(
+    # OPTIONAL arg.
+    "--segment-title",
+    default="Segment only",
+    type=str,
+    help="Optional segment name to draw; eg. 'Selvino Fontanella'",
+)
+@click.option(
+    # OPTIONAL arg.
+    "--title",
+    type=str,
+    help="Optional title; eg. --title '80/20 run'",
+)
+@click.option(
+    # OPTIONAL arg.
     "--figure-size",
     nargs=2,
     type=click.Tuple([float, float]),
-    help="eg. 5.0 7.0; a tuple of floats",
+    help="Optional figure size; eg. --figure-size 5.0 7.0",
 )
 @click.option(
+    # OPTIONAL arg.
     "--dir",
     "-d",
     "dir_or_file_path",
@@ -87,11 +119,13 @@ from ..base_plot import PERCENTILE_TO_DRAW_ENUM, _make_subtitle, _make_title
         path_type=Path,
     ),
     default=ROOT_DIR / "output-images",
-    help="Either dir or file path where to store the .png plot",
+    help="Optional DIR or FILE PATH; eg. -d output-images | -d /tmp/my-dir | -d /tmp/foo.png",
 )
 def plot_climb_ride_api_cli_view(
     # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
     garmin_activity_id: int | tuple[str, int],
+    # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
+    hr_zones_to_hatch: tuple[str] | None = None,
     percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | None = None,
     title: str | None = None,
     segment_start_meters: int | None = None,
@@ -127,6 +161,7 @@ def plot_climb_ride_api_cli_view(
 
     plot_ride = PlotClimbRideApi(
         garmin_activity_id,
+        hr_zones_to_hatch=hr_zones_to_hatch or None,
         percentile_to_draw=percentile_to_draw,
         title=title,
         segment_start_meters=segment_start_meters,
@@ -150,11 +185,13 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
         garmin_activity_id: int | tuple[str, int],
         percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | str | None = None,
-        title: str | None = None,
+        # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
+        hr_zones_to_hatch: Sequence[str] | None = None,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
         segment_strava_name: str | None = None,
         segment_title: str | None = None,
+        title: str | None = None,
         figure_size: tuple[float, float] | None = None,
         garmin_connect_token_manager: (
             FileGarminConnectTokenManager | FakeTestGarminConnectTokenManager | None
@@ -173,12 +210,14 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             percentile_to_draw: either P80 or P98 to draw as vertical line on the
              histogram. Note that both percentiles are always written as text under the
              histogram.
-            title: plot title.
+            hr_zones_to_hatch: list of HR zones that are "disabled" by hatching
+             (drawing 45deg grey lines). Eg. ["Z3", "Z4", "Z5"].
             segment_start_meters: the start of the desired segment, in meters.
             segment_end_meters: the end of the desired segment, in meters.
             segment_strava_name: name of the Strava segment. It cannot be used
              together with segment_start|end_meters.
-            segment_title: title used for the segment chart,
+            segment_title: title used for the segment chart.
+            title: plot title.
             figure_size: customize the figure size, eg. (3.0, 5.5).
             garmin_connect_token_manager: use FakeTestGarminConnectTokenManager when
              replaying VCR episodes.
@@ -197,6 +236,24 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         self.segment_strava_name = segment_strava_name
         self.segment_title = segment_title
         self.figure_size = figure_size
+
+        ## Validate some args: hr_zones_to_hatch, percentile_to_draw.
+        self.hr_zones_to_hatch = hr_zones_to_hatch or tuple()
+        if self.hr_zones_to_hatch:
+            for zone in hr_zones_to_hatch:
+                if zone.upper() not in ("Z0", "Z1", "Z2", "Z3", "Z4", "Z5"):
+                    raise ValueError(
+                        f"hr_zones_to_hatch invalid: {zone}\nValid values: Z0 | Z1 | Z2 | Z3 | Z4 | Z5"
+                    )
+            self.hr_zones_to_hatch = tuple(x.upper() for x in hr_zones_to_hatch)
+        self.percentile_to_draw = percentile_to_draw
+        if (
+            percentile_to_draw
+            and percentile_to_draw.upper() not in PERCENTILE_TO_DRAW_ENUM
+        ):
+            raise ValueError(
+                f"percentile_to_draw arg invalid: {percentile_to_draw}\nValid values: {' | '.join(PERCENTILE_TO_DRAW_ENUM)}"
+            )
 
         # It's the store for responses collected for all activities.
         self._s: list[CollectedData] = []
@@ -299,6 +356,7 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             time_stream=time_stream,
             segment_title=segment_title,
             percentile_to_draw=self.percentile_to_draw,
+            hr_zones_to_hatch=self.hr_zones_to_hatch,
         )
 
     def _plot_hr_zones(self):

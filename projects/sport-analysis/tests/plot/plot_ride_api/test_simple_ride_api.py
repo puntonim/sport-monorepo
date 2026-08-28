@@ -40,8 +40,6 @@ class TestPlotSimpleRideApi:
         plotter = PlotSimpleRideApi(
             garmin_activity_id,
             title="Verdellino - Adda 20km",
-            # percentile_to_draw="P98",
-            figure_size=(5.0, 6.5),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         plotter.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png"))

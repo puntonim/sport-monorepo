@@ -4,7 +4,7 @@
             DONE test per 10 km e hatched
             DONE rename all --activity-id-to-compare to prev_runs_activity_ids_to_compare
             DONE unisci plot-10km e plot21km
-            fai codice e test per hatcehd anche per simple ride, climb ride
+            DONE fai codice e test per hatcehd anche per simple ride, climb ride
             controllare che stia testando bene in simple and climb ride
 
 - In questionary, per activity_id_to_compare suggerire il record su 21km e 10km

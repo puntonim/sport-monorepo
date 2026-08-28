@@ -58,7 +58,7 @@ class TestPlotClimbRideApi:
         )
         self.png_file_root = ROOT_DIR / "tests" / "test-output-images"
 
-    def test_happy_flow(self):
+    def test_generate_sample_image(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
         plotter = PlotClimbRideApi(
             garmin_activity_id,
@@ -70,10 +70,7 @@ class TestPlotClimbRideApi:
             garmin_connect_token_manager=self.garmin_token_mgr,
             strava_token_manager=self.strava_token_mgr,
         )
-        plotter.plot(
-            save_to_png_file_path=self.png_file_root
-            / "TestPlotClimbRideApi-test_happy_flow.png",
-        )
+        plotter.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png"))
 
     def test_no_segment_title(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
@@ -108,20 +105,6 @@ class TestPlotClimbRideApi:
             save_to_png_file_path=self.png_file_root
             / "TestPlotClimbRideApi-test_test_no_segment_end.png",
         )
-
-    def test_generate_sample_image(self):
-        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        plotter = PlotClimbRideApi(
-            garmin_activity_id,
-            title="Re Stelvio Mapei",
-            segment_start_meters=0,
-            segment_end_meters=21110,
-            segment_title="climb",
-            figure_size=(5.0, 6.5),
-            garmin_connect_token_manager=self.garmin_token_mgr,
-            strava_token_manager=self.strava_token_mgr,
-        )
-        plotter.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png"))
 
     def test_strava_segment(self):
         garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
@@ -176,6 +159,18 @@ class TestPlotClimbRideApi:
         plotter.plot(
             save_to_png_file_path=self.png_file_root
             / "TestPlotClimbRideApi-test_latest.png",
+        )
+
+    def test_all_zones_hatched(self):
+        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
+        p = PlotClimbRideApi(
+            garmin_activity_id,
+            hr_zones_to_hatch=("z5", "Z0", "z1", "z2", "z4", "Z3"),
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
     def test_percentile_p80(self):
