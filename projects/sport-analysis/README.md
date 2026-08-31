@@ -34,7 +34,7 @@ Ride (bike)
 ```sh
 $ san plot-simple-ride 19795436851 --title "Verdellino - Adda 20km" --figure-size 5.0 6.5 -d ~/output-images/
 ```
-![](sport_analysis/plot/plot_ride_api/plot_simple_ride_api.png)
+![](sport_analysis/plot/plot_ride_api/plot_simple_ride_api_cmd.png)
 
 ### Climb ride (Garmin api)
 Optionally pass a segment, by its start-end distance or Strava segment name, to limit

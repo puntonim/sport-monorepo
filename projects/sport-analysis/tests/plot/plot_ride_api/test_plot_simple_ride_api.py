@@ -7,7 +7,9 @@ from garmin_connect_client.garmin_connect_token_managers import (
 )
 
 from sport_analysis.conf.settings_module import ROOT_DIR
-from sport_analysis.plot.plot_ride_api.plot_simple_ride_api import PlotSimpleRideApi
+from sport_analysis.plot.plot_ride_api.plot_simple_ride_api_cmd import (
+    PlotSimpleRideApiCmd,
+)
 from tests.conftest import is_vcr_enabled, is_vcr_record_mode
 
 TEST_ACTIVITIES = [
@@ -20,7 +22,7 @@ TEST_ACTIVITIES = [
     ),
 ]
 
-FILE_TESTED_PATH = inspect.getfile(PlotSimpleRideApi)
+FILE_TESTED_PATH = inspect.getfile(PlotSimpleRideApiCmd)
 
 
 class TestPlotSimpleRideApi:
@@ -38,7 +40,7 @@ class TestPlotSimpleRideApi:
 
     def test_generate_sample_image(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotSimpleRideApi(
+        p = PlotSimpleRideApiCmd(
             garmin_activity_id,
             title="Verdellino - Adda 20km",
             garmin_connect_token_manager=self.garmin_token_mgr,
@@ -48,8 +50,8 @@ class TestPlotSimpleRideApi:
     def test_required_args(self):
         # Required args: garmin_activity_id.
         with pytest.raises(TypeError):
-            PlotSimpleRideApi()
-        p = PlotSimpleRideApi(
+            PlotSimpleRideApiCmd()
+        p = PlotSimpleRideApiCmd(
             TEST_ACTIVITIES[0]["garmin_activity_id"],
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
@@ -60,7 +62,7 @@ class TestPlotSimpleRideApi:
 
     def test_latest_1(self):
         garmin_activity_id = ("LATEST", -1)
-        p = PlotSimpleRideApi(
+        p = PlotSimpleRideApiCmd(
             garmin_activity_id,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
@@ -71,7 +73,7 @@ class TestPlotSimpleRideApi:
 
     def test_all_zones_hatched(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotSimpleRideApi(
+        p = PlotSimpleRideApiCmd(
             garmin_activity_id,
             hr_zones_to_hatch=("z5", "Z0", "z1", "z2", "z4", "Z3"),
             garmin_connect_token_manager=self.garmin_token_mgr,
@@ -83,7 +85,7 @@ class TestPlotSimpleRideApi:
 
     def test_percentile_p80(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotSimpleRideApi(
+        p = PlotSimpleRideApiCmd(
             garmin_activity_id,
             percentile_to_draw="P80",
             garmin_connect_token_manager=self.garmin_token_mgr,
@@ -95,7 +97,7 @@ class TestPlotSimpleRideApi:
 
     def test_percentile_p98(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotSimpleRideApi(
+        p = PlotSimpleRideApiCmd(
             garmin_activity_id,
             percentile_to_draw="p98",
             garmin_connect_token_manager=self.garmin_token_mgr,
@@ -108,7 +110,7 @@ class TestPlotSimpleRideApi:
     def test_percentile_invalid(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
         with pytest.raises(ValueError):
-            PlotSimpleRideApi(
+            PlotSimpleRideApiCmd(
                 garmin_activity_id,
                 percentile_to_draw="XXX",
                 garmin_connect_token_manager=self.garmin_token_mgr,
@@ -116,7 +118,7 @@ class TestPlotSimpleRideApi:
 
     def test_title(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotSimpleRideApi(
+        p = PlotSimpleRideApiCmd(
             garmin_activity_id,
             title="My Title",
             garmin_connect_token_manager=self.garmin_token_mgr,
@@ -128,7 +130,7 @@ class TestPlotSimpleRideApi:
 
     def test_figure_size(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotSimpleRideApi(
+        p = PlotSimpleRideApiCmd(
             garmin_activity_id,
             figure_size=(5, 9.5),
             garmin_connect_token_manager=self.garmin_token_mgr,

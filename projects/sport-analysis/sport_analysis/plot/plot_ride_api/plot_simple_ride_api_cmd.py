@@ -2,8 +2,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Sequence
 
-import click
-import datetime_utils
 import matplotlib.pyplot as plt
 from garmin_connect_client import ActivityDetailsResponse, ActivitySummaryResponse
 from garmin_connect_client.garmin_connect_token_managers import (
@@ -13,113 +11,9 @@ from garmin_connect_client.garmin_connect_token_managers import (
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
-from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand
 from ...conf import settings
-from ...conf.settings_module import ROOT_DIR
 from .. import base_api, base_plot
 from ..base_plot import PERCENTILE_TO_DRAW_ENUM, _make_subtitle, _make_title
-
-
-@click.command(
-    cls=BaseClickCommand,
-    name="plot-simple-ride",
-    help="""
-    Plot a simple bike ride.
-    
-    \b
-    EXAMPLES
-    $ san plot-simple-ride 19795436851 --title "Verdellino - Adda 20km" --figure-size 5.0 6.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/
-    """,
-)
-@click.argument(
-    # REQUIRED arg (via cli arg or questionary).
-    # id (int) of Garmin activity to analyze or "LATEST" or "LATEST-3".
-    "garmin-activity-id",
-    nargs=1,
-    type=ACTIVITY_ID_TYPE,
-    # help="Garmin activity id or LATEST or LATEST-3",
-    # required=False,  # `click.argument` is required by default (unlike `click.option`).
-)
-@click.option(
-    # OPTIONAL arg.
-    "--hr-zone-to-hatch",
-    "-hatch",
-    # Note: "hr_zones_*" is plural as this option can be repeated multiple times.
-    "hr_zones_to_hatch",
-    type=click.Choice(("Z0", "Z1", "Z2", "Z3", "Z4", "Z5"), case_sensitive=False),
-    multiple=True,
-    help='Optional HR zone to "disable" by hatching (45deg grey lines); it can be used multiple times; eg. -hatch Z3 -hatch Z4 -hatch Z5',
-)
-@click.option(
-    # OPTIONAL arg.
-    "--percentile-to-draw",
-    type=click.Choice(tuple(x for x in PERCENTILE_TO_DRAW_ENUM), case_sensitive=False),
-    help="Optional percentile to draw in histogram; P80 is great for a 80/20 ride, P98 for a slow ride; eg. --percentile-to-draw P80 | --percentile-to-draw P98",
-)
-@click.option(
-    # OPTIONAL arg.
-    "--title",
-    type=str,
-    help="Optional title; eg. --title '80/20 run'",
-)
-@click.option(
-    # OPTIONAL arg.
-    "--figure-size",
-    nargs=2,
-    type=click.Tuple([float, float]),
-    help="Optional figure size; eg. --figure-size 5.0 7.0",
-)
-@click.option(
-    # OPTIONAL arg.
-    "--dir",
-    "-d",
-    "dir_or_file_path",
-    type=click.Path(
-        # exists=True,
-        file_okay=True,
-        dir_okay=True,
-        readable=True,
-        writable=True,
-        resolve_path=True,
-        path_type=Path,
-    ),
-    default=ROOT_DIR / "output-images",
-    help="Optional DIR or FILE PATH; eg. -d output-images | -d /tmp/my-dir | -d /tmp/foo.png",
-)
-def plot_simple_ride_api_cli_view(
-    # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
-    garmin_activity_id: int | tuple[str, int],
-    # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
-    hr_zones_to_hatch: tuple[str] | None = None,
-    percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | None = None,
-    title: str | None = None,
-    figure_size: tuple[float, float] | None = None,
-    dir_or_file_path: Path = ROOT_DIR / "output-images",
-) -> None:
-    """
-    Plot the HR histogram alone for the given Garmin activity id as a bike ride.
-    """
-    if dir_or_file_path.suffix:  # It's a file.
-        if dir_or_file_path.suffix == ".png":  # It's a .png file.
-            if dir_or_file_path.exists():
-                raise click.BadParameter("The given .png file already exists")
-        else:
-            raise click.BadParameter("Not a .png file path")
-        save_to_png_file_path: Path = dir_or_file_path
-    else:  # It's a dir.
-        if not dir_or_file_path.exists():
-            raise click.BadParameter("The given dir does not exists")
-        ts = datetime_utils.now().isoformat()  # Eg. "2025-05-13T21:01:33.752427+02:00".
-        save_to_png_file_path: Path = dir_or_file_path / f"{ts}.png"
-
-    plot_ride = PlotSimpleRideApi(
-        garmin_activity_id,
-        hr_zones_to_hatch=hr_zones_to_hatch or None,
-        percentile_to_draw=percentile_to_draw,
-        title=title,
-        figure_size=figure_size,
-    )
-    return plot_ride.plot(save_to_png_file_path=save_to_png_file_path)
 
 
 @dataclass
@@ -128,7 +22,7 @@ class CollectedData:
     details_resp: ActivityDetailsResponse = None
 
 
-class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
+class PlotSimpleRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
     def __init__(
         self,
         # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
@@ -293,7 +187,7 @@ class PlotSimpleRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
             plt.show()
 
     def _make_figure_size(self) -> tuple[float, float]:
-        height = max(len(self._s), 3.5) * 1.1
+        height = max(len(self._s), 3.5) * 1.2
         return 5, height
 
     def _make_subplot_mosaic(self) -> tuple[Figure, dict[str, Axes]]:

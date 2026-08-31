@@ -361,8 +361,8 @@ def plot_interval_run_api_cli_view(
             cli_msg += f" --title '{title}'"
         if figure_size:
             cli_msg += f" --figure-size {' '.join(str(x) for x in figure_size)}"
-        if dir_or_file_path:
-            cli_msg += f" --dir '{dir_or_file_path}'"
+        if save_to_png_file_path:
+            cli_msg += f" --dir '{save_to_png_file_path}'"
         cli_msg += " --no-questions"
         console.print(f"\nYou can re-run this same command with:\n{cli_msg}\n")
 

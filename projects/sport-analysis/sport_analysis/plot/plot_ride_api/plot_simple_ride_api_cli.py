@@ -7,7 +7,8 @@ import questionary
 from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand, ConsoleAdapter
 from ...conf.settings_module import ROOT_DIR
 from .. import base_plot, questionary_parsers
-from .plot_simple_run_api_cmd import PlotSimpleRunApiCmd
+from ..base_plot import PERCENTILE_TO_DRAW_ENUM
+from .plot_simple_ride_api_cmd import PlotSimpleRideApiCmd
 
 QUESTIONARY_SELECT_STYLE = questionary.Style([("highlighted", "fg:red")])
 
@@ -16,24 +17,23 @@ console = ConsoleAdapter()
 
 @click.command(
     cls=BaseClickCommand,
-    name="plot-simple-run",
+    name="plot-simple-ride",
     help="""
-    Plot a simple run. It can be a 10km, 21km, 8km or any distance run.
+    Plot a simple bike ride.
     
     \b
     EXAMPLES
-    \b
+        \b
      Required args: activity-id.
      So to suppress any interactive questions:
-       $ san plot-simple-run LATEST --no-questions
+       $ san plot-simple-ride LATEST --no-questions
     \b
     Most popular, no questions:
-      $ san plot-simple-run LATEST --percentile-to-draw P80 -hatch Z3 --no-questions
-      $ san plot-simple-run 23309590263 -vs 19074660632 -vs 23226614861
+      $ san plot-simple-ride LATEST --percentile-to-draw P98 --no-questions
     To interactively provide input for all options:
-      $ san plot-simple-run
+      $ san plot-simple-ride
     All possible args, no questions:
-      $ san plot-simple-run 23309590263 -vs 19074660632 -vs 23226614861 -hatch Z0 -hatch Z1 --percentile-to-draw P98 --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 3.5 --title 'Fosso BG' --figure-size 5.0 6.5 --dir '/tmp/output-images'
+      $ san plot-simple-ride LATEST -hatch Z4 -hatch Z5 --percentile-to-draw P98 --title 'My Title' --figure-size 5.0 7.5 --dir '/tmp/2026-08-31T18-13-14-230233-02-00.png'
     """,
 )
 @click.argument(
@@ -44,16 +44,6 @@ console = ConsoleAdapter()
     type=ACTIVITY_ID_TYPE,
     # help="Garmin activity id or LATEST or LATEST-3",
     required=False,  # `click.argument` is required by default (unlike `click.option`).
-)
-@click.option(
-    # OPTIONAL arg.
-    "--activity-id-to-compare",
-    "-vs",
-    # Note: "prev_runs_activity_ids_*" is plural as this option can be repeated multiple times.
-    "prev_runs_activity_ids_to_compare",
-    type=int,
-    multiple=True,
-    help="Optional Garmin activity id of a run to compare; it can be used multiple times; eg. -vs 23309590263 -vs 23226614861 -vs 23035885088 -vs 22893403669",
 )
 @click.option(
     # OPTIONAL arg.
@@ -68,25 +58,14 @@ console = ConsoleAdapter()
 @click.option(
     # OPTIONAL arg.
     "--percentile-to-draw",
-    type=click.Choice(
-        [*base_plot.PERCENTILE_TO_DRAW_ENUM],
-        case_sensitive=False,
-    ),
-    help="Optional percentile to draw in histogram; P80 is great for a 80/20 run, P98 for a slow run; eg. --percentile-to-draw P80 | --percentile-to-draw P98",
-)
-@click.option(
-    # OPTIONAL arg.
-    "--pace-plot-set-y-axis-bottom-to-slowest-pace-perc",
-    type=float,
-    help="Optionally cutting out, of the visible part of the MA(pace) chart,"
-    " the slowest given % (eg. 0.45%) pace datapoints;"
-    " the chart becomes less compressed vertically; eg. --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 0.45",
+    type=click.Choice(tuple(x for x in PERCENTILE_TO_DRAW_ENUM), case_sensitive=False),
+    help="Optional percentile to draw in histogram; P80 is great for a 80/20 ride, P98 for a slow ride; eg. --percentile-to-draw P80 | --percentile-to-draw P98",
 )
 @click.option(
     # OPTIONAL arg.
     "--title",
     type=str,
-    help="Optional title; eg. --title '80/20 run'",
+    help="Optional title; eg. --title 'Verdellino - Adda 20km'",
 )
 @click.option(
     # OPTIONAL arg.
@@ -127,22 +106,20 @@ console = ConsoleAdapter()
     default=False,
     help="Print debug info about the provided args",
 )
-def plot_simple_run_api_cli_view(
+def plot_simple_ride_api_cli_view(
     # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
     garmin_activity_id: int | tuple[str, int],
-    prev_runs_activity_ids_to_compare: tuple[int] | None = None,
     # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
     hr_zones_to_hatch: tuple[str] | None = None,
-    percentile_to_draw: base_plot.PERCENTILE_TO_DRAW_ENUM | None = None,
-    pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
+    percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | None = None,
     title: str | None = None,
-    figure_size: tuple[float] | None = None,
+    figure_size: tuple[float, float] | None = None,
     dir_or_file_path: Path = ROOT_DIR / "output-images",
     do_skip_any_questions: bool = False,
     do_debug_args: bool = False,
 ) -> None:
     """
-    Plot the given Garmin activity id as a simple run.
+    Plot the HR histogram alone for the given Garmin activity id as a bike ride.
     """
     # Parse dir_or_file_path.
     save_to_png_file_path: Path | None = None
@@ -175,33 +152,13 @@ def plot_simple_run_api_cli_view(
             )
             is_input_valid = True
 
-    # Optional arg: prev_runs_activity_ids_to_compare.
-    is_input_valid = True if prev_runs_activity_ids_to_compare else False
-    while not is_input_valid and not do_skip_any_questions:
-        text = "Optional ACTIVITIES IDS TO COMPARE (eg. 23309590263 23226614861 23035885088)"
-        x = (
-            # unsafe_ask() so it can be stopped with ctrl-c.
-            # Cannot use `validate=<questionary.Validator subclass>` because that is for
-            #  the live validation, it's run on every keystroke and returns None.
-            questionary.text(text).unsafe_ask()
-            or None
-        )
-        with suppress(questionary_parsers.ParserValidationError):
-            if x is not None:
-                prev_runs_activity_ids_to_compare = (
-                    questionary_parsers.parse_multiple_ints_input(
-                        x, format_like="23309590263 23226614861 23035885088"
-                    )
-                )
-            is_input_valid = True
-
     # Optional arg: hr_zones_to_hatch.
     if not hr_zones_to_hatch and not do_skip_any_questions:
         text = (
             "Optional HR ZONES TO HATCH\n"
             'HR zone to "disable" by hatching (45deg grey lines)\n'
-            "Use Z3 for a 80/20 run (when you want to avoid Z3)\n"
-            "Use Z4 and Z5 for a slow run"
+            "Use Z3 for a 80/20 ride (when you want to avoid Z3)\n"
+            "Use Z4 and Z5 for a slow ride"
         )
         zones = ("Z0", "Z1", "Z2", "Z3", "Z4", "Z5")
         hr_zones_to_hatch = (
@@ -218,8 +175,8 @@ def plot_simple_run_api_cli_view(
     if not percentile_to_draw and not do_skip_any_questions:
         text = (
             "Optional PERCENTILE TO DRAW\n"
-            "Use P80 for a 80/20 run\n"
-            "Use P98 for a run entirely slow or fast (like a race)"
+            "Use P80 for a 80/20 ride\n"
+            "Use P98 for a ride entirely slow or fast (like a race)"
         )
         percentile_to_draw = (
             # unsafe_ask() so it can be stopped with ctrl-c.
@@ -234,29 +191,6 @@ def plot_simple_run_api_cli_view(
         )
         if percentile_to_draw == "*None":
             percentile_to_draw = None
-
-    # Optional arg: prev_runs_activity_ids_to_compare.
-    is_input_valid = True if pace_plot_set_y_axis_bottom_to_slowest_pace_perc else False
-    while not is_input_valid and not do_skip_any_questions:
-        text = (
-            "Optional PACE PLOT SET Y AXIS BOTTOM TO SLOWEST PACE PERC\n"
-            "Cut out, of the visible part of the MA(pace) chart, the slowest"
-            " given % (eg. 0.45%) pace datapoints so the chart becomes less"
-            " compressed vertically; (eg. 0.45)"
-        )
-        x = (
-            # unsafe_ask() so it can be stopped with ctrl-c.
-            # Cannot use `validate=<questionary.Validator subclass>` because that is for
-            #  the live validation, it's run on every keystroke and returns None.
-            questionary.text(text).unsafe_ask()
-            or None
-        )
-        with suppress(questionary_parsers.ParserValidationError):
-            if x is not None:
-                pace_plot_set_y_axis_bottom_to_slowest_pace_perc = (
-                    questionary_parsers.parse_float_input(x, format_like="0.45")
-                )
-            is_input_valid = True
 
     # Optional arg: title.
     if title is None and not do_skip_any_questions:
@@ -312,15 +246,11 @@ def plot_simple_run_api_cli_view(
             activity_id_str = garmin_activity_id[0]
             if garmin_activity_id[1] != 0:
                 activity_id_str += str(garmin_activity_id[1])
-        cli_msg = f"$ san plot-simple-run {activity_id_str}"
-        if prev_runs_activity_ids_to_compare:
-            cli_msg += f" -vs {' -vs '.join(str(x) for x in prev_runs_activity_ids_to_compare)}"
+        cli_msg = f"$ san plot-simple-ride {activity_id_str}"
         if hr_zones_to_hatch is not None:
             cli_msg += f" -hatch {' -hatch '.join(str(x) for x in hr_zones_to_hatch)}"
         if percentile_to_draw is not None:
             cli_msg += f" --percentile-to-draw {percentile_to_draw}"
-        if pace_plot_set_y_axis_bottom_to_slowest_pace_perc is not None:
-            cli_msg += f" --pace-plot-set-y-axis-bottom-to-slowest-pace-perc {pace_plot_set_y_axis_bottom_to_slowest_pace_perc}"
         if title:
             cli_msg += f" --title '{title}'"
         if figure_size:
@@ -334,10 +264,8 @@ def plot_simple_run_api_cli_view(
     if do_debug_args:
         for arg in (
             "garmin_activity_id",
-            "prev_runs_activity_ids_to_compare",
             "hr_zones_to_hatch",
             "percentile_to_draw",
-            "pace_plot_set_y_axis_bottom_to_slowest_pace_perc",
             "title",
             "figure_size",
             "do_skip_any_questions",
@@ -348,19 +276,11 @@ def plot_simple_run_api_cli_view(
             f"dir_or_file_path: {save_to_png_file_path} | {type(save_to_png_file_path)}"
         )
 
-    p = PlotSimpleRunApiCmd(
+    plot_ride = PlotSimpleRideApiCmd(
         garmin_activity_id,
-        prev_runs_activity_ids_to_compare=prev_runs_activity_ids_to_compare or None,
         hr_zones_to_hatch=hr_zones_to_hatch or None,
         percentile_to_draw=percentile_to_draw,
-        pace_plot_set_y_axis_bottom_to_slowest_pace_perc=pace_plot_set_y_axis_bottom_to_slowest_pace_perc,
         title=title,
-        figure_size=figure_size or None,
+        figure_size=figure_size,
     )
-    return p.plot(save_to_png_file_path=save_to_png_file_path)
-
-
-class BasePlotSimpleRunApiCliException(Exception): ...
-
-
-class DirOrFilePathError(BasePlotSimpleRunApiCliException): ...
+    return plot_ride.plot(save_to_png_file_path=save_to_png_file_path)

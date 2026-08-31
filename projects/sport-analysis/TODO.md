@@ -1,6 +1,6 @@
 - usa sempre domande interattive:
-    plot_simple_run
-    plot_simple_ride
+    plot_simple_run DONE
+    plot_simple_ride DONE
     plot_climb_ride
 
 - in tutti i plot, per il nome del file .png genration (live code, non test) usa il
