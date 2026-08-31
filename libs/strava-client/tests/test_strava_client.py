@@ -11,7 +11,6 @@ from strava_client import (
     PossibleDuplicatedActivity,
     RequestedResultsPageDoesNotExist,
     SegmentEffortNotFound,
-    SegmentNameMismatch,
     SegmentNotFound,
     SportTypeInvalid,
     StravaApiRateLimitExceeded,
@@ -1388,7 +1387,7 @@ class TestGetActivityDetailsSegment:
         assert "description" in response.data
 
         segment_efforts = response.get_segment_efforts(
-            [(30559592, "Pista Blu Dobbiaco")]
+            [30559592]  # "Pista Blu Dobbiaco"
         )
         assert len(segment_efforts) == 1
         assert segment_efforts[0]["start_index"] == 1130
@@ -1396,8 +1395,38 @@ class TestGetActivityDetailsSegment:
         assert segment_efforts[0]["average_heartrate"] == 129.8
 
         # Case insensitive.
-        response.get_segment_efforts([(30559592, "pistA BLU dobbiaco")])
+        response.get_segment_efforts(["pistA BLU dobbiaco"])  # 30559592
         assert len(segment_efforts) == 1
+
+    def test_filter_int(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.get_activity_details(13389554554)
+        assert response.data["name"] == "Dobbiaco Winter Night Run 🦠"
+        assert response.data["id"] == 13389554554
+        assert "description" in response.data
+
+        segment_efforts = response.get_segment_efforts(
+            [30559592]  # "Pista Blu Dobbiaco"
+        )
+        assert len(segment_efforts) == 1
+        assert segment_efforts[0]["start_index"] == 1130
+        assert segment_efforts[0]["end_index"] == 1349
+        assert segment_efforts[0]["average_heartrate"] == 129.8
+
+    def test_filter_string(self):
+        client = StravaClient(self.token_mgr.get_access_token())
+        response = client.get_activity_details(13389554554)
+        assert response.data["name"] == "Dobbiaco Winter Night Run 🦠"
+        assert response.data["id"] == 13389554554
+        assert "description" in response.data
+
+        segment_efforts = response.get_segment_efforts(
+            ["Pista Blu Dobbiaco"]  # 30559592
+        )
+        assert len(segment_efforts) == 1
+        assert segment_efforts[0]["start_index"] == 1130
+        assert segment_efforts[0]["end_index"] == 1349
+        assert segment_efforts[0]["average_heartrate"] == 129.8
 
     def test_segment_not_found(self):
         client = StravaClient(self.token_mgr.get_access_token())
@@ -1407,21 +1436,21 @@ class TestGetActivityDetailsSegment:
         assert "description" in response.data
 
         with pytest.raises(SegmentEffortNotFound):
-            response.get_segment_efforts([(999, "Pista Blu Dobbiaco")])
-        with pytest.raises(SegmentNameMismatch):
-            response.get_segment_efforts([(30559592, "xxx")])
+            response.get_segment_efforts([999])
+        with pytest.raises(SegmentEffortNotFound):
+            response.get_segment_efforts(["XXX"])
         with pytest.raises(SegmentEffortNotFound):
             response.get_segment_efforts(
                 [
-                    (30559592, "Pista Blu Dobbiaco"),
-                    (999, "Pista Blu Dobbiaco"),
+                    "Pista Blu Dobbiaco",
+                    999,
                 ]
             )
         with pytest.raises(SegmentEffortNotFound):
             response.get_segment_efforts(
                 [
-                    (999, "Pista Blu Dobbiaco"),
-                    (30559592, "Pista Blu Dobbiaco"),
+                    "Pista Blu DobbiacoXXX",
+                    30559592,
                 ]
             )
 
@@ -1444,8 +1473,8 @@ class TestGetActivityDetailsSegment:
 
         segment_efforts = response.get_segment_efforts(
             [
-                (30559592, "Pista Blu Dobbiaco"),
-                (38460423, "Winter Night Run 2024"),
+                "Pista Blu Dobbiaco",  # 30559592.
+                38460423,  # "Winter Night Run 2024".
             ]
         )
         assert len(segment_efforts) == 2
@@ -1459,11 +1488,12 @@ class TestGetActivityDetailsSegment:
 
         segment_efforts = response.get_segment_efforts(
             [
-                (8167025, "Via Solferino"),
-                (38355448, "300m stazione Levate"),
+                8167025,  # "Via Solferino".
+                "300m stazione Levate",  # 38355448.
             ]
         )
         assert len(segment_efforts) == 7
+        segment_efforts.sort(key=lambda x: x["id"])
         assert segment_efforts[0]["name"] == "Via Solferino"
         for i in range(1, 6):
             assert segment_efforts[i]["name"] == "300m stazione Levate"

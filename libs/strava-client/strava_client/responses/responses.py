@@ -1,8 +1,7 @@
 import warnings
-from collections import defaultdict
 from collections.abc import Generator
 from functools import cached_property, lru_cache
-from typing import Any
+from typing import Any, Sequence
 
 import requests
 
@@ -12,7 +11,6 @@ __all__ = [
     "ActivityDetailsResponse",
     "SegmentEffortNotFound",
     "StreamsResponse",
-    "SegmentNameMismatch",
     "ListActivitiesResponse",
     "UpdatedActivity",
     "CreatedActivity",
@@ -218,22 +216,26 @@ class ActivityDetailsResponse(BaseJsonResponse):
     data: dict[str, Any]
 
     def get_segment_efforts(
-        self, segments_filter: list[tuple[int, str]] | None = None
+        self, segments_filter: Sequence[int | str] | None = None
     ) -> list[dict]:
         """
         Get segment efforts.
         Optionally use the arg segments_filter to get only certain segments identified
-         by ids [int] and their name [str].
+         by either ids [int] or names [str].
         Mind that there can be multiple efforts for the same segment, for example
          when I run 6x300m.
 
         Args:
-            segments_filter list[tuple] | None: a list of tuples of 2 items:
-             segment_id [int], segment_name [str].
-             Eg.: list((30559592, "Pista Blu Dobbiaco"), (14418673, "Selvino Fontanella"))
+            segments_filter list[int | str] | None: a list of ints or strings.
+             Eg.: [30559592, 14418673]
+             Eg.: ["Pista Blu Dobbiaco"]
+             Eg.: ["Pista Blu Dobbiaco", 14418673, 123345]
         """
         if not segments_filter:
             return self.data.get("segment_efforts", [])
+
+        # Make all segments_filter lower case.
+        filters = tuple(x.lower() if isinstance(x, str) else x for x in segments_filter)
 
         return_data: list[dict] = list()
         # Each item in the list `return_data` is a dict that contains segment efforts
@@ -273,30 +275,18 @@ class ActivityDetailsResponse(BaseJsonResponse):
         #         "starred": False,
         #     }
 
-        # First collect all indices and segment ids, so it's easier to manipulate.
-        _id_and_indices: dict[int, list[int]] = defaultdict(list)
-        for i in range(len(self.data.get("segment_efforts", []))):
-            _segment_effort: dict = self.data["segment_efforts"][i]
-            _segment: dict = _segment_effort["segment"]
-            _id_and_indices[_segment["id"]].append(i)
+        _found = list()
+        for segment_effort in self.data.get("segment_efforts", []):
+            _segment: dict = segment_effort["segment"]
+            if (_segment["id"] in filters) or (_segment["name"].lower() in filters):
+                _found.append(_segment["id"])
+                _found.append(_segment["name"].lower())
+                return_data.append(segment_effort)
 
-        # Get all target segments given in segments_filter.
-        for _segment_filter in segments_filter:
-            _segments_filter_id, _segments_filter_name = _segment_filter
-            if not _id_and_indices.get(_segments_filter_id):
-                raise SegmentEffortNotFound(_segments_filter_id, _segments_filter_name)
-
-            found = False
-            for ix in _id_and_indices.get(_segments_filter_id):
-                _data = self.data["segment_efforts"][ix]
-                if _data["name"].lower() != _segments_filter_name.lower():
-                    raise SegmentNameMismatch(
-                        _segments_filter_id, _segments_filter_name, _data["name"]
-                    )
-                return_data.append(_data)
-                found = True
-            if not found:
-                raise SegmentEffortNotFound(_segments_filter_id, _segments_filter_name)
+        # Make sure that all requested segments were found.
+        for filter in filters:
+            if filter not in _found:
+                raise SegmentEffortNotFound(filter)
 
         return return_data
 
@@ -410,16 +400,8 @@ class BaseJsonResponseException(Exception):
 
 
 class SegmentEffortNotFound(BaseJsonResponseException):
-    def __init__(self, segment_id: int, segment_name: str):
-        self.segment_id = segment_id
-        self.segment_name = segment_name
-
-
-class SegmentNameMismatch(BaseJsonResponseException):
-    def __init__(self, segment_id: int, segment_name: str, actual_name: str):
-        self.segment_id = segment_id
-        self.segment_name = segment_name
-        self.actual_name = actual_name
+    def __init__(self, segment_id_or_name: int | str):
+        self.segment_id_or_name = segment_id_or_name
 
 
 class StreamNotFound(BaseJsonResponseException):
