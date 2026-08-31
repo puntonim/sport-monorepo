@@ -1,13 +1,12 @@
-import os
 from contextlib import suppress
 from pathlib import Path
 
 import click
-import datetime_utils
 import questionary
 
 from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand, ConsoleAdapter
 from ...conf.settings_module import ROOT_DIR
+from .. import base_plot, questionary_parsers
 from .plot_interval_run_api_cmd import DISTANCE_ENUM, PlotIntervalRunApiCmd
 
 QUESTIONARY_SELECT_STYLE = questionary.Style([("highlighted", "fg:red")])
@@ -29,7 +28,7 @@ console = ConsoleAdapter()
      \b
      Most popular, no questions:
        $ san plot-interval-run LATEST -dist 1000 -n-int 5 --auto-vs-n 3 --no-questions
-     To interactively provide input for all filters:
+     To interactively provide input for all options:
        $ san plot-interval-run
      All possible args, no questions:
        $ san plot-interval-run LATEST-1 -dist 1000 -n-int 5 --auto-vs-n 3 --auto-vs-text '5x1000m 4x1000m' --title 'Ripetute sui mille' --figure-size 5.0 8.5 --dir '/Users/nimiq/workspace/sport-monorepo/projects/sport-analysis/output-images' --no-questions
@@ -162,8 +161,8 @@ def plot_interval_run_api_cli_view(
     save_to_png_file_path: Path | None = None
     if dir_or_file_path is not None:
         try:
-            save_to_png_file_path = _get_png_file_path(dir_or_file_path)
-        except DirOrFilePathError as exc:
+            save_to_png_file_path = base_plot.make_png_file_path(dir_or_file_path)
+        except base_plot.DirOrFilePathError as exc:
             raise click.BadParameter(str(exc)) from exc
 
     ## Prompt for all args that were not provided in the CLI.
@@ -183,8 +182,8 @@ def plot_interval_run_api_cli_view(
         if x is None:  # Required.
             console.print_error("Required!")
             continue
-        with suppress(ValidationError):
-            garmin_activity_id = _parse_garmin_activity_id_input(
+        with suppress(questionary_parsers.ParserValidationError):
+            garmin_activity_id = questionary_parsers.parse_garmin_activity_id_input(
                 x, format_like="24018992823 | LATEST-3"
             )
             is_input_valid = True
@@ -209,9 +208,10 @@ def plot_interval_run_api_cli_view(
         if x is None:  # Required.
             console.print_error("Required!")
             continue
-        with suppress(ValidationError):
+        with suppress(questionary_parsers.ParserValidationError):
             if x is not None:
-                distance = _parse_distance_input(x)
+                # Convert to int.
+                distance: int = _parse_distance_input(x)
             is_input_valid = True
 
     # Optional arg: n_expected_intervals.
@@ -225,9 +225,11 @@ def plot_interval_run_api_cli_view(
             questionary.text(message=text).unsafe_ask()
             or None
         )
-        with suppress(ValidationError):
+        with suppress(questionary_parsers.ParserValidationError):
             if x is not None:
-                n_expected_intervals = _parse_int_input(x, format_like="5")
+                n_expected_intervals = questionary_parsers.parse_int_input(
+                    x, format_like="5"
+                )
             is_input_valid = True
 
     # Optional arg: prev_runs_activity_ids_to_compare.
@@ -245,10 +247,10 @@ def plot_interval_run_api_cli_view(
                 questionary.text(text).unsafe_ask()
                 or None
             )
-            with suppress(ValidationError):
+            with suppress(questionary_parsers.ParserValidationError):
                 if x is not None:
                     prev_runs_activity_ids_to_compare = (
-                        _parse_prev_runs_activity_ids_to_compare_input(
+                        questionary_parsers.parse_multiple_ints_input(
                             x, format_like="22407239690 22214365248 22038147623"
                         )
                     )
@@ -269,9 +271,11 @@ def plot_interval_run_api_cli_view(
             if x is None and txt_to_search_for_prev_runs_to_auto_compare:  # Required.
                 console.print_error("Required when --auto-vs-text is given!")
                 continue
-            with suppress(ValidationError):
+            with suppress(questionary_parsers.ParserValidationError):
                 if x is not None:
-                    n_prev_runs_to_auto_compare = _parse_int_input(x, format_like="5")
+                    n_prev_runs_to_auto_compare = questionary_parsers.parse_int_input(
+                        x, format_like="5"
+                    )
                 is_input_valid = True
 
     # Optional arg: txt_to_search_for_prev_runs_to_auto_compare.
@@ -304,10 +308,10 @@ def plot_interval_run_api_cli_view(
         # Cannot use `validate=<questionary.Validator subclass>` because that is for
         #  the live validation, it's run on every keystroke and returns None.
         x = questionary.text(text).unsafe_ask() or None
-        with suppress(ValidationError):
+        with suppress(questionary_parsers.ParserValidationError):
             if x is not None:
-                figure_size = _parse_tuple_of_floats_input(
-                    x, tuple_size=2, format_like="5.0 7.0"
+                figure_size = questionary_parsers.parse_multiple_floats_input(
+                    x, length=2, format_like="5.0 7.0"
                 )
             is_input_valid = True
 
@@ -326,10 +330,12 @@ def plot_interval_run_api_cli_view(
             ).unsafe_ask()
             or None
         )
-        with suppress(ValidationError):
+        with suppress(questionary_parsers.ParserValidationError):
             if x is not None:
-                save_to_png_file_path = _parse_dir_or_file_path_input(
-                    x, format_like="output-images | /tmp/my-dir | /tmp/foo.png"
+                save_to_png_file_path = (
+                    questionary_parsers.parse_dir_or_file_path_input(
+                        x, format_like="output-images | /tmp/my-dir | /tmp/foo.png"
+                    )
                 )
             is_input_valid = True
 
@@ -394,151 +400,16 @@ def plot_interval_run_api_cli_view(
     return p.plot(save_to_png_file_path=save_to_png_file_path)
 
 
-def _parse_garmin_activity_id_input(value: str, format_like="24018992823 | LATEST-3"):
-    try:
-        parsed: int | tuple[str, int] = ACTIVITY_ID_TYPE.convert(value)
-    except (ValueError, click.BadParameter) as exc:
-        msg = f"{exc}\nFormat like: {format_like}"
-        console.print_error(msg)
-        raise ValidationError(msg) from exc
-    return parsed
-
-
-def _parse_distance_input(value: str):
+def _parse_distance_input(value: str) -> int:
     valid_values = " | ".join(str(x.value) for x in DISTANCE_ENUM)
     try:
         value = int(value)
     except ValueError as exc:
         msg = f"{value} is not a int\nValid values: {valid_values}"
         console.print_error(msg)
-        raise ValidationError(msg) from exc
+        raise questionary_parsers.ParserValidationError(msg) from exc
     if value not in DISTANCE_ENUM:
         msg = f"Valid values: {valid_values}"
         console.print_error(msg)
-        raise ValidationError(msg)
+        raise questionary_parsers.ParserValidationError(msg)
     return value
-
-
-def _parse_int_input(value: str, format_like="5"):
-    try:
-        value = int(value)
-    except ValueError as exc:
-        msg = f"{value} is not a int\nFormat like: {format_like}"
-        console.print_error(msg)
-        raise ValidationError(msg) from exc
-    return value
-
-
-def _parse_prev_runs_activity_ids_to_compare_input(
-    value: str, format_like="22407239690 22214365248 22038147623"
-):
-    data = value.split(" ")
-    to_return = []
-
-    for datum in data:
-        try:
-            to_return.append(int(datum))
-        except ValueError as exc:
-            msg = f"{datum} is not a int\nFormat like: {format_like}"
-            console.print_error(msg)
-            raise ValidationError(msg) from exc
-    return tuple(to_return)
-
-
-def _parse_tuple_of_floats_input(
-    value: str, tuple_size: int = 2, format_like: str = "5.0 7.0"
-):
-    data = value.split(" ")
-    if not len(data) == tuple_size:
-        msg = f"The len is not {tuple_size}\nFormat like: {format_like}"
-        console.print_error(msg)
-        raise ValidationError(msg)
-    to_return = []
-    for datum in data:
-        try:
-            to_return.append(float(datum))
-        except ValueError as exc:
-            msg = f"{datum} is not a float\nFormat like: {format_like}"
-            console.print_error(msg)
-            raise ValidationError(msg) from exc
-    return tuple(to_return)
-
-
-def _parse_dir_or_file_path_input(value: str, format_like="/tmp/my-dir | /tmp/foo.png"):
-    try:
-        value = click.Path(
-            exists=False,
-            file_okay=True,
-            dir_okay=True,
-            readable=True,
-            writable=True,
-            resolve_path=True,
-            path_type=Path,
-        ).convert(value, None, None)
-    except click.BadParameter as exc:
-        msg = f"{exc or 'Invalid input'}\nFormat like: {format_like}"
-        console.print_error(msg)
-        raise ValidationError(msg) from exc
-
-    try:
-        return _get_png_file_path(value)
-    except DirOrFilePathError as exc:
-        msg = str(exc)
-        console.print_error(msg)
-        raise ValidationError(msg) from exc
-
-
-def _get_png_file_path(dir_or_file_path: Path):
-    """
-    Given a dir path, it creates a .png file path, in that dir and with the current
-     timestamp as name, and it makes sure that it does not exist and it is writable.
-
-    Given a .png file path, it makes sure it does not exist and it is writable.
-    """
-    save_to_png_file_path: Path | None = None
-
-    # If the path is a file (not a dir).
-    if dir_or_file_path.suffix:
-        # It's a .png file.
-        if dir_or_file_path.suffix == ".png":
-            if dir_or_file_path.exists():
-                raise DirOrFilePathError(
-                    f"The given .png file already exists: {dir_or_file_path}"
-                )
-        # Else, not a .png file.
-        else:
-            raise DirOrFilePathError(f"Not a .png file path: {dir_or_file_path}")
-        save_to_png_file_path: Path = dir_or_file_path
-
-    # Else, the path is a dir.
-    else:
-        if not dir_or_file_path.exists():
-            raise DirOrFilePathError(
-                f"The given dir does not exists: {dir_or_file_path}"
-            )
-
-        # Eg. "2025-05-13T21:01:33.752427+02:00".
-        get_ts = (
-            lambda: datetime_utils.now()
-            .isoformat()
-            .replace(":", "-")
-            .replace(".", "-")
-            .replace("+", "-")
-        )
-        while (save_to_png_file_path := dir_or_file_path / f"{get_ts()}.png").exists():
-            ...
-
-    # Finally make sure the parent dir is writable.
-    if not os.access(save_to_png_file_path.parent, os.W_OK):
-        raise DirOrFilePathError(f"Dir not writable: {save_to_png_file_path.parent}")
-
-    return save_to_png_file_path
-
-
-class BasePlotIntervalRunApiCliException(Exception): ...
-
-
-class ValidationError(BasePlotIntervalRunApiCliException): ...
-
-
-class DirOrFilePathError(BasePlotIntervalRunApiCliException): ...

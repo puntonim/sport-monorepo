@@ -1,3 +1,4 @@
+import os
 from collections import namedtuple
 from enum import StrEnum
 from functools import lru_cache
@@ -860,10 +861,6 @@ class MixinHrPlot(BasePlot):
         axes.set_axis_off()
 
 
-class BasePlotException(Exception):
-    pass
-
-
 @lru_cache()
 def _get_bpm_range_for_hr_zone(
     zone_number: int,
@@ -945,3 +942,57 @@ def _make_subtitle(
 ):
     subtitle = f"{activity_original_start_time_local[:10]} for {round(activity_original_distance / 1000, 2)}km in {datetime_utils.seconds_to_hh_mm_ss(round(activity_original_duration))}"
     return subtitle
+
+
+def make_png_file_path(dir_or_file_path: Path):
+    """
+    Given a dir path, it creates a .png file path, in that dir and with the current
+     timestamp as name, and it makes sure that it does not exist and it is writable.
+
+    Given a .png file path, it makes sure it does not exist and it is writable.
+    """
+    save_to_png_file_path: Path | None = None
+
+    # If the path is a file (not a dir).
+    if dir_or_file_path.suffix:
+        # It's a .png file.
+        if dir_or_file_path.suffix == ".png":
+            if dir_or_file_path.exists():
+                raise DirOrFilePathError(
+                    f"The given .png file already exists: {dir_or_file_path}"
+                )
+        # Else, not a .png file.
+        else:
+            raise DirOrFilePathError(f"Not a .png file path: {dir_or_file_path}")
+        save_to_png_file_path: Path = dir_or_file_path
+
+    # Else, the path is a dir.
+    else:
+        if not dir_or_file_path.exists():
+            raise DirOrFilePathError(
+                f"The given dir does not exists: {dir_or_file_path}"
+            )
+
+        # Eg. "2025-05-13T21:01:33.752427+02:00".
+        get_ts = (
+            lambda: datetime_utils.now()
+            .isoformat()
+            .replace(":", "-")
+            .replace(".", "-")
+            .replace("+", "-")
+        )
+        while (save_to_png_file_path := dir_or_file_path / f"{get_ts()}.png").exists():
+            ...
+
+    # Finally make sure the parent dir is writable.
+    if not os.access(save_to_png_file_path.parent, os.W_OK):
+        raise DirOrFilePathError(f"Dir not writable: {save_to_png_file_path.parent}")
+
+    return save_to_png_file_path
+
+
+class BasePlotException(Exception):
+    pass
+
+
+class DirOrFilePathError(BasePlotException): ...

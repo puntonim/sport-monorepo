@@ -39,7 +39,7 @@ class ActivityIdType(click.ParamType):
         if isinstance(value, int):
             return value
 
-        if isinstance(value, str) and (match := re.match(r"LATEST(-\d+)?", value)):
+        if isinstance(value, str) and (match := re.match(r"^LATEST(-\d+)?$", value)):
             n = match.group(1) or 0
             n = int(n)
             return "LATEST", n  # Eg. ("LATEST", 0) or ("LATEST", -3).

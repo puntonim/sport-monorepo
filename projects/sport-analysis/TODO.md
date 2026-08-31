@@ -1,14 +1,15 @@
-
-- In questionary, per activity_id_to_compare suggerire il record su 21km e 10km
-  Stesso per simple-ride verdellino adda e interval run
-
-- in tutti i plot, per il nome del file .png genration (live code, non test) usa il
-   codice scritto in interval run che sostituisce i : e . con -.
-
 - usa sempre domande interattive:
     plot_simple_run
     plot_simple_ride
     plot_climb_ride
+
+- in tutti i plot, per il nome del file .png genration (live code, non test) usa il
+   codice scritto in interval run che sostituisce i : e . con -.
+
+- usa *_cli e *_cmd (e nomi di classi) in tutti i plot
+
+- In questionary, per activity_id_to_compare suggerire il record su 21km e 10km
+  Stesso per simple-ride verdellino adda e interval run
 
 - BUG: per activity 23971011920 esce P98 Z6-9bpm
 
