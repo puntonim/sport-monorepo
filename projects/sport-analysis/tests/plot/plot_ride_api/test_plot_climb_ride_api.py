@@ -12,7 +12,9 @@ from strava_client.strava_token_managers import (
 
 from sport_analysis.conf import settings
 from sport_analysis.conf.settings_module import ROOT_DIR
-from sport_analysis.plot.plot_ride_api.plot_climb_ride_api import PlotClimbRideApi
+from sport_analysis.plot.plot_ride_api.plot_climb_ride_api_cmd import (
+    PlotClimbRideApiCmd,
+)
 from tests.conftest import is_vcr_enabled, is_vcr_record_mode
 
 TEST_ACTIVITIES = [
@@ -32,7 +34,7 @@ TEST_ACTIVITIES = [
     ),
 ]
 
-FILE_TESTED_PATH = inspect.getfile(PlotClimbRideApi)
+FILE_TESTED_PATH = inspect.getfile(PlotClimbRideApiCmd)
 
 
 class TestPlotClimbRideApi:
@@ -61,7 +63,7 @@ class TestPlotClimbRideApi:
 
     def test_generate_sample_image(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             garmin_activity_id,
             title="Re Stelvio Mapei",
             segment_start_meters=0,
@@ -76,8 +78,8 @@ class TestPlotClimbRideApi:
     def test_required_args(self):
         # Required args: garmin_activity_id.
         with pytest.raises(TypeError):
-            PlotClimbRideApi()
-        p = PlotClimbRideApi(
+            PlotClimbRideApiCmd()
+        p = PlotClimbRideApiCmd(
             TEST_ACTIVITIES[0]["garmin_activity_id"],
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
@@ -88,7 +90,7 @@ class TestPlotClimbRideApi:
 
     def test_latest_6(self):
         garmin_activity_id = ("LATEST", -6)
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             garmin_activity_id,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
@@ -99,7 +101,7 @@ class TestPlotClimbRideApi:
 
     def test_all_zones_hatched(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             garmin_activity_id,
             hr_zones_to_hatch=("z5", "Z0", "z1", "z2", "z4", "Z3"),
             garmin_connect_token_manager=self.garmin_token_mgr,
@@ -111,7 +113,7 @@ class TestPlotClimbRideApi:
 
     def test_percentile_p80(self):
         garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             garmin_activity_id,
             percentile_to_draw="p80",
             garmin_connect_token_manager=self.garmin_token_mgr,
@@ -123,7 +125,7 @@ class TestPlotClimbRideApi:
 
     def test_percentile_p98(self):
         garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             garmin_activity_id,
             percentile_to_draw="P98",
             garmin_connect_token_manager=self.garmin_token_mgr,
@@ -136,7 +138,7 @@ class TestPlotClimbRideApi:
     def test_percentile_invalid(self):
         garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
         with pytest.raises(ValueError):
-            PlotClimbRideApi(
+            PlotClimbRideApiCmd(
                 garmin_activity_id,
                 percentile_to_draw="XXX",
                 garmin_connect_token_manager=self.garmin_token_mgr,
@@ -144,7 +146,7 @@ class TestPlotClimbRideApi:
 
     def test_segment(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             garmin_activity_id,
             segment_start_meters=3000,
             segment_end_meters=21110,
@@ -158,7 +160,7 @@ class TestPlotClimbRideApi:
 
     def test_no_segment_start(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             garmin_activity_id,
             # segment_start_meters=21110,
             segment_end_meters=21110,
@@ -171,7 +173,7 @@ class TestPlotClimbRideApi:
 
     def test_no_segment_end(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             garmin_activity_id,
             segment_start_meters=21110,
             # segment_end_meters=21110,
@@ -184,7 +186,7 @@ class TestPlotClimbRideApi:
 
     def test_segment_title(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             garmin_activity_id,
             title="Re Stelvio Mapei",
             segment_start_meters=0,
@@ -199,7 +201,7 @@ class TestPlotClimbRideApi:
 
     def test_no_segment_title(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             garmin_activity_id,
             title="Re Stelvio Mapei",
             segment_start_meters=0,
@@ -214,7 +216,7 @@ class TestPlotClimbRideApi:
 
     def test_strava_segment(self):
         garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             garmin_activity_id,
             segment_title="Selvino Fontanella",
             segment_strava_name="Selvino Fontanella",
@@ -228,7 +230,7 @@ class TestPlotClimbRideApi:
 
     def test_no_segment(self):
         garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             garmin_activity_id,
             title="Ranica - Selvino - Lonno",
             # segment_start_meters=0,
@@ -246,7 +248,7 @@ class TestPlotClimbRideApi:
         )
 
     def test_title(self):
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             TEST_ACTIVITIES[0]["garmin_activity_id"],
             title="My Title",
             garmin_connect_token_manager=self.garmin_token_mgr,
@@ -257,7 +259,7 @@ class TestPlotClimbRideApi:
         )
 
     def test_figure_size(self):
-        p = PlotClimbRideApi(
+        p = PlotClimbRideApiCmd(
             TEST_ACTIVITIES[0]["garmin_activity_id"],
             figure_size=(5, 9.5),
             garmin_connect_token_manager=self.garmin_token_mgr,

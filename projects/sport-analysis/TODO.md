@@ -1,12 +1,8 @@
-- usa sempre domande interattive:
-    plot_simple_run DONE
-    plot_simple_ride DONE
-    plot_climb_ride
 
-- in tutti i plot, per il nome del file .png genration (live code, non test) usa il
-   codice scritto in interval run che sostituisce i : e . con -.
 
-- usa *_cli e *_cmd (e nomi di classi) in tutti i plot
+- fix TODOs in PlotClimbRideApiCmd._get_strava_segment_info
+   perche ora funziona solo con "Selvino Fontanella" hardcoded
+   e trasforma il segment name in click.Choice/questionary.Select fin dalla cli
 
 - In questionary, per activity_id_to_compare suggerire il record su 21km e 10km
   Stesso per simple-ride verdellino adda e interval run

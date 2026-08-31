@@ -42,7 +42,7 @@ Optionally pass a segment, by its start-end distance or Strava segment name, to 
 ```sh
 $ san plot-climb-ride 19792668968 --title "Re Stelvio Mapei" --segment-start-meters 0 --segment-end-meters 21110 --segment-title "Climb segment only" --figure-size 5.0 6.5 -d ~/output-images/
 ```
-![](sport_analysis/plot/plot_ride_api/plot_climb_ride_api.png)
+![](sport_analysis/plot/plot_ride_api/plot_climb_ride_api_cmd.png)
 
 
 Run

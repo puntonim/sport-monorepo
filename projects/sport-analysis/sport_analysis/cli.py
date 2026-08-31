@@ -12,7 +12,7 @@ from .health_cli_view import health_cli_view
 from .plot.plot_interval_run_api.plot_interval_run_api_cli import (
     plot_interval_run_api_cli_view,
 )
-from .plot.plot_ride_api.plot_climb_ride_api import plot_climb_ride_api_cli_view
+from .plot.plot_ride_api.plot_climb_ride_api_cli import plot_climb_ride_api_cli_view
 from .plot.plot_ride_api.plot_simple_ride_api_cli import plot_simple_ride_api_cli_view
 from .plot.plot_run_api.plot_simple_run_api_cli import plot_simple_run_api_cli_view
 from .search.search_matching_activity_api import (

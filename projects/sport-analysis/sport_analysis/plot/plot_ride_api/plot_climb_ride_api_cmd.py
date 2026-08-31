@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Sequence
 
-import click
 import datetime_utils
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -20,157 +19,12 @@ from strava_client.strava_token_managers import (
     FileStravaTokenManager,
 )
 
-from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand
 from ...conf import settings
-from ...conf.settings_module import ROOT_DIR
 from ...search.search_matching_activity_api import (
     search_strava_activity_matching_garmin_activity_api,
 )
 from .. import base_api, base_plot
 from ..base_plot import PERCENTILE_TO_DRAW_ENUM, _make_subtitle, _make_title
-
-
-@click.command(
-    cls=BaseClickCommand,
-    name="plot-climb-ride",
-    help="""
-    Plot a climb ride.
-    
-    \b
-    EXAMPLES
-    $ san plot-climb-ride 19792668968 --title "Re Stelvio Mapei" --segment-start-meters 0 --segment-end-meters 21110 --segment-title "Climb segment only" --figure-size 5.0 6.5 -d ~/workspace/sport-monorepo/projects/sport-analysis/output-images/
-    """,
-)
-@click.argument(
-    # REQUIRED arg (via cli arg or questionary).
-    # id (int) of Garmin activity to analyze or "LATEST" or "LATEST-3".
-    "garmin-activity-id",
-    nargs=1,
-    type=ACTIVITY_ID_TYPE,
-    # help="Garmin activity id or LATEST or LATEST-3",
-    # required=False,  # `click.argument` is required by default (unlike `click.option`).
-)
-@click.option(
-    # OPTIONAL arg.
-    "--hr-zone-to-hatch",
-    "-hatch",
-    # Note: "hr_zones_*" is plural as this option can be repeated multiple times.
-    "hr_zones_to_hatch",
-    type=click.Choice(("Z0", "Z1", "Z2", "Z3", "Z4", "Z5"), case_sensitive=False),
-    multiple=True,
-    help='Optional HR zone to "disable" by hatching (45deg grey lines); it can be used multiple times; eg. -hatch Z3 -hatch Z4 -hatch Z5',
-)
-@click.option(
-    # OPTIONAL arg.
-    "--percentile-to-draw",
-    type=click.Choice(tuple(x for x in PERCENTILE_TO_DRAW_ENUM), case_sensitive=False),
-    help="Optional percentile to draw in histogram; P80 is great for a 80/20 ride, P98 for a slow ride; eg. --percentile-to-draw P80 | --percentile-to-draw P98",
-)
-@click.option(
-    # OPTIONAL arg.
-    "--segment-start-meters",
-    type=int,
-    help="Optional start of the desired segment, in meters; eg. --segment-start-meters 0",
-)
-@click.option(
-    # OPTIONAL arg.
-    "--segment-end-meters",
-    type=int,
-    help="Optional end of the desired segment, in meters; eg. --segment-end-meters 21110",
-)
-@click.option(
-    # OPTIONAL arg.
-    "--segment-title",
-    default="Segment only",
-    type=str,
-    help="Optional segment name to draw; eg. 'Selvino Fontanella'",
-)
-@click.option(
-    # OPTIONAL arg.
-    "--segment-strava-name",
-    type=str,
-    help="Optional name of the Strava segment; it cannot be used together with segment_start|end_meters; eg. --segment-strava-name 'Selvino Fontanella'",
-)
-@click.option(
-    # OPTIONAL arg.
-    "--title",
-    type=str,
-    help="Optional title; eg. --title '80/20 run'",
-)
-@click.option(
-    # OPTIONAL arg.
-    "--figure-size",
-    nargs=2,
-    type=click.Tuple([float, float]),
-    help="Optional figure size; eg. --figure-size 5.0 7.0",
-)
-@click.option(
-    # OPTIONAL arg.
-    "--dir",
-    "-d",
-    "dir_or_file_path",
-    type=click.Path(
-        # exists=True,
-        file_okay=True,
-        dir_okay=True,
-        readable=True,
-        writable=True,
-        resolve_path=True,
-        path_type=Path,
-    ),
-    default=ROOT_DIR / "output-images",
-    help="Optional DIR or FILE PATH; eg. -d output-images | -d /tmp/my-dir | -d /tmp/foo.png",
-)
-def plot_climb_ride_api_cli_view(
-    # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
-    garmin_activity_id: int | tuple[str, int],
-    # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
-    hr_zones_to_hatch: tuple[str] | None = None,
-    percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | None = None,
-    title: str | None = None,
-    segment_start_meters: int | None = None,
-    segment_end_meters: int | None = None,
-    segment_title: str | None = None,
-    segment_strava_name: str | None = None,
-    figure_size: tuple[float, float] | None = None,
-    dir_or_file_path: Path = ROOT_DIR / "output-images",
-) -> None:
-    """
-    Plot the HR histogram for the given Garmin activity id as a bike ride.
-    """
-    if dir_or_file_path.suffix:
-        if dir_or_file_path.suffix == ".png":  # It's a .png file.
-            if dir_or_file_path.exists():
-                raise click.BadParameter("The given .png file already exists")
-        else:
-            raise click.BadParameter("Not a .png file path")
-        save_to_png_file_path: Path = dir_or_file_path
-    else:  # It's a dir.
-        if not dir_or_file_path.exists():
-            raise click.BadParameter("The given dir does not exists")
-        ts = datetime_utils.now().isoformat()  # Eg. "2025-05-13T21:01:33.752427+02:00".
-        save_to_png_file_path: Path = dir_or_file_path / f"{ts}.png"
-
-    # Check that
-    #   segment_start|end_meters and segment_strava_name
-    #  are NOT given together.
-    if segment_strava_name and (segment_start_meters or segment_end_meters):
-        raise click.BadParameter(
-            "Either segment-strava-name or (segment-start-meters and segment-end-meters)"
-        )
-
-    plot_ride = PlotClimbRideApi(
-        garmin_activity_id,
-        hr_zones_to_hatch=hr_zones_to_hatch or None,
-        percentile_to_draw=percentile_to_draw,
-        title=title,
-        segment_start_meters=segment_start_meters,
-        segment_end_meters=segment_end_meters,
-        segment_title=segment_title,
-        segment_strava_name=segment_strava_name,
-        figure_size=figure_size,
-    )
-    return plot_ride.plot(save_to_png_file_path=save_to_png_file_path)
 
 
 @dataclass
@@ -179,7 +33,7 @@ class CollectedData:
     details_resp: ActivityDetailsResponse = None
 
 
-class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
+class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
     def __init__(
         self,
         # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
