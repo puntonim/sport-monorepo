@@ -80,6 +80,7 @@ from datetime import date, datetime
 from typing import Any
 
 import garth
+import log_utils as logger
 from garminconnect import Garmin, GarminConnectAuthenticationError
 
 from .garmin_connect_token_managers import (
@@ -101,6 +102,15 @@ __all__ = [
     "InvalidDate",
     "BaseGarminConnectClientException",
 ]
+
+
+# Broken ride because I switched sport half way.
+BROKEN_ACTIVITY = dict(
+    title="PR Stelvio",
+    strava_activity_id=15104529341,
+    garmin_activity_id=19792668848,
+    start_date="2025-07-13",
+)
 
 
 class GarminConnectClient:
@@ -356,6 +366,13 @@ class GarminConnectClient:
         I tested that the HR avg|min|max return here are very close to the ones
          computed directly from the HR stream.
         """
+        if activity_id == BROKEN_ACTIVITY["garmin_activity_id"]:
+            logger.info(
+                "Mind that this ride is broken in Garmin as I switched sport half way"
+                " (it's a  PR on Stelvio)!! However I merged the data in Strava, which"
+                " might be easier to work with."
+            )
+
         data: dict[str, Any] = self.garmin.get_activity(activity_id)
         return ActivitySummaryResponse(data)
 
@@ -515,6 +532,13 @@ class GarminConnectClient:
         I tested that all the streams sizes match the original dataset size.
         Note that some streams can contain None values, see details in ActivityDetailsResponse.
         """
+        if activity_id == BROKEN_ACTIVITY["garmin_activity_id"]:
+            logger.info(
+                "Mind that this ride is broken in Garmin as I switched sport half way"
+                " (it's a  PR on Stelvio)!! However I merged the data in Strava, which"
+                " might be easier to work with."
+            )
+
         # BUG: note that there is a bug in the lib python-garminconnect
         #  that allows only integers > 0, and not 0. I submitted a PR to fix it:
         #  https://github.com/cyberjunky/python-garminconnect/pull/313/
