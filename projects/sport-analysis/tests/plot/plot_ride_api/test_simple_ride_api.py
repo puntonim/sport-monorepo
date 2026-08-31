@@ -1,5 +1,6 @@
 import inspect
 
+import pytest
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
@@ -37,22 +38,35 @@ class TestPlotSimpleRideApi:
 
     def test_generate_sample_image(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        plotter = PlotSimpleRideApi(
+        p = PlotSimpleRideApi(
             garmin_activity_id,
             title="Verdellino - Adda 20km",
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plotter.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png"))
+        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png"))
 
-    def test_latest(self):
+    def test_required_args(self):
+        # Required args: garmin_activity_id.
+        with pytest.raises(TypeError):
+            PlotSimpleRideApi()
+        p = PlotSimpleRideApi(
+            TEST_ACTIVITIES[0]["garmin_activity_id"],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_latest_1(self):
         garmin_activity_id = ("LATEST", -1)
-        plotter = PlotSimpleRideApi(
+        p = PlotSimpleRideApi(
             garmin_activity_id,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plotter.plot(
+        p.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlotSimpleRideApi-test_latest.png",
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
     def test_all_zones_hatched(self):
@@ -69,28 +83,57 @@ class TestPlotSimpleRideApi:
 
     def test_percentile_p80(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        plotter = PlotSimpleRideApi(
+        p = PlotSimpleRideApi(
             garmin_activity_id,
-            title="Verdellino - Adda 20km",
             percentile_to_draw="P80",
-            figure_size=(5.0, 6.5),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plotter.plot(
+        p.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlotSimpleRideApi-test_percentile_p80.png",
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
     def test_percentile_p98(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        plotter = PlotSimpleRideApi(
+        p = PlotSimpleRideApi(
             garmin_activity_id,
-            title="Verdellino - Adda 20km",
             percentile_to_draw="p98",
-            figure_size=(5.0, 6.5),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plotter.plot(
+        p.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlotSimpleRideApi-test_percentile_p98.png",
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_percentile_invalid(self):
+        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
+        with pytest.raises(ValueError):
+            PlotSimpleRideApi(
+                garmin_activity_id,
+                percentile_to_draw="XXX",
+                garmin_connect_token_manager=self.garmin_token_mgr,
+            )
+
+    def test_title(self):
+        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
+        p = PlotSimpleRideApi(
+            garmin_activity_id,
+            title="My Title",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_figure_size(self):
+        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
+        p = PlotSimpleRideApi(
+            garmin_activity_id,
+            figure_size=(5, 9.5),
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )

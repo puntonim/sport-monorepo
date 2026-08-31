@@ -87,29 +87,25 @@ class TestPlotSimpleRunApi:
 
     def test_generate_sample_image_10km(self):
         garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
-        plot_api = PlotSimpleRunApiCmd(
+        p = PlotSimpleRunApiCmd(
             garmin_activity_id,
             percentile_to_draw="p80",
             hr_zones_to_hatch=("Z3",),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plot_api.plot(
-            save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-10km.png")
-        )
+        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-10km.png"))
 
     def test_generate_sample_image_21km(self):
         garmin_activity_id = TEST_ACTIVITIES[6]["garmin_activity_id"]
-        plot_api = PlotSimpleRunApiCmd(
+        p = PlotSimpleRunApiCmd(
             garmin_activity_id,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plot_api.plot(
-            save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-21km.png")
-        )
+        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-21km.png"))
 
     def test_generate_sample_image_w_comparison(self):
         garmin_activity_id = TEST_ACTIVITIES[3]["garmin_activity_id"]
-        plot_api = PlotSimpleRunApiCmd(
+        p = PlotSimpleRunApiCmd(
             garmin_activity_id,
             prev_runs_activity_ids_to_compare=[
                 TEST_ACTIVITIES[2]["garmin_activity_id"],
@@ -119,7 +115,7 @@ class TestPlotSimpleRunApi:
             title="Fosso Bergamasco: Zanica, 5a tappa",
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plot_api.plot(
+        p.plot(
             save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-7km-comparison.png")
         )
 
@@ -135,11 +131,11 @@ class TestPlotSimpleRunApi:
 
     def test_latest_3(self):
         garmin_activity_id = ("LATEST", -3)
-        plot_api = PlotSimpleRunApiCmd(
+        p = PlotSimpleRunApiCmd(
             garmin_activity_id,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plot_api.plot(
+        p.plot(
             save_to_png_file_path=self.png_file_root
             / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
@@ -198,36 +194,36 @@ class TestPlotSimpleRunApi:
 
     def test_all_zones_hatched(self):
         garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
-        plot_api = PlotSimpleRunApiCmd(
+        p = PlotSimpleRunApiCmd(
             garmin_activity_id,
             hr_zones_to_hatch=("z5", "Z0", "z1", "z2", "z4", "Z3"),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plot_api.plot(
+        p.plot(
             save_to_png_file_path=self.png_file_root
             / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
     def test_percentile_p80(self):
         garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
-        plot_api = PlotSimpleRunApiCmd(
+        p = PlotSimpleRunApiCmd(
             garmin_activity_id,
             percentile_to_draw="P80",
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plot_api.plot(
+        p.plot(
             save_to_png_file_path=self.png_file_root
             / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
     def test_percentile_p98(self):
         garmin_activity_id = TEST_ACTIVITIES[5]["garmin_activity_id"]
-        plot_api = PlotSimpleRunApiCmd(
+        p = PlotSimpleRunApiCmd(
             garmin_activity_id,
             percentile_to_draw="p98",
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plot_api.plot(
+        p.plot(
             save_to_png_file_path=self.png_file_root
             / f"{inspect.currentframe().f_code.co_qualname}.png"
         )

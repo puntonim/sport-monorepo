@@ -1,20 +1,9 @@
 
-- sbarrare Z3 in 80/20
-            DONE rimuovere DEFAULT_ACTIVITY_IDS_TO_COMPARE per 10km e per 21km (ride simple e climb e run intervals)
-            DONE test per 10 km e hatched
-            DONE rename all --activity-id-to-compare to prev_runs_activity_ids_to_compare
-            DONE unisci plot-10km e plot21km
-            DONE fai codice e test per hatcehd anche per simple ride, climb ride
-            controllare che stia testando bene in simple and climb ride
-
 - In questionary, per activity_id_to_compare suggerire il record su 21km e 10km
-  Stesso per verdellino adda e interval run
+  Stesso per simple-ride verdellino adda e interval run
 
-- in tutti i tests, per le img generate, usa: inspect.currentframe().f_code.co_qualname
-  come fatto nei test per interval run
-
-- in tutti i plot, per il nome del file .png genratio usa il codice scritto in interval
-   run che sostituisce i : e . con -.
+- in tutti i plot, per il nome del file .png genration (live code, non test) usa il
+   codice scritto in interval run che sostituisce i : e . con -.
 
 - usa sempre domande interattive:
     plot_simple_run

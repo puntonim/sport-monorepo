@@ -80,16 +80,16 @@ from ..base_plot import PERCENTILE_TO_DRAW_ENUM, _make_subtitle, _make_title
 )
 @click.option(
     # OPTIONAL arg.
-    "--segment-strava-name",
-    type=str,
-    help="Optional name of the Strava segment; it cannot be used together with segment_start|end_meters; eg. --segment-strava-name 'Selvino Fontanella'",
-)
-@click.option(
-    # OPTIONAL arg.
     "--segment-title",
     default="Segment only",
     type=str,
     help="Optional segment name to draw; eg. 'Selvino Fontanella'",
+)
+@click.option(
+    # OPTIONAL arg.
+    "--segment-strava-name",
+    type=str,
+    help="Optional name of the Strava segment; it cannot be used together with segment_start|end_meters; eg. --segment-strava-name 'Selvino Fontanella'",
 )
 @click.option(
     # OPTIONAL arg.
@@ -130,8 +130,8 @@ def plot_climb_ride_api_cli_view(
     title: str | None = None,
     segment_start_meters: int | None = None,
     segment_end_meters: int | None = None,
+    segment_title: str | None = None,
     segment_strava_name: str | None = None,
-    segment_title: str = "Segment only",
     figure_size: tuple[float, float] | None = None,
     dir_or_file_path: Path = ROOT_DIR / "output-images",
 ) -> None:
@@ -166,8 +166,8 @@ def plot_climb_ride_api_cli_view(
         title=title,
         segment_start_meters=segment_start_meters,
         segment_end_meters=segment_end_meters,
-        segment_strava_name=segment_strava_name,
         segment_title=segment_title,
+        segment_strava_name=segment_strava_name,
         figure_size=figure_size,
     )
     return plot_ride.plot(save_to_png_file_path=save_to_png_file_path)
@@ -189,8 +189,8 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         hr_zones_to_hatch: Sequence[str] | None = None,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
-        segment_strava_name: str | None = None,
         segment_title: str | None = None,
+        segment_strava_name: str | None = None,
         title: str | None = None,
         figure_size: tuple[float, float] | None = None,
         garmin_connect_token_manager: (
@@ -214,9 +214,9 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
              (drawing 45deg grey lines). Eg. ["Z3", "Z4", "Z5"].
             segment_start_meters: the start of the desired segment, in meters.
             segment_end_meters: the end of the desired segment, in meters.
+            segment_title: title used for the segment chart.
             segment_strava_name: name of the Strava segment. It cannot be used
              together with segment_start|end_meters.
-            segment_title: title used for the segment chart.
             title: plot title.
             figure_size: customize the figure size, eg. (3.0, 5.5).
             garmin_connect_token_manager: use FakeTestGarminConnectTokenManager when
@@ -233,8 +233,8 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
         self.title = title
         self.segment_start_meters = segment_start_meters
         self.segment_end_meters = segment_end_meters
-        self.segment_strava_name = segment_strava_name
         self.segment_title = segment_title
+        self.segment_strava_name = segment_strava_name
         self.figure_size = figure_size
 
         ## Validate some args: hr_zones_to_hatch, percentile_to_draw.
@@ -529,6 +529,6 @@ class PlotClimbRideApi(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
                 width_ratios=[1],
                 height_ratios=[1.5, 1, 1 / 5],
             ),
-            figsize=self._make_figure_size(),
+            figsize=self.figure_size or self._make_figure_size(),
             layout="constrained",
         )

@@ -1,5 +1,6 @@
 import inspect
 
+import pytest
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
@@ -60,7 +61,7 @@ class TestPlotClimbRideApi:
 
     def test_generate_sample_image(self):
         garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        plotter = PlotClimbRideApi(
+        p = PlotClimbRideApi(
             garmin_activity_id,
             title="Re Stelvio Mapei",
             segment_start_meters=0,
@@ -70,95 +71,30 @@ class TestPlotClimbRideApi:
             garmin_connect_token_manager=self.garmin_token_mgr,
             strava_token_manager=self.strava_token_mgr,
         )
-        plotter.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png"))
+        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png"))
 
-    def test_no_segment_title(self):
-        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        plotter = PlotClimbRideApi(
-            garmin_activity_id,
-            title="Re Stelvio Mapei",
-            segment_start_meters=0,
-            segment_end_meters=21110,
-            # segment_title="climb",
-            figure_size=(5.0, 6.5),
+    def test_required_args(self):
+        # Required args: garmin_activity_id.
+        with pytest.raises(TypeError):
+            PlotClimbRideApi()
+        p = PlotClimbRideApi(
+            TEST_ACTIVITIES[0]["garmin_activity_id"],
             garmin_connect_token_manager=self.garmin_token_mgr,
-            strava_token_manager=self.strava_token_mgr,
         )
-        plotter.plot(
+        p.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlotClimbRideApi-test_test_no_segment_title.png",
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
-    def test_no_segment_end(self):
-        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
-        plotter = PlotClimbRideApi(
+    def test_latest_6(self):
+        garmin_activity_id = ("LATEST", -6)
+        p = PlotClimbRideApi(
             garmin_activity_id,
-            title="Re Stelvio Mapei",
-            segment_start_meters=21110,
-            # segment_end_meters=21110,
-            # segment_title="climb",
-            figure_size=(5.0, 6.5),
             garmin_connect_token_manager=self.garmin_token_mgr,
-            strava_token_manager=self.strava_token_mgr,
         )
-        plotter.plot(
+        p.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlotClimbRideApi-test_test_no_segment_end.png",
-        )
-
-    def test_strava_segment(self):
-        garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
-        plotter = PlotClimbRideApi(
-            garmin_activity_id,
-            title="Ranica - Selvino - Lonno",
-            # segment_start_meters=0,
-            # segment_end_meters=21110,
-            segment_strava_name="Selvino Fontanella",
-            segment_title="Selvino Fontanella",
-            figure_size=(5.0, 6.5),
-            garmin_connect_token_manager=self.garmin_token_mgr,
-            strava_token_manager=self.strava_token_mgr,
-            # percentile_to_draw="p80",
-        )
-        plotter.plot(
-            save_to_png_file_path=self.png_file_root
-            / "TestPlotClimbRideApi-test_strava_segment.png",
-        )
-
-    def test_no_segment(self):
-        garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
-        plotter = PlotClimbRideApi(
-            garmin_activity_id,
-            title="Ranica - Selvino - Lonno",
-            # segment_start_meters=0,
-            # segment_end_meters=21110,
-            # segment_strava_name="Selvino Fontanella",
-            # segment_title="Selvino Fontanella",
-            figure_size=(5.0, 6.5),
-            garmin_connect_token_manager=self.garmin_token_mgr,
-            strava_token_manager=self.strava_token_mgr,
-            # percentile_to_draw="p80",
-        )
-        plotter.plot(
-            save_to_png_file_path=self.png_file_root
-            / "TestPlotClimbRideApi-test_no_segment.png",
-        )
-
-    def test_latest(self):
-        garmin_activity_id = ("LATEST", 0)
-        plotter = PlotClimbRideApi(
-            garmin_activity_id,
-            title="Re Stelvio Mapei",
-            segment_start_meters=0,
-            segment_end_meters=21110,
-            segment_title="Climb segment only",
-            figure_size=(5.0, 6.5),
-            garmin_connect_token_manager=self.garmin_token_mgr,
-            strava_token_manager=self.strava_token_mgr,
-        )
-        plotter.plot(
-            save_to_png_file_path=self.png_file_root
-            / "TestPlotClimbRideApi-test_latest.png",
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
     def test_all_zones_hatched(self):
@@ -175,38 +111,158 @@ class TestPlotClimbRideApi:
 
     def test_percentile_p80(self):
         garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
-        plotter = PlotClimbRideApi(
+        p = PlotClimbRideApi(
             garmin_activity_id,
-            title="Ranica - Selvino - Lonno",
-            # segment_start_meters=0,
-            # segment_end_meters=21110,
-            segment_strava_name="Selvino Fontanella",
-            segment_title="Selvino Fontanella",
-            figure_size=(5.0, 6.5),
-            garmin_connect_token_manager=self.garmin_token_mgr,
-            strava_token_manager=self.strava_token_mgr,
             percentile_to_draw="p80",
+            garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        plotter.plot(
+        p.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlotClimbRideApi-test_percentile_p80.png",
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
     def test_percentile_p98(self):
         garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
-        plotter = PlotClimbRideApi(
+        p = PlotClimbRideApi(
+            garmin_activity_id,
+            percentile_to_draw="P98",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_percentile_invalid(self):
+        garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
+        with pytest.raises(ValueError):
+            PlotClimbRideApi(
+                garmin_activity_id,
+                percentile_to_draw="XXX",
+                garmin_connect_token_manager=self.garmin_token_mgr,
+            )
+
+    def test_segment(self):
+        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
+        p = PlotClimbRideApi(
+            garmin_activity_id,
+            segment_start_meters=3000,
+            segment_end_meters=21110,
+            segment_title="climb",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_no_segment_start(self):
+        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
+        p = PlotClimbRideApi(
+            garmin_activity_id,
+            # segment_start_meters=21110,
+            segment_end_meters=21110,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_no_segment_end(self):
+        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
+        p = PlotClimbRideApi(
+            garmin_activity_id,
+            segment_start_meters=21110,
+            # segment_end_meters=21110,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_segment_title(self):
+        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
+        p = PlotClimbRideApi(
+            garmin_activity_id,
+            title="Re Stelvio Mapei",
+            segment_start_meters=0,
+            segment_end_meters=21110,
+            segment_title="MY CLIMB",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_no_segment_title(self):
+        garmin_activity_id = TEST_ACTIVITIES[0]["garmin_activity_id"]
+        p = PlotClimbRideApi(
+            garmin_activity_id,
+            title="Re Stelvio Mapei",
+            segment_start_meters=0,
+            segment_end_meters=21110,
+            # segment_title="climb",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_strava_segment(self):
+        garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
+        p = PlotClimbRideApi(
+            garmin_activity_id,
+            segment_title="Selvino Fontanella",
+            segment_strava_name="Selvino Fontanella",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+            strava_token_manager=self.strava_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_no_segment(self):
+        garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
+        p = PlotClimbRideApi(
             garmin_activity_id,
             title="Ranica - Selvino - Lonno",
             # segment_start_meters=0,
             # segment_end_meters=21110,
-            segment_strava_name="Selvino Fontanella",
-            segment_title="Selvino Fontanella",
+            # segment_strava_name="Selvino Fontanella",
+            # segment_title="Selvino Fontanella",
             figure_size=(5.0, 6.5),
             garmin_connect_token_manager=self.garmin_token_mgr,
             strava_token_manager=self.strava_token_mgr,
-            percentile_to_draw="P98",
+            # percentile_to_draw="p80",
         )
-        plotter.plot(
+        p.plot(
             save_to_png_file_path=self.png_file_root
-            / "TestPlotClimbRideApi-test_percentile_p98.png",
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_title(self):
+        p = PlotClimbRideApi(
+            TEST_ACTIVITIES[0]["garmin_activity_id"],
+            title="My Title",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_figure_size(self):
+        p = PlotClimbRideApi(
+            TEST_ACTIVITIES[0]["garmin_activity_id"],
+            figure_size=(5, 9.5),
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
