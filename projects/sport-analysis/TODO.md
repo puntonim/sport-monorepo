@@ -3,10 +3,10 @@
 - BUG senza -dir e con -no-questions non salva immagine, ma apre il grafico
     interattivo
 
-- In questionary, per activity_id_to_compare suggerire il record su 21km e 10km
-  Stesso per simple-ride verdellino adda e interval run
-
 - BUG: per activity 23971011920 esce P98 Z6-9bpm
+
+- In questionary, per activity_id_to_compare suggerire il record su 21km e 10km
+  Non per le ride perche non supportano nessuna comparazione
 
 - 1 chart largo sopra con i tempi, per interval run
   3 sotto piccoli

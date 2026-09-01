@@ -132,6 +132,10 @@ console = ConsoleAdapter()
 @click.option(
     # OPTIONAL arg.
     "--no-questions",
+    "-no-?",  # Note: use -no-\? in the shell.
+    "-no?",  # Note: use -no\? in the shell.
+    "-no-q",
+    "-noq",
     "do_skip_any_questions",
     is_flag=True,
     default=False,
