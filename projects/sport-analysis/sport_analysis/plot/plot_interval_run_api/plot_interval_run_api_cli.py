@@ -220,7 +220,7 @@ def plot_interval_run_api_cli_view(
 
     # Optional arg: n_expected_intervals.
     is_input_valid = True if n_expected_intervals is not None else False
-    while not is_input_valid:
+    while not is_input_valid and not do_skip_any_questions:
         text = "Optional # EXPECTED INTERVALS (eg. 5)\n"
         instruction = "Leave empty for auto detection\n"
         x = (
@@ -344,6 +344,8 @@ def plot_interval_run_api_cli_view(
                     )
                 )
             is_input_valid = True
+    if save_to_png_file_path is None:
+        save_to_png_file_path = base_plot.make_png_file_path(ROOT_DIR / "output-images")
 
     # Print how to re-run this command.
     if not do_skip_any_questions:

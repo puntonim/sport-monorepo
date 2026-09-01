@@ -161,7 +161,7 @@ def plot_climb_ride_api_cli_view(
     segment_strava_name: str | None = None,
     title: str | None = None,
     figure_size: tuple[float] | None = None,
-    dir_or_file_path: Path = ROOT_DIR / "output-images",
+    dir_or_file_path: Path | None = None,
     do_skip_any_questions: bool = False,
     do_debug_args: bool = False,
 ) -> None:
@@ -351,6 +351,8 @@ def plot_climb_ride_api_cli_view(
                     )
                 )
             is_input_valid = True
+    if save_to_png_file_path is None:
+        save_to_png_file_path = base_plot.make_png_file_path(ROOT_DIR / "output-images")
 
     # Print how to re-run this command.
     if not do_skip_any_questions:
