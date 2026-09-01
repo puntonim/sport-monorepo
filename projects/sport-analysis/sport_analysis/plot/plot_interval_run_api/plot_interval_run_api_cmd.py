@@ -209,9 +209,9 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             xdata_times,
             self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
             label=self._make_legend_label(0),
-            color=["red" for _ in range(len(ydata_range) - 1)]
+            color=[base_plot.COL_PLUM for _ in range(len(ydata_range) - 1)]
             + [base_plot.COL_DARK_GRAY],
-            alpha=0.6,
+            alpha=0.9,
         )
         # Add the main activity's time values at the right of each bar.
         a.bar_label(bar, fmt=self._fmt_time, padding=2)
@@ -227,7 +227,8 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             xdata_times.append(avg)  # Add avg time.
 
             # Update the max time.
-            max_time = max(xdata_times) if max(xdata_times) > max_time else max_time
+            sec_max = max(xdata_times)
+            max_time = sec_max if sec_max > max_time else max_time
 
             # Plot secondary activities' times.
             bar = a.barh(
@@ -255,7 +256,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         a.set_xscale("log")  # Add a base with arg: `base=2`.
         # Set the start and end scale for the x-axis, adding 2% width to make
         #  space for the bar labels.
-        a.set_xlim((0, max_time * 1.03))
+        a.set_xlim((0, max_time * 1.007))
         # Set the start and end scale for the y-axis, so the 2 plots are aligned.
         a.set_ylim((len(ydata_range) - 0.4, -0.6))
         # Remove ticks.
@@ -301,8 +302,8 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             self._ydata_for_barh_mixin(ydata_range, 0, self._n_bars_per_group),
             xdata_pace_maxs,
             self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
-            color=["red" for _ in range(len(ydata_range) - 1)] + ["dimgray"],
-            # color="tab:blue",
+            color=[base_plot.COL_PLUM for _ in range(len(ydata_range) - 1)]
+            + ["dimgray"],
             alpha=0.6,
         )
         # Add main activity's maxes pace values at the right of each bar.
@@ -313,9 +314,9 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             self._ydata_for_barh_mixin(ydata_range, 0, self._n_bars_per_group),
             xdata_pace_avgs,
             self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
-            color=[base_plot.COL_DARK_RED for _ in range(len(ydata_range) - 1)]
+            color=[base_plot.COL_PLUM for _ in range(len(ydata_range) - 1)]
             + [base_plot.COL_DARK_GRAY],
-            alpha=0.8,
+            # alpha=0.8,
         )
         # Add main activity's avgs pace values at the right of each bar.
         a.bar_label(bar, fmt=self._fmt_pace, padding=2)
@@ -371,7 +372,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         ## Format.
         # Invert the y-axis so the 1st attempt is on top.
         a.invert_yaxis()
-        a.set_xlabel("Pace avg|max [min/km]")
+        a.set_xlabel("Pace\navg|max [min/km]", fontsize=9)
         # Set the x-axis label to the top.
         a.xaxis.set_label_position("top")
         # Use log scale to amplify the small differences.
@@ -429,8 +430,8 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             self._ydata_for_barh_mixin(ydata_range, 0, self._n_bars_per_group),
             xdata_cadence_maxs,
             self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
-            color=["red" for _ in range(len(ydata_range) - 1)] + ["dimgray"],
-            # color="tab:blue",
+            color=[base_plot.COL_PLUM for _ in range(len(ydata_range) - 1)]
+            + ["dimgray"],
             alpha=0.6,
         )
         # Add main activity's maxes cadence values at the right of each bar.
@@ -442,9 +443,9 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             xdata_cadence_avgs,
             self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
             # color="#084266",
-            color=[base_plot.COL_DARK_RED for _ in range(len(ydata_range) - 1)]
+            color=[base_plot.COL_PLUM for _ in range(len(ydata_range) - 1)]
             + [base_plot.COL_DARK_GRAY],
-            alpha=0.8,
+            # alpha=0.8,
         )
         # Add main activity's avgs cadence values at the right of each bar.
         a.bar_label(bar, fmt="{0:.0f}", padding=2)
@@ -506,7 +507,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         ## Format.
         # Invert the y-axis so the 1st attempt is on top.
         a.invert_yaxis()
-        a.set_xlabel("Cadence avg|max [spm]")
+        a.set_xlabel("Cadence\navg|max [spm]", fontsize=9)
         # Set the x-axis label to the top.
         a.xaxis.set_label_position("top")
         # Use log scale to amplify the small differences.
@@ -558,8 +559,8 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             self._ydata_for_barh_mixin(ydata_range, 0, self._n_bars_per_group),
             xdata_hr_maxs,
             self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
-            color=["red" for _ in range(len(ydata_range) - 1)] + ["dimgray"],
-            # color="tab:blue",
+            color=[base_plot.COL_PLUM for _ in range(len(ydata_range) - 1)]
+            + ["dimgray"],
             alpha=0.6,
         )
         # Add main activity's maxes HR values at the right of each bar.
@@ -571,9 +572,9 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             xdata_hr_avgs,
             self._bar_height_for_barh_mixin(0, self._n_bars_per_group),
             # color="#084266",
-            color=[base_plot.COL_DARK_RED for _ in range(len(ydata_range) - 1)]
+            color=[base_plot.COL_PLUM for _ in range(len(ydata_range) - 1)]
             + [base_plot.COL_DARK_GRAY],
-            alpha=0.8,
+            # alpha=0.8,
         )
         # Add main activity's avgs HR values at the right of each bar.
         a.bar_label(bar, fmt="{0:.0f}", padding=2)
@@ -631,7 +632,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         ## Format.
         # Invert the y-axis so the 1st attempt is on top.
         a.invert_yaxis()
-        a.set_xlabel("Heart rate avg|max [bpm]")
+        a.set_xlabel("Heart rate\n avg|max [bpm]", fontsize=9)
         # Set the x-axis label to the top.
         a.xaxis.set_label_position("top")
         # Use log scale to amplify the small differences.
@@ -830,24 +831,28 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         return width, height
 
     def _make_subplot_mosaic(self) -> tuple[Figure, dict[str, Axes]]:
+        figsize = self.figure_size or self._make_figure_size()
+        console.print(f":triangular_ruler: Figure size: {figsize}")
+
         # Docs for subplot_mosaic():
         #  https://matplotlib.org/stable/users/explain/axes/arranging_axes.html#variable-widths-or-heights-in-a-grid
         #  https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplot_mosaic.html#matplotlib.pyplot.subplot_mosaic
         return plt.subplot_mosaic(
             # fmt: off
     [
-                # 2 rows, 2 col.
-                ["time", "hr"],
-                ["pace", "cadence"],
-                ["note", "note"],
+                # 3 rows, 3 col.
+                ["time", "time", "time"],
+                [".", ".", "."],
+                ["hr", "pace", "cadence"],
+                ["note", "note", "note"],
             ],
             # fmt: on
             gridspec_kw=dict(
                 # The relative sizes of the subplots.
-                width_ratios=[1, 1],
-                height_ratios=[1, 1, 0.05],
+                width_ratios=[1, 1, 1],
+                height_ratios=[1, 0.05, 0.7, 0.05],
             ),
-            figsize=self._make_figure_size(),
+            figsize=figsize,
             layout="constrained",
         )
 

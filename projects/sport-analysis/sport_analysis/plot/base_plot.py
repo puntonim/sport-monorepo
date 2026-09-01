@@ -20,8 +20,8 @@ from ..conf import settings
 
 console = ConsoleAdapter()
 
-COL_HR_MAIN = "red"
-COL_PACE_MAIN = "#580F41"  # Plum.
+COL_RED = "red"
+COL_PLUM = "#580F41"
 
 COL_DARK_RED = "#9A2D2D"
 COL_DARK_GRAY = "#3B3B3B"
@@ -299,7 +299,7 @@ class MixinHrPlot(BasePlot):
             hr_stream,
             bins=_n_bins,
             weights=1 / len(hr_stream) * np.ones(len(hr_stream)),
-            color=COL_HR_MAIN,
+            color=COL_RED,
             alpha=0.6,
         )
 

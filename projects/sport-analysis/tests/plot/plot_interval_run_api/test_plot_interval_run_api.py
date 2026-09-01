@@ -88,6 +88,7 @@ class TestPlotIntervalRunApi:
             garmin_activity_id,
             distance=100,
             n_expected_intervals=[7],
+            figure_size=(5, 6),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-100m.png"))
@@ -97,6 +98,7 @@ class TestPlotIntervalRunApi:
         p = PlotIntervalRunApiCmd(
             garmin_activity_id,
             distance=200,
+            figure_size=(5, 7),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-200m.png"))

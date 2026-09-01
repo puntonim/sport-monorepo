@@ -376,6 +376,9 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         return 5, height
 
     def _make_subplot_mosaic(self) -> tuple[Figure, dict[str, Axes]]:
+        figsize = self.figure_size or self._make_figure_size()
+        console.print(f":triangular_ruler: Figure size: {figsize}")
+
         # Docs for subplot_mosaic():
         #  https://matplotlib.org/stable/users/explain/axes/arranging_axes.html#variable-widths-or-heights-in-a-grid
         #  https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplot_mosaic.html#matplotlib.pyplot.subplot_mosaic
@@ -393,7 +396,7 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                 width_ratios=[1],
                 height_ratios=[1.5, 1, 1 / 5],
             ),
-            figsize=self.figure_size or self._make_figure_size(),
+            figsize=figsize,
             layout="constrained",
         )
 

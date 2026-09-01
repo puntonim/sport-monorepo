@@ -1,9 +1,5 @@
 
 
-- 1 chart largo sopra con i tempi, per interval run
-  3 sotto piccoli
-  non rosso, ma violetto
-
 - replace get_string_from_env() e override_settings in settings_module.py con settings_utils lib
 - activity_id: strava-* or garmin-* (oppure --stravaid=123)
   usala in search-matching-strava-activity, rename to search-matching-activity

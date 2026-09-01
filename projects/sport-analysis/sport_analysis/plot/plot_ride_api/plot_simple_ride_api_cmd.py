@@ -11,9 +11,12 @@ from garmin_connect_client.garmin_connect_token_managers import (
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
+from ...base_cli_view import ConsoleAdapter
 from ...conf import settings
 from .. import base_api, base_plot
 from ..base_plot import PERCENTILE_TO_DRAW_ENUM, _make_subtitle, _make_title
+
+console = ConsoleAdapter()
 
 
 @dataclass
@@ -191,6 +194,9 @@ class PlotSimpleRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlo
         return 5, height
 
     def _make_subplot_mosaic(self) -> tuple[Figure, dict[str, Axes]]:
+        figsize = self.figure_size or self._make_figure_size()
+        console.print(f":triangular_ruler: Figure size: {figsize}")
+
         # Docs for subplot_mosaic():
         #  https://matplotlib.org/stable/users/explain/axes/arranging_axes.html#variable-widths-or-heights-in-a-grid
         #  https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplot_mosaic.html#matplotlib.pyplot.subplot_mosaic
@@ -207,6 +213,6 @@ class PlotSimpleRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlo
                 width_ratios=[1],
                 height_ratios=[5, 1],
             ),
-            figsize=self.figure_size or self._make_figure_size(),
+            figsize=figsize,
             layout="constrained",
         )

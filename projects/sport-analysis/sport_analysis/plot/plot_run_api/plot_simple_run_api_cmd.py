@@ -189,7 +189,7 @@ class PlotSimpleRunApiCmd(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinH
             ydata_pace_df["MA(pace)"],
             label=self._make_legend_label(0),
             # color="red",
-            color=base_plot.COL_PACE_MAIN,
+            color=base_plot.COL_PLUM,
             alpha=0.6,
             linewidth=3.0,
         )
@@ -274,7 +274,7 @@ class PlotSimpleRunApiCmd(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinH
         _pace_base10_avg = speed_utils.mps_to_minpkm_base10(_speed_avg)
         a.axhline(
             y=_pace_base10_avg,
-            color=base_plot.COL_PACE_MAIN,
+            color=base_plot.COL_PLUM,
             alpha=0.5,
             linestyle=":",
         )
@@ -284,7 +284,7 @@ class PlotSimpleRunApiCmd(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinH
             (a.get_xlim()[0], _pace_base10_avg),
             xytext=(0.1, 0.2),
             textcoords="offset fontsize",
-            color=base_plot.COL_PACE_MAIN,
+            color=base_plot.COL_PLUM,
             fontsize=8,
             fontweight="bold",
         )
@@ -504,6 +504,9 @@ class PlotSimpleRunApiCmd(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinH
         return 5, height
 
     def _make_subplot_mosaic(self) -> tuple[Figure, dict[str, Axes]]:
+        figsize = self.figure_size or self._make_figure_size()
+        console.print(f":triangular_ruler: Figure size: {figsize}")
+
         # Docs for subplot_mosaic():
         #  https://matplotlib.org/stable/users/explain/axes/arranging_axes.html#variable-widths-or-heights-in-a-grid
         #  https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplot_mosaic.html#matplotlib.pyplot.subplot_mosaic
@@ -521,7 +524,7 @@ class PlotSimpleRunApiCmd(ABC, base_api.MixinGarminRequestsApi, base_plot.MixinH
                 width_ratios=[1],
                 height_ratios=[1.5, 0.22, 1],
             ),
-            figsize=self.figure_size or self._make_figure_size(),
+            figsize=figsize,
             layout="constrained",
         )
 
