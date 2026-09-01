@@ -36,6 +36,15 @@ class ActivityIdType(click.ParamType):
     name = "activity_id"
 
     def convert(self, value, param=None, ctx=None) -> int | tuple[str, int]:
+
+        if value == "19792668848" or value == 19792668848:
+            ConsoleAdapter().print(
+                "[black italic on yellow]:red_circle: Mind that this ride is broken in"
+                " Garmin as I switched sport half way (it's a  PR on Stelvio)!!"
+                " However I merged the data in Strava, which might be easier to work"
+                " with.[/]"
+            )
+
         if isinstance(value, int):
             return value
 

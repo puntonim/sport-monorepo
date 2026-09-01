@@ -12,19 +12,22 @@ from garmin_connect_client.garmin_connect_token_managers import (
 )
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
-from strava_client import StravaClient, StreamsResponse
+from strava_client import SegmentEffortNotFound, StravaClient, StreamsResponse
 from strava_client.strava_token_managers import (
     AwsParameterStoreStravaTokenManager,
     FakeTestStravaTokenManager,
     FileStravaTokenManager,
 )
 
+from ...base_cli_view import ConsoleAdapter
 from ...conf import settings
 from ...search.search_matching_activity_api import (
     search_strava_activity_matching_garmin_activity_api,
 )
 from .. import base_api, base_plot
 from ..base_plot import PERCENTILE_TO_DRAW_ENUM, _make_subtitle, _make_title
+
+console = ConsoleAdapter()
 
 
 @dataclass
@@ -254,30 +257,37 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         garmin_dataset_size = self._s[0].details_resp.original_dataset_size
         strava_dataset_size = strava_streams.get_original_dataset_size()
         if garmin_dataset_size != strava_dataset_size:
-            # TODO better exc
-            raise Exception(
-                "The matching Strava activity has a dataset with different size (and I am searching for the Strava segment name provided)"
+            raise DatasetSizeError(
+                "The matching Strava activity has a dataset with different size than"
+                " the Garmin activity (and I am searching for the Strava segment effort"
+                f" with the name provided): {strava_dataset_size} in Strava vs"
+                f" {garmin_dataset_size} in Garmin"
             )
 
         # Get the segment effort in Strava.
-        # TODO cambia codice di strava client per prendere un segment effort by name only
-        segment_efforts = strava_details.get_segment_efforts(
-            [(14418673, "Selvino Fontanella")]
-        )
-        # TODO replace assertion with exception
-        assert len(segment_efforts) == 1
+        try:
+            segment_efforts = strava_details.get_segment_efforts(
+                [self.segment_strava_name]
+            )
+        except SegmentEffortNotFound as exc:
+            raise StravaSegmentEffortNotFound(self.segment_strava_name) from exc
+
+        if len(segment_efforts) != 1:
+            raise MultipleStravaSegmentEfforts(
+                f"Expected 1 Strava segment effort, but found: {len(segment_efforts)}"
+            )
+
         segment_start_index = segment_efforts[0]["start_index"]
         segment_end_index = segment_efforts[0]["end_index"]
-        print(f"Strava segment indices: {segment_start_index}-{segment_end_index}")
         segment_start_distance = strava_streams.get_distance_stream()[
             segment_start_index
         ]
         segment_end_distance = strava_streams.get_distance_stream()[segment_end_index]
-        print(
-            f"Strava segment distances: {segment_start_distance}-{segment_end_distance}"
-        )
         self.segment_start_meters = segment_start_distance
         self.segment_end_meters = segment_end_distance
+        console.print(
+            f"Segment: {self.segment_start_meters}m-{self.segment_end_meters}m "
+        )
 
     def plot(self, save_to_png_file_path: Path | str | None = None):
         ## Find the actual Garmin activity, if the garmin id arg was LATEST or LATEST-3.
@@ -386,3 +396,17 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             figsize=self.figure_size or self._make_figure_size(),
             layout="constrained",
         )
+
+
+class BasePlotClimbRideApiCmdException(Exception): ...
+
+
+class StravaSegmentEffortNotFound(BasePlotClimbRideApiCmdException):
+    def __init__(self, strava_segment_name: str):
+        self.strava_segment_name = strava_segment_name
+
+
+class DatasetSizeError(BasePlotClimbRideApiCmdException): ...
+
+
+class MultipleStravaSegmentEfforts(BasePlotClimbRideApiCmdException): ...

@@ -14,6 +14,7 @@ from sport_analysis.conf import settings
 from sport_analysis.conf.settings_module import ROOT_DIR
 from sport_analysis.plot.plot_ride_api.plot_climb_ride_api_cmd import (
     PlotClimbRideApiCmd,
+    StravaSegmentEffortNotFound,
 )
 from tests.conftest import is_vcr_enabled, is_vcr_record_mode
 
@@ -32,7 +33,38 @@ TEST_ACTIVITIES = [
         garmin_activity_id=22393217420,
         start_date="2026-04-03",
     ),
+    # 2.
+    dict(
+        title="PR Selvino MTB",
+        strava_activity_id=12591555468,
+        garmin_activity_id=17219352641,
+        start_date="2024-10-06",
+    ),
+    # 3.
+    dict(
+        title="PR Selvino BDC",
+        strava_activity_id=11681601053,
+        garmin_activity_id=15974223178,
+        start_date="2024-06-18",
+    ),
+    # # 3.
+    # dict(
+    #     title="PR Stelvio",  # Note: broken activity because I switched sport half way.
+    #     strava_activity_id=15104529341,
+    #     garmin_activity_id=19792668848,
+    #     start_date="2025-07-13",
+    # ),
+    # 4.
+    dict(
+        title="2nd best time Stelvio",
+        strava_activity_id=19280944043,
+        garmin_activity_id=23569511098,
+        start_date="2025-07-12",
+    ),
 ]
+
+STRAVA_SEGMENT_SELVINO = {"id": 14418673, "name": "Selvino Fontanella"}
+STRAVA_SEGMENT_STELVIO = {"id": 15756100, "name": "Passo Stelvio (via Bormio)"}
 
 FILE_TESTED_PATH = inspect.getfile(PlotClimbRideApiCmd)
 
@@ -214,12 +246,13 @@ class TestPlotClimbRideApi:
             / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
-    def test_strava_segment(self):
-        garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]
+    def test_strava_segment_selvino(self):
+        garmin_activity_id = TEST_ACTIVITIES[3]["garmin_activity_id"]
         p = PlotClimbRideApiCmd(
             garmin_activity_id,
-            segment_title="Selvino Fontanella",
-            segment_strava_name="Selvino Fontanella",
+            segment_title="Selvino",
+            segment_strava_name=STRAVA_SEGMENT_SELVINO["name"],
+            title="PR Selvino BDC",
             garmin_connect_token_manager=self.garmin_token_mgr,
             strava_token_manager=self.strava_token_mgr,
         )
@@ -227,6 +260,35 @@ class TestPlotClimbRideApi:
             save_to_png_file_path=self.png_file_root
             / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
+
+    def test_strava_segment_stelvio(self):
+        garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
+        p = PlotClimbRideApiCmd(
+            garmin_activity_id,
+            segment_title="Stelvio",
+            segment_strava_name=STRAVA_SEGMENT_STELVIO["name"],
+            title="2nd best time Stelvio BDC",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+            strava_token_manager=self.strava_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_strava_segment_does_not_exist(self):
+        garmin_activity_id = TEST_ACTIVITIES[3]["garmin_activity_id"]
+        p = PlotClimbRideApiCmd(
+            garmin_activity_id,
+            segment_strava_name="XXX",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+            strava_token_manager=self.strava_token_mgr,
+        )
+        with pytest.raises(StravaSegmentEffortNotFound):
+            p.plot(
+                save_to_png_file_path=self.png_file_root
+                / f"{inspect.currentframe().f_code.co_qualname}.png"
+            )
 
     def test_no_segment(self):
         garmin_activity_id = TEST_ACTIVITIES[1]["garmin_activity_id"]

@@ -195,7 +195,7 @@ class SearchStravaApiCmd:
                     )
                     try:
                         segment_efforts: list[dict] = details_resp.get_segment_efforts(
-                            [(self.segment_id, segment_data["name"])]
+                            [self.segment_id]
                         )
                     except SegmentEffortNotFound:
                         continue

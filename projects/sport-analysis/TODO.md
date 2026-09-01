@@ -1,8 +1,9 @@
 
+- select segment strava name, vedi TODO in plot_climb_ride_api_cli.py
+- PlotClimbRideApi: trasforma il segment name in click.Choice/questionary.Select fin dalla cli
 
-- fix TODOs in PlotClimbRideApiCmd._get_strava_segment_info
-   perche ora funziona solo con "Selvino Fontanella" hardcoded
-   e trasforma il segment name in click.Choice/questionary.Select fin dalla cli
+- BUG senza -dir e con -no-questions non salva immagine, ma apre il grafico
+    interattivo
 
 - In questionary, per activity_id_to_compare suggerire il record su 21km e 10km
   Stesso per simple-ride verdellino adda e interval run
@@ -33,6 +34,8 @@
     plot-run: che unisce plot-simple-run, plot-interval-run
     plot-ride: che unisce plot-climb-ride, plot-simple-ride
 
+- in tutti i plot, metti distance su asse x basso (gia fatto in run, non i ride)
+   e time su asse x alto
 
 
 EOY feature

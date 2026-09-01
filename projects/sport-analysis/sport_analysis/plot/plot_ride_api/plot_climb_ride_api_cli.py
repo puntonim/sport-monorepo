@@ -8,7 +8,12 @@ from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand, ConsoleAdapter
 from ...conf.settings_module import ROOT_DIR
 from .. import base_plot, questionary_parsers
 from ..base_plot import PERCENTILE_TO_DRAW_ENUM
-from .plot_climb_ride_api_cmd import PlotClimbRideApiCmd
+from .plot_climb_ride_api_cmd import (
+    DatasetSizeError,
+    MultipleStravaSegmentEfforts,
+    PlotClimbRideApiCmd,
+    StravaSegmentEffortNotFound,
+)
 
 QUESTIONARY_SELECT_STYLE = questionary.Style([("highlighted", "fg:red")])
 
@@ -397,4 +402,10 @@ def plot_climb_ride_api_cli_view(
         segment_strava_name=segment_strava_name,
         figure_size=figure_size,
     )
-    return plot_ride.plot(save_to_png_file_path=save_to_png_file_path)
+    try:
+        return plot_ride.plot(save_to_png_file_path=save_to_png_file_path)
+    except StravaSegmentEffortNotFound as exc:
+        msg = f"Strava segment effort not found: {exc.strava_segment_name}"
+        console.print_error(msg)
+    except (DatasetSizeError, MultipleStravaSegmentEfforts) as exc:
+        console.print_error(str(exc))
