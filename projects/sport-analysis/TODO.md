@@ -1,10 +1,5 @@
 
 
-- BUG senza -dir e con -no-questions non salva immagine, ma apre il grafico
-    interattivo
-
-- BUG: per activity 23971011920 esce P98 Z6-9bpm
-
 - In questionary, per activity_id_to_compare suggerire il record su 21km e 10km
   Non per le ride perche non supportano nessuna comparazione
 

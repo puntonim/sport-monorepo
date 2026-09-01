@@ -907,7 +907,7 @@ def _make_percentile_text(
     # Eg. "Z2+4bpm".
     bpm_diff_left = percentile_bpm - zone_bpm_range[0] + 1
     bpm_diff_right = zone_bpm_range[1] + 1 - percentile_bpm
-    if bpm_diff_left < bpm_diff_right:
+    if bpm_diff_left < bpm_diff_right or zone_num == 5:
         bpm_diff_txt = f"Z{zone_num-1}+{bpm_diff_left}bpm"
     else:
         bpm_diff_txt = f"Z{zone_num+1}-{bpm_diff_right}bpm"
