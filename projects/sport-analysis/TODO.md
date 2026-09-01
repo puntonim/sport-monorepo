@@ -1,8 +1,5 @@
 
 
-- In questionary, per activity_id_to_compare suggerire il record su 21km e 10km
-  Non per le ride perche non supportano nessuna comparazione
-
 - 1 chart largo sopra con i tempi, per interval run
   3 sotto piccoli
   non rosso, ma violetto

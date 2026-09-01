@@ -244,12 +244,17 @@ def plot_interval_run_api_cli_view(
     ):  # Cannot be used together.
         is_input_valid = True if prev_runs_activity_ids_to_compare else False
         while not is_input_valid and not do_skip_any_questions:
-            text = "Optional ACTIVITIES IDS TO COMPARE (eg. 22407239690 22214365248 22038147623)"
+            text = "Optional ACTIVITIES IDS TO COMPARE (eg. 22407239690 22214365248 22038147623)\n"
+            instruction = "Current PRs 🏆:\n"
+            instruction += "    22703960410 100m 13.71 29/4/'26\n"
+            instruction += "    20579416584 200m 29.77 3/10/'25\n"
+            instruction += "    20705743544 300m 46.73 16/10/'25\n"
+            instruction += "    22407239690 1000m 3:27 4/4/'26\n"
             x = (
                 # unsafe_ask() so it can be stopped with ctrl-c.
                 # Cannot use `validate=<questionary.Validator subclass>` because that is for
                 #  the live validation, it's run on every keystroke and returns None.
-                questionary.text(text).unsafe_ask()
+                questionary.text(text, instruction=instruction).unsafe_ask()
                 or None
             )
             with suppress(questionary_parsers.ParserValidationError):

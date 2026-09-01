@@ -218,6 +218,10 @@ console = ConsoleAdapter()
 @click.option(
     # OPTIONAL arg.
     "--no-questions",
+    "-no-?",  # Note: use -no-\? in the shell.
+    "-no?",  # Note: use -no\? in the shell.
+    "-no-q",
+    "-noq",
     "do_skip_any_questions",
     is_flag=True,
     default=False,
@@ -540,7 +544,7 @@ def search_strava_api_cli_view(
         if start_date_before:
             cli_msg += f" --start-date-before {start_date_before.isoformat()}"
         if title_contains:
-            cli_msg += f" --title-contains {title_contains}"
+            cli_msg += f" --title-contains '{title_contains}'"
         if activity_type:
             cli_msg += f" --activity-type {activity_type}"
         if start_latlng:

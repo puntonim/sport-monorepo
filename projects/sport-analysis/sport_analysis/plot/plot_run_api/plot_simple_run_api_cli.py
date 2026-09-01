@@ -182,12 +182,18 @@ def plot_simple_run_api_cli_view(
     # Optional arg: prev_runs_activity_ids_to_compare.
     is_input_valid = True if prev_runs_activity_ids_to_compare else False
     while not is_input_valid and not do_skip_any_questions:
-        text = "Optional ACTIVITIES IDS TO COMPARE (eg. 23309590263 23226614861 23035885088)"
+        text = "Optional ACTIVITIES IDS TO COMPARE (eg. 23309590263 23226614861 23035885088)\n"
+        instruction = "Current PRs 🏆:\n"
+        instruction += "    22975082447 5km 19:11 (ESET Melegnano, 22/5/'26)\n"
+        instruction += "    22257100921 10km 40:43 (DKRace Monza, 22/3/'26)\n"
+        instruction += (
+            "    22496738231 HM 1:29:37 (Mezza 2 Laghi Grav.Toce, 12/4/'26)\n"
+        )
         x = (
             # unsafe_ask() so it can be stopped with ctrl-c.
             # Cannot use `validate=<questionary.Validator subclass>` because that is for
             #  the live validation, it's run on every keystroke and returns None.
-            questionary.text(text).unsafe_ask()
+            questionary.text(text, instruction=instruction).unsafe_ask()
             or None
         )
         with suppress(questionary_parsers.ParserValidationError):
