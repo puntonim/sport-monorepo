@@ -157,11 +157,11 @@ def plot_simple_ride_api_cli_view(
 
     # Optional arg: hr_zones_to_hatch.
     if not hr_zones_to_hatch and not do_skip_any_questions:
-        text = (
-            "Optional HR ZONES TO HATCH\n"
-            'HR zone to "disable" by hatching (45deg grey lines)\n'
-            "Use Z3 for a 80/20 ride (when you want to avoid Z3)\n"
-            "Use Z4 and Z5 for a slow ride"
+        text = "Optional HR ZONES TO HATCH\n"
+        instruction = (
+            ' HR zone to "disable" by hatching (45deg grey lines)\n'
+            "  Use Z3 for a 80/20 ride (when you want to avoid Z3)\n"
+            "  Use Z4 and Z5 for a slow ride"
         )
         zones = ("Z0", "Z1", "Z2", "Z3", "Z4", "Z5")
         hr_zones_to_hatch = (
@@ -169,17 +169,20 @@ def plot_simple_ride_api_cli_view(
             # Cannot use `validate=<questionary.Validator subclass>` because that is for
             #  the live validation, it's run on every keystroke and returns None.
             questionary.checkbox(
-                text, choices=zones, style=QUESTIONARY_SELECT_STYLE
+                text,
+                instruction=instruction,
+                choices=zones,
+                style=QUESTIONARY_SELECT_STYLE,
             ).unsafe_ask()
             or None
         )
 
     # Optional arg: percentile_to_draw.
     if not percentile_to_draw and not do_skip_any_questions:
-        text = (
-            "Optional PERCENTILE TO DRAW\n"
-            "Use P80 for a 80/20 ride\n"
-            "Use P98 for a ride entirely slow or fast (like a race)"
+        text = "Optional PERCENTILE TO DRAW\n"
+        instruction = (
+            " Use P80 for a 80/20 ride\n"
+            "  Use P98 for a ride entirely slow or fast (like a race)"
         )
         percentile_to_draw = (
             # unsafe_ask() so it can be stopped with ctrl-c.
@@ -187,6 +190,7 @@ def plot_simple_ride_api_cli_view(
             #  the live validation, it's run on every keystroke and returns None.
             questionary.select(
                 text,
+                instruction=instruction,
                 choices=["*None", *base_plot.PERCENTILE_TO_DRAW_ENUM],
                 style=QUESTIONARY_SELECT_STYLE,
             ).unsafe_ask()

@@ -15,6 +15,14 @@ from garmin_connect_client.garmin_connect_token_managers import (
 
 from ..conf.settings_module import ROOT_DIR
 
+RIDE_SEGMENTS_STRAVA = dict(
+    SELVINO=dict(id=14418673, name="Selvino Fontanella"),
+    STELVIO=dict(id=15756100, name="Passo Stelvio (via Bormio)"),
+    MARESANA=dict(id=19894857, name="(dm) Maresana"),
+    CROCE_MORTI=dict(id=41277950, name="Salita Croce dei Morti da Maresana fontanella"),
+    GAVIA=dict(id=37699613, name="GAVIA UFFICIALE da S.Caterina"),
+)
+
 
 class BaseApi:
     pass

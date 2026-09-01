@@ -1,6 +1,4 @@
 
-- select segment strava name, vedi TODO in plot_climb_ride_api_cli.py
-- PlotClimbRideApi: trasforma il segment name in click.Choice/questionary.Select fin dalla cli
 
 - BUG senza -dir e con -no-questions non salva immagine, ma apre il grafico
     interattivo

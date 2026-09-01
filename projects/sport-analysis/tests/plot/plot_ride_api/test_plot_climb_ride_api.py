@@ -12,6 +12,7 @@ from strava_client.strava_token_managers import (
 
 from sport_analysis.conf import settings
 from sport_analysis.conf.settings_module import ROOT_DIR
+from sport_analysis.plot.base_api import RIDE_SEGMENTS_STRAVA
 from sport_analysis.plot.plot_ride_api.plot_climb_ride_api_cmd import (
     PlotClimbRideApiCmd,
     StravaSegmentEffortNotFound,
@@ -63,8 +64,6 @@ TEST_ACTIVITIES = [
     ),
 ]
 
-STRAVA_SEGMENT_SELVINO = {"id": 14418673, "name": "Selvino Fontanella"}
-STRAVA_SEGMENT_STELVIO = {"id": 15756100, "name": "Passo Stelvio (via Bormio)"}
 
 FILE_TESTED_PATH = inspect.getfile(PlotClimbRideApiCmd)
 
@@ -251,7 +250,7 @@ class TestPlotClimbRideApi:
         p = PlotClimbRideApiCmd(
             garmin_activity_id,
             segment_title="Selvino",
-            segment_strava_name=STRAVA_SEGMENT_SELVINO["name"],
+            segment_strava_name=RIDE_SEGMENTS_STRAVA["SELVINO"]["name"],
             title="PR Selvino BDC",
             garmin_connect_token_manager=self.garmin_token_mgr,
             strava_token_manager=self.strava_token_mgr,
@@ -266,7 +265,7 @@ class TestPlotClimbRideApi:
         p = PlotClimbRideApiCmd(
             garmin_activity_id,
             segment_title="Stelvio",
-            segment_strava_name=STRAVA_SEGMENT_STELVIO["name"],
+            segment_strava_name=RIDE_SEGMENTS_STRAVA["STELVIO"]["name"],
             title="2nd best time Stelvio BDC",
             garmin_connect_token_manager=self.garmin_token_mgr,
             strava_token_manager=self.strava_token_mgr,

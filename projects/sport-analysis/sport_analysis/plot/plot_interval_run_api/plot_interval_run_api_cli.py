@@ -217,12 +217,13 @@ def plot_interval_run_api_cli_view(
     # Optional arg: n_expected_intervals.
     is_input_valid = True if n_expected_intervals is not None else False
     while not is_input_valid:
-        text = "Optional # EXPECTED INTERVALS"
+        text = "Optional # EXPECTED INTERVALS (eg. 5)\n"
+        instruction = "Leave empty for auto detection\n"
         x = (
             # unsafe_ask() so it can be stopped with ctrl-c.
             # Cannot use `validate=<questionary.Validator subclass>` because that is for
             #  the live validation, it's run on every keystroke and returns None.
-            questionary.text(message=text).unsafe_ask()
+            questionary.text(text, instruction=instruction).unsafe_ask()
             or None
         )
         with suppress(questionary_parsers.ParserValidationError):
@@ -284,12 +285,13 @@ def plot_interval_run_api_cli_view(
         and not do_skip_any_questions
         and n_prev_runs_to_auto_compare
     ):
-        text = "Optional TEXT TO SEARCH FOR PREV RUNS TO AUTO COMPARE (eg. 5x1000m)\n  It's an exact match on Garmin activities' titles\n  Leave blank for a smart search like: 1x200m ... 10x200m"
+        text = "Optional TEXT TO SEARCH FOR PREV RUNS TO AUTO COMPARE (eg. 5x1000m)\n"
+        instruction = "It's an exact match on Garmin activities' titles\n  Leave blank for a smart search like: 1x200m ... 10x200m\n"
         # unsafe_ask() so it can be stopped with ctrl-c.
         # Cannot use `validate=<questionary.Validator subclass>` because that is for
         #  the live validation, it's run on every keystroke and returns None.
         txt_to_search_for_prev_runs_to_auto_compare = (
-            questionary.text(text).unsafe_ask() or None
+            questionary.text(text, instruction=instruction).unsafe_ask() or None
         )
 
     # Optional arg: title.

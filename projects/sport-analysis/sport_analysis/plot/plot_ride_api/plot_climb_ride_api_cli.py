@@ -7,6 +7,7 @@ import questionary
 from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand, ConsoleAdapter
 from ...conf.settings_module import ROOT_DIR
 from .. import base_plot, questionary_parsers
+from ..base_api import RIDE_SEGMENTS_STRAVA
 from ..base_plot import PERCENTILE_TO_DRAW_ENUM
 from .plot_climb_ride_api_cmd import (
     DatasetSizeError,
@@ -93,7 +94,11 @@ console = ConsoleAdapter()
     # OPTIONAL arg.
     "--segment-strava-name",
     type=str,
-    help="Optional name of the Strava segment; it cannot be used together with segment_start|end_meters; eg. --segment-strava-name 'Selvino Fontanella'",
+    help=f"Optional name of the Strava segment; it cannot be used together with segment_start|end_meters; eg. --segment-strava-name '"
+    + "' | --segment-strava-name '".join(
+        x["name"] for x in RIDE_SEGMENTS_STRAVA.values()
+    )
+    + "'",
 )
 @click.option(
     # OPTIONAL arg.
@@ -200,11 +205,11 @@ def plot_climb_ride_api_cli_view(
 
     # Optional arg: hr_zones_to_hatch.
     if not hr_zones_to_hatch and not do_skip_any_questions:
-        text = (
-            "Optional HR ZONES TO HATCH\n"
-            'HR zone to "disable" by hatching (45deg grey lines)\n'
-            "Use Z3 for a 80/20 run (when you want to avoid Z3)\n"
-            "Use Z4 and Z5 for a slow run"
+        text = "Optional HR ZONES TO HATCH\n"
+        instruction = (
+            ' HR zone to "disable" by hatching (45deg grey lines)\n'
+            "  Use Z3 for a 80/20 run (when you want to avoid Z3)\n"
+            "  Use Z4 and Z5 for a slow run"
         )
         zones = ("Z0", "Z1", "Z2", "Z3", "Z4", "Z5")
         hr_zones_to_hatch = (
@@ -212,17 +217,20 @@ def plot_climb_ride_api_cli_view(
             # Cannot use `validate=<questionary.Validator subclass>` because that is for
             #  the live validation, it's run on every keystroke and returns None.
             questionary.checkbox(
-                text, choices=zones, style=QUESTIONARY_SELECT_STYLE
+                text,
+                instruction=instruction,
+                choices=zones,
+                style=QUESTIONARY_SELECT_STYLE,
             ).unsafe_ask()
             or None
         )
 
     # Optional arg: percentile_to_draw.
     if not percentile_to_draw and not do_skip_any_questions:
-        text = (
-            "Optional PERCENTILE TO DRAW\n"
-            "Use P80 for a 80/20 run\n"
-            "Use P98 for a run entirely slow or fast (like a race)"
+        text = "Optional PERCENTILE TO DRAW\n"
+        instruction = (
+            " Use P80 for a 80/20 run\n"
+            "  Use P98 for a run entirely slow or fast (like a race)"
         )
         percentile_to_draw = (
             # unsafe_ask() so it can be stopped with ctrl-c.
@@ -230,6 +238,7 @@ def plot_climb_ride_api_cli_view(
             #  the live validation, it's run on every keystroke and returns None.
             questionary.select(
                 text,
+                instruction=instruction,
                 choices=["*None", *base_plot.PERCENTILE_TO_DRAW_ENUM],
                 style=QUESTIONARY_SELECT_STYLE,
             ).unsafe_ask()
@@ -281,19 +290,16 @@ def plot_climb_ride_api_cli_view(
     # Optional arg: segment_strava_name.
     if segment_start_meters is None and segment_end_meters is None:
         if segment_strava_name is None and not do_skip_any_questions:
-            text = (
-                "Optional SEGMENT STRAVA NAME\n"
-                "Known segments:\n"
-                "  Selvino Fontanella\n"
-                "  Passo Stelvio (via Bormio)\n"
-                "  (dm) Maresana\n"
-                "  Salita Croce dei Morti da Maresana fontanella"
-            )
-            # TODO change this ^^ into a proper Select
+            text = "Optional SEGMENT STRAVA NAME\n"
+            instruction = "Type any name, including these well known ride segments:\n"
+            for x in RIDE_SEGMENTS_STRAVA.values():
+                instruction += f"    {x['name']}\n"
             # unsafe_ask() so it can be stopped with ctrl-c.
             # Cannot use `validate=<questionary.Validator subclass>` because that is for
             #  the live validation, it's run on every keystroke and returns None.
-            segment_strava_name = questionary.text(text).unsafe_ask() or None
+            segment_strava_name = (
+                questionary.text(text, instruction=instruction).unsafe_ask() or None
+            )
 
     # Optional arg: title.
     if title is None and not do_skip_any_questions:
