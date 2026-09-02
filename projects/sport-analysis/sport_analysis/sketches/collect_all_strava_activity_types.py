@@ -1,15 +1,16 @@
 """
-Collect all the sport types in Strava.
+Collect all the activity types (and sport types) in Strava.
 
 There is one interesting field named "type",
  and a less interesting filed named "sport_type".
 
-The results are stored in strava_db_model.STRAVA_ACTIVITY_TYPES.
+The results are stored in strava-client and strava-db-models.
 
 Usage:
+    $ poetry run python -m sport_analysis.sketches.collect_all_strava_activity_types
     $ poetry run python sport_analysis/sketches/collect_all_strava_activity_types.py
 
-Results (stored in strava_db_model.STRAVA_ACTIVITY_TYPES):
+Results (stored in strava-db-models):
     TYPES = [
         "BackcountrySki",
         "Hike",
@@ -86,7 +87,6 @@ def main(
     STRAVA_TYPES = set()
     STRAVA_SPORT_TYPES = set()
 
-    count = 0
     while True:
         response = strava.list_activities(**kwargs, page_n=page_n)
         n = len(response.data)
@@ -99,8 +99,8 @@ def main(
             break
         page_n += 1
 
-    logger.info(f"Strava `type`s: {sorted(list(STRAVA_TYPES))}")
-    logger.info(f"Strava `sport_type`s: {sorted(list(STRAVA_SPORT_TYPES))}")
+    logger.info(f"Strava types: {sorted(list(STRAVA_TYPES))}")
+    logger.info(f"Strava sport types: {sorted(list(STRAVA_SPORT_TYPES))}")
 
 
 if __name__ == "__main__":
