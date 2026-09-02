@@ -98,10 +98,46 @@ from .responses import (
 )
 
 __all__ = [
+    "ActivityTypeUnknown",
     "GarminConnectClient",
     "InvalidDate",
     "BaseGarminConnectClientException",
+    "GARMIN_ACTIVITY_TYPES",
+    "GARMIN_ACTIVITY_FOR_SEARCH_FILTER",
 ]
+
+# Garmin activity types, stored in the field "activityType"."typeKey".
+# I collected all the activity types with this sketch:
+#  https://github.com/puntonim/sport-monorepo/blob/main/projects/sport-analysis/sport_analysis/sketches/collect_all_garmin_activity_types.py
+GARMIN_ACTIVITY_TYPES = (
+    "backcountry_snowboarding",
+    "cross_country_skiing_ws",
+    "cycling",
+    "hiking",
+    "mountain_biking",
+    "multi_sport",
+    "resort_snowboarding",
+    "road_biking",
+    "running",
+    "snow_shoe_ws",
+    "strength_training",
+    "trail_running",
+    "walking",
+)
+
+# All possible values for the filter used by search_activities() on the activity type.
+# They are used in the Garmin Connect website in the web page where you can filter by
+#  activity type (see the url).
+GARMIN_ACTIVITY_FOR_SEARCH_FILTER = (
+    "cycling",  # All kinds of cycling like road, mountain boke, etc.
+    "running",  # All kinds of running like trail running, road running, etc.
+    "swimming",
+    "multi_sport",
+    "fitness_equipment",
+    "hiking",
+    "walking",
+    "winter_sports",  # All kinds of winter sports like snowboarding, xc skiing, etc.
+)
 
 
 # Broken ride because I switched sport half way.
@@ -732,9 +768,7 @@ class GarminConnectClient:
              datetime.datetime(2023, 5, 1, 0, 0) or "2023-05-01".
             day_end: optional, eg. datetime.date(2023, 5, 1) or
              datetime.datetime(2023, 5, 1, 0, 0) or "2023-05-01".
-            activity_type: optional; a single string, possible values are: "cycling",
-             "running", "swimming", "multi_sport", "fitness_equipment", "hiking",
-             "walking", "other".
+            activity_type: optional; a single string, possible values are in GARMIN_ACTIVITY_FOR_SEARCH_FILTER.
             start_offset: starting activity offset, where 0 means the most recent activity.
             n_results: number of activities to return.
 
@@ -924,15 +958,9 @@ class GarminConnectClient:
             raise InvalidDate(day_end)
 
         # Validate activity_type.
-        if activity_type and activity_type.lower() not in (
-            "cycling",
-            "running",
-            "swimming",
-            "multi_sport",
-            "fitness_equipment",
-            "hiking",
-            "walking",
-            "other",
+        if (
+            activity_type
+            and activity_type.lower() not in GARMIN_ACTIVITY_FOR_SEARCH_FILTER
         ):
             raise ActivityTypeUnknown(activity_type)
 
