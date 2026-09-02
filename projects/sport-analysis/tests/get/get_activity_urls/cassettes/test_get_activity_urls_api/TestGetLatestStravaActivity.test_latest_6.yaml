@@ -1,0 +1,194 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/athlete/activities?per_page=7
+  response:
+    body:
+      string: '[{"resource_state": 2, "athlete": {"id": 115890775, "id_str": "115890775",
+        "resource_state": 1}, "name": "Legs, calisthenics", "distance": 0.0, "moving_time":
+        5264, "elapsed_time": 5264, "total_elevation_gain": 0, "type": "WeightTraining",
+        "sport_type": "WeightTraining", "workout_type": 30, "device_name": "Garmin
+        Forerunner 965", "id": 20009822955, "id_str": "20009822955", "start_date":
+        "2026-09-02T17:04:44Z", "start_date_local": "2026-09-02T19:04:44Z", "timezone":
+        "(GMT+01:00) Europe/Rome", "utc_offset": 7200.0, "location_city": null, "location_state":
+        null, "location_country": null, "achievement_count": 0, "kudos_count": 1,
+        "comment_count": 0, "athlete_count": 1, "photo_count": 0, "map": {"id": "a20009822955",
+        "summary_polyline": "", "resource_state": 2}, "trainer": true, "commute":
+        false, "manual": false, "private": false, "visibility": "followers_only",
+        "flagged": false, "gear_id": null, "start_latlng": [], "end_latlng": [], "average_speed":
+        0.0, "max_speed": 0.0, "average_temp": 31, "has_heartrate": true, "average_heartrate":
+        63.2, "max_heartrate": 101.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "upload_id": 21149286896, "upload_id_str": "21149286896", "external_id":
+        "garmin_ping_622814281080", "from_accepted_tag": false, "pr_count": 0, "total_photo_count":
+        0, "has_kudoed": false, "suffer_score": 6.0}, {"resource_state": 2, "athlete":
+        {"id": 115890775, "id_str": "115890775", "resource_state": 1}, "name": "Slow
+        run: 97% \u2264Z2", "distance": 8011.8, "moving_time": 2634, "elapsed_time":
+        3363, "total_elevation_gain": 27.0, "type": "Run", "sport_type": "Run", "workout_type":
+        null, "device_name": "Garmin Forerunner 965", "id": 19994208345, "id_str":
+        "19994208345", "start_date": "2026-09-01T16:48:57Z", "start_date_local": "2026-09-01T18:48:57Z",
+        "timezone": "(GMT+01:00) Europe/Rome", "utc_offset": 7200.0, "location_city":
+        null, "location_state": null, "location_country": null, "achievement_count":
+        0, "kudos_count": 0, "comment_count": 0, "athlete_count": 1, "photo_count":
+        0, "map": {"id": "a19994208345", "summary_polyline": "uqkuGsduy@}@D{BV_BF}@GE@KA_B?OBWAO@UAO@}@?I@a@A_@BuA?_@Ck@@cBGq@@[IMKyAo@w@c@{DaBo@E_@Ic@A_@Ic@C]Gc@CSIKMMa@YqCMa@]q@EUA[COYQS[q@i@OWE_@D_A?wADuBFu@Ps@tAeDDw@EwBJMp@[\\IqAf@KLENCTBpAAf@iApCSj@EVKlAAr@EhECVGJKFKB{@?mCKk@N[b@STIDODc@FOIEYJqBCMGCCIAmCMeGBk@Ks@?e@McEDcD?oASeDAy@?iCJuAIUGIEAk@J{@Dk@}CCCK?i@^IAGKc@mBAM@Cd@J|@^BAi@QiAk@?GDIAI@YKKIEk@QEKLqALQL_@Fm@DIBCXDzAK?RHPF?f@FNFRDJBRPdAXx@^t@RRLLCFODg@Bw@TgBLq@FKLCXJPAV[ZMv@HtAXH?|@Lr@NLHLXXNNBFJDrDM~Ac@dCCJIBINQnE@RDLDDr@Px@Zn@RpDtAtA`@tChA^HvAb@XDRAJBX?j@LNFDJHFpAGjD]~BMbBQfBMf@E^IH?THN?x@Mt@Qt@SRKDBDLBT@^h@xE@VBFFDn@Oh@I|BO`CYVABBBLF`AHbDANOLIBUCo@MYKWAkB_AYGO?YD[La@^_@n@KZG`@MfAK\\FH?NGJK|@YtAQvACp@?jAFj@JZHPTRNHJ@N@PEl@[vCyB`CyBVQRUJCH@PFZDDJBVAjHLpFPtDTdCH`@NRTJNLZd@r@nAd@fAZf@ZXnAl@J?TC`AQ\\KLK?WMeBMk@IiBEIF`@",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        "g30360652", "start_latlng": [45.609147, 9.616741], "end_latlng": [45.607078,
+        9.613292], "average_speed": 3.042, "max_speed": 3.76, "average_cadence": 83.5,
+        "average_temp": 30, "average_watts": 364.4, "max_watts": 472, "weighted_average_watts":
+        346, "device_watts": true, "kilojoules": 960.2, "has_heartrate": true, "average_heartrate":
+        113.4, "max_heartrate": 125.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 190.0, "elev_low": 171.6, "upload_id": 21132759526, "upload_id_str":
+        "21132759526", "external_id": "garmin_ping_622308636585", "from_accepted_tag":
+        false, "pr_count": 0, "total_photo_count": 1, "has_kudoed": false, "suffer_score":
+        10.0}, {"resource_state": 2, "athlete": {"id": 115890775, "id_str": "115890775",
+        "resource_state": 1}, "name": "Cancano Energy2Run", "distance": 19134.1, "moving_time":
+        6041, "elapsed_time": 6053, "total_elevation_gain": 163.0, "type": "Run",
+        "sport_type": "Run", "workout_type": 1, "device_name": "Garmin Forerunner
+        965", "id": 19960459371, "id_str": "19960459371", "start_date": "2026-08-30T08:11:28Z",
+        "start_date_local": "2026-08-30T10:11:28Z", "timezone": "(GMT+01:00) Europe/Rome",
+        "utc_offset": 7200.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 2, "kudos_count": 3, "comment_count": 0, "athlete_count":
+        17, "photo_count": 0, "map": {"id": "a19960459371", "summary_polyline": "{e|zGem}}@cAiD?wCMCe@p@WBy@sAqAg@GYV_@rB`A?e@Y[Gc@p@mAlBObA{@n@EJW?_@uAa@aBaBcAsBe@aCS_DF_BT_@t@Gf@c@LuBQq@cCHwAvAa@LkCUoAZiA[qB?cAxA_@Re@Co@s@g@lAA|A}@|@s@Mw@^i@cAaAcAwBLsAj@eE`DoEdFkAzBcBfGaAzAgCvC}@|Ai@f@u@R{CDCZ^rDEh@e@lAD`BWhDe@rBwCtFuAnAuBlAQ~AwA`Eq@tCy@`AKtB}@jD_AlAu@XRh@Jt@K`Bk@t@kAJ^`BBtAmAnHo@vJBxE}A|JqAbHCrFKfFa@~AG`Cs@zFg@tIu@vAq@xFr@tB?`Ak@rBaA`A}@vDe@f@aAR}@pDEpA|@|HXp@jYvXhFFLtDq@hCEbBV`AAd@aA^m@n@cArCUjB{@vAq@vIsBnFoAjAy@Dc@d@aCbGw@|K_AbGKfEaAzIH^|@^Pz@UlADxAY~@OzEPbBOxHx@zBDb@Mv@[R[UO[IiAWOm@b@g@|A]D[s@w@g@yAkB[iAcA_Bq@mB_AcBu@a@uBSiAc@iBd@u@r@_B|BuA~@_@`Aw@h@a@v@wABa@dAQHi@iAY?mDdBq@@q@`@i@~@}@RgDlDy@lA{DnDkA`BgD~CmAWm@i@UaB^}CsBaDWkAs@R_AhAa@I_@wAHcAm@_E@u@dAu@`B}CdAuDP}AvC{JpBaIz@gPGoBP{BjAcBtA_Dd@uAHsAt@y@b@iBxAkAdBmE?kDr@eBTaBjBeAr@w@bAuB\\wAv@}@d@eAtBiAbAkB`@eCZq@nBoBbD{EIeBx@yC\\aEM{Aq@yAOaBL}@n@kAf@yBHaELq@h@]bAJd@ShA{@zAiB~@{A|@EhEnG?b@cA~DEt@rAbJlVbV`BxAd@NfESYcD\\y@lGmF|AC~Aa@fCsDd@{Ap@cAlCeA`A_Dp@}@VyAn@q@I{AB{BxAiE\\uAH}Al@oAj@uEt@{Cj@wElAuC|AqBP{EKaC|@iGRg@|@c@h@qCj@yAhBcBDw@e@iAKqBYcAPqD\\aBF{B|@qHv@cBTaE`@oB`BsC\\yBtAoCRcB|@qApBiHtCkDj@eBv@_AhCoHrBeB`AiBl@iC~@mAn@yAhDiD",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        "g30360652", "start_latlng": [46.514748, 10.315896], "end_latlng": [46.514437,
+        10.316498], "average_speed": 3.161, "max_speed": 10.4, "average_cadence":
+        85.0, "average_temp": 25, "average_watts": 382.1, "max_watts": 618, "weighted_average_watts":
+        385, "device_watts": true, "kilojoules": 2306.1, "has_heartrate": true, "average_heartrate":
+        130.8, "max_heartrate": 157.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 1974.4, "elev_low": 1905.4, "upload_id": 21098049277, "upload_id_str":
+        "21098049277", "external_id": "garmin_ping_621094165294", "from_accepted_tag":
+        false, "pr_count": 1, "total_photo_count": 6, "has_kudoed": false, "suffer_score":
+        87.0}, {"resource_state": 2, "athlete": {"id": 115890775, "id_str": "115890775",
+        "resource_state": 1}, "name": "Chest, shoulders", "distance": 0.0, "moving_time":
+        2878, "elapsed_time": 2878, "total_elevation_gain": 0, "type": "WeightTraining",
+        "sport_type": "WeightTraining", "workout_type": 30, "device_name": "Garmin
+        Forerunner 965", "id": 19949789590, "id_str": "19949789590", "start_date":
+        "2026-08-29T13:10:48Z", "start_date_local": "2026-08-29T15:10:48Z", "timezone":
+        "(GMT+01:00) Europe/Rome", "utc_offset": 7200.0, "location_city": null, "location_state":
+        null, "location_country": null, "achievement_count": 0, "kudos_count": 1,
+        "comment_count": 0, "athlete_count": 1, "photo_count": 0, "map": {"id": "a19949789590",
+        "summary_polyline": "", "resource_state": 2}, "trainer": true, "commute":
+        false, "manual": false, "private": false, "visibility": "followers_only",
+        "flagged": false, "gear_id": null, "start_latlng": [], "end_latlng": [], "average_speed":
+        0.0, "max_speed": 0.0, "average_temp": 28, "has_heartrate": true, "average_heartrate":
+        71.2, "max_heartrate": 102.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "upload_id": 21086999484, "upload_id_str": "21086999484", "external_id":
+        "garmin_ping_620683798203", "from_accepted_tag": false, "pr_count": 0, "total_photo_count":
+        0, "has_kudoed": false, "suffer_score": 4.0}, {"resource_state": 2, "athlete":
+        {"id": 115890775, "id_str": "115890775", "resource_state": 1}, "name": "Calisthenics",
+        "distance": 0.0, "moving_time": 4896, "elapsed_time": 4896, "total_elevation_gain":
+        0, "type": "WeightTraining", "sport_type": "WeightTraining", "workout_type":
+        30, "device_name": "Garmin Forerunner 965", "id": 19939369478, "id_str": "19939369478",
+        "start_date": "2026-08-28T17:00:36Z", "start_date_local": "2026-08-28T19:00:36Z",
+        "timezone": "(GMT+01:00) Europe/Rome", "utc_offset": 7200.0, "location_city":
+        null, "location_state": null, "location_country": null, "achievement_count":
+        0, "kudos_count": 0, "comment_count": 0, "athlete_count": 1, "photo_count":
+        0, "map": {"id": "a19939369478", "summary_polyline": "", "resource_state":
+        2}, "trainer": true, "commute": false, "manual": false, "private": false,
+        "visibility": "followers_only", "flagged": false, "gear_id": null, "start_latlng":
+        [], "end_latlng": [], "average_speed": 0.0, "max_speed": 0.0, "average_temp":
+        32, "has_heartrate": true, "average_heartrate": 58.7, "max_heartrate": 103.0,
+        "heartrate_opt_out": false, "display_hide_heartrate_option": true, "upload_id":
+        21076242318, "upload_id_str": "21076242318", "external_id": "garmin_ping_620283839049",
+        "from_accepted_tag": false, "pr_count": 0, "total_photo_count": 0, "has_kudoed":
+        false, "suffer_score": 5.0}, {"resource_state": 2, "athlete": {"id": 115890775,
+        "id_str": "115890775", "resource_state": 1}, "name": "Powerlifting class",
+        "distance": 0.0, "moving_time": 3600, "elapsed_time": 3600, "total_elevation_gain":
+        0, "type": "WeightTraining", "sport_type": "WeightTraining", "workout_type":
+        30, "id": 19927511980, "id_str": "19927511980", "start_date": "2026-08-27T17:00:00Z",
+        "start_date_local": "2026-08-27T19:00:00Z", "timezone": "(GMT+01:00) Europe/Rome",
+        "utc_offset": 7200.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 0, "kudos_count": 0, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a19927511980", "summary_polyline": "",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": true,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        null, "start_latlng": [], "end_latlng": [], "average_speed": 0.0, "max_speed":
+        0, "has_heartrate": false, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        false, "upload_id": null, "external_id": null, "from_accepted_tag": false,
+        "pr_count": 0, "total_photo_count": 0, "has_kudoed": false}, {"resource_state":
+        2, "athlete": {"id": 115890775, "id_str": "115890775", "resource_state": 1},
+        "name": "Slow run: 94% \u2264Z2", "distance": 8012.7, "moving_time": 2757,
+        "elapsed_time": 3219, "total_elevation_gain": 28.0, "type": "Run", "sport_type":
+        "Run", "workout_type": null, "device_name": "Garmin Forerunner 965", "id":
+        19921755836, "id_str": "19921755836", "start_date": "2026-08-27T11:21:11Z",
+        "start_date_local": "2026-08-27T13:21:11Z", "timezone": "(GMT+01:00) Europe/Rome",
+        "utc_offset": 7200.0, "location_city": null, "location_state": null, "location_country":
+        null, "achievement_count": 0, "kudos_count": 1, "comment_count": 0, "athlete_count":
+        1, "photo_count": 0, "map": {"id": "a19921755836", "summary_polyline": "oqkuGmduy@U?gAHyARiBFeBI_@Bk@CmCB}@Ek@F]@cAAm@EgCA[C]QC?GNAf@DvCC`@Bn@BH?GE]Ew@BcACsABs@EMCEuAk@u@a@uDwAwAKcBSo@EYOGIMc@Q{BQo@Yi@OmAe@]EKq@k@MOI[Ai@BgCL}CJg@Ro@~@qBJa@Bg@GcA?u@HSt@]f@OP?o@NULe@PIFGNELAb@DnACVqA~CM^Gb@GvAAbBC\\A~ACTGJMLI@cAEK@i@C_A?{@Nm@t@QJe@BSEGQ?OFoB?CGCCMIoE?_BGgB@k@Gk@E}BEaBAs@DqAAeCQyC?cAC[B}BFaAEQMIU@QBO?c@BMCm@wCg@RIFIBGEk@qBAO@ElAZVN?A[Om@Qa@SEG?ICID]AEIIq@UEILkAR[DSHe@B]BEHAj@Nv@N^Dr@N`GlBLEBKLcB^iCFSHETJP@HCV]LIZA~@Hn@NRF~@PN?h@LFBLVLL\\HFHDTB~A?lAKhAe@~BEZCDG@CBEROjEBTFPN?bAZRJ\\H~Al@h@Nj@V|CbAfBt@\\FTJ`AVXDt@@h@JLFNPJ@L@dBIhAO^?|DUj@I^ARCdAIl@IrAGbASl@Q|@UFFFTl@nG?HFHRAZEPGVAZGp@CXCTG^Ar@Id@KXCH?FLBVHlC@bA?FINQHU@YESESKSAICgAg@IISI]GUAOBi@X[XU\\U`@IT[|AS?YHZZARJDGJKn@DBAJ@n@Ml@QjB?pADn@Rd@JPLHVJN@XGlBoAXWnAaArAoAt@o@PSH?d@LLBFHB^?tDJhIPnEZ`D^\\RJh@r@Zj@x@jBT\\RR~@d@RTH?pB_@VKFQIsAUcBO_B?B",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        "g30360652", "start_latlng": [45.609106, 9.616675], "end_latlng": [45.606799,
+        9.614546], "average_speed": 2.906, "max_speed": 3.64, "average_cadence": 83.5,
+        "average_temp": 33, "average_watts": 349.8, "max_watts": 459, "weighted_average_watts":
+        337, "device_watts": true, "kilojoules": 964.7, "has_heartrate": true, "average_heartrate":
+        114.2, "max_heartrate": 127.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "elev_high": 190.4, "elev_low": 171.8, "upload_id": 21058152006, "upload_id_str":
+        "21058152006", "external_id": "garmin_ping_619660143837", "from_accepted_tag":
+        false, "pr_count": 0, "total_photo_count": 1, "has_kudoed": false, "suffer_score":
+        11.0}]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 02 Sep 2026 20:19:53 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 207f5507d6d59dcf535e37d1db1f70bc.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - 856IgGsihNE3mz63L2Ae9XdDKRFHuTzeqMgBZGM9RJsr0pxFuJO_eg==
+      X-Amz-Cf-Pop:
+      - MXP53-P2
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '11832'
+      etag:
+      - W/"217808b8a3db90db6b21fffcbec17856"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '374'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 2,19
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 2,19
+      x-request-id:
+      - f8638397-a45c-4147-a8e3-3f1b20504805
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

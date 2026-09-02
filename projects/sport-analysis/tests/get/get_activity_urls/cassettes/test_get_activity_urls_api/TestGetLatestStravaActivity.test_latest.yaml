@@ -1,0 +1,88 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/athlete/activities?per_page=1
+  response:
+    body:
+      string: '[{"resource_state": 2, "athlete": {"id": 115890775, "id_str": "115890775",
+        "resource_state": 1}, "name": "Legs, calisthenics", "distance": 0.0, "moving_time":
+        5264, "elapsed_time": 5264, "total_elevation_gain": 0, "type": "WeightTraining",
+        "sport_type": "WeightTraining", "workout_type": 30, "device_name": "Garmin
+        Forerunner 965", "id": 20009822955, "id_str": "20009822955", "start_date":
+        "2026-09-02T17:04:44Z", "start_date_local": "2026-09-02T19:04:44Z", "timezone":
+        "(GMT+01:00) Europe/Rome", "utc_offset": 7200.0, "location_city": null, "location_state":
+        null, "location_country": null, "achievement_count": 0, "kudos_count": 1,
+        "comment_count": 0, "athlete_count": 1, "photo_count": 0, "map": {"id": "a20009822955",
+        "summary_polyline": "", "resource_state": 2}, "trainer": true, "commute":
+        false, "manual": false, "private": false, "visibility": "followers_only",
+        "flagged": false, "gear_id": null, "start_latlng": [], "end_latlng": [], "average_speed":
+        0.0, "max_speed": 0.0, "average_temp": 31, "has_heartrate": true, "average_heartrate":
+        63.2, "max_heartrate": 101.0, "heartrate_opt_out": false, "display_hide_heartrate_option":
+        true, "upload_id": 21149286896, "upload_id_str": "21149286896", "external_id":
+        "garmin_ping_622814281080", "from_accepted_tag": false, "pr_count": 0, "total_photo_count":
+        0, "has_kudoed": false, "suffer_score": 6.0}]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 02 Sep 2026 20:17:47 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 1b77603a6f6f7fc033b1967170e8a7c0.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - th5dPabUnF6xmZMlg4ItiKAMe_D9PVEjmBFuwCybjbfawwLSbLtQag==
+      X-Amz-Cf-Pop:
+      - MXP53-P2
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '1243'
+      etag:
+      - W/"dafbd0a8af44b85ddc75dea695a72df2"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '139'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 1,18
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 1,18
+      x-request-id:
+      - 29e73fc8-19a4-4c2d-9798-c33b9957a0f2
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

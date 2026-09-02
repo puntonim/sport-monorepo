@@ -74,13 +74,11 @@ $ san plot-interval-run 19042748874 --dist 1000 -n-int 5 --vs-n 1 --text "4x1000
 Search
 ------
 
-### Search matching Strava or Garmin activity (api)
+### Search Strava (api)
 ```sh
-$ san search-matching-garmin-activity 14211292173
-$ san search-matching-strava-activity 18861865288
+$ san search-strava --start-date-after 2024-06-01T00:00:00+01:00 --activity-type ride --segment selvino
 ```
-![](sport_analysis/search/search_matching_activity_api.png)
-
+![](sport_analysis/search/search_strava_api/search_strava_api_cli.png)
 
 ### Search text (db)
 ```sh
@@ -89,8 +87,25 @@ $ san db-search-text 'del mortirolo'
 ![](sport_analysis/search/search_text_db.png)
 
 
+Get
+---
+### Get activity urls (api)
+```sh
+$ san get-activity-urls
+$ san get-activity-urls g-18923007987
+$ san get-activity-urls strava-9240064780
+```
+![](sport_analysis/get/get_activity_urls/get_activity_urls_api.png)
+
+
 Count
 -----
+
+### Count activities (db)
+```sh
+$ san count --start-date-after 2025-01-01T00:00:00+01:00 --start-date-before 2025-12-12T00:00:00+01:00
+```
+![](sport_analysis/count/count_activities_api.png)
 
 ### Count activities (db)
 ```sh

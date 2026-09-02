@@ -22,9 +22,9 @@ from strava_client.strava_token_managers import (
 
 from ...base_cli_view import ConsoleAdapter
 from ...conf import settings
-from ..search_matching_activity_api import (
+from ...get.get_activity_urls.get_activity_urls_api_cmd import (
     ActivityNotFound,
-    search_garmin_activity_matching_strava_activity_api,
+    search_garmin_activity_matching_strava_activity,
 )
 
 __all__ = [
@@ -233,7 +233,7 @@ class SearchStravaApiCmd:
                 garmin_activity = None
                 if self.do_select_only_if_with_hr_band:
                     try:
-                        garmin_activity = search_garmin_activity_matching_strava_activity_api(
+                        garmin_activity = search_garmin_activity_matching_strava_activity(
                             strava_activity_id=summary["id"],
                             strava_token_manager=self.strava_token_manager,
                             garmin_connect_token_manager=self.garmin_connect_token_manager,

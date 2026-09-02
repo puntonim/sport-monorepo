@@ -1,8 +1,13 @@
 
+- Aggiungi support for LATESTRUN-3 e LATESTRIDE-3 a get-latest-activity
+  Test
+  Update docs e screeshot
+  Commit
 
-- activity_id: strava-* s-* or garmin-* g-* (oppure --stravaid=123)
-  Inizia usandola in search-matching-strava-activity, rename to search-matching-activity
-  Poi dovunque si usa un activity_id
+- Infine usa il nuovo ACTIVITY_ID_PARAM_TYPE in tutti i comandi che ora usano LATEST
+  Commit
+
+- move base_plot.make_png_file_path() to utils/file_system_utils
 
 - UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   in interval run

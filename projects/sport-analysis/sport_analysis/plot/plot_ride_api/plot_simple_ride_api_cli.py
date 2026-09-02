@@ -6,7 +6,8 @@ import questionary
 
 from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand, ConsoleAdapter
 from ...conf.settings_module import ROOT_DIR
-from .. import base_plot, questionary_parsers
+from ...utils import questionary_parsers
+from .. import base_plot
 from ..base_plot import PERCENTILE_TO_DRAW_ENUM
 from .plot_simple_ride_api_cmd import PlotSimpleRideApiCmd
 

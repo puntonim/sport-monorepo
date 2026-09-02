@@ -2,18 +2,37 @@ from pathlib import Path
 
 import click
 
-from ..base_cli_view import ACTIVITY_ID_TYPE, ConsoleAdapter
-from . import base_plot
+from ..base_cli_view import (
+    ACTIVITY_ID_PARAM_TYPE,
+    ACTIVITY_ID_TYPE,
+    ActivityId,
+    ConsoleAdapter,
+)
+from ..plot import base_plot
 
 console = ConsoleAdapter()
 
 
+# TODO deleteme, use parse_activity_id_input instead.
 def parse_garmin_activity_id_input(
     value: str, format_like="24018992823 | LATEST-3"
 ) -> int | tuple[str, int]:
     try:
         parsed: int | tuple[str, int] = ACTIVITY_ID_TYPE.convert(value)
     except (ValueError, click.BadParameter) as exc:
+        msg = f"{exc}\nFormat like: {format_like}"
+        console.print_error(msg)
+        raise ParserValidationError(msg) from exc
+    return parsed
+
+
+def parse_activity_id_input(
+    value: str,
+    format_like="garmin-23309590263 | g-23309590263 | strava-18988079605 | s-18988079605 | LATEST | LATEST-3",
+) -> ActivityId:
+    try:
+        parsed: ActivityId = ACTIVITY_ID_PARAM_TYPE.convert(value)
+    except click.BadParameter as exc:
         msg = f"{exc}\nFormat like: {format_like}"
         console.print_error(msg)
         raise ParserValidationError(msg) from exc

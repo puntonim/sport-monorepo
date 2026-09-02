@@ -21,8 +21,8 @@ from strava_client.strava_token_managers import (
 
 from ...base_cli_view import ConsoleAdapter
 from ...conf import settings
-from ...search.search_matching_activity_api import (
-    search_strava_activity_matching_garmin_activity_api,
+from ...get.get_activity_urls.get_activity_urls_api_cmd import (
+    search_strava_activity_matching_garmin_activity,
 )
 from .. import base_api, base_plot
 from ..base_plot import PERCENTILE_TO_DRAW_ENUM, _make_subtitle, _make_title
@@ -240,7 +240,7 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         )
         strava = StravaClient(strava_token_manager.get_access_token())
 
-        strava_summary = search_strava_activity_matching_garmin_activity_api(
+        strava_summary = search_strava_activity_matching_garmin_activity(
             self.garmin_activity_id,
             strava_token_manager=self.strava_token_manager,
             garmin_connect_token_manager=self.garmin_connect_token_manager,
