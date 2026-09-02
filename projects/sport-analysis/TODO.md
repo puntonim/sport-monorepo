@@ -1,9 +1,9 @@
 
 
-- replace get_string_from_env() e override_settings in settings_module.py con settings_utils lib
-- activity_id: strava-* or garmin-* (oppure --stravaid=123)
-  usala in search-matching-strava-activity, rename to search-matching-activity
-  ma anche dovunque si usa un activity_id
+- activity_id: strava-* s-* or garmin-* g-* (oppure --stravaid=123)
+  Inizia usandola in search-matching-strava-activity, rename to search-matching-activity
+  Poi dovunque si usa un activity_id
+
 - UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   in interval run
 

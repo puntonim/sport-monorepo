@@ -16,6 +16,7 @@ dependencies = [
     "number-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=number-utils",
     "speed-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=speed-utils",
     "peewee-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=peewee-utils",
+    "settings-utils @ git+https://github.com/puntonim/utils-monorepo#subdirectory=settings-utils",
     "strava-db-models @ ../../libs/strava-db-models",
     "strava-client[aws-parameter-store] @ ../../libs/strava-client",
     "garmin-connect-client @ ../../libs/garmin-connect-client",
