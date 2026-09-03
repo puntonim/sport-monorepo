@@ -102,57 +102,55 @@ __all__ = [
     "GarminConnectClient",
     "InvalidDate",
     "BaseGarminConnectClientException",
-    "GARMIN_ACTIVITY_TYPES",
-    "GARMIN_ACTIVITY_FOR_SEARCH_FILTER",
 ]
-
-# Garmin activity types, stored in the field "activityType"."typeKey".
-# I collected all the activity types with this sketch:
-#  https://github.com/puntonim/sport-monorepo/blob/main/projects/sport-analysis/sport_analysis/sketches/collect_all_garmin_activity_types.py
-GARMIN_ACTIVITY_TYPES = (
-    "backcountry_snowboarding",
-    "cross_country_skiing_ws",
-    "cycling",
-    "hiking",
-    "mountain_biking",
-    "multi_sport",
-    "resort_snowboarding",
-    "road_biking",
-    "running",
-    "snow_shoe_ws",
-    "strength_training",
-    "trail_running",
-    "walking",
-)
-
-# All possible values for the filter used by search_activities() on the activity type.
-# They are used in the Garmin Connect website in the web page where you can filter by
-#  activity type (see the url).
-GARMIN_ACTIVITY_FOR_SEARCH_FILTER = (
-    "cycling",  # All kinds of cycling like road, mountain boke, etc.
-    "running",  # All kinds of running like trail running, road running, etc.
-    "swimming",
-    "multi_sport",
-    "fitness_equipment",
-    "hiking",
-    "walking",
-    "winter_sports",  # All kinds of winter sports like snowboarding, xc skiing, etc.
-)
-
-
-# Broken ride because I switched sport half way.
-BROKEN_ACTIVITY = dict(
-    title="PR Stelvio",
-    strava_activity_id=15104529341,
-    garmin_activity_id=19792668848,
-    start_date="2025-07-13",
-)
 
 
 class GarminConnectClient:
     """
     See docstring at the top of this file.
     """
+
+    # Garmin activity types, stored in the response JSON field "activityType"."typeKey".
+    # I collected all the activity types with this sketch:
+    #  https://github.com/puntonim/sport-monorepo/blob/main/projects/sport-analysis/sport_analysis/sketches/collect_all_garmin_activity_types.py
+    GARMIN_ACTIVITY_TYPES = (
+        "backcountry_snowboarding",
+        "cross_country_skiing_ws",
+        "cycling",
+        "hiking",
+        "mountain_biking",
+        "multi_sport",
+        "resort_snowboarding",
+        "road_biking",
+        "running",
+        "snow_shoe_ws",
+        "strength_training",
+        "trail_running",
+        "walking",
+    )
+
+    # All possible values for the filter used by search_activities() on the activity
+    #  type. They are used in the Garmin Connect website in the web page where you can
+    #  filter by activity type (see the live changes in the browser's url).
+    GARMIN_ACTIVITY_FOR_SEARCH_FILTER = (
+        "cycling",  # All kinds of cycling like road, mountain boke, etc.
+        "running",  # All kinds of running like trail running, road running, etc.
+        "swimming",
+        "multi_sport",
+        "fitness_equipment",
+        "hiking",
+        "walking",
+        "winter_sports",
+        # All kinds of winter sports like snowboarding, xc skiing, etc.
+    )
+
+    # Broken ride because I switched sport half way.
+    BROKEN_ACTIVITY = dict(
+        title="PR Stelvio",
+        strava_activity_id=15104529341,
+        garmin_activity_id=19792668848,
+        start_date="2025-07-13",
+    )
 
     def __init__(self, token_manager: FileGarminConnectTokenManager | None = None):
         self._garmin: Garmin | None = None
@@ -402,7 +400,7 @@ class GarminConnectClient:
         I tested that the HR avg|min|max return here are very close to the ones
          computed directly from the HR stream.
         """
-        if activity_id == BROKEN_ACTIVITY["garmin_activity_id"]:
+        if activity_id == self.BROKEN_ACTIVITY["garmin_activity_id"]:
             logger.info(
                 "Mind that this ride is broken in Garmin as I switched sport half way"
                 " (it's a  PR on Stelvio)!! However I merged the data in Strava, which"
@@ -568,7 +566,7 @@ class GarminConnectClient:
         I tested that all the streams sizes match the original dataset size.
         Note that some streams can contain None values, see details in ActivityDetailsResponse.
         """
-        if activity_id == BROKEN_ACTIVITY["garmin_activity_id"]:
+        if activity_id == self.BROKEN_ACTIVITY["garmin_activity_id"]:
             logger.info(
                 "Mind that this ride is broken in Garmin as I switched sport half way"
                 " (it's a  PR on Stelvio)!! However I merged the data in Strava, which"
@@ -768,7 +766,7 @@ class GarminConnectClient:
              datetime.datetime(2023, 5, 1, 0, 0) or "2023-05-01".
             day_end: optional, eg. datetime.date(2023, 5, 1) or
              datetime.datetime(2023, 5, 1, 0, 0) or "2023-05-01".
-            activity_type: optional; a single string, possible values are in GARMIN_ACTIVITY_FOR_SEARCH_FILTER.
+            activity_type: optional; a single string, possible values are in self.GARMIN_ACTIVITY_FOR_SEARCH_FILTER.
             start_offset: starting activity offset, where 0 means the most recent activity.
             n_results: number of activities to return.
 
@@ -960,7 +958,7 @@ class GarminConnectClient:
         # Validate activity_type.
         if (
             activity_type
-            and activity_type.lower() not in GARMIN_ACTIVITY_FOR_SEARCH_FILTER
+            and activity_type.lower() not in self.GARMIN_ACTIVITY_FOR_SEARCH_FILTER
         ):
             raise ActivityTypeUnknown(activity_type)
 

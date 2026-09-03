@@ -3,7 +3,7 @@ from statistics import mean
 
 import pytest
 
-from garmin_connect_client import GarminConnectClient
+from garmin_connect_client import ActivityTypeUnknown, GarminConnectClient
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
@@ -662,6 +662,13 @@ class TestSearchActivities:
         for activity in response.data:
             assert activity["distance"] > 15000
             assert activity["distance"] < 22000
+
+    def test_activity_type_unknown(self):
+        client = GarminConnectClient(self.token_mgr)
+        with pytest.raises(ActivityTypeUnknown):
+            client.search_activities(
+                activity_type="XXX",
+            )
 
     def test_long_distance_run(self):
         client = GarminConnectClient(self.token_mgr)
