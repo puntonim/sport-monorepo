@@ -100,10 +100,10 @@ __all__ = [
 ]
 
 
-# Strava activity types, stored in the field "type".
+# Strava activity types, stored in the response JSON field "type".
 # I collected all the activity types with this sketch:
 #  https://github.com/puntonim/sport-monorepo/blob/main/projects/sport-analysis/sport_analysis/sketches/collect_all_strava_activity_types.py
-# This same list is also written in sport-monorepo/libs/strava-client/strava_client/strava_client.py
+# This same list is also written in sport-monorepo/libs/strava-client/strava_client/strava_client.py::StravaClient.STRAVA_ACTIVITY_TYPES
 STRAVA_ACTIVITY_TYPES = (
     "BackcountrySki",
     "Hike",
@@ -119,9 +119,9 @@ STRAVA_ACTIVITY_TYPES = (
     "Workout",
 )
 
-# These are stored in the field "sport_type", way less important.
-# You always want to use STRAVA_ACTIVITY_TYPES.
-# This same list is also written in sport-monorepo/libs/strava-client/strava_client/strava_client.py
+# Way less important than STRAVA_ACTIVITY_TYPES. You always want to use STRAVA_ACTIVITY_TYPES.
+# Stored in the response JSNON field "sport_type".
+# This same list is also written in sport-monorepo/libs/strava-client/strava_client/strava_client.py::StravaClient._STRAVA_ACTIVITY_SPORT_TYPES
 _STRAVA_ACTIVITY_SPORT_TYPES = (
     "BackcountrySki",
     "Hike",

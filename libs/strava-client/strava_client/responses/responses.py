@@ -59,7 +59,7 @@ class ListActivitiesResponse(BaseJsonResponse):
     def filter(
         self,
         title_contains: str | None = None,
-        # All types described in https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-db-models/strava_db_models/strava_db_models.py#L106.
+        # All types described in StravaClient.STRAVA_ACTIVITY_TYPES.
         activity_type: str | None = None,
         start_latlng: tuple[float, float, int] | tuple[float, float] | None = None,
         end_latlng: tuple[float, float, int] | tuple[float, float] | None = None,
@@ -100,7 +100,7 @@ class ListActivitiesResponse(BaseJsonResponse):
              Eg. a string like "back, calisthenics".
             activity_type: filter by activity type included in the activity summary
              `type` or `sport_type`, case insensitive.
-             All types described in https://github.com/puntonim/sport-monorepo/blob/main/libs/strava-db-models/strava_db_models/strava_db_models.py#L106.
+             All types described in StravaClient.STRAVA_ACTIVITY_TYPES.
              Eg. a string like "ride" | "MountainBikeRide" | "WeightTraining".
             start_latlng: filter by activity starting location, within a certain
              distance, as tuple in the form (lat, lon, distance*).

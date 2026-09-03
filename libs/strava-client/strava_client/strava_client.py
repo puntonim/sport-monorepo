@@ -83,48 +83,7 @@ __all__ = [
     "StravaApiRateLimitExceeded",
     "AfterTsInTheFuture",
     "SegmentNotFound",
-    "STRAVA_ACTIVITY_TYPES",
 ]
-
-# Strava activity types, stored in the field "type".
-# I collected all the activity types with this sketch:
-#  https://github.com/puntonim/sport-monorepo/blob/main/projects/sport-analysis/sport_analysis/sketches/collect_all_strava_activity_types.py
-# This same list is also written in sport-monorepo/libs/strava-db-models/strava_db_models/strava_db_models.py
-STRAVA_ACTIVITY_TYPES = (
-    "BackcountrySki",
-    "Hike",
-    "Kayaking",
-    "NordicSki",
-    "Ride",
-    "RockClimbing",
-    "Run",
-    "Snowboard",
-    "Snowshoe",
-    "Walk",
-    "WeightTraining",
-    "Workout",
-)
-
-# These are stored in the field "sport_type", way less important.
-# You always want to use STRAVA_ACTIVITY_TYPES.
-# This same list is also written in sport-monorepo/libs/strava-db-models/strava_db_models/strava_db_models.py
-_STRAVA_ACTIVITY_SPORT_TYPES = (
-    "BackcountrySki",
-    "Hike",
-    "Kayaking",
-    "MountainBikeRide",
-    "NordicSki",
-    "Racquetball",
-    "Ride",
-    "RockClimbing",
-    "Run",
-    "Snowboard",
-    "Snowshoe",
-    "TrailRun",
-    "Walk",
-    "WeightTraining",
-    "Workout",
-)
 
 
 def handle_api_rate_limit_error(fn):
@@ -148,6 +107,46 @@ def handle_api_rate_limit_error(fn):
 
 
 class StravaClient:
+    # Strava activity types, stored in the response JSON field "type".
+    # I collected all the activity types with this sketch:
+    #  https://github.com/puntonim/sport-monorepo/blob/main/projects/sport-analysis/sport_analysis/sketches/collect_all_strava_activity_types.py
+    # This same list is also written in sport-monorepo/libs/strava-db-models/strava_db_models/strava_db_models.py
+    STRAVA_ACTIVITY_TYPES = (
+        "BackcountrySki",
+        "Hike",
+        "Kayaking",
+        "NordicSki",
+        "Ride",
+        "RockClimbing",
+        "Run",
+        "Snowboard",
+        "Snowshoe",
+        "Walk",
+        "WeightTraining",
+        "Workout",
+    )
+
+    # Way less important than STRAVA_ACTIVITY_TYPES. You always want to use STRAVA_ACTIVITY_TYPES.
+    # Stored in the response JSNON field "sport_type".
+    # This same list is also written in sport-monorepo/libs/strava-db-models/strava_db_models/strava_db_models.py
+    _STRAVA_ACTIVITY_SPORT_TYPES = (
+        "BackcountrySki",
+        "Hike",
+        "Kayaking",
+        "MountainBikeRide",
+        "NordicSki",
+        "Racquetball",
+        "Ride",
+        "RockClimbing",
+        "Run",
+        "Snowboard",
+        "Snowshoe",
+        "TrailRun",
+        "Walk",
+        "WeightTraining",
+        "Workout",
+    )
+
     def __init__(self, access_token: str):
         self._access_token = access_token
 

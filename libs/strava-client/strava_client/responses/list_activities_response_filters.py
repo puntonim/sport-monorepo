@@ -6,6 +6,8 @@ __all__ = [
 
 import speed_utils
 
+from ..strava_client import StravaClient
+
 
 def does_title_contains_filter_match(
     title_contains_filter: str | None,
@@ -48,6 +50,14 @@ def does_activity_type_filter_match(
     # Validation.
     if not isinstance(activity_type_filter, str):
         raise FilterTypeError("activity_type must be string")
+    if activity_type_filter.lower() not in [
+        x.lower()
+        for x in StravaClient.STRAVA_ACTIVITY_TYPES
+        + StravaClient._STRAVA_ACTIVITY_SPORT_TYPES
+    ]:
+        raise FilterTypeError(
+            f"activity_type unknown\nValid values: {' | '.join(StravaClient.STRAVA_ACTIVITY_TYPES + StravaClient._STRAVA_ACTIVITY_SPORT_TYPES)}"
+        )
 
     # Match.
     if not (

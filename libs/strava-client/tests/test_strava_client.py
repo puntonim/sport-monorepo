@@ -368,7 +368,7 @@ class TestListActivitiesResponseFilter:
         assert activities[8]["name"] == "Back, calisthenics"
         assert activities[8]["id"] == 16695233895
 
-    def test_filter_by_activity_type_no_results(self):
+    def test_filter_by_activity_type_invalid(self):
         client = StravaClient(self.token_mgr.get_access_token())
         response = client.list_activities(
             n_results_per_page=10,
@@ -376,12 +376,12 @@ class TestListActivitiesResponseFilter:
         )
         assert len(response.data) == 10
 
-        activities = list(
-            response.filter(
-                activity_type="XXX",
+        with pytest.raises(FilterTypeError):
+            list(
+                response.filter(
+                    activity_type="XXX",
+                )
             )
-        )
-        assert len(activities) == 0
 
     def test_filter_by_start_latlng_exact_coords(self):
         client = StravaClient(self.token_mgr.get_access_token())
