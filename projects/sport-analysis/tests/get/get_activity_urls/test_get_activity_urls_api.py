@@ -8,12 +8,13 @@ from strava_client.strava_token_managers import (
     FakeTestStravaTokenManager,
 )
 
-from sport_analysis.base_cli_view import ActivityId
+from sport_analysis.base_cli_view import ActivityId, ValidationError
 from sport_analysis.conf import settings
 from sport_analysis.conf.settings_module import ROOT_DIR
 from sport_analysis.get.get_activity_urls.get_activity_urls_api_cmd import (
     GarminActivityTypeUnknown,
     GetActivityUrlsApiCmd,
+    StravaActivityTypeUnknown,
     get_latest_garmin_activity,
     get_latest_strava_activity,
     search_garmin_activity_matching_strava_activity,
@@ -112,9 +113,15 @@ class TestGetActivityUrlsApiCmd:
             g = GetActivityUrlsApiCmd(
                 ActivityId.make_from_string(f"{s}-{activity['strava_activity_id']}")
             )
-            ids = g.get(do_suppress_logs=True)
-            assert ids[0] == activity["garmin_activity_id"]
-            assert ids[1] == activity["strava_activity_id"]
+            matching_activities = g.get(do_suppress_logs=True)
+            assert (
+                matching_activities.garmin_activity_dict["activityId"]
+                == activity["garmin_activity_id"]
+            )
+            assert (
+                matching_activities.strava_activity_dict["id"]
+                == activity["strava_activity_id"]
+            )
 
     def test_garmin_happy_flow(self):
         for i, activity in enumerate(TEST_ACTIVITIES[:3]):
@@ -122,21 +129,43 @@ class TestGetActivityUrlsApiCmd:
             g = GetActivityUrlsApiCmd(
                 ActivityId.make_from_string(f"{s}-{activity['garmin_activity_id']}")
             )
-            ids = g.get(do_suppress_logs=True)
-            assert ids[0] == activity["garmin_activity_id"]
-            assert ids[1] == activity["strava_activity_id"]
+            matching_activities = g.get(do_suppress_logs=True)
+            assert (
+                matching_activities.garmin_activity_dict["activityId"]
+                == activity["garmin_activity_id"]
+            )
+            assert (
+                matching_activities.strava_activity_dict["id"]
+                == activity["strava_activity_id"]
+            )
 
     def test_latest(self):
         g = GetActivityUrlsApiCmd(ActivityId.make_from_string("LATEST"))
-        ids = g.get(do_suppress_logs=True)
-        assert ids[0] == 24214377309
-        assert ids[1] == 20009822955
+        matching_activities = g.get(do_suppress_logs=True)
+        assert matching_activities.garmin_activity_dict["activityId"] == 24214377309
+        assert matching_activities.strava_activity_dict["id"] == 20009822955
 
     def test_latest_105(self):
         g = GetActivityUrlsApiCmd(ActivityId.make_from_string("LATEST-105"))
-        ids = g.get(do_suppress_logs=True)
-        assert ids[0] == 22796304255
-        assert ids[1] == 18411723846
+        matching_activities = g.get(do_suppress_logs=True)
+        assert matching_activities.garmin_activity_dict["activityId"] == 22796304255
+        assert matching_activities.strava_activity_dict["id"] == 18411723846
+
+    def test_latest_run(self):
+        g = GetActivityUrlsApiCmd(ActivityId.make_from_string("LATEST-RUN"))
+        matching_activities = g.get(do_suppress_logs=True)
+        assert matching_activities.garmin_activity_dict["activityId"] == 24222094070
+        assert matching_activities.strava_activity_dict["id"] == 20018887172
+
+    def test_latest_ride_5(self):
+        g = GetActivityUrlsApiCmd(ActivityId.make_from_string("LATEST-RIDE-5"))
+        matching_activities = g.get(do_suppress_logs=True)
+        assert matching_activities.garmin_activity_dict["activityId"] == 23421227784
+        assert matching_activities.strava_activity_dict["id"] == 19113767592
+
+    def test_activity_type_unknown(self):
+        with pytest.raises(ValidationError):
+            GetActivityUrlsApiCmd(ActivityId.make_from_string("LATEST-XXX"))
 
 
 class TestSearchGarminActivityMatchingStravaActivity:
@@ -164,13 +193,20 @@ class TestSearchGarminActivityMatchingStravaActivity:
 
     def test_happy_flow(self):
         for activity in TEST_ACTIVITIES[:3]:
-            found = search_garmin_activity_matching_strava_activity(
+            matching_activities = search_garmin_activity_matching_strava_activity(
                 activity["strava_activity_id"],
                 do_suppress_logs=True,
                 strava_token_manager=self.strava_token_mgr,
                 garmin_connect_token_manager=self.garmin_token_mgr,
             )
-            assert found["activityId"] == activity["garmin_activity_id"]
+            assert (
+                matching_activities.garmin_activity_dict["activityId"]
+                == activity["garmin_activity_id"]
+            )
+            assert (
+                matching_activities.strava_activity_dict["id"]
+                == activity["strava_activity_id"]
+            )
 
 
 class TestSearchStravaActivityMatchingGarminActivity:
@@ -198,13 +234,20 @@ class TestSearchStravaActivityMatchingGarminActivity:
 
     def test_happy_flow(self):
         for activity in TEST_ACTIVITIES[:3]:
-            found = search_strava_activity_matching_garmin_activity(
+            matching_activities = search_strava_activity_matching_garmin_activity(
                 activity["garmin_activity_id"],
                 do_suppress_logs=True,
                 strava_token_manager=self.strava_token_mgr,
                 garmin_connect_token_manager=self.garmin_token_mgr,
             )
-            assert found["id"] == activity["strava_activity_id"]
+            assert (
+                matching_activities.strava_activity_dict["id"]
+                == activity["strava_activity_id"]
+            )
+            assert (
+                matching_activities.garmin_activity_dict["activityId"]
+                == activity["garmin_activity_id"]
+            )
 
 
 class TestGetLatestGarminActivity:
@@ -313,3 +356,12 @@ class TestGetLatestStravaActivity:
             l["name"]
             == "Passo della Presolana - Salto degli Sposi - Vareno - Cima Pora - Rifugio Magnolini - Monte Alto"
         )
+
+    def test_activity_type_unknown(self):
+        with pytest.raises(StravaActivityTypeUnknown):
+            get_latest_strava_activity(
+                2,
+                activity_type="XXX",
+                do_suppress_logs=True,
+                strava_token_manager=self.strava_token_mgr,
+            )

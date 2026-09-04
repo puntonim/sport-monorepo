@@ -1,0 +1,794 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/userprofile-service/socialProfile
+  response:
+    body:
+      string: '{"id": 408106091, "profileId": 113739130, "garminGUID": "036d4457-1523-4d57-a237-43de978cd7cc",
+        "displayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "fullName": "Paolo",
+        "userName": "puntonim@gmail.com", "profileImageType": "UPLOADED_PHOTO", "profileImageUrlLarge":
+        "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "hasPremiumSocialIcon": false, "location": "Verdellino, Italy", "facebookUrl":
+        null, "twitterUrl": null, "personalWebsite": null, "motivation": 2, "bio":
+        null, "primaryActivity": "other", "favoriteActivityTypes": ["running", "cycling",
+        "weight_training", "snow_sports"], "runningTrainingSpeed": 0.0, "cyclingTrainingSpeed":
+        0.0, "favoriteCyclingActivityTypes": ["road", "mountain"], "cyclingClassification":
+        null, "cyclingMaxAvgPower": 0.0, "swimmingTrainingSpeed": 0.0, "profileVisibility":
+        "following", "activityStartVisibility": "public", "activityMapVisibility":
+        "public", "courseVisibility": "public", "activityHeartRateVisibility": "public",
+        "activityPowerVisibility": "public", "badgeVisibility": "private", "showAge":
+        false, "showWeight": false, "showHeight": false, "showWeightClass": false,
+        "showAgeRange": false, "showGender": false, "showActivityClass": false, "showVO2Max":
+        false, "showPersonalRecords": true, "showLast12Months": true, "showLifetimeTotals":
+        true, "showUpcomingEvents": true, "showRecentFavorites": true, "showRecentDevice":
+        true, "showRecentGear": false, "showBadges": true, "otherActivity": null,
+        "otherPrimaryActivity": null, "otherMotivation": null, "userRoles": ["SCOPE_ATP_READ",
+        "SCOPE_ATP_WRITE", "SCOPE_CIQ_APPSTORE_SERVICES_CREATE", "SCOPE_CIQ_APPSTORE_SERVICES_DELETE",
+        "SCOPE_CIQ_APPSTORE_SERVICES_READ", "SCOPE_CIQ_APPSTORE_SERVICES_UPDATE",
+        "SCOPE_COMMUNITY_COURSE_READ", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_CONNECT_MCT_DAILY_LOG_READ",
+        "SCOPE_CONNECT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_DIVE_API_READ", "SCOPE_DI_API_READ",
+        "SCOPE_DI_COACHING_READ", "SCOPE_DI_COACHING_WRITE", "SCOPE_DI_OAUTH_2_AUTHORIZATION_CODE_CREATE",
+        "SCOPE_DI_TOUM_NATIVE_REPORTED_DETAIL_WRITE", "SCOPE_DT_CLIENT_ANALYTICS_WRITE",
+        "SCOPE_GARMINPAY_READ", "SCOPE_GARMINPAY_WRITE", "SCOPE_GCOFFER_READ", "SCOPE_GCOFFER_WRITE",
+        "SCOPE_GCX_KID_READ", "SCOPE_GCX_KID_WRITE", "SCOPE_GCX_PET_READ", "SCOPE_GCX_PET_WRITE",
+        "SCOPE_GHS_SAMD", "SCOPE_GHS_UPLOAD", "SCOPE_GOLF_API_READ", "SCOPE_GOLF_API_WRITE",
+        "SCOPE_INSIGHTS_READ", "SCOPE_INSIGHTS_WRITE", "SCOPE_OMT_CAMPAIGN_READ",
+        "SCOPE_OMT_DISCOUNTS_CREATE", "SCOPE_OMT_DISCOUNTS_READ", "SCOPE_OMT_SUBSCRIPTION_READ",
+        "SCOPE_PRODUCT_SEARCH_READ", "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER",
+        "ROLE_OUTDOOR_USER", "ROLE_GARMIN_USER"], "nameApproved": true, "userProfileFullName":
+        "Paolo", "makeGolfScorecardsPrivate": true, "allowGolfLiveScoring": false,
+        "allowGolfScoringByConnections": true, "userLevel": 4, "userPoint": 163, "levelUpdateDate":
+        "2026-01-20T07:26:11.0", "levelIsViewed": false, "levelPointThreshold": 300,
+        "userPointOffset": 0, "userPro": false}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 03 Sep 2026 19:18:46 GMT
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3118'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/userprofile-service/userprofile/user-settings
+  response:
+    body:
+      string: '{"id": 113739130, "userData": {"gender": "MALE", "weight": 84000.0,
+        "height": 180.0, "timeFormat": "time_twenty_four_hr", "birthDate": "1980-01-18",
+        "measurementSystem": "metric", "activityLevel": 7, "handedness": "RIGHT",
+        "powerFormat": {"formatId": 30, "formatKey": "watt", "minFraction": 0, "maxFraction":
+        0, "groupingUsed": true, "displayFormat": null}, "heartRateFormat": {"formatId":
+        21, "formatKey": "bpm", "minFraction": 0, "maxFraction": 0, "groupingUsed":
+        false, "displayFormat": null}, "firstDayOfWeek": {"dayId": 3, "dayName": "monday",
+        "sortOrder": 3, "isPossibleFirstDay": true}, "vo2MaxRunning": 57.0, "vo2MaxCycling":
+        null, "lactateThresholdSpeed": 0.39444334000000003, "lactateThresholdHeartRate":
+        152, "diveNumber": null, "intensityMinutesCalcMethod": "AUTO", "moderateIntensityMinutesHrZone":
+        3, "vigorousIntensityMinutesHrZone": 4, "hydrationMeasurementUnit": "cup",
+        "hydrationContainers": [], "hydrationAutoGoalEnabled": true, "firstbeatMaxStressScore":
+        null, "firstbeatCyclingLtTimestamp": null, "firstbeatRunningLtTimestamp":
+        1157017968, "thresholdHeartRateAutoDetected": true, "ftpAutoDetected": true,
+        "trainingStatusPausedDate": null, "weatherLocation": {"useFixedLocation":
+        null, "latitude": null, "longitude": null, "locationName": null, "isoCountryCode":
+        null, "postalCode": null}, "golfDistanceUnit": "statute_us", "golfElevationUnit":
+        null, "golfSpeedUnit": null, "externalBottomTime": null, "availableTrainingDays":
+        ["FRIDAY", "TUESDAY", "WEDNESDAY", "SUNDAY", "THURSDAY", "MONDAY", "SATURDAY"],
+        "preferredLongTrainingDays": ["SUNDAY", "SATURDAY"], "virtualCaddieDataSource":
+        null, "numberDivesAutomatically": null, "firstbeatRowingLtTimestamp": null,
+        "lactateThresholdRowingPace": null, "lactateThresholdHeartRateRowing": null,
+        "lactateThresholdHeartRateCycling": null, "wtrPrimaryActivityType": null},
+        "userSleep": {"sleepTime": 0, "defaultSleepTime": false, "wakeTime": 28800,
+        "defaultWakeTime": false}, "connectDate": null, "sourceType": null, "userSleepWindows":
+        [{"sleepWindowFrequency": "SUNDAY", "startSleepTimeSecondsFromMidnight": 0,
+        "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "MONDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "TUESDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "WEDNESDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "THURSDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "FRIDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "SATURDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "DAILY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 03 Sep 2026 19:18:46 GMT
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2756'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/activitylist-service/activities/search/activities?start=0&limit=6&activityType=cycling
+  response:
+    body:
+      string: '[{"activityId": 23569511098, "activityName": "Bormio Road Cycling",
+        "startTimeLocal": "2026-07-12 09:33:52", "startTimeGMT": "2026-07-12 07:33:52",
+        "activityType": {"typeId": 10, "typeKey": "road_biking", "parentTypeId": 2,
+        "isHidden": false, "restricted": false, "trimmable": true}, "eventType": {"typeId":
+        9, "typeKey": "uncategorized", "sortOrder": 10}, "isFavorite": false, "isPR":
+        false, "isAutoCalcCalories": false, "isParent": false, "distance": 43049.05859375,
+        "duration": 10869.4521484375, "elapsedDuration": 12379.751953125, "movingDuration":
+        10143.802001953125, "elevationGain": 1546.0, "elevationLoss": 1542.0, "averageSpeed":
+        3.9609999656677246, "maxSpeed": 13.9399995803833, "startLatitude": 46.46861026994884,
+        "startLongitude": 10.372213404625654, "hasPolyline": true, "hasImages": false,
+        "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 2130.0, "bmrCalories": 267.0, "averageHR": 112.0, "maxHR": 148.0,
+        "userRoles": ["SCOPE_ATP_READ", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_GCX_KID_WRITE",
+        "SCOPE_DT_ACTIVE_INTELLIGENCE_READ", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_GCX_KID_ADMIN_READ",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_ACTIVITY_DETECTION_READ", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_DI_OAUTH_2_MANAGED_STATUS_ADMIN_WRITE", "SCOPE_CONNECT_READ", "SCOPE_GCX_PET_READ",
+        "SCOPE_GOLF_API_READ", "SCOPE_DI_OAUTH_2_DEVICE_REVOCATION_WRITE", "SCOPE_GCX_PET_WRITE",
+        "SCOPE_DI_OAUTH_2_CREATE_DI_USER", "SCOPE_DIVE_API_WRITE", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_CONNECT_MCT_DAILY_LOG_READ",
+        "SCOPE_CONNECT_API_CREATE_UPDATE_USER", "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_GCX_PET_ADMIN_READ", "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_DI_OAUTH_2_PRERELEASE_PERMISSIONS_ADMIN_WRITE",
+        "SCOPE_DI_OAUTH_2_TOKEN_ADMIN", "SCOPE_ATP_WRITE", "SCOPE_GCX_KID_READ", "ROLE_CONNECTUSER",
+        "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER", "ROLE_GARMIN_USER"],
+        "privacy": {"typeId": 3, "typeKey": "subscribers"}, "userPro": false, "hasVideo":
+        false, "isPurposeful": false, "timeZoneId": 124, "beginTimestamp": 1783841632000,
+        "sportTypeId": 2, "aerobicTrainingEffect": 5.0, "anaerobicTrainingEffect":
+        3.0999999046325684, "deviceId": 3444001964, "minElevation": 1213.4000244140625,
+        "maxElevation": 2759.800048828125, "avgElevation": 1999.349929718318, "isElevationCorrected":
+        false, "isDecoDive": false, "summarizedDiveInfo": {"summarizedDiveGases":
+        []}, "maxVerticalSpeed": 0.60009765625, "manufacturer": "GARMIN", "locationName":
+        "Bormio", "lapCount": 10, "endLatitude": 46.467859419062734, "endLongitude":
+        10.361034795641899, "isAtpActivity": false, "waterEstimated": 2427.0, "minRespirationRate":
+        15.9399995803833, "maxRespirationRate": 55.209999084472656, "avgRespirationRate":
+        32.529998779296875, "trainingEffectLabel": "TEMPO", "activityTrainingLoad":
+        295.316162109375, "minActivityLapDuration": 226.7830047607422, "aerobicTrainingEffectMessage":
+        "OVERREACHING_4", "anaerobicTrainingEffectMessage": "IMPROVING_ANAEROBIC_BASE_2",
+        "splitSummaries": [], "hasSplits": false, "hasIntensityIntervals": false,
+        "isManualActivity": false, "moderateIntensityMinutes": 4, "vigorousIntensityMinutes":
+        135, "differenceBodyBattery": -36, "hasHeatMap": false, "fastestSplit_40000":
+        11215.94140625, "hrTimeInZone_1": 929.655, "hrTimeInZone_2": 411.348, "hrTimeInZone_3":
+        3453.987, "hrTimeInZone_4": 3398.631, "hrTimeInZone_5": 540.002, "endTimeGMT":
+        "2026-07-12 11:00:11", "qualifyingDive": false, "activityUUID": "e6fa29c9-070b-4a84-b9dd-dd11fd5b862a",
+        "autoCalcCalories": false, "favorite": false, "purposeful": false, "manualActivity":
+        false, "atpActivity": false, "decoDive": false, "elevationCorrected": false,
+        "pr": false, "parent": false}, {"activityId": 23548101952, "activityName":
+        "Grosotto Mountain Biking", "startTimeLocal": "2026-07-10 14:06:24", "startTimeGMT":
+        "2026-07-10 12:06:24", "activityType": {"typeId": 5, "typeKey": "mountain_biking",
+        "parentTypeId": 2, "isHidden": false, "restricted": false, "trimmable": true},
+        "eventType": {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "isFavorite":
+        false, "isPR": false, "isAutoCalcCalories": false, "isParent": false, "distance":
+        18448.439453125, "duration": 6170.2587890625, "elapsedDuration": 8728.2392578125,
+        "movingDuration": 6135.0, "elevationGain": 670.0, "elevationLoss": 674.0,
+        "averageSpeed": 2.990000009536743, "maxSpeed": 11.354999542236328, "startLatitude":
+        46.2851982191205, "startLongitude": 10.259178578853607, "hasPolyline": true,
+        "hasImages": false, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 832.0, "bmrCalories": 152.0, "averageHR": 90.0, "maxHR": 125.0,
+        "userRoles": ["SCOPE_ATP_READ", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_GCX_KID_WRITE",
+        "SCOPE_DT_ACTIVE_INTELLIGENCE_READ", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_GCX_KID_ADMIN_READ",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_ACTIVITY_DETECTION_READ", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_DI_OAUTH_2_MANAGED_STATUS_ADMIN_WRITE", "SCOPE_CONNECT_READ", "SCOPE_GCX_PET_READ",
+        "SCOPE_GOLF_API_READ", "SCOPE_DI_OAUTH_2_DEVICE_REVOCATION_WRITE", "SCOPE_GCX_PET_WRITE",
+        "SCOPE_DI_OAUTH_2_CREATE_DI_USER", "SCOPE_DIVE_API_WRITE", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_CONNECT_MCT_DAILY_LOG_READ",
+        "SCOPE_CONNECT_API_CREATE_UPDATE_USER", "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_GCX_PET_ADMIN_READ", "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_DI_OAUTH_2_PRERELEASE_PERMISSIONS_ADMIN_WRITE",
+        "SCOPE_DI_OAUTH_2_TOKEN_ADMIN", "SCOPE_ATP_WRITE", "SCOPE_GCX_KID_READ", "ROLE_CONNECTUSER",
+        "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER", "ROLE_GARMIN_USER"],
+        "privacy": {"typeId": 3, "typeKey": "subscribers"}, "userPro": false, "hasVideo":
+        false, "isPurposeful": false, "timeZoneId": 124, "beginTimestamp": 1783685184000,
+        "sportTypeId": 2, "aerobicTrainingEffect": 2.299999952316284, "anaerobicTrainingEffect":
+        0.0, "deviceId": 3444001964, "minTemperature": 31.0, "maxTemperature": 40.0,
+        "minElevation": 610.2000122070312, "maxElevation": 1223.800048828125, "avgElevation":
+        958.8562629982827, "isElevationCorrected": false, "isDecoDive": false, "summarizedDiveInfo":
+        {"summarizedDiveGases": []}, "maxVerticalSpeed": 0.60003662109375, "manufacturer":
+        "GARMIN", "locationName": "Grosotto", "lapCount": 4, "endLatitude": 46.28507676534355,
+        "endLongitude": 10.259970501065254, "isAtpActivity": false, "grit": 67.5726547241211,
+        "waterEstimated": 1438.0, "minRespirationRate": 11.800000190734863, "maxRespirationRate":
+        39.439998626708984, "avgRespirationRate": 27.59000015258789, "trainingEffectLabel":
+        "AEROBIC_BASE", "activityTrainingLoad": 37.889556884765625, "avgFlow": 2.6369428634643555,
+        "minActivityLapDuration": 720.0989990234375, "aerobicTrainingEffectMessage":
+        "MAINTAINING_AEROBIC_BASE_7", "anaerobicTrainingEffectMessage": "NO_ANAEROBIC_BENEFIT_0",
+        "splitSummaries": [], "hasSplits": false, "hasIntensityIntervals": false,
+        "isManualActivity": false, "moderateIntensityMinutes": 29, "vigorousIntensityMinutes":
+        49, "differenceBodyBattery": -13, "hasHeatMap": false, "hrTimeInZone_1": 1224.007,
+        "hrTimeInZone_2": 2654.007, "hrTimeInZone_3": 577.987, "hrTimeInZone_4": 0.0,
+        "hrTimeInZone_5": 0.0, "endTimeGMT": "2026-07-10 14:31:52", "qualifyingDive":
+        false, "activityUUID": "ff508961-5e7b-43f5-8dc2-0e6cc31580e2", "autoCalcCalories":
+        false, "favorite": false, "purposeful": false, "manualActivity": false, "atpActivity":
+        false, "decoDive": false, "elevationCorrected": false, "pr": false, "parent":
+        false}, {"activityId": 23512339583, "activityName": "Verdellino Mountain Biking",
+        "startTimeLocal": "2026-07-07 17:00:46", "startTimeGMT": "2026-07-07 15:00:46",
+        "activityType": {"typeId": 5, "typeKey": "mountain_biking", "parentTypeId":
+        2, "isHidden": false, "restricted": false, "trimmable": true}, "eventType":
+        {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "isFavorite":
+        false, "isPR": false, "isAutoCalcCalories": false, "isParent": false, "distance":
+        20803.330078125, "duration": 3001.537109375, "elapsedDuration": 3010.535888671875,
+        "movingDuration": 2997.116943359375, "elevationGain": 107.0, "elevationLoss":
+        106.0, "averageSpeed": 6.931000232696533, "maxSpeed": 9.769000053405762, "startLatitude":
+        45.60835392214358, "startLongitude": 9.612889252603054, "hasPolyline": true,
+        "hasImages": false, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 728.0, "bmrCalories": 74.0, "averageHR": 117.0, "maxHR": 138.0,
+        "userRoles": ["SCOPE_ATP_READ", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_GCX_KID_WRITE",
+        "SCOPE_DT_ACTIVE_INTELLIGENCE_READ", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_GCX_KID_ADMIN_READ",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_ACTIVITY_DETECTION_READ", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_DI_OAUTH_2_MANAGED_STATUS_ADMIN_WRITE", "SCOPE_CONNECT_READ", "SCOPE_GCX_PET_READ",
+        "SCOPE_GOLF_API_READ", "SCOPE_DI_OAUTH_2_DEVICE_REVOCATION_WRITE", "SCOPE_GCX_PET_WRITE",
+        "SCOPE_DI_OAUTH_2_CREATE_DI_USER", "SCOPE_DIVE_API_WRITE", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_CONNECT_MCT_DAILY_LOG_READ",
+        "SCOPE_CONNECT_API_CREATE_UPDATE_USER", "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_GCX_PET_ADMIN_READ", "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_DI_OAUTH_2_PRERELEASE_PERMISSIONS_ADMIN_WRITE",
+        "SCOPE_DI_OAUTH_2_TOKEN_ADMIN", "SCOPE_ATP_WRITE", "SCOPE_GCX_KID_READ", "ROLE_CONNECTUSER",
+        "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER", "ROLE_GARMIN_USER"],
+        "privacy": {"typeId": 3, "typeKey": "subscribers"}, "userPro": false, "hasVideo":
+        false, "isPurposeful": false, "timeZoneId": 124, "beginTimestamp": 1783436446000,
+        "sportTypeId": 2, "aerobicTrainingEffect": 3.299999952316284, "anaerobicTrainingEffect":
+        0.8999999761581421, "deviceId": 3444001964, "minTemperature": 33.0, "maxTemperature":
+        38.0, "minElevation": 136.8000030517578, "maxElevation": 182.0, "avgElevation":
+        161.67910682706187, "isElevationCorrected": false, "isDecoDive": false, "summarizedDiveInfo":
+        {"summarizedDiveGases": []}, "maxVerticalSpeed": 1.600006103515625, "manufacturer":
+        "GARMIN", "locationName": "Verdellino", "lapCount": 5, "endLatitude": 45.60827001929283,
+        "endLongitude": 9.613174237310886, "isAtpActivity": false, "grit": 9.637499809265137,
+        "waterEstimated": 833.0, "minRespirationRate": 24.40999984741211, "maxRespirationRate":
+        43.119998931884766, "avgRespirationRate": 34.43000030517578, "trainingEffectLabel":
+        "AEROBIC_BASE", "activityTrainingLoad": 101.59291076660156, "avgFlow": 2.221001386642456,
+        "minActivityLapDuration": 117.2040023803711, "aerobicTrainingEffectMessage":
+        "IMPROVING_AEROBIC_BASE_8", "anaerobicTrainingEffectMessage": "NO_ANAEROBIC_BENEFIT_0",
+        "splitSummaries": [], "hasSplits": false, "hasIntensityIntervals": false,
+        "isManualActivity": false, "moderateIntensityMinutes": 3, "vigorousIntensityMinutes":
+        44, "differenceBodyBattery": -11, "hasHeatMap": false, "hrTimeInZone_1": 41.997,
+        "hrTimeInZone_2": 386.002, "hrTimeInZone_3": 2135.817, "hrTimeInZone_4": 435.997,
+        "hrTimeInZone_5": 0.0, "endTimeGMT": "2026-07-07 15:50:56", "qualifyingDive":
+        false, "activityUUID": "6b5c7f6e-e46f-4c12-bbee-85307effa73c", "autoCalcCalories":
+        false, "favorite": false, "purposeful": false, "manualActivity": false, "atpActivity":
+        false, "decoDive": false, "elevationCorrected": false, "pr": false, "parent":
+        false}, {"activityId": 23479895219, "activityName": "Verdellino Mountain Biking",
+        "startTimeLocal": "2026-07-04 19:11:03", "startTimeGMT": "2026-07-04 17:11:03",
+        "activityType": {"typeId": 5, "typeKey": "mountain_biking", "parentTypeId":
+        2, "isHidden": false, "restricted": false, "trimmable": true}, "eventType":
+        {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "isFavorite":
+        false, "isPR": false, "isAutoCalcCalories": false, "isParent": false, "distance":
+        20740.890625, "duration": 2852.326904296875, "elapsedDuration": 2852.326904296875,
+        "movingDuration": 2850.3070068359375, "elevationGain": 100.0, "elevationLoss":
+        101.0, "averageSpeed": 7.271999835968018, "maxSpeed": 9.60099983215332, "startLatitude":
+        45.60834805481136, "startLongitude": 9.612659504637122, "hasPolyline": true,
+        "hasImages": false, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 727.0, "bmrCalories": 70.0, "averageHR": 122.0, "maxHR": 143.0,
+        "userRoles": ["SCOPE_ATP_READ", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_GCX_KID_WRITE",
+        "SCOPE_DT_ACTIVE_INTELLIGENCE_READ", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_GCX_KID_ADMIN_READ",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_ACTIVITY_DETECTION_READ", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_DI_OAUTH_2_MANAGED_STATUS_ADMIN_WRITE", "SCOPE_CONNECT_READ", "SCOPE_GCX_PET_READ",
+        "SCOPE_GOLF_API_READ", "SCOPE_DI_OAUTH_2_DEVICE_REVOCATION_WRITE", "SCOPE_GCX_PET_WRITE",
+        "SCOPE_DI_OAUTH_2_CREATE_DI_USER", "SCOPE_DIVE_API_WRITE", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_CONNECT_MCT_DAILY_LOG_READ",
+        "SCOPE_CONNECT_API_CREATE_UPDATE_USER", "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_GCX_PET_ADMIN_READ", "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_DI_OAUTH_2_PRERELEASE_PERMISSIONS_ADMIN_WRITE",
+        "SCOPE_DI_OAUTH_2_TOKEN_ADMIN", "SCOPE_ATP_WRITE", "SCOPE_GCX_KID_READ", "ROLE_CONNECTUSER",
+        "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER", "ROLE_GARMIN_USER"],
+        "privacy": {"typeId": 3, "typeKey": "subscribers"}, "userPro": false, "hasVideo":
+        false, "isPurposeful": false, "timeZoneId": 124, "beginTimestamp": 1783185063000,
+        "sportTypeId": 2, "aerobicTrainingEffect": 3.5, "anaerobicTrainingEffect":
+        1.2000000476837158, "deviceId": 3444001964, "minTemperature": 30.0, "maxTemperature":
+        33.0, "minElevation": 134.8000030517578, "maxElevation": 180.8000030517578,
+        "avgElevation": 160.76586054585667, "isElevationCorrected": false, "isDecoDive":
+        false, "summarizedDiveInfo": {"summarizedDiveGases": []}, "maxVerticalSpeed":
+        0.9000015258789062, "manufacturer": "GARMIN", "locationName": "Verdellino",
+        "lapCount": 5, "endLatitude": 45.60825468041003, "endLongitude": 9.613195527344942,
+        "isAtpActivity": false, "grit": 9.309374809265137, "waterEstimated": 758.0,
+        "minRespirationRate": 23.6200008392334, "maxRespirationRate": 43.34000015258789,
+        "avgRespirationRate": 35.939998626708984, "trainingEffectLabel": "AEROBIC_BASE",
+        "activityTrainingLoad": 122.56259155273438, "avgFlow": 2.28625226020813, "minActivityLapDuration":
+        102.677001953125, "aerobicTrainingEffectMessage": "IMPROVING_AEROBIC_ENDURANCE_9",
+        "anaerobicTrainingEffectMessage": "MINOR_ANAEROBIC_BENEFIT_15", "splitSummaries":
+        [], "hasSplits": false, "hasIntensityIntervals": false, "isManualActivity":
+        false, "moderateIntensityMinutes": 2, "vigorousIntensityMinutes": 44, "differenceBodyBattery":
+        -9, "hasHeatMap": false, "hrTimeInZone_1": 6.219, "hrTimeInZone_2": 212.995,
+        "hrTimeInZone_3": 1562.072, "hrTimeInZone_4": 1035.995, "hrTimeInZone_5":
+        35.0, "endTimeGMT": "2026-07-04 17:58:35", "qualifyingDive": false, "activityUUID":
+        "7dfdcb0d-6343-4ac1-abfb-a9ef0d229c17", "autoCalcCalories": false, "favorite":
+        false, "purposeful": false, "manualActivity": false, "atpActivity": false,
+        "decoDive": false, "elevationCorrected": false, "pr": false, "parent": false},
+        {"activityId": 23467943433, "activityName": "Verdellino Mountain Biking",
+        "startTimeLocal": "2026-07-03 19:04:35", "startTimeGMT": "2026-07-03 17:04:35",
+        "activityType": {"typeId": 5, "typeKey": "mountain_biking", "parentTypeId":
+        2, "isHidden": false, "restricted": false, "trimmable": true}, "eventType":
+        {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "isFavorite":
+        false, "isPR": false, "isAutoCalcCalories": false, "isParent": false, "distance":
+        20736.080078125, "duration": 2881.84912109375, "elapsedDuration": 2881.84912109375,
+        "movingDuration": 2875.6710205078125, "elevationGain": 93.0, "elevationLoss":
+        95.0, "averageSpeed": 7.195000171661377, "maxSpeed": 9.779000282287598, "startLatitude":
+        45.60838485136628, "startLongitude": 9.612448867410421, "hasPolyline": true,
+        "hasImages": false, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 704.0, "bmrCalories": 71.0, "averageHR": 117.0, "maxHR": 144.0,
+        "userRoles": ["SCOPE_ATP_READ", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_GCX_KID_WRITE",
+        "SCOPE_DT_ACTIVE_INTELLIGENCE_READ", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_GCX_KID_ADMIN_READ",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_ACTIVITY_DETECTION_READ", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_DI_OAUTH_2_MANAGED_STATUS_ADMIN_WRITE", "SCOPE_CONNECT_READ", "SCOPE_GCX_PET_READ",
+        "SCOPE_GOLF_API_READ", "SCOPE_DI_OAUTH_2_DEVICE_REVOCATION_WRITE", "SCOPE_GCX_PET_WRITE",
+        "SCOPE_DI_OAUTH_2_CREATE_DI_USER", "SCOPE_DIVE_API_WRITE", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_CONNECT_MCT_DAILY_LOG_READ",
+        "SCOPE_CONNECT_API_CREATE_UPDATE_USER", "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_GCX_PET_ADMIN_READ", "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_DI_OAUTH_2_PRERELEASE_PERMISSIONS_ADMIN_WRITE",
+        "SCOPE_DI_OAUTH_2_TOKEN_ADMIN", "SCOPE_ATP_WRITE", "SCOPE_GCX_KID_READ", "ROLE_CONNECTUSER",
+        "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER", "ROLE_GARMIN_USER"],
+        "privacy": {"typeId": 3, "typeKey": "subscribers"}, "userPro": false, "hasVideo":
+        false, "isPurposeful": false, "timeZoneId": 124, "beginTimestamp": 1783098275000,
+        "sportTypeId": 2, "aerobicTrainingEffect": 3.4000000953674316, "anaerobicTrainingEffect":
+        2.0999999046325684, "deviceId": 3444001964, "minTemperature": 30.0, "maxTemperature":
+        33.0, "minElevation": 137.60000610351562, "maxElevation": 181.1999969482422,
+        "avgElevation": 161.71547529550165, "isElevationCorrected": false, "isDecoDive":
+        false, "summarizedDiveInfo": {"summarizedDiveGases": []}, "maxVerticalSpeed":
+        0.8000030517578125, "manufacturer": "GARMIN", "locationName": "Verdellino",
+        "lapCount": 5, "endLatitude": 45.60824420303106, "endLongitude": 9.613194018602371,
+        "isAtpActivity": false, "grit": 9.426562309265137, "waterEstimated": 761.0,
+        "minRespirationRate": 20.079999923706055, "maxRespirationRate": 46.58000183105469,
+        "avgRespirationRate": 35.27000045776367, "trainingEffectLabel": "TEMPO", "activityTrainingLoad":
+        124.48750305175781, "avgFlow": 2.268770694732666, "minActivityLapDuration":
+        98.0260009765625, "aerobicTrainingEffectMessage": "IMPROVING_AEROBIC_FITNESS_2",
+        "anaerobicTrainingEffectMessage": "MAINTAINING_ANAEROBIC_BASE_1", "splitSummaries":
+        [], "hasSplits": false, "hasIntensityIntervals": false, "isManualActivity":
+        false, "moderateIntensityMinutes": 4, "vigorousIntensityMinutes": 43, "differenceBodyBattery":
+        -12, "hasHeatMap": false, "hrTimeInZone_1": 80.001, "hrTimeInZone_2": 601.003,
+        "hrTimeInZone_3": 1616.965, "hrTimeInZone_4": 514.99, "hrTimeInZone_5": 45.196,
+        "endTimeGMT": "2026-07-03 17:52:36", "qualifyingDive": false, "activityUUID":
+        "0d15b13f-f8a2-46b5-8211-c0831fbdffe0", "autoCalcCalories": false, "favorite":
+        false, "purposeful": false, "manualActivity": false, "atpActivity": false,
+        "decoDive": false, "elevationCorrected": false, "pr": false, "parent": false},
+        {"activityId": 23421227784, "activityName": "Villa di Serio Mountain Biking",
+        "startTimeLocal": "2026-06-29 17:50:31", "startTimeGMT": "2026-06-29 15:50:31",
+        "activityType": {"typeId": 5, "typeKey": "mountain_biking", "parentTypeId":
+        2, "isHidden": false, "restricted": false, "trimmable": true}, "eventType":
+        {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10}, "isFavorite":
+        false, "isPR": false, "isAutoCalcCalories": false, "isParent": false, "distance":
+        42570.23046875, "duration": 7357.85791015625, "elapsedDuration": 8440.8515625,
+        "movingDuration": 7339.39501953125, "elevationGain": 473.0, "elevationLoss":
+        471.0, "averageSpeed": 5.785999774932861, "maxSpeed": 12.791999816894531,
+        "startLatitude": 45.72840666398406, "startLongitude": 9.730710396543145, "hasPolyline":
+        true, "hasImages": false, "ownerId": 113739130, "ownerDisplayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3",
+        "ownerFullName": "Paolo", "ownerProfileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "ownerProfileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "ownerProfileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "calories": 1177.0, "bmrCalories": 181.0, "averageHR": 102.0, "maxHR": 157.0,
+        "userRoles": ["SCOPE_ATP_READ", "SCOPE_COMMUNITY_COURSE_ADMIN_READ", "SCOPE_GCX_KID_WRITE",
+        "SCOPE_DT_ACTIVE_INTELLIGENCE_READ", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_GCX_KID_ADMIN_READ",
+        "SCOPE_CONNECT_WEB_TEMPLATE_RENDER", "SCOPE_ACTIVITY_DETECTION_READ", "SCOPE_OMT_SUBSCRIPTION_ADMIN_READ",
+        "SCOPE_DI_OAUTH_2_MANAGED_STATUS_ADMIN_WRITE", "SCOPE_CONNECT_READ", "SCOPE_GCX_PET_READ",
+        "SCOPE_GOLF_API_READ", "SCOPE_DI_OAUTH_2_DEVICE_REVOCATION_WRITE", "SCOPE_GCX_PET_WRITE",
+        "SCOPE_DI_OAUTH_2_CREATE_DI_USER", "SCOPE_DIVE_API_WRITE", "SCOPE_DIVE_API_READ",
+        "SCOPE_DI_OAUTH_2_CLIENT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_CONNECT_MCT_DAILY_LOG_READ",
+        "SCOPE_CONNECT_API_CREATE_UPDATE_USER", "SCOPE_MESSAGE_GENERATION_READ", "SCOPE_DI_OAUTH_2_CLIENT_REVOCATION_ADMIN",
+        "SCOPE_GCX_PET_ADMIN_READ", "SCOPE_CONNECT_NON_SOCIAL_SHARED_READ", "SCOPE_DI_OAUTH_2_PRERELEASE_PERMISSIONS_ADMIN_WRITE",
+        "SCOPE_DI_OAUTH_2_TOKEN_ADMIN", "SCOPE_ATP_WRITE", "SCOPE_GCX_KID_READ", "ROLE_CONNECTUSER",
+        "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER", "ROLE_OUTDOOR_USER", "ROLE_GARMIN_USER"],
+        "privacy": {"typeId": 3, "typeKey": "subscribers"}, "userPro": false, "hasVideo":
+        false, "isPurposeful": false, "timeZoneId": 124, "beginTimestamp": 1782748231000,
+        "sportTypeId": 2, "aerobicTrainingEffect": 3.700000047683716, "anaerobicTrainingEffect":
+        2.799999952316284, "deviceId": 3444001964, "minTemperature": 23.0, "maxTemperature":
+        30.0, "minElevation": 279.79998779296875, "maxElevation": 659.5999755859375,
+        "avgElevation": 395.0502650478831, "isElevationCorrected": false, "isDecoDive":
+        false, "summarizedDiveInfo": {"summarizedDiveGases": []}, "maxVerticalSpeed":
+        0.800018310546875, "manufacturer": "GARMIN", "locationName": "Villa di Serio",
+        "lapCount": 9, "endLatitude": 45.727536706253886, "endLongitude": 9.72962778992951,
+        "isAtpActivity": false, "grit": 43.720314025878906, "waterEstimated": 1411.0,
+        "minRespirationRate": 17.649999618530273, "maxRespirationRate": 50.08000183105469,
+        "avgRespirationRate": 29.920000076293945, "trainingEffectLabel": "AEROBIC_BASE",
+        "activityTrainingLoad": 169.585205078125, "avgFlow": 2.9632153511047363, "minActivityLapDuration":
+        412.281005859375, "aerobicTrainingEffectMessage": "IMPROVING_AEROBIC_ENDURANCE_9",
+        "anaerobicTrainingEffectMessage": "MAINTAINING_ANAEROBIC_BASE_1", "splitSummaries":
+        [], "hasSplits": false, "hasIntensityIntervals": false, "isManualActivity":
+        false, "moderateIntensityMinutes": 19, "vigorousIntensityMinutes": 67, "differenceBodyBattery":
+        -19, "hasHeatMap": false, "fastestSplit_40000": 8010.34814453125, "hrTimeInZone_1":
+        2000.975, "hrTimeInZone_2": 2106.848, "hrTimeInZone_3": 1503.959, "hrTimeInZone_4":
+        687.991, "hrTimeInZone_5": 302.998, "endTimeGMT": "2026-06-29 18:11:11", "qualifyingDive":
+        false, "activityUUID": "671de1a1-15d0-4893-8b9e-b4bd2f50f008", "autoCalcCalories":
+        false, "favorite": false, "purposeful": false, "manualActivity": false, "atpActivity":
+        false, "decoDive": false, "elevationCorrected": false, "pr": false, "parent":
+        false}]'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 03 Sep 2026 19:18:47 GMT
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '24549'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/userprofile-service/socialProfile
+  response:
+    body:
+      string: '{"id": 408106091, "profileId": 113739130, "garminGUID": "036d4457-1523-4d57-a237-43de978cd7cc",
+        "displayName": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "fullName": "Paolo",
+        "userName": "puntonim@gmail.com", "profileImageType": "UPLOADED_PHOTO", "profileImageUrlLarge":
+        "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "hasPremiumSocialIcon": false, "location": "Verdellino, Italy", "facebookUrl":
+        null, "twitterUrl": null, "personalWebsite": null, "motivation": 2, "bio":
+        null, "primaryActivity": "other", "favoriteActivityTypes": ["running", "cycling",
+        "weight_training", "snow_sports"], "runningTrainingSpeed": 0.0, "cyclingTrainingSpeed":
+        0.0, "favoriteCyclingActivityTypes": ["road", "mountain"], "cyclingClassification":
+        null, "cyclingMaxAvgPower": 0.0, "swimmingTrainingSpeed": 0.0, "profileVisibility":
+        "following", "activityStartVisibility": "public", "activityMapVisibility":
+        "public", "courseVisibility": "public", "activityHeartRateVisibility": "public",
+        "activityPowerVisibility": "public", "badgeVisibility": "private", "showAge":
+        false, "showWeight": false, "showHeight": false, "showWeightClass": false,
+        "showAgeRange": false, "showGender": false, "showActivityClass": false, "showVO2Max":
+        false, "showPersonalRecords": true, "showLast12Months": true, "showLifetimeTotals":
+        true, "showUpcomingEvents": true, "showRecentFavorites": true, "showRecentDevice":
+        true, "showRecentGear": false, "showBadges": true, "otherActivity": null,
+        "otherPrimaryActivity": null, "otherMotivation": null, "userRoles": ["SCOPE_ATP_READ",
+        "SCOPE_ATP_WRITE", "SCOPE_CIQ_APPSTORE_SERVICES_CREATE", "SCOPE_CIQ_APPSTORE_SERVICES_DELETE",
+        "SCOPE_CIQ_APPSTORE_SERVICES_READ", "SCOPE_CIQ_APPSTORE_SERVICES_UPDATE",
+        "SCOPE_COMMUNITY_COURSE_READ", "SCOPE_COMMUNITY_COURSE_WRITE", "SCOPE_CONNECT_MCT_DAILY_LOG_READ",
+        "SCOPE_CONNECT_READ", "SCOPE_CONNECT_WRITE", "SCOPE_DIVE_API_READ", "SCOPE_DI_API_READ",
+        "SCOPE_DI_COACHING_READ", "SCOPE_DI_COACHING_WRITE", "SCOPE_DI_OAUTH_2_AUTHORIZATION_CODE_CREATE",
+        "SCOPE_DI_TOUM_NATIVE_REPORTED_DETAIL_WRITE", "SCOPE_DT_CLIENT_ANALYTICS_WRITE",
+        "SCOPE_GARMINPAY_READ", "SCOPE_GARMINPAY_WRITE", "SCOPE_GCOFFER_READ", "SCOPE_GCOFFER_WRITE",
+        "SCOPE_GCX_KID_READ", "SCOPE_GCX_KID_WRITE", "SCOPE_GCX_PET_READ", "SCOPE_GCX_PET_WRITE",
+        "SCOPE_GHS_SAMD", "SCOPE_GHS_UPLOAD", "SCOPE_GOLF_API_READ", "SCOPE_GOLF_API_WRITE",
+        "SCOPE_INSIGHTS_READ", "SCOPE_INSIGHTS_WRITE", "SCOPE_OMT_CAMPAIGN_READ",
+        "SCOPE_OMT_DISCOUNTS_CREATE", "SCOPE_OMT_DISCOUNTS_READ", "SCOPE_OMT_SUBSCRIPTION_READ",
+        "SCOPE_PRODUCT_SEARCH_READ", "ROLE_CONNECTUSER", "ROLE_FITNESS_USER", "ROLE_WELLNESS_USER",
+        "ROLE_OUTDOOR_USER", "ROLE_GARMIN_USER"], "nameApproved": true, "userProfileFullName":
+        "Paolo", "makeGolfScorecardsPrivate": true, "allowGolfLiveScoring": false,
+        "allowGolfScoringByConnections": true, "userLevel": 4, "userPoint": 163, "levelUpdateDate":
+        "2026-01-20T07:26:11.0", "levelIsViewed": false, "levelPointThreshold": 300,
+        "userPointOffset": 0, "userPro": false}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 03 Sep 2026 19:18:48 GMT
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3118'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/userprofile-service/userprofile/user-settings
+  response:
+    body:
+      string: '{"id": 113739130, "userData": {"gender": "MALE", "weight": 84000.0,
+        "height": 180.0, "timeFormat": "time_twenty_four_hr", "birthDate": "1980-01-18",
+        "measurementSystem": "metric", "activityLevel": 7, "handedness": "RIGHT",
+        "powerFormat": {"formatId": 30, "formatKey": "watt", "minFraction": 0, "maxFraction":
+        0, "groupingUsed": true, "displayFormat": null}, "heartRateFormat": {"formatId":
+        21, "formatKey": "bpm", "minFraction": 0, "maxFraction": 0, "groupingUsed":
+        false, "displayFormat": null}, "firstDayOfWeek": {"dayId": 3, "dayName": "monday",
+        "sortOrder": 3, "isPossibleFirstDay": true}, "vo2MaxRunning": 57.0, "vo2MaxCycling":
+        null, "lactateThresholdSpeed": 0.39444334000000003, "lactateThresholdHeartRate":
+        152, "diveNumber": null, "intensityMinutesCalcMethod": "AUTO", "moderateIntensityMinutesHrZone":
+        3, "vigorousIntensityMinutesHrZone": 4, "hydrationMeasurementUnit": "cup",
+        "hydrationContainers": [], "hydrationAutoGoalEnabled": true, "firstbeatMaxStressScore":
+        null, "firstbeatCyclingLtTimestamp": null, "firstbeatRunningLtTimestamp":
+        1157017968, "thresholdHeartRateAutoDetected": true, "ftpAutoDetected": true,
+        "trainingStatusPausedDate": null, "weatherLocation": {"useFixedLocation":
+        null, "latitude": null, "longitude": null, "locationName": null, "isoCountryCode":
+        null, "postalCode": null}, "golfDistanceUnit": "statute_us", "golfElevationUnit":
+        null, "golfSpeedUnit": null, "externalBottomTime": null, "availableTrainingDays":
+        ["THURSDAY", "SUNDAY", "TUESDAY", "FRIDAY", "MONDAY", "WEDNESDAY", "SATURDAY"],
+        "preferredLongTrainingDays": ["SUNDAY", "SATURDAY"], "virtualCaddieDataSource":
+        null, "numberDivesAutomatically": null, "firstbeatRowingLtTimestamp": null,
+        "lactateThresholdRowingPace": null, "lactateThresholdHeartRateRowing": null,
+        "lactateThresholdHeartRateCycling": null, "wtrPrimaryActivityType": null},
+        "userSleep": {"sleepTime": 0, "defaultSleepTime": false, "wakeTime": 28800,
+        "defaultWakeTime": false}, "connectDate": null, "sourceType": null, "userSleepWindows":
+        [{"sleepWindowFrequency": "SUNDAY", "startSleepTimeSecondsFromMidnight": 0,
+        "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "MONDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "TUESDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "WEDNESDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "THURSDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "FRIDAY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}, {"sleepWindowFrequency": "SATURDAY", "startSleepTimeSecondsFromMidnight":
+        0, "endSleepTimeSecondsFromMidnight": 28800}, {"sleepWindowFrequency": "DAILY",
+        "startSleepTimeSecondsFromMidnight": 0, "endSleepTimeSecondsFromMidnight":
+        28800}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 03 Sep 2026 19:18:48 GMT
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '2756'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://connectapi.garmin.com/activity-service/activity/23421227784
+  response:
+    body:
+      string: '{"activityId": 23421227784, "activityUUID": {"uuid": "671de1a1-15d0-4893-8b9e-b4bd2f50f008"},
+        "activityName": "Villa di Serio Mountain Biking", "userProfileId": 113739130,
+        "isMultiSportParent": false, "activityTypeDTO": {"typeId": 5, "typeKey": "mountain_biking",
+        "parentTypeId": 2, "isHidden": false, "restricted": false, "trimmable": true},
+        "eventTypeDTO": {"typeId": 9, "typeKey": "uncategorized", "sortOrder": 10},
+        "accessControlRuleDTO": {"typeId": 3, "typeKey": "subscribers"}, "timeZoneUnitDTO":
+        {"unitId": 124, "unitKey": "Europe/Paris", "factor": 0.0, "timeZone": "Europe/Paris"},
+        "metadataDTO": {"isOriginal": true, "deviceApplicationInstallationId": 1012383,
+        "agentApplicationInstallationId": null, "agentString": null, "fileFormat":
+        {"formatId": 7, "formatKey": "fit"}, "associatedCourseId": null, "lastUpdateDate":
+        "2026-06-29T18:13:07.0", "uploadedDate": "2026-06-29T18:13:06.0", "videoUrl":
+        null, "hasPolyline": true, "hasChartData": true, "hasHrTimeInZones": true,
+        "hasPowerTimeInZones": false, "userInfoDto": {"userProfilePk": 113739130,
+        "displayname": "3c9af3f5-eec2-4047-b9d8-bc98d3bb88c3", "fullname": "Paolo",
+        "profileImageUrlLarge": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prof.png",
+        "profileImageUrlMedium": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prfr.png",
+        "profileImageUrlSmall": "https://s3.amazonaws.com/garmin-connect-prod/profile_images/54ac91f0-443c-4611-a585-eb18d69ae44e-prth.png",
+        "userPro": false}, "childIds": [], "childActivityTypes": [], "sensors": [{"manufacturer":
+        "GARMIN", "serialNumber": 3511385941, "sku": "006-B4606-00", "fitProductNumber":
+        4606, "sourceType": "ANTPLUS", "antplusDeviceType": "HEART_RATE", "softwareVersion":
+        5.4, "batteryStatus": "OK"}], "activityImages": [], "manufacturer": "GARMIN",
+        "diveNumber": null, "lapCount": 9, "associatedWorkoutId": null, "isAtpActivity":
+        null, "deviceMetaDataDTO": {"deviceId": "3444001964", "deviceTypePk": 37086,
+        "deviceVersionPk": 1012383}, "hasIntensityIntervals": false, "hasSplits":
+        false, "eBikeMaxAssistModes": null, "eBikeBatteryUsage": null, "eBikeBatteryRemaining":
+        null, "eBikeAssistModeInfoDTOList": null, "hasRunPowerWindData": null, "calendarEventInfo":
+        null, "groupRideUUID": null, "hasHeatMap": false, "sessionResultType": "ORIGINAL",
+        "hasMultiDayActivities": false, "thirdPartyGymEquipment": [], "personalRecord":
+        false, "elevationCorrected": false, "trimmed": false, "manualActivity": false,
+        "autoCalcCalories": false, "favorite": false, "runPowerWindDataEnabled": null,
+        "gcj02": false}, "summaryDTO": {"startTimeLocal": "2026-06-29T17:50:31.0",
+        "startTimeGMT": "2026-06-29T15:50:31.0", "startLatitude": 45.72840666398406,
+        "startLongitude": 9.730710396543145, "distance": 42570.23, "duration": 7357.858,
+        "movingDuration": 7339.395, "elapsedDuration": 8440.852, "elevationGain":
+        473.0, "elevationLoss": 471.0, "maxElevation": 659.6, "minElevation": 279.8,
+        "avgElevation": 395.05, "averageSpeed": 5.785999774932861, "averageMovingSpeed":
+        5.8002369889431105, "maxSpeed": 12.791999816894531, "calories": 1177.0, "bmrCalories":
+        181.0, "averageHR": 102.0, "maxHR": 157.0, "minHR": 66.0, "averageTemperature":
+        26.765161145792842, "maxTemperature": 30.0, "minTemperature": 23.0, "trainingEffect":
+        3.700000047683716, "anaerobicTrainingEffect": 2.799999952316284, "aerobicTrainingEffectMessage":
+        "IMPROVING_AEROBIC_ENDURANCE_9", "anaerobicTrainingEffectMessage": "MAINTAINING_ANAEROBIC_BASE_1",
+        "endLatitude": 45.727536706253886, "endLongitude": 9.72962778992951, "maxVerticalSpeed":
+        0.800018310546875, "grit": 43.720314025878906, "waterEstimated": 1411.0, "minRespirationRate":
+        17.649999618530273, "maxRespirationRate": 50.08000183105469, "avgRespirationRate":
+        29.920000076293945, "trainingEffectLabel": "AEROBIC_BASE", "activityTrainingLoad":
+        169.585205078125, "avgFlow": 2.9632153511047363, "minActivityLapDuration":
+        412.281, "directWorkoutFeel": 75, "directWorkoutRpe": 50, "moderateIntensityMinutes":
+        19, "vigorousIntensityMinutes": 67, "beginPotentialStamina": 100.0, "endPotentialStamina":
+        67.0, "minAvailableStamina": 18.0, "differenceBodyBattery": -19}, "locationName":
+        "Villa di Serio"}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 03 Sep 2026 19:18:49 GMT
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      content-length:
+      - '3943'
+      pragma:
+      - no-cache
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.strava.com/api/v3/athlete/activities?before=1782748532&after=1782747930&per_page=1
+  response:
+    body:
+      string: '[{"resource_state": 2, "athlete": {"id": 115890775, "id_str": "115890775",
+        "resource_state": 1}, "name": "Alzano - Val Vertova - cascate", "distance":
+        42570.2, "moving_time": 7363, "elapsed_time": 8440, "total_elevation_gain":
+        473.0, "type": "Ride", "sport_type": "MountainBikeRide", "workout_type": null,
+        "device_name": "Garmin Forerunner 965", "id": 19113767592, "id_str": "19113767592",
+        "start_date": "2026-06-29T15:50:31Z", "start_date_local": "2026-06-29T17:50:31Z",
+        "timezone": "(GMT+01:00) Europe/Rome", "utc_offset": 7200.0, "location_city":
+        null, "location_state": null, "location_country": null, "achievement_count":
+        20, "kudos_count": 4, "comment_count": 0, "athlete_count": 3, "photo_count":
+        0, "map": {"id": "a19113767592", "summary_polyline": "ctbvGcglz@yJyWN]pAr@R{BsAcDaByNw@oI\\_BiAwJGyEaAwAa@_Cw@qA}EqQo@sFeDyNyDaHmEcRa@gERcEEcAoCkOoIyAkEiEsBiDy@yDe@kCLkEa@wBaCuBiF}HiCyBeEsBsD}F_A}Cc@_DjA_LKgJo@aAQaBaIaQw@iAqAi@uBuCqE_N{AmDiAoA_B}EkAk@yCqEyDkKuEiWcCl@}AaF}BQIa@vAkAwB{HeHmFeEwGoBaHaBiHfAmC[cBsE_CiZqLgGgHwD_JA{K`@aLqAsBmI_AmYf@gEuDqB_DaCaG`AgAKq@kF_HkBmD_B_E_Ar@Uz@mBhAwFxFqCv@?YfCiBWKkDzBaD{B{R{UeJyWeEoFgHeAeL{SsEcDoAqA}AsPiBiI{Ar@b@lDOf@sAoGkBrAe@q@qA~@y@iC^i@}H{^s@@kGbE{CXGjBr@rAgMiIaCcCuNeVeC|BoClEaPlIuDn@{@dB_AbIZ|KoAlFIfFr@|CfCzC^tJv@`DPpH_AhKqBzB[nEqFhLoA`MgCpDTdKo@vHv@nEDjDmAlG[xEgCfGu@nFLdFjAzECxCaCxEo@vC{AfCOlAJzCoA~Bi@zJsAfB_@tAoAnIFlC}BhCeA~FgBfCM|BVzAm@`BeAnJy@Xi@fBqAjAQnAqJzA}AvDeE^wBlCyEBk@fAeFbFiDjBpD{BpBkCxCoChFOfBcCfE_@lAoDfFcBbCGtCcFbAq@jAgJd@uAUmBJyBjBcCfAsGtBoBCmClAoIvBwEd@{ItAuCQeCRcBvA{Bp@aDzBoEFuDcAcDQqGr@{EbCyFVaEvAsH?aD}@mEn@{IUoJ~BkDtAkMtFsLXmElBoB|@mJEcIaAwE[_JeCqCq@aCDkFdAkDHsAUyLh@kFz@iCnF_B|NuHhGgIdOrVb_@zXpEzFt@Bz@hCjBGlB_BhAnF`@`@c@gErAeArBvI|AjPtGlFlChEnGvLt@dGnHnClFzErGvOfS|UtBjBz@EdP}LrASzDxIzFvH?b@w@pAlCbHtG`HzYWlIz@nAvB]dKA~KvDlJtGnHhHnDzR`HpCdBXzAkA|BpApGzBvHzErHrGzEzBfIyArA|A|AlApDzDs@vEjWnD|JrCjEtAr@pAvD`ElHtDxL|BnDpAj@nAhBtH`PFrAz@pAJ|IQrD{@rFj@pEv@pB~ChF|I~FdCrCrAnCjCbCj@lBKhEXxB`A|ElBdDnExEtIzA~BhLV~CWT?xDrBtLbClJbDtFDlAd@l@hC~KdApH~DjOt@pAx@lDn@t@JfFjAbJ[zA^nFxBlRtAxCUbCmA{@Yd@`HzPzBlHtBzAFpA",
+        "resource_state": 2}, "trainer": false, "commute": false, "manual": false,
+        "private": false, "visibility": "followers_only", "flagged": false, "gear_id":
+        "b12393437", "start_latlng": [45.728407, 9.73071], "end_latlng": [45.727537,
+        9.729628], "average_speed": 5.782, "max_speed": 12.733, "average_temp": 26,
+        "average_watts": 201.6, "device_watts": false, "kilojoules": 1484.1, "has_heartrate":
+        true, "average_heartrate": 102.5, "max_heartrate": 157.0, "heartrate_opt_out":
+        false, "display_hide_heartrate_option": true, "elev_high": 659.6, "elev_low":
+        279.8, "upload_id": 20229289124, "upload_id_str": "20229289124", "external_id":
+        "garmin_ping_591586232614", "from_accepted_tag": false, "pr_count": 16, "total_photo_count":
+        5, "has_kudoed": false, "suffer_score": 34.0}]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 03 Sep 2026 19:18:50 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 52adb21cdfe339fc4ef63aaafb7d8b80.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - kucYAICYFPx8Q-RAHHZbuCT20stOnjzWYleBB7BPpZn6n_a2l5uCwQ==
+      X-Amz-Cf-Pop:
+      - ZRH55-P2
+      X-Cache:
+      - Miss from cloudfront
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-length:
+      - '2724'
+      etag:
+      - W/"51b6a92276d61eda1270e14c5ddfe7be"
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      server:
+      - istio-envoy
+      status:
+      - 200 OK
+      vary:
+      - Accept, Origin
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-envoy-upstream-service-time:
+      - '207'
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - none
+      x-ratelimit-limit:
+      - 200,2000
+      x-ratelimit-usage:
+      - 2,55
+      x-readratelimit-limit:
+      - 100,1000
+      x-readratelimit-usage:
+      - 2,55
+      x-request-id:
+      - d468a740-42d8-4f57-a448-c42d344ae7ad
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

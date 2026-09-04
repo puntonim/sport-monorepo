@@ -1,8 +1,7 @@
 
-- Aggiungi support for LATESTRUN-3 e LATESTRIDE-3 a get-latest-activity
-  Test
-  Update docs e screeshot
-  Commit
+- aggiungi l'HR al grafico sopra di simple-run
+  Con l'opzione --no-hr-in-pace-chart (default fale) per rimuoverlo
+   e con default true quando ci sono comparison
 
 - Infine usa il nuovo ACTIVITY_ID_PARAM_TYPE in tutti i comandi che ora usano LATEST
   Commit

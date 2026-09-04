@@ -78,7 +78,7 @@ Search
 ```sh
 $ san search-strava --start-date-after 2024-06-01T00:00:00+01:00 --activity-type ride --segment selvino
 ```
-![](sport_analysis/search/search_strava_api/search_strava_api_cli.png)
+![](sport_analysis/search/search_strava_api/search_strava_api.png)
 
 ### Search text (db)
 ```sh
@@ -94,6 +94,10 @@ Get
 $ san get-activity-urls
 $ san get-activity-urls g-18923007987
 $ san get-activity-urls strava-9240064780
+$ san get-activity-urls LATEST
+$ san get-activity-urls LATEST-3
+$ san get-activity-urls LATEST-RIDE
+$ san get-activity-urls LATEST-RUN-3
 ```
 ![](sport_analysis/get/get_activity_urls/get_activity_urls_api.png)
 

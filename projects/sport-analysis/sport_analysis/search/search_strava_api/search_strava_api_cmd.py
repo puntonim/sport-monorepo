@@ -230,10 +230,10 @@ class SearchStravaApiCmd:
 
                 ## Check in Garmin API if the heart rate band monitor was used.
                 hr_band_msg = "[bold on red]??[/]"
-                garmin_activity = None
+                matching_activities = None
                 if self.do_select_only_if_with_hr_band:
                     try:
-                        garmin_activity = search_garmin_activity_matching_strava_activity(
+                        matching_activities = search_garmin_activity_matching_strava_activity(
                             strava_activity_id=summary["id"],
                             strava_token_manager=self.strava_token_manager,
                             garmin_connect_token_manager=self.garmin_connect_token_manager,
@@ -242,12 +242,13 @@ class SearchStravaApiCmd:
                         hr_band_msg = (
                             "[bold on red]Garmin matching activity not found[/]"
                         )
-                    if garmin_activity:
+
+                    if matching_activities:
                         garmin = GarminConnectClient(
                             token_manager=self.garmin_connect_token_manager
                         )
                         response = garmin.get_activity_summary(
-                            garmin_activity["activityId"]
+                            matching_activities.garmin_activity_dict["activityId"]
                         )
                         if response.has_heart_rate_monitor():
                             hr_band_msg = "Yes"
@@ -256,8 +257,8 @@ class SearchStravaApiCmd:
 
                 msg = f"[bold on yellow]{summary['name']}[/]"
                 msg += f"\nhttps://www.strava.com/activities/{summary['id']}"
-                if garmin_activity:
-                    msg += f"\nhttps://connect.garmin.com/modern/activity/{garmin_activity['activityId']}"
+                if matching_activities:
+                    msg += f"\nhttps://connect.garmin.com/modern/activity/{matching_activities.garmin_activity_dict['activityId']}"
                 msg += f"\n{summary['type']} - {summary['sport_type']}"
                 msg += f"\n{summary['start_date_local']}"
                 if distance := summary.get("distance") / 1000:

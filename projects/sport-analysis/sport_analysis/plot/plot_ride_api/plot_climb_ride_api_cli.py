@@ -31,9 +31,9 @@ console = ConsoleAdapter()
     \b
     EXAMPLES
     \b
-     Required args: activity-id.
-     So to suppress any interactive questions:
-       $ san plot-climb-ride LATEST --no-questions
+    Required args: activity-id.
+    So to suppress any interactive questions:
+      $ san plot-climb-ride LATEST --no-questions
     \b
     Popular for Selvino:
       $ san plot-climb-ride LATEST --segment-strava-name 'Selvino Fontanella' --segment-tile climb

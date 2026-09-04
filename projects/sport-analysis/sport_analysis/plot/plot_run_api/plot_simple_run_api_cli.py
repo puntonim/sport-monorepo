@@ -24,9 +24,9 @@ console = ConsoleAdapter()
     \b
     EXAMPLES
     \b
-     Required args: activity-id.
-     So to suppress any interactive questions:
-       $ san plot-simple-run LATEST --no-questions
+    Required args: activity-id.
+    So to suppress any interactive questions:
+      $ san plot-simple-run LATEST --no-questions
     \b
     Most popular, no questions:
       $ san plot-simple-run LATEST --percentile-to-draw P80 -hatch Z3 --no-questions

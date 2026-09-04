@@ -2,8 +2,8 @@ import click
 import pytest
 
 from sport_analysis.base_cli_view import (
-    ACTIVITY_ID_PARAM_TYPE,
     ActivityId,
+    ActivityIdParamType,
     ValidationError,
 )
 
@@ -18,6 +18,7 @@ class TestActivityId:
         assert a.strava_id == 18988079605
         assert not a.garmin_id
         assert not a.latest_id
+        assert not a.latest_activity_type
 
     def test_strava_id_small_int(self):
         with pytest.raises(ValueError):
@@ -45,6 +46,7 @@ class TestActivityId:
         assert not a.strava_id
         assert a.garmin_id == 23309590263
         assert not a.latest_id
+        assert not a.latest_activity_type
 
     def test_garmin_id_small_int(self):
         with pytest.raises(ValueError):
@@ -72,12 +74,14 @@ class TestActivityId:
         assert not a.strava_id
         assert not a.garmin_id
         assert a.latest_id == -3
+        assert not a.latest_activity_type
 
     def test_latest_0(self):
         a = ActivityId(latest_id=0)
         assert not a.strava_id
         assert not a.garmin_id
         assert a.latest_id == 0
+        assert not a.latest_activity_type
 
     def test_latest_id_positive(self):
         with pytest.raises(ValueError):
@@ -98,6 +102,67 @@ class TestActivityId:
             with pytest.raises(ValueError):
                 ActivityId(latest_id=-3, **{k: v})
 
+    def test_latest_run_happy_flow(self):
+        a = ActivityId(latest_id=-3, latest_activity_type="RUN")
+        assert not a.strava_id
+        assert not a.garmin_id
+        assert a.latest_id == -3
+        assert a.latest_activity_type == "RUN"
+
+    def test_latest_run_0(self):
+        a = ActivityId(latest_id=0, latest_activity_type="RUN")
+        assert not a.strava_id
+        assert not a.garmin_id
+        assert a.latest_id == 0
+        assert a.latest_activity_type == "RUN"
+
+    def test_latest_run_id_positive(self):
+        with pytest.raises(ValueError):
+            ActivityId(latest_id=1, latest_activity_type="RUN")
+        with pytest.raises(ValueError):
+            ActivityId(latest_id=2342342, latest_activity_type="RUN")
+
+    def test_latest_run_id_string(self):
+        with pytest.raises(ValueError):
+            ActivityId(latest_id="-1", latest_activity_type="RUN")
+
+    def test_latest_ride_happy_flow(self):
+        a = ActivityId(latest_id=-3, latest_activity_type="RIDE")
+        assert not a.strava_id
+        assert not a.garmin_id
+        assert a.latest_id == -3
+        assert a.latest_activity_type == "RIDE"
+
+    def test_latest_activity_type_unknown(self):
+        with pytest.raises(ValueError):
+            ActivityId(latest_id=3, latest_activity_type="XXX")
+
+    def test_latest_activity_type_run_not_allowed(self):
+        with pytest.raises(ValueError):
+            ActivityId(
+                latest_id=-3,
+                latest_activity_type="RUN",
+                do_allow_latest_activity_type_run=False,
+            )
+        ActivityId(
+            latest_id=-3,
+            latest_activity_type="RUN",
+            do_allow_latest_activity_type_ride=False,
+        )
+
+    def test_latest_activity_type_ride_not_allowed(self):
+        with pytest.raises(ValueError):
+            ActivityId(
+                latest_id=-3,
+                latest_activity_type="RIDE",
+                do_allow_latest_activity_type_ride=False,
+            )
+        ActivityId(
+            latest_id=-3,
+            latest_activity_type="RIDE",
+            do_allow_latest_activity_type_run=False,
+        )
+
 
 class TestActivityIdMakeFromString:
     def test_not_string(self):
@@ -113,18 +178,28 @@ class TestActivityIdMakeFromString:
             ActivityId.make_from_string("stravaXXX-18988079605")
         with pytest.raises(ValidationError):
             ActivityId.make_from_string("s-18988079605X")
+        with pytest.raises(ValidationError):
+            ActivityId.make_from_string("LATESTXX")
+        with pytest.raises(ValidationError):
+            ActivityId.make_from_string("LATEST--")
+        with pytest.raises(ValidationError):
+            ActivityId.make_from_string("LATEST-RUNNN")
+        with pytest.raises(ValidationError):
+            ActivityId.make_from_string("LATEST RUN")
 
     def test_strava_happy_flow(self):
         a = ActivityId.make_from_string("strava-18988079605")
         assert a.strava_id == 18988079605
         assert not a.garmin_id
         assert not a.latest_id
+        assert not a.latest_activity_type
 
     def test_strava_s(self):
         a = ActivityId.make_from_string("s-18988079605")
         assert a.strava_id == 18988079605
         assert not a.garmin_id
         assert not a.latest_id
+        assert not a.latest_activity_type
 
     def test_strava_small_int(self):
         with pytest.raises(ValidationError):
@@ -135,12 +210,14 @@ class TestActivityIdMakeFromString:
         assert not a.strava_id
         assert a.garmin_id == 23309590263
         assert not a.latest_id
+        assert not a.latest_activity_type
 
     def test_garmin_g(self):
         a = ActivityId.make_from_string("g-23309590263")
         assert not a.strava_id
         assert a.garmin_id == 23309590263
         assert not a.latest_id
+        assert not a.latest_activity_type
 
     def test_garmin_small_int(self):
         with pytest.raises(ValidationError):
@@ -151,35 +228,79 @@ class TestActivityIdMakeFromString:
         assert not a.strava_id
         assert not a.garmin_id
         assert a.latest_id == -3
+        assert not a.latest_activity_type
 
     def test_latest_0(self):
-        a = ActivityId.make_from_string("LATEST-0")
-        assert not a.strava_id
-        assert not a.garmin_id
-        assert a.latest_id == -0
+        for a in (
+            ActivityId.make_from_string("LATEST"),
+            ActivityId.make_from_string("LATEST-0"),
+        ):
+            assert not a.strava_id
+            assert not a.garmin_id
+            assert a.latest_id == -0
+            assert not a.latest_activity_type
 
     def test_latest_positive(self):
         with pytest.raises(ValidationError):
             ActivityId.make_from_string("LATEST+3")
+
+    def test_latest_run_happy_flow(self):
+        a = ActivityId.make_from_string("LATEST-RUN-3")
+        assert not a.strava_id
+        assert not a.garmin_id
+        assert a.latest_id == -3
+        assert a.latest_activity_type == "RUN"
+
+    def test_latest_ride_happy_flow(self):
+        a = ActivityId.make_from_string("LATEST-RIDE-5")
+        assert not a.strava_id
+        assert not a.garmin_id
+        assert a.latest_id == -5
+        assert a.latest_activity_type == "RIDE"
+
+    def test_latest_run_0(self):
+        for a in (
+            ActivityId.make_from_string("LATEST-RUN"),
+            ActivityId.make_from_string("LATEST-RUN-0"),
+        ):
+            assert not a.strava_id
+            assert not a.garmin_id
+            assert a.latest_id == 0
+            assert a.latest_activity_type == "RUN"
+
+    def test_latest_activity_type_unknown(self):
+        with pytest.raises(ValidationError):
+            ActivityId.make_from_string("LATEST-XXX-3")
 
 
 class TestActivityIdParamType:
     # Note: only basic tests as all the tests above are enough.
 
     def test_happy_flow(self):
-        a = ACTIVITY_ID_PARAM_TYPE.convert("strava-18988079605")
+        a = ActivityIdParamType().convert("strava-18988079605")
         assert a.strava_id == 18988079605
         assert not a.garmin_id
         assert not a.latest_id
-        a = ACTIVITY_ID_PARAM_TYPE.convert("s-18988079605")
+        assert not a.latest_activity_type
+        a = ActivityIdParamType().convert("s-18988079605")
         assert a.strava_id == 18988079605
         assert not a.garmin_id
         assert not a.latest_id
+        assert not a.latest_activity_type
+        a = ActivityIdParamType().convert("LATEST-RUN-3")
+        assert not a.strava_id
+        assert not a.garmin_id
+        assert a.latest_id == -3
+        assert a.latest_activity_type == "RUN"
 
     def test_not_valid_format(self):
         with pytest.raises(click.exceptions.BadParameter):
-            ACTIVITY_ID_PARAM_TYPE.convert("s-189")
+            ActivityIdParamType().convert("s-189")
         with pytest.raises(click.exceptions.BadParameter):
-            ACTIVITY_ID_PARAM_TYPE.convert("XXX-18988079605")
+            ActivityIdParamType().convert("XXX-18988079605")
         with pytest.raises(click.exceptions.BadParameter):
-            ACTIVITY_ID_PARAM_TYPE.convert(18988079605)
+            ActivityIdParamType().convert(18988079605)
+        with pytest.raises(click.exceptions.BadParameter):
+            ActivityIdParamType().convert("LATEXXX")
+        with pytest.raises(click.exceptions.BadParameter):
+            ActivityIdParamType().convert("LATEST-XXX")

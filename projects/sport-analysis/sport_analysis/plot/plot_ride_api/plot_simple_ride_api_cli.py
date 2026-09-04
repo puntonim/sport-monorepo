@@ -24,10 +24,10 @@ console = ConsoleAdapter()
     
     \b
     EXAMPLES
-        \b
-     Required args: activity-id.
-     So to suppress any interactive questions:
-       $ san plot-simple-ride LATEST --no-questions
+    \b
+    Required args: activity-id.
+    So to suppress any interactive questions:
+      $ san plot-simple-ride LATEST --no-questions
     \b
     Most popular, no questions:
       $ san plot-simple-ride LATEST --percentile-to-draw P98 --no-questions

@@ -1,10 +1,9 @@
 import re
 import sys
-from typing import Literal
+from enum import StrEnum
 
 import click
 import log_utils as logger
-from click import Context
 from rich.console import Console
 
 from .conf import settings
@@ -103,16 +102,25 @@ class ActivityId:
          ActivityId.make_from_string("s-9240064780")
          ActivityId.make_from_string("LATEST")
          ActivityId.make_from_string("LATEST-3")
+         ActivityId.make_from_string("LATEST-RUN")
+         ActivityId.make_from_string("LATEST-RIDE-3")
 
     Note: this class is meant to be instantiated via the factory method,
      like: ActivityId.make_from_string("LATEST-3").
     """
+
+    class LATEST_ACTIVITY_TYPE_ENUM(StrEnum):
+        RUN = "RUN"
+        RIDE = "RIDE"
 
     def __init__(
         self,
         strava_id: int | None = None,
         garmin_id: int | None = None,
         latest_id: int | None = None,
+        latest_activity_type: str | None = None,  # One of LATEST_ACTIVITY_TYPE_ENUM.
+        do_allow_latest_activity_type_run=True,  # To allow LATEST-RUN | LATEST-RUN-3.
+        do_allow_latest_activity_type_ride=True,  # To allow LATEST-RIDE | LATEST-RIDE-3
     ):
         """
         Note: this class is meant to be instantiated via the factory method,
@@ -121,35 +129,73 @@ class ActivityId:
         self.strava_id = strava_id
         self.garmin_id = garmin_id
         self.latest_id = latest_id
+        self.latest_activity_type = latest_activity_type
 
+        # Exactly 1 between (strava_id, garmin_id, latest_id) must be given.
         c = (strava_id, garmin_id, latest_id).count(None)
         if c != 2:
             raise ValueError(
                 f"Exactly 1 arg between strava_id, garmin_id, latest_id should be given: strava_id={strava_id}, garmin_id={garmin_id}, latest_id={latest_id}"
             )
 
+        # strava_id must be an int > 99999999.
         if strava_id is not None and (
             not isinstance(strava_id, int) or not strava_id > 99999999
         ):
             raise ValueError(f"strava_id must be an int > 99999999: {strava_id}")
 
+        # garmin_id must be an int > 99999999.
         elif garmin_id is not None and (
             not isinstance(garmin_id, int) or not garmin_id > 99999999
         ):
             raise ValueError(f"garmin_id must be an int > 99999999: {garmin_id}")
 
+        # latest_id must be an int <= 0.
         elif latest_id is not None and (
             not isinstance(latest_id, int) or not latest_id <= 0
         ):
             raise ValueError(f"latest_id must be an int <= 0: {latest_id}")
 
+        # latest_activity_type can only be used with latest_id.
+        # Note: we already ensured that exactly 1 between (strava_id, garmin_id,
+        #  latest_id) was given.
+        if latest_activity_type and latest_id is None:
+            raise ValueError(f"latest_activity_type can be used only with latest_id")
+        if (
+            latest_activity_type
+            and latest_activity_type not in self.LATEST_ACTIVITY_TYPE_ENUM
+        ):
+            raise ValueError(
+                f"latest_activity_type unknown: {latest_activity_type}\n"
+                f"Valid values: {', '.join(self.LATEST_ACTIVITY_TYPE_ENUM)}"
+            )
+
+        # Checks on do_allow_latest_activity_type_run and do_allow_latest_activity_type_ride.
+        if (
+            latest_activity_type
+            and latest_activity_type == self.LATEST_ACTIVITY_TYPE_ENUM.RUN
+            and not do_allow_latest_activity_type_run
+        ):
+            raise ValueError(
+                f"Activity type RUN not allowed when do_allow_latest_activity_type_run={do_allow_latest_activity_type_run}"
+            )
+        elif (
+            latest_activity_type
+            and latest_activity_type == self.LATEST_ACTIVITY_TYPE_ENUM.RIDE
+            and not do_allow_latest_activity_type_ride
+        ):
+            raise ValueError(
+                f"Activity type RIDE not allowed when do_allow_latest_activity_type_ride={do_allow_latest_activity_type_ride}"
+            )
+
     @staticmethod
     def _parse_string(value: str):
-        strava_id = garmin_id = latest_id = None
+        strava_id = garmin_id = latest_id = latest_activity_type = None
 
         if not isinstance(value, str):
             raise ValidationError(f"The given arg must be a string: {value}")
 
+        # LATEST | LATEST-3.
         if match := re.match(r"^LATEST(-\d+)?$", value):
             n = match.group(1) or 0
             try:
@@ -158,6 +204,17 @@ class ActivityId:
                 raise ValidationError(f"Not a valid int: {n}") from exc
             latest_id = n
 
+        # LATEST-RUN | LATEST-RUN-3 | LATEST-RIDE | LATEST-RIDE-3.
+        elif match := re.match(r"^LATEST(-RUN|-RIDE)(-\d+)?$", value):
+            latest_activity_type = match.group(1)[1:]  # RUN | RIDE.
+            n = match.group(2) or 0
+            try:
+                n = int(n)
+            except ValueError as exc:
+                raise ValidationError(f"Not a valid int: {n}") from exc
+            latest_id = n
+
+        # garmin-23309590263 | g-23309590263.
         elif match := re.match(r"^g(?:armin)?-(\d{9,99})$", value):
             n = match.group(1)
             try:
@@ -166,6 +223,7 @@ class ActivityId:
                 raise ValidationError(f"Not a valid int: {n}") from exc
             garmin_id = n
 
+        # strava-18988079605 | s-18988079605.
         elif match := re.match(r"^s(?:trava)?-(\d{9,99})$", value):
             n = match.group(1)
             try:
@@ -180,15 +238,26 @@ class ActivityId:
                 f"Valid formats: garmin-23309590263 | g-23309590263 | strava-18988079605 | s-18988079605 | LATEST | LATEST-3"
             )
 
-        return strava_id, garmin_id, latest_id
+        return strava_id, garmin_id, latest_id, latest_activity_type
 
     @classmethod
-    def make_from_string(cls, value: str):
+    def make_from_string(
+        cls,
+        value: str,
+        do_allow_latest_activity_type_run=True,  # To allow LATEST-RUN | LATEST-RUN-3.
+        do_allow_latest_activity_type_ride=True,  # To allow LATEST-RIDE | LATEST-RIDE-3.
+    ):
         """
         Factory method to use to instantiate this class,
          like: ActivityId.make_from_string("LATEST-3").
         """
-        return cls(*cls._parse_string(value))
+        return cls(
+            *cls._parse_string(value),
+            # To allow LATEST-RUN | LATEST-RUN-3.
+            do_allow_latest_activity_type_run=do_allow_latest_activity_type_run,
+            # To allow LATEST-RIDE | LATEST-RIDE-3.
+            do_allow_latest_activity_type_ride=do_allow_latest_activity_type_ride,
+        )
 
 
 class BaseActivityIdException(Exception): ...
@@ -200,15 +269,33 @@ class ValidationError(BaseActivityIdException): ...
 class ActivityIdParamType(click.ParamType):
     """
     Parameter type that can be a Garmin or Strava activity as string.
-    Eg. garmin-23309590263 | g-23309590263 | strava-18988079605 | s-18988079605 | LATEST | LATEST-3.
+    Eg. garmin-23309590263 | g-23309590263 | strava-18988079605 | s-18988079605
+        | LATEST | LATEST-3 | LATEST-RUN | LATEST-RIDE | LATEST-RUN-3.
     """
 
     name = "activity_id"
 
+    def __init__(
+        self,
+        do_allow_latest_activity_type_run=True,  # To allow LATEST-RUN | LATEST-RUN-3.
+        do_allow_latest_activity_type_ride=True,  # To allow LATEST-RIDE | LATEST-RIDE-3.
+        *args,
+        **kwargs,
+    ):
+        super().__init__(*args, **kwargs)
+        self.do_allow_latest_activity_type_run = do_allow_latest_activity_type_run
+        self.do_allow_latest_activity_type_ride = do_allow_latest_activity_type_ride
+
     def convert(self, value, param=None, ctx=None) -> ActivityId:
 
         try:
-            a = ActivityId.make_from_string(value)
+            a = ActivityId.make_from_string(
+                value,
+                # To allow LATEST-RUN | LATEST-RUN-3.
+                do_allow_latest_activity_type_run=self.do_allow_latest_activity_type_run,
+                # To allow LATEST-RIDE | LATEST-RIDE-3.
+                do_allow_latest_activity_type_ride=self.do_allow_latest_activity_type_ride,
+            )
         except (ValidationError, ValueError) as exc:
             self.fail(str(exc), param, ctx)
 
@@ -222,6 +309,3 @@ class ActivityIdParamType(click.ParamType):
             )
 
         return a
-
-
-ACTIVITY_ID_PARAM_TYPE = ActivityIdParamType()

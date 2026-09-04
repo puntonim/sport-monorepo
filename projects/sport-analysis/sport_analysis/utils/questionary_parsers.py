@@ -3,9 +3,9 @@ from pathlib import Path
 import click
 
 from ..base_cli_view import (
-    ACTIVITY_ID_PARAM_TYPE,
     ACTIVITY_ID_TYPE,
     ActivityId,
+    ActivityIdParamType,
     ConsoleAdapter,
 )
 from ..plot import base_plot
@@ -28,10 +28,11 @@ def parse_garmin_activity_id_input(
 
 def parse_activity_id_input(
     value: str,
+    activity_id_param_type: ActivityIdParamType,
     format_like="garmin-23309590263 | g-23309590263 | strava-18988079605 | s-18988079605 | LATEST | LATEST-3",
 ) -> ActivityId:
     try:
-        parsed: ActivityId = ACTIVITY_ID_PARAM_TYPE.convert(value)
+        parsed: ActivityId = activity_id_param_type.convert(value)
     except click.BadParameter as exc:
         msg = f"{exc}\nFormat like: {format_like}"
         console.print_error(msg)

@@ -240,12 +240,12 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         )
         strava = StravaClient(strava_token_manager.get_access_token())
 
-        strava_summary = search_strava_activity_matching_garmin_activity(
+        matching_activities = search_strava_activity_matching_garmin_activity(
             self.garmin_activity_id,
             strava_token_manager=self.strava_token_manager,
             garmin_connect_token_manager=self.garmin_connect_token_manager,
         )
-        strava_activity_id = strava_summary["id"]
+        strava_activity_id = matching_activities.strava_activity_dict["id"]
         strava_details = strava.get_activity_details(strava_activity_id)
         stream_types = ["time", "distance"]
         strava_streams: StreamsResponse = strava.get_streams(
