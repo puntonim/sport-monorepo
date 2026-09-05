@@ -34,7 +34,7 @@ Ride (bike)
 ```sh
 $ san plot-simple-ride 19795436851 --title "Verdellino - Adda 20km" --figure-size 5.0 6.5 -d ~/output-images/
 ```
-![](sport_analysis/plot/plot_ride_api/plot_simple_ride_api_cmd.png)
+![](sport_analysis/plot/plot_ride_api/plot_simple_ride_api.png)
 
 ### Climb ride (Garmin api)
 Optionally pass a segment, by its start-end distance or Strava segment name, to limit
@@ -42,7 +42,7 @@ Optionally pass a segment, by its start-end distance or Strava segment name, to 
 ```sh
 $ san plot-climb-ride 19792668968 --title "Re Stelvio Mapei" --segment-start-meters 0 --segment-end-meters 21110 --segment-title "Climb segment only" --figure-size 5.0 6.5 -d ~/output-images/
 ```
-![](sport_analysis/plot/plot_ride_api/plot_climb_ride_api_cmd.png)
+![](sport_analysis/plot/plot_ride_api/plot_climb_ride_api.png)
 
 
 Run
@@ -53,22 +53,22 @@ Optionally compare with previous runs.
 ```sh
 $ san plot-10km-run 19005790234 -vs 19074660632 --title "Fosso BG" --figure-size 5.0 6.5 --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 3.5 -d ~/output-images/
 ```
-![](sport_analysis/plot/plot_run_api/plot_simple_run_api_cmd-10km.png)
-![](sport_analysis/plot/plot_run_api/plot_simple_run_api_cmd-7km-comparison.png)
-![](sport_analysis/plot/plot_run_api/plot_simple_run_api_cmd-21km.png)
+![](sport_analysis/plot/plot_run_api/plot_simple_run_api-10km.png)
+![](sport_analysis/plot/plot_run_api/plot_simple_run_api-7km-comparison.png)
+![](sport_analysis/plot/plot_run_api/plot_simple_run_api-21km.png)
 
 ### 300 m interval run (api)
 ```sh
 Optionally compare with previous 2 runs automatically found.
 $ san plot-interval-run 18923007987 --dist 300 -n-int 6 --vs-n 2 --text "6x300m" --title "6x300m a Verdellino" --figure-size 5.0 8.2 -d ~/output-images/
 ```
-![](sport_analysis/plot/plot_interval_run_api/plot_interval_run_api_cmd-300m.png)
+![](sport_analysis/plot/plot_interval_run_api/plot_interval_run_api-300m.png)
 
 ### 1000 m interval run (api)
 ```sh
 $ san plot-interval-run 19042748874 --dist 1000 -n-int 5 --vs-n 1 --text "4x1000m" --title "4x1000m a Verdellino" --figure-size 5.0 8.2 -d ~/output-images/
 ```
-![](sport_analysis/plot/plot_interval_run_api/plot_interval_run_api_cmd-1000m.png)
+![](sport_analysis/plot/plot_interval_run_api/plot_interval_run_api-1000m.png)
 
 
 Search

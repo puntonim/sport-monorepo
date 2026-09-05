@@ -45,7 +45,7 @@ class TestPlotSimpleRideApi:
             title="Verdellino - Adda 20km",
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", ".png"))
+        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace("_cmd.py", ".png"))
 
     def test_required_args(self):
         # Required args: garmin_activity_id.

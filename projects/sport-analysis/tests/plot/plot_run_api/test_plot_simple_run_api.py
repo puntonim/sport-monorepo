@@ -93,7 +93,7 @@ class TestPlotSimpleRunApi:
             hr_zones_to_hatch=("Z3",),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-10km.png"))
+        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace("_cmd.py", "-10km.png"))
 
     def test_generate_sample_image_21km(self):
         garmin_activity_id = TEST_ACTIVITIES[6]["garmin_activity_id"]
@@ -101,7 +101,7 @@ class TestPlotSimpleRunApi:
             garmin_activity_id,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-21km.png"))
+        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace("_cmd.py", "-21km.png"))
 
     def test_generate_sample_image_w_comparison(self):
         garmin_activity_id = TEST_ACTIVITIES[3]["garmin_activity_id"]
@@ -116,7 +116,9 @@ class TestPlotSimpleRunApi:
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         p.plot(
-            save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-7km-comparison.png")
+            save_to_png_file_path=FILE_TESTED_PATH.replace(
+                "_cmd.py", "-7km-comparison.png"
+            )
         )
 
     def test_required_args(self):

@@ -80,7 +80,7 @@ class TestPlotIntervalRunApi:
             ],
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-1000m.png"))
+        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace("_cmd.py", "-1000m.png"))
 
     def test_generate_sample_image_100m(self):
         garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
@@ -91,7 +91,7 @@ class TestPlotIntervalRunApi:
             figure_size=(5, 6),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-100m.png"))
+        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace("_cmd.py", "-100m.png"))
 
     def test_generate_sample_image_200m(self):
         garmin_activity_id = TEST_ACTIVITIES[2]["garmin_activity_id"]
@@ -101,7 +101,7 @@ class TestPlotIntervalRunApi:
             figure_size=(5, 7),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-200m.png"))
+        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace("_cmd.py", "-200m.png"))
 
     def test_generate_sample_image_300m(self):
         garmin_activity_id = TEST_ACTIVITIES[3]["garmin_activity_id"]
@@ -111,7 +111,7 @@ class TestPlotIntervalRunApi:
             n_prev_runs_to_auto_compare=10,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
-        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace(".py", "-300m.png"))
+        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace("_cmd.py", "-300m.png"))
 
     def test_required_args(self):
         # Required args: garmin_activity_id, distance.
