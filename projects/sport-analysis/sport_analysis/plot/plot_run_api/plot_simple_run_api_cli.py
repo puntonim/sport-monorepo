@@ -85,6 +85,14 @@ console = ConsoleAdapter()
 )
 @click.option(
     # OPTIONAL arg.
+    "--no-hr-in-pace-plot",
+    "do_skip_hr_in_pace_plot",
+    is_flag=True,
+    default=False,
+    help="Optionally skip adding HR line in the pace plot; auto skipped when --activity-id-to-compare is given",
+)
+@click.option(
+    # OPTIONAL arg.
     "--title",
     type=str,
     help="Optional title; eg. --title '80/20 run'",
@@ -140,6 +148,7 @@ def plot_simple_run_api_cli_view(
     hr_zones_to_hatch: tuple[str] | None = None,
     percentile_to_draw: base_plot.PERCENTILE_TO_DRAW_ENUM | None = None,
     pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
+    do_skip_hr_in_pace_plot: bool = False,
     title: str | None = None,
     figure_size: tuple[float] | None = None,
     dir_or_file_path: Path | None = None,
@@ -163,7 +172,7 @@ def plot_simple_run_api_cli_view(
     if not is_input_valid and do_skip_any_questions:
         raise click.BadParameter("activity id required with --no-questions")
     while not is_input_valid:
-        text = "*Required* Garmin ACTIVITY ID (eg. 24018992823 | LATEST-3)"
+        text = "*Required* Garmin ACTIVITY ID (eg. 24018992823 | LATEST-3)\n"
         x = (
             # unsafe_ask() so it can be stopped with ctrl-c.
             # Cannot use `validate=<questionary.Validator subclass>` because that is for
@@ -205,6 +214,17 @@ def plot_simple_run_api_cli_view(
                     )
                 )
             is_input_valid = True
+
+    # Optional arg: do_skip_hr_in_pace_plot.
+    if prev_runs_activity_ids_to_compare:
+        do_skip_hr_in_pace_plot = True
+    elif not do_skip_hr_in_pace_plot and not do_skip_any_questions:
+        text = "Optional NO HR IN PACE PLOT\n"
+        instruction = "Skip adding HR line in the pace plot\n"
+        instruction += "Auto skipped when --activity-id-to-compare is given\n(y/N*)"
+        do_skip_hr_in_pace_plot = questionary.confirm(
+            text, default=False, instruction=instruction
+        ).unsafe_ask()
 
     # Optional arg: hr_zones_to_hatch.
     if not hr_zones_to_hatch and not do_skip_any_questions:
@@ -275,7 +295,7 @@ def plot_simple_run_api_cli_view(
 
     # Optional arg: title.
     if title is None and not do_skip_any_questions:
-        text = "Optional TITLE (eg. 80/20 run)"
+        text = "Optional TITLE (eg. 80/20 run)\n"
         # unsafe_ask() so it can be stopped with ctrl-c.
         # Cannot use `validate=<questionary.Validator subclass>` because that is for
         #  the live validation, it's run on every keystroke and returns None.
@@ -284,7 +304,7 @@ def plot_simple_run_api_cli_view(
     # Optional arg: figure_size.
     is_input_valid = True if figure_size is not None else False
     while not is_input_valid and not do_skip_any_questions:
-        text = "Optional FIGURE SIZE (eg. 5.0 7.0)"
+        text = "Optional FIGURE SIZE (eg. 5.0 7.0)\n"
         # unsafe_ask() so it can be stopped with ctrl-c.
         # Cannot use `validate=<questionary.Validator subclass>` because that is for
         #  the live validation, it's run on every keystroke and returns None.
@@ -299,9 +319,7 @@ def plot_simple_run_api_cli_view(
     # Optional arg: dir_or_file_path.
     is_input_valid = True if save_to_png_file_path is not None else False
     while not is_input_valid and not do_skip_any_questions:
-        text = (
-            "Optional DIR or FILE PATH (eg. output-images | /tmp/my-dir | /tmp/foo.png)"
-        )
+        text = "Optional DIR or FILE PATH (eg. output-images | /tmp/my-dir | /tmp/foo.png)\n"
         # unsafe_ask() so it can be stopped with ctrl-c.
         # Cannot use `validate=<questionary.Validator subclass>` because that is for
         #  the live validation, it's run on every keystroke and returns None.
@@ -338,6 +356,8 @@ def plot_simple_run_api_cli_view(
             cli_msg += f" --percentile-to-draw {percentile_to_draw}"
         if pace_plot_set_y_axis_bottom_to_slowest_pace_perc is not None:
             cli_msg += f" --pace-plot-set-y-axis-bottom-to-slowest-pace-perc {pace_plot_set_y_axis_bottom_to_slowest_pace_perc}"
+        if do_skip_hr_in_pace_plot:
+            cli_msg += f" --no-hr-in-pace-plot"
         if title:
             cli_msg += f" --title '{title}'"
         if figure_size:
@@ -355,6 +375,7 @@ def plot_simple_run_api_cli_view(
             "hr_zones_to_hatch",
             "percentile_to_draw",
             "pace_plot_set_y_axis_bottom_to_slowest_pace_perc",
+            "do_skip_hr_in_pace_plot",
             "title",
             "figure_size",
             "do_skip_any_questions",
@@ -371,6 +392,7 @@ def plot_simple_run_api_cli_view(
         hr_zones_to_hatch=hr_zones_to_hatch or None,
         percentile_to_draw=percentile_to_draw,
         pace_plot_set_y_axis_bottom_to_slowest_pace_perc=pace_plot_set_y_axis_bottom_to_slowest_pace_perc,
+        do_skip_hr_in_pace_plot=do_skip_hr_in_pace_plot,
         title=title,
         figure_size=figure_size or None,
     )

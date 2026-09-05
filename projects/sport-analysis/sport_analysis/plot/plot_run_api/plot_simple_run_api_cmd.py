@@ -4,6 +4,7 @@ from typing import Sequence
 
 import datetime_utils
 import matplotlib as mpl
+import matplotlib.patheffects as path_effects
 import matplotlib.pyplot as plt
 import pandas as pd
 import speed_utils
@@ -26,7 +27,12 @@ from rich.table import Table
 from ...base_cli_view import ConsoleAdapter
 from ...conf import settings
 from .. import base_api, base_plot
-from ..base_plot import PERCENTILE_TO_DRAW_ENUM, _make_subtitle, _make_title
+from ..base_plot import (
+    PERCENTILE_TO_DRAW_ENUM,
+    _get_bpm_range_for_hr_zone,
+    _make_subtitle,
+    _make_title,
+)
 
 console = ConsoleAdapter()
 
@@ -53,6 +59,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
         hr_zones_to_hatch: Sequence[str] | None = None,
         pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
+        do_skip_hr_in_pace_plot: bool = False,
         title: str | None = None,
         figure_size: tuple[float, float] | None = None,
         garmin_connect_token_manager: (
@@ -74,6 +81,9 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
              MA(pace) chart, cutting out of the visible part of the chart the slowest
              0.45% pace datapoints. This is done because it is better visually: the
              chart is less compressed vertically.
+            do_skip_hr_in_pace_plot: skip adding HR line in the pace plot. It's forcibly
+             skipped when there are prev_runs_activity_ids_to_compare (otherwise the
+             plot becomes too messy).
             title: plot title.
             figure_size: customize the figure size, eg. (3.0, 5.5).
             garmin_connect_token_manager: use FakeTestGarminConnectTokenManager when
@@ -90,6 +100,11 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc = (
             pace_plot_set_y_axis_bottom_to_slowest_pace_perc
         )
+        self.do_skip_hr_in_pace_plot = do_skip_hr_in_pace_plot
+        # Forcibly skip the HR line in the pace plot when there are
+        #  prev_runs_activity_ids_to_compare (otherwise the plot becomes too messy).
+        if self.prev_runs_activity_ids_to_compare:
+            self.do_skip_hr_in_pace_plot = True
 
         ## Validate some args: hr_zones_to_hatch, percentile_to_draw.
         self.hr_zones_to_hatch = hr_zones_to_hatch or tuple()
@@ -126,7 +141,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         ## MAIN activity.
         # X and y data.
         xdata_distance = self._s[0].details_resp.get_distance_stream()
-        # Y data should be the moving average of the pace, compute from the speed.
+        # Y data should be the moving average of the PACE, computed from the speed.
         _speed_stream = self._s[0].details_resp.get_speed_stream(
             do_remove_none_values=False
         )
@@ -182,16 +197,32 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                 .iloc[-1]
             )
 
-        # Plot pace.
+        # Plot PACE.
         a.plot(
             xdata_distance,
             ydata_pace_df["MA(pace)"],
             label=self._make_legend_label(0),
             # color="red",
             color=base_plot.COL_PLUM,
-            alpha=0.6,
+            alpha=0.8,
             linewidth=3.0,
         )
+
+        if not self.do_skip_hr_in_pace_plot:
+            # Get HR.
+            ydata_hr = self._s[0].details_resp.get_heartrate_stream(
+                do_remove_none_values=False
+            )
+
+            # Plot HR on twin x axis.
+            # Create new Axes that shares the x-axis.
+            atwinx: Axes = a.twinx()
+            atwinx.plot(
+                xdata_distance,
+                ydata_hr,
+                color="red",
+                alpha=0.2,
+            )
 
         ## SECONDARY activities.
         for i in range(1, len(self._s)):
@@ -267,6 +298,91 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         if self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc:
             a.set_ylim(bottom=_y_axis_bottom)
 
+        if not self.do_skip_hr_in_pace_plot:
+            # Get the HR zones bpm ranges.
+            hr_min = min(tuple(x for x in ydata_hr if x is not None))
+            hr_max_ever = settings.HR_MAX_EVER_RUN
+            z0_x0, z0_x1 = _get_bpm_range_for_hr_zone(0, hr_min, hr_max_ever)
+            z1_x0, z1_x1 = _get_bpm_range_for_hr_zone(1, hr_min, hr_max_ever)
+            z2_x0, z2_x1 = _get_bpm_range_for_hr_zone(2, hr_min, hr_max_ever)
+            z3_x0, z3_x1 = _get_bpm_range_for_hr_zone(3, hr_min, hr_max_ever)
+            z4_x0, z4_x1 = _get_bpm_range_for_hr_zone(4, hr_min, hr_max_ever)
+            z5_x0, z5_x1 = _get_bpm_range_for_hr_zone(5, hr_min, hr_max_ever)
+
+            # Set tick on the y right axis with HR.
+            # Hack: first just set it to anything, so it gets the min value, which is
+            #  not simply min(ydata_hr) because this is a twin axis and the min can be
+            #  min(ydata_pace_df["MA(pace)"]) which, also, is in a diff unit.
+            # You see what I mean if you `san plot-simple-run g-18948270166`.
+            atwinx.set_yticks([120])  # Hack, see ^.
+            ticks = (z0_x1, z1_x1, z2_x1, z3_x1, z4_x1, z5_x1)
+            atwinx.set_yticks(ticks)
+            atwinx.set_ylabel("HR [bpm]")
+
+            # Draw the labels Z0, Z1, Z2, ...
+            for i, x in enumerate(
+                (
+                    (z0_x0, z0_x1),
+                    (z1_x0, z1_x1),
+                    (z2_x0, z2_x1),
+                    (z3_x0, z3_x1),
+                    (z4_x0, z4_x1),
+                    (z5_x0, z5_x1),
+                )
+            ):
+                x0, x1 = x
+                # Draw "Z0" only if there's enough room.
+                if x1 - atwinx.get_ylim()[0] > 9:
+                    atwinx.annotate(
+                        f"Z{i}",
+                        (atwinx.get_xlim()[1], (x0 + x1) / 2),
+                        xytext=(2.0, -0.6),
+                        textcoords="offset fontsize",
+                        color="red",
+                        alpha=0.3,
+                        fontsize=8,
+                        fontweight="bold",
+                        horizontalalignment="center",
+                    )
+
+            # Write text annotation for PACE and HR with the matching colors..
+            a.annotate(
+                "PACE",
+                (a.get_xlim()[0], a.get_ylim()[0]),
+                xytext=(0.3, 0.2),
+                textcoords="offset fontsize",
+                color=base_plot.COL_PLUM,
+                alpha=0.6,
+                fontsize=8,
+                fontweight="bold",
+                path_effects=[
+                    path_effects.withStroke(
+                        linewidth=2,
+                        foreground="white",
+                        capstyle="round",
+                        alpha=1,
+                    ),
+                ],
+            )
+            a.annotate(
+                "HR",
+                (a.get_xlim()[0], a.get_ylim()[0]),
+                xytext=(3.7, 0.2),
+                textcoords="offset fontsize",
+                color="red",
+                alpha=0.3,
+                fontsize=8,
+                fontweight="bold",
+                path_effects=[
+                    path_effects.withStroke(
+                        linewidth=2,
+                        foreground="white",
+                        capstyle="round",
+                        alpha=1,
+                    )
+                ],
+            )
+
         # Draw pace avg horizontal line.
         # Compute pace avg.
         _speed_avg = self._s[0].summary_resp.summary["averageSpeed"]
@@ -286,16 +402,27 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             color=base_plot.COL_PLUM,
             fontsize=8,
             fontweight="bold",
+            path_effects=[
+                path_effects.withStroke(
+                    linewidth=2,
+                    foreground="white",
+                    capstyle="round",
+                    # alpha=1,
+                )
+            ],
         )
         # Write text annotation for MA window size.
         a.annotate(
             f"MA(pace) window: ~{round(rolling_window_avg_time)}s, ~{round(rolling_window_avg_distance)}m",
-            (a.get_xlim()[0], a.get_ylim()[0]),
-            xytext=(0.1, 0.1),
+            ((a.get_xlim()[0] + a.get_xlim()[1]) / 2, a.get_ylim()[0]),
+            xytext=(0, -4.5),
             textcoords="offset fontsize",
-            # color=base_plot.COL_DARK_RED,
+            # color=COL_DARK_RED,
+            # alpha=0.8,
+            fontsize=9,
+            # fontweight="bold",
             style="italic",
-            fontsize=8,
+            horizontalalignment="center",
         )
 
     def _plot_hr_zones(self):
@@ -504,7 +631,9 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
 
     def _make_subplot_mosaic(self) -> tuple[Figure, dict[str, Axes]]:
         figsize = self.figure_size or self._make_figure_size()
-        console.print(f":triangular_ruler: Figure size: {figsize}")
+        console.print(
+            f":triangular_ruler: Figure size: {', '.join([str(round(x, 2)) for x in figsize])}"
+        )
 
         # Docs for subplot_mosaic():
         #  https://matplotlib.org/stable/users/explain/axes/arranging_axes.html#variable-widths-or-heights-in-a-grid
@@ -514,6 +643,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
     [
                 # 2 rows, 1 col.
                 ["pace", ],
+                [".", ],
                 ["hr-zones", ],
                 ["hr-hist", ],
             ],
@@ -521,7 +651,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             gridspec_kw=dict(
                 # The relative sizes of the subplots.
                 width_ratios=[1],
-                height_ratios=[1.5, 0.22, 1],
+                height_ratios=[1.5, 0.05, 0.22, 1],
             ),
             figsize=figsize,
             layout="constrained",

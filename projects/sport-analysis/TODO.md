@@ -1,10 +1,17 @@
 
-- aggiungi l'HR al grafico sopra di simple-run
-  Con l'opzione --no-hr-in-pace-chart (default fale) per rimuoverlo
-   e con default true quando ci sono comparison
+- metti time nel x axis alto, come in climb ride con segment
+  per plot-simple-run ma forse anche simple-ride
+
+- Usa path_effects in tutte le scritte che possono sovrapporsi come fatto per
+   avg in plot_simple_run_api_cmd.py linea 378
+
+- evidenziare le domande in questionary?
+
+- default: LATEST in tutte le activity-id di questionary?
 
 - Infine usa il nuovo ACTIVITY_ID_PARAM_TYPE in tutti i comandi che ora usano LATEST
-  Commit
+  (cioè i comandi plot, facendo attenz che plot-run deve supportare solo LATEST-RUN
+   e non LATEST-RIDE)
 
 - move base_plot.make_png_file_path() to utils/file_system_utils
 
@@ -23,6 +30,19 @@
 - Unire piu comandi:
     plot-run: che unisce plot-simple-run, plot-interval-run
     plot-ride: che unisce plot-climb-ride, plot-simple-ride
+  Oppure, usare sempre questionary:
+   san
+    o plot
+    o get-activity-urls
+    o search-strava
+    o count-strava (e rinomina il comando `san count` in `san count-strava` )
+   e dopo aver scelto plot:
+    o plot-simple-run
+    o plot-interval-run
+    o plot-simple-ride
+    o plot-climb-ride
+   e poi lancia direttamente il comando
+  Magari aggiungere una nota che esistono anche altri comandi, solo non elencati qui
 
 - in tutti i plot, metti distance su asse x basso (gia fatto in run, non i ride)
    e time su asse x alto

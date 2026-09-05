@@ -832,7 +832,9 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
 
     def _make_subplot_mosaic(self) -> tuple[Figure, dict[str, Axes]]:
         figsize = self.figure_size or self._make_figure_size()
-        console.print(f":triangular_ruler: Figure size: {figsize}")
+        console.print(
+            f":triangular_ruler: Figure size: {', '.join([str(round(x, 2)) for x in figsize])}"
+        )
 
         # Docs for subplot_mosaic():
         #  https://matplotlib.org/stable/users/explain/axes/arranging_axes.html#variable-widths-or-heights-in-a-grid

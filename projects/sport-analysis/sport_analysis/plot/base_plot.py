@@ -1,8 +1,8 @@
+import math
 import os
 from collections import namedtuple
 from enum import StrEnum
 from functools import lru_cache
-from math import floor
 from pathlib import Path
 from statistics import mean
 from typing import Sequence
@@ -193,7 +193,7 @@ class MixinBarHPlot(BasePlot):
 
             # Count the number of bar groups, which is = integers in the y-axis, as
             #  bar groups are centered on every integer in the y-axis.
-            n_bar_groups = floor(a.get_ylim()[0] - a.get_ylim()[1])  # 7
+            n_bar_groups = math.floor(a.get_ylim()[0] - a.get_ylim()[1])  # 7
 
             # Possible BUG: this only works if no other text or annotation was
             #  added, apart from the bar labels. And if each bar in a group has
@@ -305,11 +305,11 @@ class MixinHrPlot(BasePlot):
 
         if elevation_stream and time_stream:
             # Plot Elevation over time.
-            # Create a new axes that shares the x-axis.
-            a1 = axes.twinx()
-            # Create a new axes that shares the y-axis.
-            a2 = a1.twiny()
-            a2.plot(
+            # Create new Axes that share the x-axis.
+            atwinx: Axes = axes.twinx()
+            # Create new Axes that share the y-axis.
+            atwiny: Axes = atwinx.twiny()
+            atwiny.plot(
                 time_stream,
                 elevation_stream,
                 color="gray",
@@ -319,7 +319,7 @@ class MixinHrPlot(BasePlot):
                 # marker=".",
                 # label="Elevation",
             )
-            a2.fill_between(
+            atwiny.fill_between(
                 x=time_stream,
                 y1=elevation_stream,
                 color="gray",
@@ -331,23 +331,66 @@ class MixinHrPlot(BasePlot):
         axes.yaxis.set_major_formatter(mpl.ticker.PercentFormatter(xmax=1, decimals=0))
         axes.yaxis.grid(color="gray", alpha=0.2, linestyle="--")
 
-        # Force the max x value to be HR_MAX_EVER_RIDE, add its tick and ensure that
-        #  there are no ticks too close to it (otherwise their labels overlap).
+        # Force the max x value to be the max ever.
         axes.set_xlim(right=hr_max_ever)
-        xticks = list(axes.get_xticks())
-        while xticks[-1] > (hr_max_ever - 9):
-            xticks[:] = xticks[:-1]
-        xticks.append(hr_max_ever)
-        axes.set_xticks(xticks)
 
+        # Get the HR zones bpm ranges.
+        z0_x0, z0_x1 = _get_bpm_range_for_hr_zone(0, hr_min, hr_max_ever)
+        z1_x0, z1_x1 = _get_bpm_range_for_hr_zone(1, hr_min, hr_max_ever)
+        z2_x0, z2_x1 = _get_bpm_range_for_hr_zone(2, hr_min, hr_max_ever)
+        z3_x0, z3_x1 = _get_bpm_range_for_hr_zone(3, hr_min, hr_max_ever)
+        z4_x0, z4_x1 = _get_bpm_range_for_hr_zone(4, hr_min, hr_max_ever)
+        z5_x0, z5_x1 = _get_bpm_range_for_hr_zone(5, hr_min, hr_max_ever)
+
+        # Add a tick on each HR zone boundary.
+        first = math.ceil(axes.get_xlim()[0])
+        ticks = (first, z0_x1, z1_x1, z2_x1, z3_x1, z4_x1, z5_x1)
+        axes.set_xticks(ticks)
+
+        # Draw the labels Z0, Z1, Z2, ...
+        for i, x in enumerate(
+            (
+                (z0_x0, z0_x1),
+                (z1_x0, z1_x1),
+                (z2_x0, z2_x1),
+                (z3_x0, z3_x1),
+                (z4_x0, z4_x1),
+                (z5_x0, z5_x1),
+            )
+        ):
+            x0, x1 = x
+            # Draw "Z0" only if there's enough room.
+            if x1 - axes.get_xlim()[0] > 9:
+                axes.annotate(
+                    f"Z{i}",
+                    ((x0 + x1) / 2, axes.get_ylim()[0]),
+                    xytext=(0, -1.2),
+                    textcoords="offset fontsize",
+                    color="gray",
+                    fontsize=8,
+                    fontweight="bold",
+                    horizontalalignment="center",
+                )
+
+        # # Add the max ever tick and ensure that there are no ticks too close to
+        # #  it (otherwise their labels overlap).
+        # xticks = list(axes.get_xticks())
+        # while xticks[-1] > (hr_max_ever - 9):
+        #     xticks[:] = xticks[:-1]
+        # xticks.append(hr_max_ever)
+        # axes.set_xticks(xticks)
+
+        # For each tick, print its % of max ever.
         axes.xaxis.set_major_formatter(
             mpl.ticker.FuncFormatter(
                 # Set ticks label as bpm and as % of HR max ever.
                 lambda x, pos: f"{round(x)}\n{round(x*100/hr_max_ever)}%"
             )
         )
+
+        # If we plot the also elevation, then use time ticks on the twin x axis.
         if elevation_stream and time_stream:
-            a2.xaxis.set_major_formatter(
+            atwiny.xaxis.set_major_formatter(
                 mpl.ticker.FuncFormatter(
                     # Set ticks label as hh:mm.
                     lambda x, pos: datetime_utils.seconds_to_hh_mm(
@@ -395,7 +438,7 @@ class MixinHrPlot(BasePlot):
         axes.set_xlabel(f"Heart rate [bpm, % of max ever {hr_max_ever}]")
         axes.set_ylabel("Frequency")
         if elevation_stream and time_stream:
-            a1.set_ylabel("Elevation [m]")
+            atwinx.set_ylabel("Elevation [m]")
 
         # Title.
         if segment_title:
@@ -518,10 +561,8 @@ class MixinHrPlot(BasePlot):
 
         ## Draw HR zones as gray background areas.
         # Z0.
-        hr_min = axes.get_xlim()[0]
-        z0_x0, z0_x1 = _get_bpm_range_for_hr_zone(0, hr_min, hr_max_ever)
         axes.axvspan(
-            z0_x0,
+            axes.get_xlim()[0],
             z0_x1,
             color="grey",
             alpha=0.2,
@@ -537,30 +578,7 @@ class MixinHrPlot(BasePlot):
                 edgecolor="grey",
                 linewidth=0,
             )
-        if z0_x1 - axes.get_xlim()[0] > 9:
-            # Draw "Z0" only if there's enough room.
-            axes.annotate(
-                "Z0",
-                ((z0_x0 + z0_x1) / 2, axes.get_ylim()[1]),
-                xytext=(0, 0.2),
-                textcoords="offset fontsize",
-                color="gray",
-                fontsize=8,
-                fontweight="bold",
-                horizontalalignment="center",
-            )
-        axes.annotate(
-            f"{50}%\n{z0_x1}",
-            (z0_x1, axes.get_ylim()[1]),
-            xytext=(0, 0.2),
-            textcoords="offset fontsize",
-            color="gray",
-            fontsize=7,
-            # fontweight="bold",
-            horizontalalignment="center",
-        )
         # Z1.
-        z1_x0, z1_x1 = _get_bpm_range_for_hr_zone(1, hr_min, hr_max_ever)
         if "Z1" in hr_zones_to_hatch:
             axes.axvspan(
                 z1_x0,
@@ -572,30 +590,7 @@ class MixinHrPlot(BasePlot):
                 edgecolor="grey",
                 linewidth=0,
             )
-        if z1_x1 - axes.get_xlim()[0] > 9:
-            # Draw "Z1" only if there's enough room.
-            axes.annotate(
-                "Z1",
-                ((z1_x0 + z1_x1) / 2, axes.get_ylim()[1]),
-                xytext=(0, 0.2),
-                textcoords="offset fontsize",
-                color="gray",
-                fontsize=8,
-                fontweight="bold",
-                horizontalalignment="center",
-            )
-        axes.annotate(
-            f"{60}%\n{z1_x1}",
-            (z1_x1, axes.get_ylim()[1]),
-            xytext=(0, 0.2),
-            textcoords="offset fontsize",
-            color="gray",
-            fontsize=7,
-            # fontweight="bold",
-            horizontalalignment="center",
-        )
         # Z2.
-        z2_x0, z2_x1 = _get_bpm_range_for_hr_zone(2, hr_min, hr_max_ever)
         axes.axvspan(
             z2_x0,
             z2_x1,
@@ -613,30 +608,7 @@ class MixinHrPlot(BasePlot):
                 edgecolor="grey",
                 linewidth=0,
             )
-        if z2_x1 - axes.get_xlim()[0] > 9:
-            # Draw "Z2" only if there's enough room.
-            axes.annotate(
-                "Z2",
-                ((z2_x0 + z2_x1) / 2, axes.get_ylim()[1]),
-                xytext=(0, 0.2),
-                textcoords="offset fontsize",
-                color="gray",
-                fontsize=8,
-                fontweight="bold",
-                horizontalalignment="center",
-            )
-        axes.annotate(
-            f"{70}%\n{z2_x1}",
-            (z2_x1, axes.get_ylim()[1]),
-            xytext=(0, 0.2),
-            textcoords="offset fontsize",
-            color="gray",
-            fontsize=7,
-            # fontweight="bold",
-            horizontalalignment="center",
-        )
         # Z3.
-        z3_x0, z3_x1 = _get_bpm_range_for_hr_zone(3, hr_min, hr_max_ever)
         if "Z3" in hr_zones_to_hatch:
             axes.axvspan(
                 z3_x0,
@@ -648,30 +620,7 @@ class MixinHrPlot(BasePlot):
                 edgecolor="grey",
                 linewidth=0,
             )
-        if z3_x1 - axes.get_xlim()[0] > 9:
-            # Draw "Z3" only if there's enough room.
-            axes.annotate(
-                "Z3",
-                ((z3_x0 + z3_x1) / 2, axes.get_ylim()[1]),
-                xytext=(0, 0.2),
-                textcoords="offset fontsize",
-                color="gray",
-                fontsize=8,
-                fontweight="bold",
-                horizontalalignment="center",
-            )
-        axes.annotate(
-            f"{80}%\n{z3_x1}",
-            (z3_x1, axes.get_ylim()[1]),
-            xytext=(0, 0.2),
-            textcoords="offset fontsize",
-            color="gray",
-            fontsize=7,
-            # fontweight="bold",
-            horizontalalignment="center",
-        )
         # Z4.
-        z4_x0, z4_x1 = _get_bpm_range_for_hr_zone(4, hr_min, hr_max_ever)
         axes.axvspan(
             z4_x0,
             z4_x1,
@@ -689,30 +638,7 @@ class MixinHrPlot(BasePlot):
                 edgecolor="grey",
                 linewidth=0,
             )
-        if z4_x1 - axes.get_xlim()[0] > 9:
-            # Draw "Z4" only if there's enough room.
-            axes.annotate(
-                "Z4",
-                ((z4_x0 + z4_x1) / 2, axes.get_ylim()[1]),
-                xytext=(0, 0.2),
-                textcoords="offset fontsize",
-                color="gray",
-                fontsize=8,
-                fontweight="bold",
-                horizontalalignment="center",
-            )
-        axes.annotate(
-            f"{90}%\n{z4_x1}",
-            (z4_x1, axes.get_ylim()[1]),
-            xytext=(0, 0.2),
-            textcoords="offset fontsize",
-            color="gray",
-            fontsize=7,
-            # fontweight="bold",
-            horizontalalignment="center",
-        )
         # Z5.
-        z5_x0, z5_x1 = _get_bpm_range_for_hr_zone(5, hr_min, hr_max_ever)
         if "Z5" in hr_zones_to_hatch:
             axes.axvspan(
                 z5_x0,
@@ -724,16 +650,6 @@ class MixinHrPlot(BasePlot):
                 edgecolor="grey",
                 linewidth=0,
             )
-        axes.annotate(
-            "Z5",
-            ((z5_x0 + z5_x1) / 2, axes.get_ylim()[1]),
-            xytext=(0, 0.2),
-            textcoords="offset fontsize",
-            color="gray",
-            fontsize=8,
-            fontweight="bold",
-            horizontalalignment="center",
-        )
 
     def _plot_hr_zones_mixin(
         self,

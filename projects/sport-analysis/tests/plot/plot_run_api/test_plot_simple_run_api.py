@@ -266,6 +266,63 @@ class TestPlotSimpleRunApi:
             / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
+    def test_do_skip_hr_in_pace_plot_true(self):
+        garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
+        p = PlotSimpleRunApiCmd(
+            garmin_activity_id,
+            do_skip_hr_in_pace_plot=True,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_do_skip_hr_in_pace_plot_false(self):
+        garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
+        p = PlotSimpleRunApiCmd(
+            garmin_activity_id,
+            do_skip_hr_in_pace_plot=False,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_do_skip_hr_in_pace_plot_with_prev_runs_activity_ids_to_compare(self):
+        garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
+        p = PlotSimpleRunApiCmd(
+            garmin_activity_id,
+            prev_runs_activity_ids_to_compare=[
+                TEST_ACTIVITIES[2]["garmin_activity_id"]
+            ],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_do_skip_hr_in_pace_plot_forced_with_prev_runs_activity_ids_to_compare(
+        self,
+    ):
+        # This test makes sure that do_skip_hr_in_pace_plot is forced to True
+        #  when prev_runs_activity_ids_to_compare is given.
+        garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
+        p = PlotSimpleRunApiCmd(
+            garmin_activity_id,
+            do_skip_hr_in_pace_plot=False,
+            prev_runs_activity_ids_to_compare=[
+                TEST_ACTIVITIES[2]["garmin_activity_id"]
+            ],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
     def test_title(self):
         p = PlotSimpleRunApiCmd(
             TEST_ACTIVITIES[4]["garmin_activity_id"],
