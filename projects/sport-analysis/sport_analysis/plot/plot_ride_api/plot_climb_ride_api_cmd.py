@@ -144,7 +144,7 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             alpha=0.6,
             linewidth=1.5,
         )
-        a0.set_ylabel("Heart rate [bpm]")
+        a0.set_ylabel("Heart rate [bpm]", fontsize=9)
 
         # Plot Elevation.
         # Create a new axes that shares the x-axis.
@@ -165,7 +165,7 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             color="gray",
             alpha=0.1,
         )
-        a1.set_ylabel("Elevation [m]")
+        a1.set_ylabel("Elevation [m]", fontsize=9)
 
         ## Format axes.
         # Ticks and labels.
@@ -180,7 +180,7 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
 
         ## Format.
         # Axes labels.
-        a0.set_xlabel("Time [hh:mm]")
+        a0.set_xlabel("Time [hh:mm]", fontsize=9)
 
     def _plot_hr_histogram(self):
         hr_stream = self._s[0].details_resp.get_heartrate_stream(

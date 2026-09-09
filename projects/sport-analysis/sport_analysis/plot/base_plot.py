@@ -17,6 +17,7 @@ from rich.table import Table
 
 from ..base_cli_view import ConsoleAdapter
 from ..conf import settings
+from ..conf.settings_module import ROOT_DIR
 
 console = ConsoleAdapter()
 
@@ -64,7 +65,7 @@ class BasePlot:
     @staticmethod
     def print_created_image_path(file_path):
         console.print(
-            f"\n:floppy_disk: Created image: [blue underline]{file_path}[/]",
+            f"\n:floppy_disk: Created image: [blue underline]{Path(file_path).relative_to(ROOT_DIR)}[/]",
             highlight=False,
         )
         console.print(
@@ -384,7 +385,8 @@ class MixinHrPlot(BasePlot):
         axes.xaxis.set_major_formatter(
             mpl.ticker.FuncFormatter(
                 # Set ticks label as bpm and as % of HR max ever.
-                lambda x, pos: f"{round(x)}\n{round(x*100/hr_max_ever)}%"
+                # lambda x, pos: f"{round(x)}\n{round(x*100/hr_max_ever)}%"
+                lambda x, pos: round(x)
             )
         )
 
@@ -435,10 +437,12 @@ class MixinHrPlot(BasePlot):
         axes.set_xticks(xticks)
 
         # Axes labels.
-        axes.set_xlabel(f"Heart rate [bpm, % of max ever {hr_max_ever}]")
-        axes.set_ylabel("Frequency")
+        axes.set_xlabel(
+            f"Heart rate [bpm, % of max ever {hr_max_ever}]", fontsize=9, labelpad=12.0
+        )
+        axes.set_ylabel("Frequency", fontsize=9)
         if elevation_stream and time_stream:
-            atwinx.set_ylabel("Elevation [m]")
+            atwinx.set_ylabel("Elevation [m]", fontsize=9)
 
         # Title.
         if segment_title:
@@ -537,7 +541,7 @@ class MixinHrPlot(BasePlot):
         axes.annotate(
             p80text.math_text,
             ((axes.get_xlim()[0] + axes.get_xlim()[1]) / 2, axes.get_ylim()[0]),
-            xytext=(0, -6.2),
+            xytext=(0, -5.5),
             textcoords="offset fontsize",
             color=COL_DARK_RED,
             # alpha=0.8,
@@ -549,7 +553,7 @@ class MixinHrPlot(BasePlot):
         axes.annotate(
             p98text.math_text,
             ((axes.get_xlim()[0] + axes.get_xlim()[1]) / 2, axes.get_ylim()[0]),
-            xytext=(0, -7.4),
+            xytext=(0, -6.7),
             textcoords="offset fontsize",
             color=COL_DARK_RED,
             # alpha=0.8,
@@ -649,6 +653,29 @@ class MixinHrPlot(BasePlot):
                 facecolor="none",
                 edgecolor="grey",
                 linewidth=0,
+            )
+
+        # Tick labels for the x axis: here we print the 2nd line: the time.
+        # So, for each tick label, we want to find the time that matches that distance.
+        # Logic:
+        #  - first we get the ticks already printed (each of them has a tick label);
+        #  - then we get the index, in the distance list, of this tick (the tick is
+        #     a distance in meters)
+        #  - then we get the element at the same index in the time list. This time is
+        #     the time in seconds that matches that distance.
+        hr_ticks = axes.get_xticks()
+        for hr in hr_ticks:
+            axes.annotate(
+                f"{round(hr*100/hr_max_ever)}%",
+                xy=(hr, axes.get_ylim()[0]),
+                xytext=(0, -2.3),
+                textcoords="offset fontsize",
+                # color=base_plot.COL_PLUM,
+                alpha=0.4,
+                fontsize=8,
+                # fontweight="bold",
+                horizontalalignment="center",
+                verticalalignment="top",
             )
 
     def _plot_hr_zones_mixin(

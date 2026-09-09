@@ -248,7 +248,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         # Invert the y-axis so the 1st attempt is on top.
         a.invert_yaxis()
         # Axes labels.
-        a.set_xlabel("Time [s]")
+        a.set_xlabel("Time [s]", fontsize=9)
         # Set the x-axis label to the top.
         a.xaxis.set_label_position("top")
         # Use log scale to amplify the small differences.

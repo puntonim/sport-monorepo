@@ -6,6 +6,7 @@ import datetime_utils
 import matplotlib as mpl
 import matplotlib.patheffects as path_effects
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import speed_utils
 import text_utils
@@ -141,6 +142,8 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         ## MAIN activity.
         # X and y data.
         xdata_distance = self._s[0].details_resp.get_distance_stream()
+        # Time stream required later on when building ticks for the x axis.
+        _time_stream = self._s[0].details_resp.get_moving_time_stream()
         # Y data should be the moving average of the PACE, computed from the speed.
         _speed_stream = self._s[0].details_resp.get_speed_stream(
             do_remove_none_values=False
@@ -155,7 +158,11 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         # Convert from m/s to min/km.
         ydata_pace_df = speed_utils.mps_to_minpkm_base10(ydata_pace_df)
         ydata_pace_df["MA(pace)"] = (
-            ydata_pace_df["pace"].rolling(_rolling_window_size, center=True).mean()
+            ydata_pace_df["pace"]
+            # `min_periods=1` so that the initial and final data are not excluded
+            #  (otherwise they get excluded because the window is < window size and
+            #  the plot is missing those data).
+            .rolling(_rolling_window_size, min_periods=1, center=True).mean()
         )
         del ydata_pace_df["pace"]
 
@@ -215,41 +222,51 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             )
 
             # Plot HR on twin x axis.
-            # Create new Axes that shares the x-axis.
-            atwinx: Axes = a.twinx()
-            atwinx.plot(
+            # Create new Axes that share the x-axis.
+            atwinx_hr: Axes = a.twinx()
+            atwinx_hr.plot(
                 xdata_distance,
                 ydata_hr,
                 color="red",
                 alpha=0.2,
             )
 
+        # Tracking the max distance.
+        max_dist = xdata_distance[-1]
+
         ## SECONDARY activities.
         for i in range(1, len(self._s)):
-            details = self._s[i].details_resp
-            # summary = self._s[i].summary_resp
+            details_2nd = self._s[i].details_resp
+            # summary_2nd = self._s[i].summary_resp
 
             # X and y data.
-            xdata_distance = details.get_distance_stream()
-            _speed_stream = details.get_speed_stream(do_remove_none_values=False)
-            # Convert to DataFrame.
-            ydata_pace_df = pd.DataFrame(_speed_stream, columns=["pace"])
-            del _speed_stream
-            # Convert from m/s to min/km.
-            ydata_pace_df = speed_utils.mps_to_minpkm_base10(ydata_pace_df)
-            ydata_pace_df["MA(pace)"] = (
-                ydata_pace_df["pace"].rolling(_rolling_window_size, center=True).mean()
+            xdata_distance_2nd = details_2nd.get_distance_stream()
+            _speed_stream_2nd = details_2nd.get_speed_stream(
+                do_remove_none_values=False
             )
-            del ydata_pace_df["pace"]
+            # Convert to DataFrame.
+            ydata_pace_2nd_df = pd.DataFrame(_speed_stream_2nd, columns=["pace"])
+            del _speed_stream_2nd
+            # Convert from m/s to min/km.
+            ydata_pace_2nd_df = speed_utils.mps_to_minpkm_base10(ydata_pace_2nd_df)
+            ydata_pace_2nd_df["MA(pace)"] = (
+                ydata_pace_2nd_df["pace"]
+                .rolling(_rolling_window_size, center=True)
+                .mean()
+            )
+            del ydata_pace_2nd_df["pace"]
 
             a.plot(
-                xdata_distance,
-                ydata_pace_df["MA(pace)"],
+                xdata_distance_2nd,
+                ydata_pace_2nd_df["MA(pace)"],
                 label=self._make_legend_label(i),
-                # color="gray",
                 color=base_plot.COLS_SECONDARY[i - 1][0],
                 alpha=base_plot.COLS_SECONDARY[i - 1][1],
             )
+
+            # Update the max distance, if necessary.
+            if xdata_distance_2nd[-1] > max_dist:
+                max_dist = xdata_distance_2nd[-1]
 
             # Update the y-axis bottom.
             # Setting the bottom of y-axis to the best pace of the lowest 0.5% pace
@@ -258,11 +275,11 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             #  visually: the chart is less compressed vertically.
             if self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc:
                 _y_axis_bottom_tmp = (
-                    ydata_pace_df["MA(pace)"]
+                    ydata_pace_2nd_df["MA(pace)"]
                     # Get the 0.5% largest datapoints, so the slowest paces.
                     .nlargest(
                         round(
-                            ydata_pace_df["MA(pace)"].size
+                            ydata_pace_2nd_df["MA(pace)"].size
                             / 100
                             * self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc
                         )
@@ -278,8 +295,9 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
 
         ## Format.
         # Axes labels.
-        a.set_ylabel("Pace [min/km]")
-        a.set_xlabel("Distance [km]")
+        a.set_ylabel("Pace [min/km]", fontsize=9)
+        a.set_xlabel("Distance [km], Time", fontsize=9, labelpad=13.0)
+
         # axes.xaxis.set_label_position("top")
         # Invert the y-axis so the fastest pace is on top.
         a.invert_yaxis()
@@ -290,14 +308,23 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             )
         )
         a.yaxis.grid(color="gray", alpha=0.2, linestyle="--")
+
+        # Ticks for the x axis are in 2 lines:
+        #  1st line: the distance in km, which is printed here as proper tick label.
+        #  2nd line: the time, printed later on as regular text.
         a.xaxis.set_major_formatter(
-            mpl.ticker.FuncFormatter(lambda x, pos: round(x / 1000, 1))
+            mpl.ticker.FuncFormatter(lambda x, pos: f"{round(x / 1000, 1)}")
         )
 
-        # Setting the bottom of y-axis to the best pace of the lowest 0.5% pace found.
+        # x axis limits.
+        a.set_xlim(left=0, right=max_dist)
+
+        # y axis limit: set the bottom of y-axis to the best pace of the lowest
+        #  0.5% pace found.
         if self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc:
             a.set_ylim(bottom=_y_axis_bottom)
 
+        # Z0, Z1, Z2, etc on the y axis right.
         if not self.do_skip_hr_in_pace_plot:
             # Get the HR zones bpm ranges.
             hr_min = min(tuple(x for x in ydata_hr if x is not None))
@@ -314,10 +341,10 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             #  not simply min(ydata_hr) because this is a twin axis and the min can be
             #  min(ydata_pace_df["MA(pace)"]) which, also, is in a diff unit.
             # You see what I mean if you `san plot-simple-run g-18948270166`.
-            atwinx.set_yticks([120])  # Hack, see ^.
-            ticks = (z0_x1, z1_x1, z2_x1, z3_x1, z4_x1, z5_x1)
-            atwinx.set_yticks(ticks)
-            atwinx.set_ylabel("HR [bpm]")
+            atwinx_hr.set_yticks([120])  # Hack, see ^.
+            distance_ticks_m = (z0_x1, z1_x1, z2_x1, z3_x1, z4_x1, z5_x1)
+            atwinx_hr.set_yticks(distance_ticks_m)
+            atwinx_hr.set_ylabel("HR [bpm]", fontsize=9)
 
             # Draw the labels Z0, Z1, Z2, ...
             for i, x in enumerate(
@@ -332,10 +359,10 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             ):
                 x0, x1 = x
                 # Draw "Z0" only if there's enough room.
-                if x1 - atwinx.get_ylim()[0] > 9:
-                    atwinx.annotate(
+                if x1 - atwinx_hr.get_ylim()[0] > 9:
+                    atwinx_hr.annotate(
                         f"Z{i}",
-                        (atwinx.get_xlim()[1], (x0 + x1) / 2),
+                        (atwinx_hr.get_xlim()[1], (x0 + x1) / 2),
                         xytext=(2.0, -0.6),
                         textcoords="offset fontsize",
                         color="red",
@@ -383,7 +410,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                 ],
             )
 
-        # Draw pace avg horizontal line.
+        # Pace avg horizontal line.
         # Compute pace avg.
         _speed_avg = self._s[0].summary_resp.summary["averageSpeed"]
         _pace_base10_avg = speed_utils.mps_to_minpkm_base10(_speed_avg)
@@ -411,11 +438,12 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                 )
             ],
         )
-        # Write text annotation for MA window size.
+
+        # MA window size text annotation under the unit of measure.
         a.annotate(
             f"MA(pace) window: ~{round(rolling_window_avg_time)}s, ~{round(rolling_window_avg_distance)}m",
             ((a.get_xlim()[0] + a.get_xlim()[1]) / 2, a.get_ylim()[0]),
-            xytext=(0, -4.5),
+            xytext=(0, -5.5),
             textcoords="offset fontsize",
             # color=COL_DARK_RED,
             # alpha=0.8,
@@ -424,6 +452,76 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             style="italic",
             horizontalalignment="center",
         )
+
+        # Ticks for x axis optimization: we want the leftmost tick to be 0 and the
+        #  rightmost to be the exact distance run.
+        distance_ticks: np.array = a.get_xticks()
+        # Filter the ticks to keep only values >=0 and <= distance run.
+        distance_ticks = np.fromiter(
+            (x for x in distance_ticks if x >= 0 and x <= xdata_distance[-1]),
+            dtype=distance_ticks.dtype,
+        )
+        # If the rightmost tick is < distance run then append the distance run as
+        #  the new rightmost tick.
+        if distance_ticks[-1] < xdata_distance[-1]:
+            distance_ticks = np.append(distance_ticks, xdata_distance[-1])
+        # If the 2nd rightmost tick is too close to the last one, then eliminate it.
+        #  And by too close we mean 40% of the distance among all other ticks.
+        ticks_interval_regular = distance_ticks[1] - distance_ticks[0]
+        if distance_ticks[-1] - distance_ticks[-2] < ticks_interval_regular * 0.4:
+            distance_ticks = np.append(distance_ticks[:-2], distance_ticks[-1])
+        a.set_xticks(distance_ticks)
+
+        # Tick labels for the x axis: here we print the 2nd line: the time.
+        # So, for each tick label, we want to find the time that matches that distance.
+        # Logic:
+        #  - first we get the ticks already printed (each of them has a tick label);
+        #  - then we get the index, in the distance list, of this tick (the tick is
+        #     a distance in meters)
+        #  - then we get the element at the same index in the time list. This time is
+        #     the time in seconds that matches that distance.
+        for dist in distance_ticks:
+            # Just ignore distance that out of the actual run range.
+            if dist >= 0 and dist <= xdata_distance[-1]:
+                if dist == 0:
+                    time = 0
+                else:
+                    # Search the index of that distance in the `xdata_distance` list.
+                    # Note: we can NOT simply search the index because the tick might be
+                    #  at 2000m, but such round number is not in the list, so we
+                    #  search for the index of the first value > 2000m (and we use
+                    #  np.searchsorted for that).
+                    # ix = xdata_distance.index(dist)  # Nope, see ^.
+                    ix = np.searchsorted(xdata_distance, dist)
+                    # Now we get the time (seconds) from the time_stream at that index
+                    #  and we make an average with the prev data (because 2000m was not
+                    #  an exact distance match, but th eindex of the first value >=2000m).
+                    try:
+                        if ix > 0:
+                            time = round((_time_stream[ix] + _time_stream[ix - 1]) / 2)
+                        else:
+                            time = round(_time_stream[ix])
+                    except IndexError:
+                        continue
+                time_str = datetime_utils.seconds_to_hh_mm(
+                    time,
+                    do_hide_hours_and_mins_if_zero=True,
+                    do_not_use_colon_but_letters=True,
+                )
+                # Finally we print the time string at the tick x value, right under
+                #  the existent tick label.
+                a.annotate(
+                    time_str,
+                    xy=(dist, a.get_ylim()[0]),
+                    xytext=(0, -2.3),
+                    textcoords="offset fontsize",
+                    # color=base_plot.COL_PLUM,
+                    alpha=0.4,
+                    fontsize=8,
+                    # fontweight="bold",
+                    horizontalalignment="center",
+                    verticalalignment="top",
+                )
 
     def _plot_hr_zones(self):
         hr_stream = self._s[0].details_resp.get_heartrate_stream(
@@ -489,7 +587,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             distance_str = str(round(distance / 1000, 1))
             distance_cum_str = str(round(distance_cum / 1000, 1))
 
-            duration = split["duration"]
+            duration = split["duration"]  # duration seems better than movingDuration.
             duration_cum += duration
             duration_cum_str = datetime_utils.seconds_to_hh_mm_ss(
                 round(duration_cum), do_hide_hours_and_mins_if_zero=True

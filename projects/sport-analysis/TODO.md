@@ -1,6 +1,5 @@
 
-- metti time nel x axis alto, come in climb ride con segment
-  per plot-simple-run ma forse anche per simple-ride
+- In climb-ride cambia formato 1:07 a 1h07m
 
 - Usa path_effects in tutte le scritte che possono sovrapporsi come fatto per
    avg in plot_simple_run_api_cmd.py linea 378

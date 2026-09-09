@@ -34,6 +34,7 @@ from tests import conftest
 
 from ...base_cli_view import BaseClickCommand, ConsoleAdapter
 from ...conf import settings
+from ...conf.settings_module import ROOT_DIR
 from .stats_activities_count import ActivitiesCountStats
 from .stats_ride import RideStats
 from .stats_run import RunStats
@@ -192,7 +193,7 @@ class EoyRecap2025:
         self._plot_stats()
 
         console.print(
-            f"\n:floppy_disk: Created image: [blue underline]{save_to_png_file_path}[/]",
+            f"\n:floppy_disk: Created image: [blue underline]{Path(save_to_png_file_path).relative_to(ROOT_DIR)}[/]",
             highlight=False,
         )
         plt.savefig(save_to_png_file_path)
