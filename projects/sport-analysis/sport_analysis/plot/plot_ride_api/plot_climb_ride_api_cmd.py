@@ -173,14 +173,20 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             mpl.ticker.FuncFormatter(
                 # Set ticks label as hh:mm.
                 lambda x, pos: datetime_utils.seconds_to_hh_mm(
-                    x, do_hide_hours_and_mins_if_zero=True
+                    x,
+                    do_hide_hours_and_mins_if_zero=True,
+                    do_not_use_colon_but_letters=True,
                 )
-            )
+            ),
         )
+        # Tick labels smaller.
+        for ticks in a0.xaxis.get_major_ticks():
+            ticks.label1.set_fontsize(8)
+            # ticks.label1.set_alpha(0.4)
 
         ## Format.
         # Axes labels.
-        a0.set_xlabel("Time [hh:mm]", fontsize=9)
+        # a0.set_xlabel("Time [hh:mm]", fontsize=9)  # No need, it's clear.
 
     def _plot_hr_histogram(self):
         hr_stream = self._s[0].details_resp.get_heartrate_stream(

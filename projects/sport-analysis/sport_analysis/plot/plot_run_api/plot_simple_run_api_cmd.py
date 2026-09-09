@@ -143,7 +143,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         # X and y data.
         xdata_distance = self._s[0].details_resp.get_distance_stream()
         # Time stream required later on when building ticks for the x axis.
-        _time_stream = self._s[0].details_resp.get_moving_time_stream()
+        _moving_time_stream = self._s[0].details_resp.get_moving_time_stream()
         # Y data should be the moving average of the PACE, computed from the speed.
         _speed_stream = self._s[0].details_resp.get_speed_stream(
             do_remove_none_values=False
@@ -498,9 +498,12 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                     #  an exact distance match, but th eindex of the first value >=2000m).
                     try:
                         if ix > 0:
-                            time = round((_time_stream[ix] + _time_stream[ix - 1]) / 2)
+                            time = round(
+                                (_moving_time_stream[ix] + _moving_time_stream[ix - 1])
+                                / 2
+                            )
                         else:
-                            time = round(_time_stream[ix])
+                            time = round(_moving_time_stream[ix])
                     except IndexError:
                         continue
                 time_str = datetime_utils.seconds_to_hh_mm(

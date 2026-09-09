@@ -1,16 +1,28 @@
 
-- In climb-ride cambia formato 1:07 a 1h07m
+- in plot-simple-run voglio elapsed time o moving time?
+Note: how to interpret duration:
+    **DURATION**: the total time that the device's internal timer was actively recording.
+      It excludes the time when I manually paused the watch, and when the watch was
+       auto-paused (if such feat was enabled).
+    **MOVING DURATION**: the actual and precise moving time, calculated with 
+      post-provessing of the GPS coords.
+      It excludes the time when I manually paused the watch, and when the watch was
+       auto-paused (if such feat was enabled), and when I was (almost) steady but
+       my watch was not auto-paused.
+    **ELAPSED DURATION**: wall-clock from start to end of the activity.
 
 - Usa path_effects in tutte le scritte che possono sovrapporsi come fatto per
    avg in plot_simple_run_api_cmd.py linea 378
 
 - evidenziare le domande in questionary?
 
-- default: LATEST in tutte le activity-id di questionary?
-
 - Infine usa il nuovo ACTIVITY_ID_PARAM_TYPE in tutti i comandi che ora usano LATEST
   (cioè i comandi plot, facendo attenz che plot-run deve supportare solo LATEST-RUN
    e non LATEST-RIDE)
+  E usa default: LATEST in tutte le activity-id di questionary?
+
+- darker colors for HR zones in plot-simple-run?
+  Colors are in plot.base_plot.MixinHrPlot._plot_hr_zones_mixin
 
 - move base_plot.make_png_file_path() to utils/file_system_utils
 

@@ -1,3 +1,14 @@
+Note: how to interpret duration:
+    **DURATION**: the total time that the device's internal timer was actively recording.
+      It excludes the time when I manually paused the watch, and when the watch was
+       auto-paused (if such feat was enabled).
+    **MOVING DURATION**: the actual and precise moving time, calculated with 
+      post-provessing of the GPS coords.
+      It excludes the time when I manually paused the watch, and when the watch was
+       auto-paused (if such feat was enabled), and when I was (almost) steady but
+       my watch was not auto-paused.
+    **ELAPSED DURATION**: wall-clock from start to end of the activity.
+
 ```py
 summary = garmin.get_activity(18923007987)
     
@@ -96,6 +107,17 @@ summary = garmin.get_activity(18923007987)
         "startLatitude": 45.6090556550771,
         "startLongitude": 9.61661584675312,
         "distance": 9621.27,
+
+    # **DURATION**: the total time that the device's internal timer was actively recording.
+    #   It excludes the time when I manually paused the watch, and when the watch was
+    #    auto-paused (if such feat was enabled).
+    # **MOVING DURATION**: the actual and precise moving time, calculated with 
+    #   post-provessing of the GPS coords.
+    #   It excludes the time when I manually paused the watch, and when the watch was
+    #    auto-paused (if such feat was enabled), and when I was (almost) steady but
+    #    my watch was not auto-paused.
+    # **ELAPSED DURATION**: wall-clock from start to end of the activity.
+    
         "duration": 3951.354,
         "movingDuration": 3598.523,
         "elapsedDuration": 4060.752,

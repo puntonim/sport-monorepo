@@ -396,10 +396,16 @@ class MixinHrPlot(BasePlot):
                 mpl.ticker.FuncFormatter(
                     # Set ticks label as hh:mm.
                     lambda x, pos: datetime_utils.seconds_to_hh_mm(
-                        x, do_hide_hours_and_mins_if_zero=True
+                        x,
+                        do_hide_hours_and_mins_if_zero=True,
+                        do_not_use_colon_but_letters=True,
                     )
-                )
+                ),
             )
+            # Tick labels smaller.
+            for ticks in atwiny.xaxis.get_major_ticks():
+                ticks.label2.set_fontsize(8)
+                # ticks.label1.set_alpha(0.4)
 
         ## SECONDARY activities.
         if secondary_hr_streams is None:
