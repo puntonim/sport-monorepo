@@ -9,6 +9,7 @@ from typing import Sequence
 
 import datetime_utils
 import matplotlib as mpl
+import matplotlib.patheffects as path_effects
 import numpy as np
 import text_utils
 from matplotlib.axes import Axes
@@ -43,6 +44,15 @@ class PERCENTILE_TO_DRAW_ENUM(StrEnum):
 
 
 class BasePlot:
+    PATH_EFFECTS = [
+        path_effects.withStroke(
+            linewidth=2,
+            foreground="white",
+            capstyle="round",
+            alpha=1,
+        ),
+    ]
+
     @staticmethod
     def print_activity_urls(
         # `original_activity_id_arg` comes from base_cli_view.ACTIVITY_ID_TYPE.
@@ -476,6 +486,7 @@ class MixinHrPlot(BasePlot):
             fontsize=8,
             fontweight="bold",
             horizontalalignment="right",
+            path_effects=self.PATH_EFFECTS,
         )
         axes.annotate(
             f"max\n{round(hr_max)}",
@@ -486,6 +497,7 @@ class MixinHrPlot(BasePlot):
             fontsize=8,
             fontweight="bold",
             horizontalalignment="center",
+            path_effects=self.PATH_EFFECTS,
         )
 
         # Draw P80 vertical line.
@@ -514,6 +526,7 @@ class MixinHrPlot(BasePlot):
                     fontsize=8,
                     fontweight="bold",
                     horizontalalignment="left",
+                    path_effects=self.PATH_EFFECTS,
                 )
             # Vertical line for P98.
             # Note: draw either P80 or P98 as there isn't enough room for both.
@@ -533,6 +546,7 @@ class MixinHrPlot(BasePlot):
                     fontsize=8,
                     fontweight="bold",
                     horizontalalignment="left",
+                    path_effects=self.PATH_EFFECTS,
                 )
 
         # P80 and P98 text.

@@ -4,7 +4,6 @@ from typing import Sequence
 
 import datetime_utils
 import matplotlib as mpl
-import matplotlib.patheffects as path_effects
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -275,14 +274,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                 fontsize=8,
                 # fontweight="bold",
                 horizontalalignment="center",
-                path_effects=[
-                    path_effects.withStroke(
-                        linewidth=2,
-                        foreground="white",
-                        capstyle="round",
-                        alpha=1,
-                    ),
-                ],
+                path_effects=self.PATH_EFFECTS,
             )
             # Annotate the min elevation.
             min_elev_ix = np.argmin(ydata_elevation)
@@ -296,14 +288,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                 fontsize=8,
                 # fontweight="bold",
                 horizontalalignment="center",
-                path_effects=[
-                    path_effects.withStroke(
-                        linewidth=2,
-                        foreground="white",
-                        capstyle="round",
-                        alpha=1,
-                    ),
-                ],
+                path_effects=self.PATH_EFFECTS,
             )
 
         ## SECONDARY activities (plot their PACE).
@@ -456,14 +441,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                 alpha=0.6,
                 fontsize=8,
                 fontweight="bold",
-                path_effects=[
-                    path_effects.withStroke(
-                        linewidth=2,
-                        foreground="white",
-                        capstyle="round",
-                        alpha=1,
-                    ),
-                ],
+                path_effects=self.PATH_EFFECTS,
             )
             a.annotate(
                 "HR",
@@ -474,14 +452,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                 alpha=0.3,
                 fontsize=8,
                 fontweight="bold",
-                path_effects=[
-                    path_effects.withStroke(
-                        linewidth=2,
-                        foreground="white",
-                        capstyle="round",
-                        alpha=1,
-                    )
-                ],
+                path_effects=self.PATH_EFFECTS,
             )
 
         # Pace avg horizontal line.
@@ -503,14 +474,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             color=base_plot.COL_PLUM,
             fontsize=8,
             fontweight="bold",
-            path_effects=[
-                path_effects.withStroke(
-                    linewidth=2,
-                    foreground="white",
-                    capstyle="round",
-                    # alpha=1,
-                )
-            ],
+            path_effects=self.PATH_EFFECTS,
         )
 
         # MA window size text annotation under the unit of measure.

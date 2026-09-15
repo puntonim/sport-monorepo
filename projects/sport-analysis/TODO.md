@@ -1,6 +1,7 @@
 
-- Usa path_effects in tutte le scritte che possono sovrapporsi come fatto per
-   avg in plot_simple_run_api_cmd.py linea 378
+
+- aggiungi dislivello (m+) in subtitle del plot-climb-ride
+   come fato per plot-simple-run
 
 - in plot-simple-run voglio elapsed time o moving time?
 Note: how to interpret duration:
@@ -8,7 +9,7 @@ Note: how to interpret duration:
       It excludes the time when I manually paused the watch, and when the watch was
        auto-paused (if such feat was enabled).
     **MOVING DURATION**: the actual and precise moving time, calculated with 
-      post-provessing of the GPS coords.
+      post-processing of the GPS coords.
       It excludes the time when I manually paused the watch, and when the watch was
        auto-paused (if such feat was enabled), and when I was (almost) steady but
        my watch was not auto-paused.
@@ -32,10 +33,6 @@ Note: how to interpret duration:
 - UserWarning: Attempt to set non-positive xlim on a log-scaled axis will be ignored.
   in interval run
 
-- in climb ride aggiungi 2 args:
-    --no-zones-boundaries-in-hr-hist
-    --no-time-in-hr-hist
-  to solve the overlapping labels (see plot_climb_ride_api.png)
 
 - usa ConsoleAdapterMock() come in test_search_strava_api_cmd.py?
 - san print-activity strava-123

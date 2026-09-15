@@ -3,7 +3,7 @@ Note: how to interpret duration:
       It excludes the time when I manually paused the watch, and when the watch was
        auto-paused (if such feat was enabled).
     **MOVING DURATION**: the actual and precise moving time, calculated with 
-      post-provessing of the GPS coords.
+      post-processing of the GPS coords.
       It excludes the time when I manually paused the watch, and when the watch was
        auto-paused (if such feat was enabled), and when I was (almost) steady but
        my watch was not auto-paused.
@@ -112,7 +112,7 @@ summary = garmin.get_activity(18923007987)
     #   It excludes the time when I manually paused the watch, and when the watch was
     #    auto-paused (if such feat was enabled).
     # **MOVING DURATION**: the actual and precise moving time, calculated with 
-    #   post-provessing of the GPS coords.
+    #   post-processing of the GPS coords.
     #   It excludes the time when I manually paused the watch, and when the watch was
     #    auto-paused (if such feat was enabled), and when I was (almost) steady but
     #    my watch was not auto-paused.

@@ -5,6 +5,7 @@ from statistics import mean
 from typing import Sequence
 
 import datetime_utils
+import matplotlib.patheffects as path_effects
 import matplotlib.pyplot as plt
 import number_utils
 import numpy as np
@@ -72,6 +73,15 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         300: range(3, 16),
         1000: range(3, 11),
     }
+
+    PATH_EFFECTS = [
+        path_effects.withStroke(
+            linewidth=0.7,
+            foreground="white",
+            capstyle="round",
+            alpha=1,
+        ),
+    ]
 
     def __init__(
         self,
@@ -307,7 +317,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             alpha=0.6,
         )
         # Add main activity's maxes pace values at the right of each bar.
-        a.bar_label(bar, fmt=self._fmt_pace, padding=2)
+        a.bar_label(bar, fmt=self._fmt_pace, padding=2, path_effects=self.PATH_EFFECTS)
 
         # Plot main activity's avgs pace, on top of the maxes.
         bar = a.barh(
@@ -319,7 +329,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             # alpha=0.8,
         )
         # Add main activity's avgs pace values at the right of each bar.
-        a.bar_label(bar, fmt=self._fmt_pace, padding=2)
+        a.bar_label(bar, fmt=self._fmt_pace, padding=2, path_effects=self.PATH_EFFECTS)
 
         ## SECONDARY activities.
         for i in range(1, len(self._s)):
@@ -354,7 +364,13 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             )
             # Add secondary activities' maxes pace values at the right of each bar.
             a.bar_label(
-                bar, fmt=self._fmt_pace, padding=2, fontsize=8, color="gray", alpha=0.7
+                bar,
+                fmt=self._fmt_pace,
+                padding=2,
+                fontsize=8,
+                color="gray",
+                alpha=0.7,
+                path_effects=self.PATH_EFFECTS,
             )
             # Plot secondary activities' avgs paces, on top of the maxes.
             bar = a.barh(
@@ -366,7 +382,13 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             )
             # Add secondary activities' avg paces values at the right of each bar.
             a.bar_label(
-                bar, fmt=self._fmt_pace, padding=2, fontsize=8, color="black", alpha=0.7
+                bar,
+                fmt=self._fmt_pace,
+                padding=2,
+                fontsize=8,
+                color="black",
+                alpha=0.7,
+                path_effects=self.PATH_EFFECTS,
             )
 
         ## Format.
@@ -435,7 +457,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             alpha=0.6,
         )
         # Add main activity's maxes cadence values at the right of each bar.
-        a.bar_label(bar, fmt="{0:.0f}", padding=2)
+        a.bar_label(bar, fmt="{0:.0f}", padding=2, path_effects=self.PATH_EFFECTS)
 
         # Plot main activity's avgs cadence, on top of the maxes.
         bar = a.barh(
@@ -448,7 +470,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             # alpha=0.8,
         )
         # Add main activity's avgs cadence values at the right of each bar.
-        a.bar_label(bar, fmt="{0:.0f}", padding=2)
+        a.bar_label(bar, fmt="{0:.0f}", padding=2, path_effects=self.PATH_EFFECTS)
 
         ## SECONDARY activities.
         for i in range(1, len(self._s)):
@@ -489,7 +511,13 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             )
             # Add secondary activities' maxes cadence values at the right of each bar.
             a.bar_label(
-                bar, fmt="{0:.0f}", padding=2, fontsize=8, color="gray", alpha=0.7
+                bar,
+                fmt="{0:.0f}",
+                padding=2,
+                fontsize=8,
+                color="gray",
+                alpha=0.7,
+                path_effects=self.PATH_EFFECTS,
             )
             # Plot secondary activities' avgs cadence, on top of the maxes.
             bar = a.barh(
@@ -501,7 +529,13 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             )
             # Add secondary activities' avgs cadence values at the right of each bar.
             a.bar_label(
-                bar, fmt="{0:.0f}", padding=2, fontsize=8, color="black", alpha=0.7
+                bar,
+                fmt="{0:.0f}",
+                padding=2,
+                fontsize=8,
+                color="black",
+                alpha=0.7,
+                path_effects=self.PATH_EFFECTS,
             )
 
         ## Format.
@@ -564,7 +598,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             alpha=0.6,
         )
         # Add main activity's maxes HR values at the right of each bar.
-        a.bar_label(bar, fmt="{0:.0f}", padding=2)
+        a.bar_label(bar, fmt="{0:.0f}", padding=2, path_effects=self.PATH_EFFECTS)
 
         # Plot main activity's avgs HR, on top of the maxes.
         bar = a.barh(
@@ -577,7 +611,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             # alpha=0.8,
         )
         # Add main activity's avgs HR values at the right of each bar.
-        a.bar_label(bar, fmt="{0:.0f}", padding=2)
+        a.bar_label(bar, fmt="{0:.0f}", padding=2, path_effects=self.PATH_EFFECTS)
 
         ## SECONDARY activities.
         for i in range(1, len(self._s)):
@@ -614,7 +648,13 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             )
             # Add secondary activities' maxes HR values at the right of each bar.
             a.bar_label(
-                bar, fmt="{0:.0f}", padding=2, fontsize=8, color="gray", alpha=0.7
+                bar,
+                fmt="{0:.0f}",
+                padding=2,
+                fontsize=8,
+                color="gray",
+                alpha=0.7,
+                path_effects=self.PATH_EFFECTS,
             )
             # Plot secondary activities' avgs HR, on top of the maxes.
             bar = a.barh(
@@ -626,7 +666,13 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             )
             # Add secondary activities' avgs HR values at the right of each bar.
             a.bar_label(
-                bar, fmt="{0:.0f}", padding=2, fontsize=8, color="black", alpha=0.7
+                bar,
+                fmt="{0:.0f}",
+                padding=2,
+                fontsize=8,
+                color="black",
+                alpha=0.7,
+                path_effects=self.PATH_EFFECTS,
             )
 
         ## Format.
