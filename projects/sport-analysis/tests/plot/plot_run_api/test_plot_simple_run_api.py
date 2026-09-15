@@ -67,6 +67,13 @@ TEST_ACTIVITIES = [
         garmin_activity_id=22663177131,
         start_date="2026-04-26",
     ),
+    # 8.
+    dict(
+        title="Arenzano Mari e Monti",  # Trail w/ 719m elevation.
+        strava_activity_id=20140488707,
+        garmin_activity_id=24330701697,
+        start_date="2026-09-12",
+    ),
 ]
 
 FILE_TESTED_PATH = inspect.getfile(PlotSimpleRunApiCmd)
@@ -103,6 +110,15 @@ class TestPlotSimpleRunApi:
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace("_cmd.py", "-21km.png"))
+
+    def test_generate_sample_image_trail(self):
+        garmin_activity_id = TEST_ACTIVITIES[8]["garmin_activity_id"]
+        p = PlotSimpleRunApiCmd(
+            garmin_activity_id,
+            title="Arenzano Mari e Monti",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace("_cmd.py", "-trail.png"))
 
     def test_generate_sample_image_w_comparison(self):
         garmin_activity_id = TEST_ACTIVITIES[3]["garmin_activity_id"]
@@ -320,6 +336,56 @@ class TestPlotSimpleRunApi:
             prev_runs_activity_ids_to_compare=[
                 TEST_ACTIVITIES[2]["garmin_activity_id"]
             ],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_do_add_elev_to_pace_plot_none_and_elev_less_300(self):
+        garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
+        p = PlotSimpleRunApiCmd(
+            garmin_activity_id,
+            # do_add_elev_to_pace_plot = None,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_do_add_elev_to_pace_plot_none_and_elev_more_300(self):
+        garmin_activity_id = TEST_ACTIVITIES[8]["garmin_activity_id"]
+        p = PlotSimpleRunApiCmd(
+            garmin_activity_id,
+            title="Arenzano Mari e Monti",
+            # do_add_elev_to_pace_plot = None,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_do_add_elev_to_pace_plot_true(self):
+        garmin_activity_id = TEST_ACTIVITIES[4]["garmin_activity_id"]
+        p = PlotSimpleRunApiCmd(
+            garmin_activity_id,
+            do_add_elev_to_pace_plot=True,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_do_add_elev_to_pace_plot_false(self):
+        garmin_activity_id = TEST_ACTIVITIES[8]["garmin_activity_id"]
+        p = PlotSimpleRunApiCmd(
+            garmin_activity_id,
+            title="Arenzano Mari e Monti",
+            do_add_elev_to_pace_plot=False,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         p.plot(

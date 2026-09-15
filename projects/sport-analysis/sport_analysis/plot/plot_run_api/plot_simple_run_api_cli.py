@@ -85,11 +85,19 @@ console = ConsoleAdapter()
 )
 @click.option(
     # OPTIONAL arg.
-    "--no-hr-in-pace-plot",
+    "--without-hr-in-pace-plot",
     "do_skip_hr_in_pace_plot",
     is_flag=True,
     default=False,
     help="Optionally skip adding HR line in the pace plot; auto skipped when --activity-id-to-compare is given",
+)
+@click.option(
+    # OPTIONAL arg.
+    "--with-elev-in-pace-plot/--without-elev-in-pace-plot",
+    "do_add_elev_to_pace_plot",
+    is_flag=True,
+    default=None,
+    help="Optionally force the plotting of elevation in the pace plot; if not given, the elev is auto plotted when > 300m",
 )
 @click.option(
     # OPTIONAL arg.
@@ -149,6 +157,7 @@ def plot_simple_run_api_cli_view(
     percentile_to_draw: base_plot.PERCENTILE_TO_DRAW_ENUM | None = None,
     pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
     do_skip_hr_in_pace_plot: bool = False,
+    do_add_elev_to_pace_plot: bool | None = None,
     title: str | None = None,
     figure_size: tuple[float] | None = None,
     dir_or_file_path: Path | None = None,
@@ -158,6 +167,7 @@ def plot_simple_run_api_cli_view(
     """
     Plot the given Garmin activity id as a simple run.
     """
+
     # Parse dir_or_file_path.
     save_to_png_file_path: Path | None = None
     if dir_or_file_path is not None:
@@ -173,11 +183,12 @@ def plot_simple_run_api_cli_view(
         raise click.BadParameter("activity id required with --no-questions")
     while not is_input_valid:
         text = "*Required* Garmin ACTIVITY ID (eg. 24018992823 | LATEST-3)\n"
+        instruction = ">"
         x = (
             # unsafe_ask() so it can be stopped with ctrl-c.
             # Cannot use `validate=<questionary.Validator subclass>` because that is for
             #  the live validation, it's run on every keystroke and returns None.
-            questionary.text(text).unsafe_ask()
+            questionary.text(text, instruction=instruction).unsafe_ask()
             or None
         )
         if x is None:  # Required.
@@ -197,7 +208,7 @@ def plot_simple_run_api_cli_view(
         instruction += "    22975082447 5km 19:11 (ESET Melegnano, 22/5/'26)\n"
         instruction += "    22257100921 10km 40:43 (DKRace Monza, 22/3/'26)\n"
         instruction += (
-            "    22496738231 HM 1:29:37 (Mezza 2 Laghi Grav.Toce, 12/4/'26)\n"
+            "    22496738231 HM 1:29:37 (Mezza 2 Laghi Grav.Toce, 12/4/'26)\n  >"
         )
         x = (
             # unsafe_ask() so it can be stopped with ctrl-c.
@@ -220,8 +231,10 @@ def plot_simple_run_api_cli_view(
         do_skip_hr_in_pace_plot = True
     elif not do_skip_hr_in_pace_plot and not do_skip_any_questions:
         text = "Optional NO HR IN PACE PLOT\n"
-        instruction = "Skip adding HR line in the pace plot\n"
-        instruction += "Auto skipped when --activity-id-to-compare is given\n(y/N*)"
+        instruction = " Skip adding HR line in the pace plot\n"
+        instruction += (
+            "  Auto skipped when --activity-id-to-compare is given\n  > (y/N*) "
+        )
         do_skip_hr_in_pace_plot = questionary.confirm(
             text, default=False, instruction=instruction
         ).unsafe_ask()
@@ -277,7 +290,7 @@ def plot_simple_run_api_cli_view(
         instruction = (
             "Cut out, of the visible part of the MA(pace) chart, the slowest\n"
             "  given % (eg. 0.45%) pace datapoints so the chart becomes less\n"
-            "  compressed vertically\n"
+            "  compressed vertically\n  >"
         )
         x = (
             # unsafe_ask() so it can be stopped with ctrl-c.
@@ -293,22 +306,51 @@ def plot_simple_run_api_cli_view(
                 )
             is_input_valid = True
 
+    # Optional arg: do_add_elev_to_pace_plot.
+    if do_add_elev_to_pace_plot is None and not do_skip_any_questions:
+        text = "Optional ADD ELEVATION TO PACE PLOT\n"
+        instruction = "Forcibly add elevation line to the pace plot\n"
+        instruction += " If None, the elevation is auto plotted when >300m"
+        # do_add_elev_to_pace_plot = questionary.confirm(
+        #     text, default=False, instruction=instruction
+        # ).unsafe_ask()
+        do_add_elev_to_pace_plot = (
+            # unsafe_ask() so it can be stopped with ctrl-c.
+            # Cannot use `validate=<questionary.Validator subclass>` because that is for
+            #  the live validation, it's run on every keystroke and returns None.
+            questionary.select(
+                text,
+                instruction=instruction,
+                choices=["*None", "yes", "no"],
+                style=QUESTIONARY_SELECT_STYLE,
+            ).unsafe_ask()
+            or None
+        )
+        if do_add_elev_to_pace_plot == "*None":
+            do_add_elev_to_pace_plot = None
+        elif do_add_elev_to_pace_plot == "yes":
+            do_add_elev_to_pace_plot = True
+        else:
+            do_add_elev_to_pace_plot = False
+
     # Optional arg: title.
     if title is None and not do_skip_any_questions:
         text = "Optional TITLE (eg. 80/20 run)\n"
+        instruction = ">"
         # unsafe_ask() so it can be stopped with ctrl-c.
         # Cannot use `validate=<questionary.Validator subclass>` because that is for
         #  the live validation, it's run on every keystroke and returns None.
-        title = questionary.text(text).unsafe_ask() or None
+        title = questionary.text(text, instruction=instruction).unsafe_ask() or None
 
     # Optional arg: figure_size.
     is_input_valid = True if figure_size is not None else False
     while not is_input_valid and not do_skip_any_questions:
         text = "Optional FIGURE SIZE (eg. 5.0 7.0)\n"
+        instruction = ">"
         # unsafe_ask() so it can be stopped with ctrl-c.
         # Cannot use `validate=<questionary.Validator subclass>` because that is for
         #  the live validation, it's run on every keystroke and returns None.
-        x = questionary.text(text).unsafe_ask() or None
+        x = questionary.text(text, instruction=instruction).unsafe_ask() or None
         with suppress(questionary_parsers.ParserValidationError):
             if x is not None:
                 figure_size = questionary_parsers.parse_multiple_floats_input(
@@ -320,12 +362,15 @@ def plot_simple_run_api_cli_view(
     is_input_valid = True if save_to_png_file_path is not None else False
     while not is_input_valid and not do_skip_any_questions:
         text = "Optional DIR or FILE PATH (eg. output-images | /tmp/my-dir | /tmp/foo.png)\n"
+        instruction = ">"
         # unsafe_ask() so it can be stopped with ctrl-c.
         # Cannot use `validate=<questionary.Validator subclass>` because that is for
         #  the live validation, it's run on every keystroke and returns None.
         x = (
             questionary.text(
-                text, default=str((ROOT_DIR / "output-images").relative_to(ROOT_DIR))
+                text,
+                instruction=instruction,
+                default=str((ROOT_DIR / "output-images").relative_to(ROOT_DIR)),
             ).unsafe_ask()
             or None
         )
@@ -358,6 +403,10 @@ def plot_simple_run_api_cli_view(
             cli_msg += f" --pace-plot-set-y-axis-bottom-to-slowest-pace-perc {pace_plot_set_y_axis_bottom_to_slowest_pace_perc}"
         if do_skip_hr_in_pace_plot:
             cli_msg += f" --no-hr-in-pace-plot"
+        if do_add_elev_to_pace_plot is True:
+            cli_msg += f" --with-elev-in-pace-plot"
+        elif do_add_elev_to_pace_plot is False:
+            cli_msg += f" --without-elev-in-pace-plot"
         if title:
             cli_msg += f" --title '{title}'"
         if figure_size:
@@ -376,6 +425,7 @@ def plot_simple_run_api_cli_view(
             "percentile_to_draw",
             "pace_plot_set_y_axis_bottom_to_slowest_pace_perc",
             "do_skip_hr_in_pace_plot",
+            "do_add_elev_to_pace_plot",
             "title",
             "figure_size",
             "do_skip_any_questions",
@@ -393,6 +443,7 @@ def plot_simple_run_api_cli_view(
         percentile_to_draw=percentile_to_draw,
         pace_plot_set_y_axis_bottom_to_slowest_pace_perc=pace_plot_set_y_axis_bottom_to_slowest_pace_perc,
         do_skip_hr_in_pace_plot=do_skip_hr_in_pace_plot,
+        do_add_elev_to_pace_plot=do_add_elev_to_pace_plot,
         title=title,
         figure_size=figure_size or None,
     )

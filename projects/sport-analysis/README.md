@@ -56,6 +56,7 @@ $ san plot-10km-run 19005790234 -vs 19074660632 --title "Fosso BG" --figure-size
 ![](sport_analysis/plot/plot_run_api/plot_simple_run_api-10km.png)
 ![](sport_analysis/plot/plot_run_api/plot_simple_run_api-7km-comparison.png)
 ![](sport_analysis/plot/plot_run_api/plot_simple_run_api-21km.png)
+![](sport_analysis/plot/plot_run_api/plot_simple_run_api-trail.png)
 
 ### 300 m interval run (api)
 ```sh

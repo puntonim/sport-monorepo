@@ -888,8 +888,14 @@ def _make_subtitle(
     activity_original_start_time_local: str,
     activity_original_duration: int,
     activity_original_distance: int,
+    activity_original_elevation_gain: int | None = None,
 ):
-    subtitle = f"{activity_original_start_time_local[:10]} for {round(activity_original_distance / 1000, 2)}km in {datetime_utils.seconds_to_hh_mm_ss(round(activity_original_duration))}"
+    subtitle = f"{activity_original_start_time_local[:10]} for {round(activity_original_distance / 1000, 2)}km"
+    if activity_original_elevation_gain:
+        subtitle += f" {round(activity_original_elevation_gain)}m+"
+    subtitle += (
+        f" in {datetime_utils.seconds_to_hh_mm_ss(round(activity_original_duration))}"
+    )
     return subtitle
 
 

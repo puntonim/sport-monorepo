@@ -147,7 +147,7 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         a0.set_ylabel("Heart rate [bpm]", fontsize=9)
 
         # Plot Elevation.
-        # Create a new axes that shares the x-axis.
+        # Create new axes that shares the x-axis.
         a1 = a0.twinx()
         a1.plot(
             xdata_time,

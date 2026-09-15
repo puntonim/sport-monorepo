@@ -51,6 +51,10 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
      optionally compared with previous runs.
     """
 
+    # Runs with more than this elevation gain are considered trai runs and the elevation
+    #  is plot in the pace plot.
+    MIN_ELEV_GAIN_TO_AUTO_PLOT_ELEV = 300  # meters.
+
     def __init__(
         self,
         # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
@@ -61,6 +65,9 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         hr_zones_to_hatch: Sequence[str] | None = None,
         pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
         do_skip_hr_in_pace_plot: bool = False,
+        # Add elevation to the pace plot. If None, then the elev is automatically
+        #  plotted in pace plot when > 300m.
+        do_add_elev_to_pace_plot: bool | None = None,
         title: str | None = None,
         figure_size: tuple[float, float] | None = None,
         garmin_connect_token_manager: (
@@ -85,6 +92,8 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             do_skip_hr_in_pace_plot: skip adding HR line in the pace plot. It's forcibly
              skipped when there are prev_runs_activity_ids_to_compare (otherwise the
              plot becomes too messy).
+            do_add_elev_to_pace_plot: add elevation to the pace plot. If None, then the
+             elev is automatically plotted in pace plot when > 300m.
             title: plot title.
             figure_size: customize the figure size, eg. (3.0, 5.5).
             garmin_connect_token_manager: use FakeTestGarminConnectTokenManager when
@@ -106,6 +115,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         #  prev_runs_activity_ids_to_compare (otherwise the plot becomes too messy).
         if self.prev_runs_activity_ids_to_compare:
             self.do_skip_hr_in_pace_plot = True
+        self.do_add_elev_to_pace_plot = do_add_elev_to_pace_plot
 
         ## Validate some args: hr_zones_to_hatch, percentile_to_draw.
         self.hr_zones_to_hatch = hr_zones_to_hatch or tuple()
@@ -214,7 +224,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             alpha=0.8,
             linewidth=3.0,
         )
-
+        # Plot HR.
         if not self.do_skip_hr_in_pace_plot:
             # Get HR.
             ydata_hr = self._s[0].details_resp.get_heartrate_stream(
@@ -231,10 +241,74 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                 alpha=0.2,
             )
 
+        # Plot Elevation.
+        if self.do_add_elev_to_pace_plot:
+            ydata_elevation = self._s[0].details_resp.get_altitude_stream()
+            # Create new axes that shares the x-axis.
+            atwinx_elev: Axes = a.twinx()
+            atwinx_elev.plot(
+                xdata_distance,
+                ydata_elevation,
+                color="gray",
+                alpha=0.2,
+                linewidth=0,
+                linestyle="-",
+                # marker=".",
+                # label="Elevation",
+            )
+            atwinx_elev.fill_between(
+                x=xdata_distance,
+                y1=ydata_elevation,
+                color="gray",
+                alpha=0.1,
+            )
+            atwinx_elev.get_yaxis().set_visible(False)
+            # Annotate the max elevation.
+            max_elev_ix = np.argmax(ydata_elevation)
+            atwinx_elev.annotate(
+                f"max {round(ydata_elevation[max_elev_ix])}m",
+                (xdata_distance[max_elev_ix], ydata_elevation[max_elev_ix]),
+                xytext=(0, 0),
+                textcoords="offset fontsize",
+                color="gray",
+                alpha=0.7,
+                fontsize=8,
+                # fontweight="bold",
+                horizontalalignment="center",
+                path_effects=[
+                    path_effects.withStroke(
+                        linewidth=2,
+                        foreground="white",
+                        capstyle="round",
+                        alpha=1,
+                    ),
+                ],
+            )
+            # Annotate the min elevation.
+            min_elev_ix = np.argmin(ydata_elevation)
+            atwinx_elev.annotate(
+                f"min {round(ydata_elevation[min_elev_ix])}m",
+                (xdata_distance[min_elev_ix], ydata_elevation[min_elev_ix]),
+                xytext=(0, 0),
+                textcoords="offset fontsize",
+                color="gray",
+                alpha=0.7,
+                fontsize=8,
+                # fontweight="bold",
+                horizontalalignment="center",
+                path_effects=[
+                    path_effects.withStroke(
+                        linewidth=2,
+                        foreground="white",
+                        capstyle="round",
+                        alpha=1,
+                    ),
+                ],
+            )
+
+        ## SECONDARY activities (plot their PACE).
         # Tracking the max distance.
         max_dist = xdata_distance[-1]
-
-        ## SECONDARY activities.
         for i in range(1, len(self._s)):
             details_2nd = self._s[i].details_resp
             # summary_2nd = self._s[i].summary_resp
@@ -375,8 +449,8 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             # Write text annotation for PACE and HR with the matching colors..
             a.annotate(
                 "PACE",
-                (a.get_xlim()[0], a.get_ylim()[0]),
-                xytext=(0.3, 0.2),
+                (a.get_xlim()[0], a.get_ylim()[1]),
+                xytext=(0.3, -1.2),
                 textcoords="offset fontsize",
                 color=base_plot.COL_PLUM,
                 alpha=0.6,
@@ -393,8 +467,8 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             )
             a.annotate(
                 "HR",
-                (a.get_xlim()[0], a.get_ylim()[0]),
-                xytext=(3.7, 0.2),
+                (a.get_xlim()[0], a.get_ylim()[1]),
+                xytext=(3.7, -1.2),
                 textcoords="offset fontsize",
                 color="red",
                 alpha=0.3,
@@ -652,7 +726,16 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         # Fill in the splits only for the main activity.
         self._s[0].splits_resp = self._api_get_activity_splits(self.garmin_activity_id)
 
+        # Print dates to console.
         self.print_activity_date(self._s[0].summary_resp.summary["startTimeLocal"])
+
+        # Decide if plotting the elevation gain or not.
+        if self.do_add_elev_to_pace_plot is None:
+            elevation_gain = self._s[0].summary_resp.summary["elevationGain"]
+            if elevation_gain > self.MIN_ELEV_GAIN_TO_AUTO_PLOT_ELEV:
+                self.do_add_elev_to_pace_plot = True
+            else:
+                self.do_add_elev_to_pace_plot = False
 
         # Figure.
         figure, self._axes_mosaic = self._make_subplot_mosaic()
@@ -671,12 +754,17 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             custom_title=self.title,
         )
         figure.suptitle(title + "\n  ", fontweight="bold")
+        elev_kwarg = dict()
+        if self.do_add_elev_to_pace_plot:
+            elevation_gain = self._s[0].summary_resp.summary["elevationGain"]
+            elev_kwarg["activity_original_elevation_gain"] = elevation_gain
         subtitle = _make_subtitle(
             activity_original_start_time_local=self._s[0].summary_resp.summary[
                 "startTimeLocal"
             ],
             activity_original_duration=self._s[0].summary_resp.summary["duration"],
             activity_original_distance=self._s[0].summary_resp.summary["distance"],
+            **elev_kwarg,
         )
         figure.text(
             figure.get_figwidth() / 2,  # Inches.

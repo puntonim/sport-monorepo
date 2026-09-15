@@ -1,4 +1,7 @@
 
+- Usa path_effects in tutte le scritte che possono sovrapporsi come fatto per
+   avg in plot_simple_run_api_cmd.py linea 378
+
 - in plot-simple-run voglio elapsed time o moving time?
 Note: how to interpret duration:
     **DURATION**: the total time that the device's internal timer was actively recording.
@@ -11,10 +14,10 @@ Note: how to interpret duration:
        my watch was not auto-paused.
     **ELAPSED DURATION**: wall-clock from start to end of the activity.
 
-- Usa path_effects in tutte le scritte che possono sovrapporsi come fatto per
-   avg in plot_simple_run_api_cmd.py linea 378
+
 
 - evidenziare le domande in questionary?
+  E usa ">" come ho fatto in plot-simple-run
 
 - Infine usa il nuovo ACTIVITY_ID_PARAM_TYPE in tutti i comandi che ora usano LATEST
   (cioè i comandi plot, facendo attenz che plot-run deve supportare solo LATEST-RUN
