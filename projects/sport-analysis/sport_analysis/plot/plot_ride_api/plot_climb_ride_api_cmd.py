@@ -351,6 +351,9 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             ],
             activity_original_duration=self._s[0].summary_resp.summary["duration"],
             activity_original_distance=self._s[0].summary_resp.summary["distance"],
+            activity_original_elevation_gain=self._s[0].summary_resp.summary[
+                "elevationGain"
+            ],
         )
         figure.text(
             figure.get_figwidth() / 2,  # Inches.
