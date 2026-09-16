@@ -96,18 +96,21 @@ class ActivityDetailsResponse(BaseGarminResponse):
     #  directGroundContactTime, ...
     # Timestamp GMT when the datapoint was collected.
     _ts_stream: list[float]  # directTimestamp in gmt [s], eg. 1742663472000.0.
-    # Seconds elapsed since the start. It's the diff between timestamps.
+    # Wall-clock from start to end of the activity. So seconds elapsed since the start.
+    #  So it's just the diff between timestamps.
     _elapsed_time_stream: list[float]  # sumElapsedDuration [s], eg. 3996.0.
-    # Seconds since the start, excluding the time when the device was paused.
-    # Note that the device might not have been paused, but the athlete be still (because
-    #  the athlete forgot to pause).
+    # The total time that the device's internal timer was actively recording.
+    #  It excludes the time when I manually paused the watch, and when the watch was
+    #  auto-paused (if such feat was enabled).
+    # Note that the device might not have been manually or automatically paused, but
+    #  the athlete be still (because the athlete forgot to pause and auto-pause was off).
     # Note: it's the x-axis used in Garmin Connect website for charts over time,
     #  for example for the chart HR over time.
     _non_paused_time_stream: list[float]  # sumDuration [s], eg. 3996.0.
-    # Seconds since start, when the athlete was actually moving.
-    # It's computed checking the coords and it is the most reliable stream for the
-    #  moving time, as the device might not have been properly paused when the athlete
-    #  was still.
+    # The actual and precise moving time, calculated with post-processing of the GPS
+    #  coords. It excludes the time when I manually paused the watch, and when the watch
+    #  was auto-paused (if such feat was enabled), and when I was (almost) still but
+    #  my watch was not auto-paused.
     _moving_time_stream: list[float]  # sumMovingDuration [s], eg. 3993.0.
     _distance_stream: list[float]  # sumDistance [m], eg. 10100.8203125.
     _speed_stream: list[float]  # directSpeed [mps], eg. 4.198999881744385.

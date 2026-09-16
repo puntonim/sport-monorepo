@@ -5,11 +5,6 @@ from typing import Sequence
 import datetime_utils
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from garmin_connect_client import ActivityDetailsResponse, ActivitySummaryResponse
-from garmin_connect_client.garmin_connect_token_managers import (
-    FakeTestGarminConnectTokenManager,
-    FileGarminConnectTokenManager,
-)
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from strava_client import SegmentEffortNotFound, StravaClient, StreamsResponse
@@ -17,6 +12,12 @@ from strava_client.strava_token_managers import (
     AwsParameterStoreStravaTokenManager,
     FakeTestStravaTokenManager,
     FileStravaTokenManager,
+)
+
+from garmin_connect_client import ActivityDetailsResponse, ActivitySummaryResponse
+from garmin_connect_client.garmin_connect_token_managers import (
+    FakeTestGarminConnectTokenManager,
+    FileGarminConnectTokenManager,
 )
 
 from ...base_cli_view import ConsoleAdapter
@@ -349,7 +350,12 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             activity_original_start_time_local=self._s[0].summary_resp.summary[
                 "startTimeLocal"
             ],
-            activity_original_duration=self._s[0].summary_resp.summary["duration"],
+            activity_original_elapsed_duration=self._s[0].summary_resp.summary[
+                "elapsedDuration"
+            ],
+            activity_original_moving_duration=self._s[0].summary_resp.summary[
+                "movingDuration"
+            ],
             activity_original_distance=self._s[0].summary_resp.summary["distance"],
             activity_original_elevation_gain=self._s[0].summary_resp.summary[
                 "elevationGain"

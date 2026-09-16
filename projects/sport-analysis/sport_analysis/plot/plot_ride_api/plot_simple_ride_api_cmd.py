@@ -3,13 +3,14 @@ from pathlib import Path
 from typing import Sequence
 
 import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+
 from garmin_connect_client import ActivityDetailsResponse, ActivitySummaryResponse
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
 )
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
 
 from ...base_cli_view import ConsoleAdapter
 from ...conf import settings
@@ -161,7 +162,12 @@ class PlotSimpleRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlo
             activity_original_start_time_local=self._s[0].summary_resp.summary[
                 "startTimeLocal"
             ],
-            activity_original_duration=self._s[0].summary_resp.summary["duration"],
+            activity_original_elapsed_duration=self._s[0].summary_resp.summary[
+                "elapsedDuration"
+            ],
+            activity_original_moving_duration=self._s[0].summary_resp.summary[
+                "movingDuration"
+            ],
             activity_original_distance=self._s[0].summary_resp.summary["distance"],
         )
         figure.text(

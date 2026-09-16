@@ -2,6 +2,10 @@ Note: how to interpret duration:
     **DURATION**: the total time that the device's internal timer was actively recording.
       It excludes the time when I manually paused the watch, and when the watch was
        auto-paused (if such feat was enabled).
+       Note that the device might not have been manually or automatically paused, but
+        the athlete be still (because the athlete forgot to pause and auto-pause was off).
+       Note: it's the x-axis used in Garmin Connect website for charts over time,
+        for example for the chart HR over time.
     **MOVING DURATION**: the actual and precise moving time, calculated with 
       post-processing of the GPS coords.
       It excludes the time when I manually paused the watch, and when the watch was
@@ -111,6 +115,10 @@ summary = garmin.get_activity(18923007987)
     # **DURATION**: the total time that the device's internal timer was actively recording.
     #   It excludes the time when I manually paused the watch, and when the watch was
     #    auto-paused (if such feat was enabled).
+    #   Note that the device might not have been manually or automatically paused, but
+    #    the athlete be still (because the athlete forgot to pause and auto-pause was off).
+    #   Note: it's the x-axis used in Garmin Connect website for charts over time,
+    #    for example for the chart HR over time.    
     # **MOVING DURATION**: the actual and precise moving time, calculated with 
     #   post-processing of the GPS coords.
     #   It excludes the time when I manually paused the watch, and when the watch was

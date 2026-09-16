@@ -1,22 +1,5 @@
 
 
-- aggiungi dislivello (m+) in subtitle del plot-climb-ride
-   come fato per plot-simple-run
-
-- in plot-simple-run voglio elapsed time o moving time?
-Note: how to interpret duration:
-    **DURATION**: the total time that the device's internal timer was actively recording.
-      It excludes the time when I manually paused the watch, and when the watch was
-       auto-paused (if such feat was enabled).
-    **MOVING DURATION**: the actual and precise moving time, calculated with 
-      post-processing of the GPS coords.
-      It excludes the time when I manually paused the watch, and when the watch was
-       auto-paused (if such feat was enabled), and when I was (almost) steady but
-       my watch was not auto-paused.
-    **ELAPSED DURATION**: wall-clock from start to end of the activity.
-
-
-
 - evidenziare le domande in questionary?
   E usa ">" come ho fatto in plot-simple-run
 

@@ -10,13 +10,14 @@ import matplotlib.pyplot as plt
 import number_utils
 import numpy as np
 import speed_utils
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+
 from garmin_connect_client import ActivitySummaryResponse, ActivityTypedSplitsResponse
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
 )
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
 
 from ...base_cli_view import ConsoleAdapter
 from .. import base_api, base_plot
@@ -195,6 +196,8 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
 
         ## MAIN activity.
         # X and y data.
+        # Note: it's an interval, so there is no pause nor still time, and so
+        #  elapsed time is the best choice (better than moving time).
         xdata_times = [_["elapsedDuration"] for _ in self._s[0].splits]
         avg = mean(xdata_times)
         # Add zeros if this n of splits is less than the max n splits found in any activity.
@@ -229,6 +232,8 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         ## SECONDARY activities.
         for i in range(1, len(self._s)):
             # X data.
+            # Note: it's an interval, so there is no pause nor still time, and so
+            #  elapsed time is the best choice (better than moving time).
             xdata_times = [_["elapsedDuration"] for _ in self._s[i].splits]
             avg = mean(xdata_times)
             # Add zeros if this n of splits is less than the max n splits found in any activity.
@@ -832,7 +837,12 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             activity_original_start_time_local=self._s[0].summary_resp.summary[
                 "startTimeLocal"
             ],
-            activity_original_duration=self._s[0].summary_resp.summary["duration"],
+            activity_original_elapsed_duration=self._s[0].summary_resp.summary[
+                "elapsedDuration"
+            ],
+            activity_original_moving_duration=self._s[0].summary_resp.summary[
+                "movingDuration"
+            ],
             activity_original_distance=self._s[0].summary_resp.summary["distance"],
         )
         figure.text(

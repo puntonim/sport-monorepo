@@ -9,6 +9,12 @@ import numpy as np
 import pandas as pd
 import speed_utils
 import text_utils
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+from matplotlib.legend_handler import HandlerTuple
+from rich import box
+from rich.table import Table
+
 from garmin_connect_client import (
     ActivityDetailsResponse,
     ActivitySplitsResponse,
@@ -18,11 +24,6 @@ from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
 )
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
-from matplotlib.legend_handler import HandlerTuple
-from rich import box
-from rich.table import Table
 
 from ...base_cli_view import ConsoleAdapter
 from ...conf import settings
@@ -184,9 +185,8 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             # And compute the diff in meters between the last and the first datapoint in the window.
             .apply(lambda x: x.iloc[-1] - x.iloc[0]).mean()[0]
         )
-        elapsed_time_stream = self._s[0].details_resp.get_elapsed_time_stream()
         rolling_window_avg_time = (
-            pd.DataFrame(elapsed_time_stream)
+            pd.DataFrame(_moving_time_stream)
             # Apply the same rolling window as MA(pace) to the time stream.
             .rolling(window=_rolling_window_size, center=True)
             # And compute the diff in seconds between the last and the first datapoint in the window.
@@ -355,7 +355,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         ## Format.
         # Axes labels.
         a.set_ylabel("Pace [min/km]", fontsize=9)
-        a.set_xlabel("Distance [km], Time", fontsize=9, labelpad=13.0)
+        a.set_xlabel("Distance [km], Time moving", fontsize=9, labelpad=13.0)
 
         # axes.xaxis.set_label_position("top")
         # Invert the y-axis so the fastest pace is on top.
@@ -615,26 +615,35 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         table.add_column("cum\nkm", justify="right", no_wrap=True)
         table.add_column("pace", justify="right", style="yellow", no_wrap=True)
         table.add_column("cum\npace", justify="right", style="yellow", no_wrap=True)
-        table.add_column("cum\ntime", justify="right", no_wrap=True)
+        table.add_column("cum\nmoving\ntime", justify="right", no_wrap=True)
+        table.add_column("cum\nelaps\ntime", justify="right", no_wrap=True)
         table.add_column("elev", justify="right", no_wrap=True)
         table.add_column("avg\nHR", justify="right", no_wrap=True)
         table.add_column("max\nHR", justify="right", no_wrap=True)
 
         distance_cum = 0
-        duration_cum = 0
+        non_paused_time_cum = 0
+        elapsed_time_cum = 0
+        moving_time_cum = 0
         for split in self._s[0].splits_resp.splits:
             distance = split["distance"]
             distance_cum += distance
             distance_str = str(round(distance / 1000, 1))
             distance_cum_str = str(round(distance_cum / 1000, 1))
 
-            duration = split["duration"]  # duration seems better than movingDuration.
-            duration_cum += duration
-            duration_cum_str = datetime_utils.seconds_to_hh_mm_ss(
-                round(duration_cum), do_hide_hours_and_mins_if_zero=True
+            non_paused_time_cum += split["duration"]
+            elapsed_time_cum += split["elapsedDuration"]
+            moving_time_cum += split["movingDuration"]
+            elapsed_time_cum_str = datetime_utils.seconds_to_hh_mm_ss(
+                round(elapsed_time_cum), do_hide_hours_and_mins_if_zero=True
             )
+            moving_time_cum_str = datetime_utils.seconds_to_hh_mm_ss(
+                round(moving_time_cum), do_hide_hours_and_mins_if_zero=True
+            )
+            # Mind that Garmin computes the pace with the NON PAUSED TIME (and not with
+            #  the MOVING TIME).
             pace_cum_str = datetime_utils.seconds_to_hh_mm_ss(
-                round(duration_cum / distance_cum * 1000),
+                round(non_paused_time_cum / distance_cum * 1000),
                 do_hide_hours_and_mins_if_zero=True,
             )
             pace_str = speed_utils.minpkm_base10_to_base60(
@@ -647,7 +656,8 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                 distance_cum_str,
                 pace_str,
                 pace_cum_str,
-                duration_cum_str,
+                moving_time_cum_str,
+                elapsed_time_cum_str,
                 elevation_str,
                 str(round(split["averageHR"])),
                 str(round(split["maxHR"])),
@@ -726,7 +736,12 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             activity_original_start_time_local=self._s[0].summary_resp.summary[
                 "startTimeLocal"
             ],
-            activity_original_duration=self._s[0].summary_resp.summary["duration"],
+            activity_original_moving_duration=self._s[0].summary_resp.summary[
+                "movingDuration"
+            ],
+            activity_original_elapsed_duration=self._s[0].summary_resp.summary[
+                "elapsedDuration"
+            ],
             activity_original_distance=self._s[0].summary_resp.summary["distance"],
             **elev_kwarg,
         )
@@ -734,7 +749,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             figure.get_figwidth() / 2,  # Inches.
             figure.get_figheight() - 0.35,  # Inches.
             subtitle,
-            fontsize=10,
+            fontsize=9,
             horizontalalignment="center",
             transform=figure.dpi_scale_trans,  # Use inches as figure size.
         )
@@ -827,12 +842,14 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         _speed_avg = summary.summary["averageSpeed"]
         pace_base10_avg = speed_utils.mps_to_minpkm_base10(_speed_avg)
         cadence = summary.summary["averageRunCadence"]
-        duration = summary.summary["duration"]
+        moving_duration = summary.summary["movingDuration"]
         distance = summary.summary["distance"]
         legend_label += f"\n{speed_utils.minpkm_base10_to_base60(pace_base10_avg)}/km"
         legend_label += f" {round(cadence)}spm"
         legend_label += f" for {round(distance/1000, 2)}km"
-        legend_label += f" in {datetime_utils.seconds_to_hh_mm_ss(round(duration))}"
+        legend_label += (
+            f" in {datetime_utils.seconds_to_hh_mm_ss(round(moving_duration))}"
+        )
         # HRM.
         if not summary.has_heart_rate_monitor():
             legend_label += " without HRM"
