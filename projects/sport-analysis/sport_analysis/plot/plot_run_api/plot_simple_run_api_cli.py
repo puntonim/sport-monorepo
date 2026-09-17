@@ -10,7 +10,28 @@ from ...utils import questionary_parsers
 from .. import base_plot
 from .plot_simple_run_api_cmd import PlotSimpleRunApiCmd
 
-QUESTIONARY_SELECT_STYLE = questionary.Style([("highlighted", "fg:red")])
+QUESTIONARY_STYLE = questionary.Style(
+    [
+        ("qmark", "fg:#859901 bold"),  # token in front of the question
+        ("question", "fg:#859901 bold"),  # question text.
+        ("highlighted", "fg:orange"),  # pointed-at choice in select & checkbox prompts.
+        ("answer", "fg:orange bold"),  # submitted answer text behind the question.
+        ("selected", "fg:orange"),  # style for a selected item of a checkbox
+        #
+        # Original:
+        # ('qmark', 'fg:#673ab7 bold'),       # token in front of the question
+        # ("question", "bold"),  # question text
+        # ('answer', 'fg:#f44336 bold'),      # submitted answer text behind the question
+        # ('pointer', 'fg:#673ab7 bold'),     # pointer used in select and checkbox prompts
+        # ('highlighted', 'fg:#673ab7 bold'), # pointed-at choice in select and checkbox prompts
+        # ('selected', 'fg:#cc5454'),         # style for a selected item of a checkbox
+        # ('separator', 'fg:#cc5454'),        # separator in lists
+        # ('instruction', ''),                # user instructions for select, rawselect, checkbox
+        # ('text', ''),                       # plain text
+        # ('disabled', 'fg:#858585 italic')   # disabled choices for select and checkbox prompts
+    ]
+)
+
 
 console = ConsoleAdapter()
 
@@ -188,7 +209,9 @@ def plot_simple_run_api_cli_view(
             # unsafe_ask() so it can be stopped with ctrl-c.
             # Cannot use `validate=<questionary.Validator subclass>` because that is for
             #  the live validation, it's run on every keystroke and returns None.
-            questionary.text(text, instruction=instruction).unsafe_ask()
+            questionary.text(
+                text, instruction=instruction, style=QUESTIONARY_STYLE
+            ).unsafe_ask()
             or None
         )
         if x is None:  # Required.
@@ -214,7 +237,9 @@ def plot_simple_run_api_cli_view(
             # unsafe_ask() so it can be stopped with ctrl-c.
             # Cannot use `validate=<questionary.Validator subclass>` because that is for
             #  the live validation, it's run on every keystroke and returns None.
-            questionary.text(text, instruction=instruction).unsafe_ask()
+            questionary.text(
+                text, instruction=instruction, style=QUESTIONARY_STYLE
+            ).unsafe_ask()
             or None
         )
         with suppress(questionary_parsers.ParserValidationError):
@@ -236,7 +261,7 @@ def plot_simple_run_api_cli_view(
             "  Auto skipped when --activity-id-to-compare is given\n  > (y/N*) "
         )
         do_skip_hr_in_pace_plot = questionary.confirm(
-            text, default=False, instruction=instruction
+            text, default=False, instruction=instruction, style=QUESTIONARY_STYLE
         ).unsafe_ask()
 
     # Optional arg: hr_zones_to_hatch.
@@ -256,7 +281,7 @@ def plot_simple_run_api_cli_view(
                 text,
                 instruction=instruction,
                 choices=zones,
-                style=QUESTIONARY_SELECT_STYLE,
+                style=QUESTIONARY_STYLE,
             ).unsafe_ask()
             or None
         )
@@ -276,7 +301,7 @@ def plot_simple_run_api_cli_view(
                 text,
                 instruction=instruction,
                 choices=["*None", *base_plot.PERCENTILE_TO_DRAW_ENUM],
-                style=QUESTIONARY_SELECT_STYLE,
+                style=QUESTIONARY_STYLE,
             ).unsafe_ask()
             or None
         )
@@ -296,7 +321,9 @@ def plot_simple_run_api_cli_view(
             # unsafe_ask() so it can be stopped with ctrl-c.
             # Cannot use `validate=<questionary.Validator subclass>` because that is for
             #  the live validation, it's run on every keystroke and returns None.
-            questionary.text(text, instruction=instruction).unsafe_ask()
+            questionary.text(
+                text, instruction=instruction, style=QUESTIONARY_STYLE
+            ).unsafe_ask()
             or None
         )
         with suppress(questionary_parsers.ParserValidationError):
@@ -322,7 +349,7 @@ def plot_simple_run_api_cli_view(
                 text,
                 instruction=instruction,
                 choices=["*None", "yes", "no"],
-                style=QUESTIONARY_SELECT_STYLE,
+                style=QUESTIONARY_STYLE,
             ).unsafe_ask()
             or None
         )
@@ -350,7 +377,12 @@ def plot_simple_run_api_cli_view(
         # unsafe_ask() so it can be stopped with ctrl-c.
         # Cannot use `validate=<questionary.Validator subclass>` because that is for
         #  the live validation, it's run on every keystroke and returns None.
-        x = questionary.text(text, instruction=instruction).unsafe_ask() or None
+        x = (
+            questionary.text(
+                text, instruction=instruction, style=QUESTIONARY_STYLE
+            ).unsafe_ask()
+            or None
+        )
         with suppress(questionary_parsers.ParserValidationError):
             if x is not None:
                 figure_size = questionary_parsers.parse_multiple_floats_input(
@@ -371,6 +403,7 @@ def plot_simple_run_api_cli_view(
                 text,
                 instruction=instruction,
                 default=str((ROOT_DIR / "output-images").relative_to(ROOT_DIR)),
+                style=QUESTIONARY_STYLE,
             ).unsafe_ask()
             or None
         )

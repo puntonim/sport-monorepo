@@ -9,7 +9,7 @@
   E sposta gli spm nel subtitle
   E aggiungi dislivello (600m+) nella legenda quando ci sono comparisons
 
-- evidenziare le domande in questionary?
+- evidenziare le domande in questionary come fatto in plot-simple-run
   E usa ">" come ho fatto in plot-simple-run
 
 - Infine usa il nuovo ACTIVITY_ID_PARAM_TYPE in tutti i comandi che ora usano LATEST
