@@ -1,4 +1,13 @@
+- sistema data screen x il track run sull orologio
 
+- sketch per il time interval run
+  Che poi dovrà diventare un nuovo comando:
+    plot-time-interval-run
+    plot-dist-interval-run
+
+- Togli legenda in fondo in plot-simple-run quando non c'è nessuna comparison
+  E sposta gli spm nel subtitle
+  E aggiungi dislivello (600m+) nella legenda quando ci sono comparisons
 
 - evidenziare le domande in questionary?
   E usa ">" come ho fatto in plot-simple-run
