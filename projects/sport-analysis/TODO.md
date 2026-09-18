@@ -1,13 +1,3 @@
-- usa la nuova lib in san con make poestry-destroy....
-  in plot-simple-run usa pace in mps (sezna convertire in min/km)
-  (e calcola le medie per assicurarsi che sia piu preciso)
-  e valutare se tenere la media mobile o abbassarla a 10 secs
-  DONE
-  ora mi piacerebbe avere tick per pace max
-  e verificare che gli split printati using il pace giusto in m/s
-
-- refactor pace_plot_set_y_axis_bottom_to_slowest_pace_perc to pace_plot_clip_y_axis 0.6 2.3
-  per tagliare sia in alto che in basso (usa test_generate_sample_image_21km)
 
 - window size parametrico
   piu il valore è grande piu i picchi vengono abbassati (smussati)

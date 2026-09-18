@@ -62,7 +62,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         percentile_to_draw: PERCENTILE_TO_DRAW_ENUM | str | None = None,
         # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
         hr_zones_to_hatch: Sequence[str] | None = None,
-        pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
+        pace_plot_clip_y_axis: tuple[float, float] | None = None,
         do_skip_hr_in_pace_plot: bool = False,
         # Add elevation to the pace plot. If None, then the elev is automatically
         #  plotted in pace plot when > 300m.
@@ -84,10 +84,10 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
              histogram.
             hr_zones_to_hatch: list of HR zones that are "disabled" by hatching
              (drawing 45deg grey lines). Eg. ["Z3", "Z4", "Z5"].
-            pace_plot_set_y_axis_bottom_to_slowest_pace_perc: eg. 0.45. In the
-             MA(pace) chart, cutting out of the visible part of the chart the slowest
-             0.45% pace datapoints. This is done because it is better visually: the
-             chart is less compressed vertically.
+            pace_plot_clip_y_axis: eg. (1.2, 0.45) | (0, 0.5). In the
+             MA(pace) chart, cutting out, of the visible part of the plot, the top % and
+             bottom % of data (so the fastest and slowest datapoints). This is done
+             because it is better visually: the plot is less compressed vertically.
             do_skip_hr_in_pace_plot: skip adding HR line in the pace plot. It's forcibly
              skipped when there are prev_runs_activity_ids_to_compare (otherwise the
              plot becomes too messy).
@@ -106,9 +106,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         )
         self.title = title
         self.figure_size = figure_size or tuple()
-        self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc = (
-            pace_plot_set_y_axis_bottom_to_slowest_pace_perc
-        )
+        self.pace_plot_clip_y_axis = pace_plot_clip_y_axis
         self.do_skip_hr_in_pace_plot = do_skip_hr_in_pace_plot
         # Forcibly skip the HR line in the pace plot when there are
         #  prev_runs_activity_ids_to_compare (otherwise the plot becomes too messy).
@@ -146,7 +144,8 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
     def _plot_pace(self):
         a: Axes = self._axes_mosaic["pace"]
 
-        _y_axis_bottom = 0
+        _y_axis_top = None
+        _y_axis_bottom = None
 
         ## MAIN activity.
         # X and y data.
@@ -196,7 +195,21 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         #  datapoint. In simpler words: cutting out of the visible part of the chart
         #  the slowest 0.5% pace datapoints. This is done because it is better
         #  visually: the chart is less compressed vertically.
-        if self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc:
+        if self.pace_plot_clip_y_axis:
+            _y_axis_top = (
+                ydata_pace_mps_df["MA(pace)"]
+                # Get the 0.5% largest datapoints, so the slowest paces.
+                .nlargest(
+                    round(
+                        ydata_pace_mps_df["MA(pace)"].size
+                        / 100
+                        * self.pace_plot_clip_y_axis[0]
+                    )
+                    or 1
+                )
+                # And get the last one, so the slowest of the fastest 0.5% paces.
+                .iloc[-1]
+            )
             _y_axis_bottom = (
                 ydata_pace_mps_df["MA(pace)"]
                 # Get the 0.5% largest datapoints, so the slowest paces.
@@ -204,7 +217,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                     round(
                         ydata_pace_mps_df["MA(pace)"].size
                         / 100
-                        * self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc
+                        * self.pace_plot_clip_y_axis[1]
                     )
                     or 1
                 )
@@ -329,7 +342,24 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             #  datapoint. In simpler words: cutting out of the visible part of the chart
             #  the slowest 0.5% pace datapoints. This is done because it is better
             #  visually: the chart is less compressed vertically.
-            if self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc:
+            if self.pace_plot_clip_y_axis:
+                _y_axis_top_2nd = (
+                    ydata_pace_2nd_df["MA(pace)"]
+                    # Get the 0.5% largest datapoints, so the slowest paces.
+                    .nlargest(
+                        round(
+                            ydata_pace_2nd_df["MA(pace)"].size
+                            / 100
+                            * self.pace_plot_clip_y_axis[0]
+                        )
+                        or 1
+                    )
+                    # And get the first one, so the slowest of the fastest 0.5% paces.
+                    .iloc[-1]
+                )
+                if _y_axis_top_2nd > _y_axis_top:
+                    _y_axis_top = _y_axis_top_2nd
+
                 _y_axis_bottom_2nd = (
                     ydata_pace_2nd_df["MA(pace)"]
                     # Get the 0.5% largest datapoints, so the slowest paces.
@@ -337,7 +367,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                         round(
                             ydata_pace_2nd_df["MA(pace)"].size
                             / 100
-                            * self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc
+                            * self.pace_plot_clip_y_axis[1]
                         )
                         or 1
                     )
@@ -375,7 +405,9 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
 
         # y axis limit: set the bottom of y-axis to the best pace of the lowest
         #  0.5% pace found.
-        if self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc:
+        if self.pace_plot_clip_y_axis and self.pace_plot_clip_y_axis[0]:
+            a.set_ylim(top=_y_axis_top)
+        if self.pace_plot_clip_y_axis and self.pace_plot_clip_y_axis[1]:
             a.set_ylim(bottom=_y_axis_bottom)
 
         # Z0, Z1, Z2, etc on the y axis right.

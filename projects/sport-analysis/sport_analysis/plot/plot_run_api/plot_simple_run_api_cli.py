@@ -80,11 +80,13 @@ console = ConsoleAdapter()
 )
 @click.option(
     # OPTIONAL arg.
-    "--pace-plot-set-y-axis-bottom-to-slowest-pace-perc",
-    type=float,
-    help="Optionally cutting out, of the visible part of the MA(pace) chart,"
-    " the slowest given % (eg. 0.45%) pace datapoints;"
-    " the chart becomes less compressed vertically; eg. --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 0.45",
+    "--pace-plot-clip-y-axis",
+    "pace_plot_clip_y_axis",
+    nargs=2,
+    type=click.Tuple([float, float]),
+    help="Optionally cutting out, of the visible part of the pace plot,"
+    " the top % and bottom % of data (so the fastest and slowest datapoints);"
+    " the plot becomes less compressed vertically; eg. --pace-plot-clip-y-axis 1.3 0.45 | --pace-plot-clip-y-axis 0 0.45",
 )
 @click.option(
     # OPTIONAL arg.
@@ -158,11 +160,11 @@ def plot_simple_run_api_cli_view(
     # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
     hr_zones_to_hatch: tuple[str] | None = None,
     percentile_to_draw: base_plot.PERCENTILE_TO_DRAW_ENUM | None = None,
-    pace_plot_set_y_axis_bottom_to_slowest_pace_perc: float | None = None,
+    pace_plot_clip_y_axis: tuple[float, float] | None = None,
     do_skip_hr_in_pace_plot: bool = False,
     do_add_elev_to_pace_plot: bool | None = None,
     title: str | None = None,
-    figure_size: tuple[float] | None = None,
+    figure_size: tuple[float, float] | None = None,
     dir_or_file_path: Path | None = None,
     do_skip_any_questions: bool = False,
     do_debug_args: bool = False,
@@ -291,13 +293,13 @@ def plot_simple_run_api_cli_view(
             percentile_to_draw = None
 
     # Optional arg: prev_runs_activity_ids_to_compare.
-    is_input_valid = True if pace_plot_set_y_axis_bottom_to_slowest_pace_perc else False
+    is_input_valid = True if pace_plot_clip_y_axis is not None else False
     while not is_input_valid and not do_skip_any_questions:
-        text = "Optional PACE PLOT SET Y AXIS BOTTOM TO SLOWEST PACE PERC (eg. 0.45)\n"
+        text = "Optional PACE PLOT CLIP Y AXIS (eg. 1.3 0.45 | 0 0.45)\n"
         instruction = (
-            "Cut out, of the visible part of the MA(pace) chart, the slowest\n"
-            "  given % (eg. 0.45%) pace datapoints so the chart becomes less\n"
-            "  compressed vertically\n  >"
+            "Cut out, of the visible part of the pace plot, the top % and bottom %\n"
+            "  of data (so the fastest and slowest datapoints) so the plot becomes\n"
+            "  less compressed vertically\n  >"
         )
         x = (
             # unsafe_ask() so it can be stopped with ctrl-c.
@@ -310,8 +312,8 @@ def plot_simple_run_api_cli_view(
         )
         with suppress(questionary_parsers.ParserValidationError):
             if x is not None:
-                pace_plot_set_y_axis_bottom_to_slowest_pace_perc = (
-                    questionary_parsers.parse_float_input(x, format_like="0.45")
+                pace_plot_clip_y_axis = questionary_parsers.parse_multiple_floats_input(
+                    x, length=2, format_like="0.3 1.35"
                 )
             is_input_valid = True
 
@@ -349,7 +351,12 @@ def plot_simple_run_api_cli_view(
         # unsafe_ask() so it can be stopped with ctrl-c.
         # Cannot use `validate=<questionary.Validator subclass>` because that is for
         #  the live validation, it's run on every keystroke and returns None.
-        title = questionary.text(text, instruction=instruction).unsafe_ask() or None
+        title = (
+            questionary.text(
+                text, instruction=instruction, style=QUESTIONARY_STYLE
+            ).unsafe_ask()
+            or None
+        )
 
     # Optional arg: figure_size.
     is_input_valid = True if figure_size is not None else False
@@ -414,8 +421,8 @@ def plot_simple_run_api_cli_view(
             cli_msg += f" -hatch {' -hatch '.join(str(x) for x in hr_zones_to_hatch)}"
         if percentile_to_draw is not None:
             cli_msg += f" --percentile-to-draw {percentile_to_draw}"
-        if pace_plot_set_y_axis_bottom_to_slowest_pace_perc is not None:
-            cli_msg += f" --pace-plot-set-y-axis-bottom-to-slowest-pace-perc {pace_plot_set_y_axis_bottom_to_slowest_pace_perc}"
+        if pace_plot_clip_y_axis is not None:
+            cli_msg += f" --pace-plot-clip-y-axis {' '.join(str(x) for x in pace_plot_clip_y_axis)}"
         if do_skip_hr_in_pace_plot:
             cli_msg += f" --no-hr-in-pace-plot"
         if do_add_elev_to_pace_plot is True:
@@ -456,7 +463,7 @@ def plot_simple_run_api_cli_view(
         prev_runs_activity_ids_to_compare=prev_runs_activity_ids_to_compare or None,
         hr_zones_to_hatch=hr_zones_to_hatch or None,
         percentile_to_draw=percentile_to_draw,
-        pace_plot_set_y_axis_bottom_to_slowest_pace_perc=pace_plot_set_y_axis_bottom_to_slowest_pace_perc,
+        pace_plot_clip_y_axis=pace_plot_clip_y_axis,
         do_skip_hr_in_pace_plot=do_skip_hr_in_pace_plot,
         do_add_elev_to_pace_plot=do_add_elev_to_pace_plot,
         title=title,

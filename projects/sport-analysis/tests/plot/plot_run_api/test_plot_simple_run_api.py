@@ -106,7 +106,10 @@ class TestPlotSimpleRunApi:
         garmin_activity_id = TEST_ACTIVITIES[6]["garmin_activity_id"]
         p = PlotSimpleRunApiCmd(
             garmin_activity_id,
-            pace_plot_set_y_axis_bottom_to_slowest_pace_perc=1.28,
+            pace_plot_clip_y_axis=(
+                1,
+                1.28,
+            ),
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace("_cmd.py", "-21km.png"))
@@ -129,7 +132,7 @@ class TestPlotSimpleRunApi:
                 TEST_ACTIVITIES[1]["garmin_activity_id"],
                 TEST_ACTIVITIES[0]["garmin_activity_id"],
             ],
-            pace_plot_set_y_axis_bottom_to_slowest_pace_perc=1.28,
+            pace_plot_clip_y_axis=(0.0, 1.28),
             title="Fosso Bergamasco: Zanica, 5a tappa",
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
@@ -258,21 +261,51 @@ class TestPlotSimpleRunApi:
                 garmin_connect_token_manager=self.garmin_token_mgr,
             )
 
-    def test_pace_plot_set_y_axis_bottom_to_slowest_pace_perc(self):
-        # To best test this we use a run with a fast pace and compare it with one with
-        #  a slow pace.
+    def test_pace_plot_clip_y_axis_top_and_bottom(self):
         p = PlotSimpleRunApiCmd(
-            22975082447,
-            prev_runs_activity_ids_to_compare=(24048184816,),
+            TEST_ACTIVITIES[7]["garmin_activity_id"],
             garmin_connect_token_manager=self.garmin_token_mgr,
-            pace_plot_set_y_axis_bottom_to_slowest_pace_perc=0.5,
+            pace_plot_clip_y_axis=(1.0, 2.0),
         )
         p.plot(
             save_to_png_file_path=self.png_file_root
             / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
 
-    def test_pace_plot_set_y_axis_bottom_to_slowest_pace_perc_long_distance(self):
+    def test_pace_plot_clip_y_axis_only_bottom(self):
+        p = PlotSimpleRunApiCmd(
+            TEST_ACTIVITIES[7]["garmin_activity_id"],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+            pace_plot_clip_y_axis=(0.0, 2.0),
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_pace_plot_clip_y_axis_only_top(self):
+        p = PlotSimpleRunApiCmd(
+            TEST_ACTIVITIES[7]["garmin_activity_id"],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+            pace_plot_clip_y_axis=(2.0, 0.0),
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_pace_plot_clip_y_axis_0(self):
+        p = PlotSimpleRunApiCmd(
+            TEST_ACTIVITIES[7]["garmin_activity_id"],
+            garmin_connect_token_manager=self.garmin_token_mgr,
+            pace_plot_clip_y_axis=(0.0, 0.0),
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_pace_plot_clip_y_axis_comparison(self):
         # Actual real case that inspired this feature.
         p = PlotSimpleRunApiCmd(
             TEST_ACTIVITIES[7]["garmin_activity_id"],
@@ -280,7 +313,21 @@ class TestPlotSimpleRunApi:
                 TEST_ACTIVITIES[6]["garmin_activity_id"],
             ),
             garmin_connect_token_manager=self.garmin_token_mgr,
-            pace_plot_set_y_axis_bottom_to_slowest_pace_perc=1,
+            pace_plot_clip_y_axis=(0.1, 1.5),
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_pace_plot_clip_y_axis_comparison2(self):
+        # To best test this we use a run with a fast pace and compare it with one with
+        #  a slow pace.
+        p = PlotSimpleRunApiCmd(
+            22975082447,
+            prev_runs_activity_ids_to_compare=(24048184816,),
+            garmin_connect_token_manager=self.garmin_token_mgr,
+            pace_plot_clip_y_axis=(0.1, 0.5),
         )
         p.plot(
             save_to_png_file_path=self.png_file_root
