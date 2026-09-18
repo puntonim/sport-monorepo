@@ -1,7 +1,4 @@
 
-- window size parametrico
-  piu il valore è grande piu i picchi vengono abbassati (smussati)
-
 - sketch per il time interval run
   Che poi dovrà diventare un nuovo comando:
     plot-time-interval-run

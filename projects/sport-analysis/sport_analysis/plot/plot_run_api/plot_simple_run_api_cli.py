@@ -90,6 +90,15 @@ console = ConsoleAdapter()
 )
 @click.option(
     # OPTIONAL arg.
+    "--pace-plot-rolling-window-size",
+    "pace_plot_rolling_window_size",
+    type=int,
+    help="Optional, to smooth out the peaks in the pace plot by customizing the size of"
+    " the rolling window used in the moving average; if none it defaults to 15"
+    " datapoints (about 15 secs); eg. --pace-plot-rolling-window-size 60",
+)
+@click.option(
+    # OPTIONAL arg.
     "--without-hr-in-pace-plot",
     "do_skip_hr_in_pace_plot",
     is_flag=True,
@@ -161,6 +170,7 @@ def plot_simple_run_api_cli_view(
     hr_zones_to_hatch: tuple[str] | None = None,
     percentile_to_draw: base_plot.PERCENTILE_TO_DRAW_ENUM | None = None,
     pace_plot_clip_y_axis: tuple[float, float] | None = None,
+    pace_plot_rolling_window_size: int | None = None,
     do_skip_hr_in_pace_plot: bool = False,
     do_add_elev_to_pace_plot: bool | None = None,
     title: str | None = None,
@@ -292,14 +302,14 @@ def plot_simple_run_api_cli_view(
         if percentile_to_draw == "*None":
             percentile_to_draw = None
 
-    # Optional arg: prev_runs_activity_ids_to_compare.
+    # Optional arg: pace_plot_clip_y_axis.
     is_input_valid = True if pace_plot_clip_y_axis is not None else False
     while not is_input_valid and not do_skip_any_questions:
         text = "Optional PACE PLOT CLIP Y AXIS (eg. 1.3 0.45 | 0 0.45)\n"
         instruction = (
-            "Cut out, of the visible part of the pace plot, the top % and bottom %\n"
-            "  of data (so the fastest and slowest datapoints) so the plot becomes\n"
-            "  less compressed vertically\n  >"
+            "Cut out, of the visible part of the pace plot, the top % and bottom %"
+            " of data (so the fastest and slowest datapoints) so the plot becomes"
+            " less compressed vertically\n  >"
         )
         x = (
             # unsafe_ask() so it can be stopped with ctrl-c.
@@ -314,6 +324,31 @@ def plot_simple_run_api_cli_view(
             if x is not None:
                 pace_plot_clip_y_axis = questionary_parsers.parse_multiple_floats_input(
                     x, length=2, format_like="0.3 1.35"
+                )
+            is_input_valid = True
+
+    # Optional arg: pace_plot_rolling_window_size.
+    is_input_valid = True if pace_plot_rolling_window_size is not None else False
+    while not is_input_valid and not do_skip_any_questions:
+        text = "Optional PACE PLOT ROLLING WINDOW SIZE (eg. 60)\n"
+        instruction = (
+            "To smooth out the peaks in the pace plot that uses a moving average with"
+            " a rolling window size that can be customized, defaults to 15"
+            " datapoints (about 15 secs)\n  >"
+        )
+        x = (
+            # unsafe_ask() so it can be stopped with ctrl-c.
+            # Cannot use `validate=<questionary.Validator subclass>` because that is for
+            #  the live validation, it's run on every keystroke and returns None.
+            questionary.text(
+                text, instruction=instruction, style=QUESTIONARY_STYLE
+            ).unsafe_ask()
+            or None
+        )
+        with suppress(questionary_parsers.ParserValidationError):
+            if x is not None:
+                pace_plot_rolling_window_size = questionary_parsers.parse_int_input(
+                    x, format_like="60"
                 )
             is_input_valid = True
 
@@ -423,6 +458,10 @@ def plot_simple_run_api_cli_view(
             cli_msg += f" --percentile-to-draw {percentile_to_draw}"
         if pace_plot_clip_y_axis is not None:
             cli_msg += f" --pace-plot-clip-y-axis {' '.join(str(x) for x in pace_plot_clip_y_axis)}"
+        if pace_plot_rolling_window_size is not None:
+            cli_msg += (
+                f" --pace-plot-rolling-window-size {pace_plot_rolling_window_size}"
+            )
         if do_skip_hr_in_pace_plot:
             cli_msg += f" --no-hr-in-pace-plot"
         if do_add_elev_to_pace_plot is True:
@@ -445,7 +484,8 @@ def plot_simple_run_api_cli_view(
             "prev_runs_activity_ids_to_compare",
             "hr_zones_to_hatch",
             "percentile_to_draw",
-            "pace_plot_set_y_axis_bottom_to_slowest_pace_perc",
+            "pace_plot_clip_y_axis",
+            "pace_plot_rolling_window_size",
             "do_skip_hr_in_pace_plot",
             "do_add_elev_to_pace_plot",
             "title",
@@ -464,6 +504,7 @@ def plot_simple_run_api_cli_view(
         hr_zones_to_hatch=hr_zones_to_hatch or None,
         percentile_to_draw=percentile_to_draw,
         pace_plot_clip_y_axis=pace_plot_clip_y_axis,
+        pace_plot_rolling_window_size=pace_plot_rolling_window_size,
         do_skip_hr_in_pace_plot=do_skip_hr_in_pace_plot,
         do_add_elev_to_pace_plot=do_add_elev_to_pace_plot,
         title=title,

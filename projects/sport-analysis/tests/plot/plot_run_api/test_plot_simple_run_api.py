@@ -107,9 +107,10 @@ class TestPlotSimpleRunApi:
         p = PlotSimpleRunApiCmd(
             garmin_activity_id,
             pace_plot_clip_y_axis=(
-                1,
+                0.1,
                 1.28,
             ),
+            pace_plot_rolling_window_size=60,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace("_cmd.py", "-21km.png"))
@@ -119,6 +120,7 @@ class TestPlotSimpleRunApi:
         p = PlotSimpleRunApiCmd(
             garmin_activity_id,
             title="Arenzano Mari e Monti",
+            pace_plot_rolling_window_size=120,
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace("_cmd.py", "-trail.png"))
@@ -328,6 +330,48 @@ class TestPlotSimpleRunApi:
             prev_runs_activity_ids_to_compare=(24048184816,),
             garmin_connect_token_manager=self.garmin_token_mgr,
             pace_plot_clip_y_axis=(0.1, 0.5),
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_pace_plot_rolling_window_size_1(self):
+        p = PlotSimpleRunApiCmd(
+            TEST_ACTIVITIES[7]["garmin_activity_id"],
+            prev_runs_activity_ids_to_compare=(
+                TEST_ACTIVITIES[6]["garmin_activity_id"],
+            ),
+            pace_plot_rolling_window_size=1,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_pace_plot_rolling_window_size_0(self):
+        p = PlotSimpleRunApiCmd(
+            TEST_ACTIVITIES[7]["garmin_activity_id"],
+            prev_runs_activity_ids_to_compare=(
+                TEST_ACTIVITIES[6]["garmin_activity_id"],
+            ),
+            pace_plot_rolling_window_size=0,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_pace_plot_rolling_window_size_300(self):
+        p = PlotSimpleRunApiCmd(
+            TEST_ACTIVITIES[7]["garmin_activity_id"],
+            prev_runs_activity_ids_to_compare=(
+                TEST_ACTIVITIES[6]["garmin_activity_id"],
+            ),
+            pace_plot_rolling_window_size=300,
+            garmin_connect_token_manager=self.garmin_token_mgr,
         )
         p.plot(
             save_to_png_file_path=self.png_file_root

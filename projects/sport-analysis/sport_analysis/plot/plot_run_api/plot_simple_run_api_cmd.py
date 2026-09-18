@@ -54,6 +54,10 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
     #  is plot in the pace plot.
     MIN_ELEV_GAIN_TO_AUTO_PLOT_ELEV = 300  # meters.
 
+    # The pace plot uses a moving average with a rolling window size that can be
+    #  customized, and defaults to 15 datapoints, which is roughly 15 seconds.
+    DEFAULT_PACE_PLOT_ROLLING_WINDOW_SIZE = 15
+
     def __init__(
         self,
         # id (int) of Garmin activity to analyze or ("LATEST", 0) or ("LATEST", -3).
@@ -63,6 +67,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         # List of HR zones that are "disabled" by hatching (drawing 45deg grey lines).
         hr_zones_to_hatch: Sequence[str] | None = None,
         pace_plot_clip_y_axis: tuple[float, float] | None = None,
+        pace_plot_rolling_window_size: int | None = None,
         do_skip_hr_in_pace_plot: bool = False,
         # Add elevation to the pace plot. If None, then the elev is automatically
         #  plotted in pace plot when > 300m.
@@ -88,6 +93,9 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
              MA(pace) chart, cutting out, of the visible part of the plot, the top % and
              bottom % of data (so the fastest and slowest datapoints). This is done
              because it is better visually: the plot is less compressed vertically.
+            pace_plot_rolling_window_size: to smooth out the peaks in the pace plot that
+             uses a moving average with a rolling window size that can be customized,
+             defaults to 15 datapoints (about 15 secs).
             do_skip_hr_in_pace_plot: skip adding HR line in the pace plot. It's forcibly
              skipped when there are prev_runs_activity_ids_to_compare (otherwise the
              plot becomes too messy).
@@ -107,6 +115,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         self.title = title
         self.figure_size = figure_size or tuple()
         self.pace_plot_clip_y_axis = pace_plot_clip_y_axis
+        self.pace_plot_rolling_window_size = pace_plot_rolling_window_size
         self.do_skip_hr_in_pace_plot = do_skip_hr_in_pace_plot
         # Forcibly skip the HR line in the pace plot when there are
         #  prev_runs_activity_ids_to_compare (otherwise the plot becomes too messy).
@@ -159,7 +168,11 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         # Compute the moving average for the speed stream.
         # Set the window size to 15 datapoints, which is roughly 15 seconds,
         #  however we will compute the windows size in meters and seconds later on.
-        _rolling_window_size = 15
+        _rolling_window_size = self.pace_plot_rolling_window_size
+        if self.pace_plot_rolling_window_size is None:
+            _rolling_window_size = self.DEFAULT_PACE_PLOT_ROLLING_WINDOW_SIZE
+        # Add 1 otherwise the actual windows size is 14 (and not 15).
+        _rolling_window_size += 1
         # Convert to DataFrame.
         ydata_pace_mps_df = pd.DataFrame(_speed_stream, columns=["pace"])
         del _speed_stream
