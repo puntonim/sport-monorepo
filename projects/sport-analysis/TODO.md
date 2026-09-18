@@ -3,6 +3,11 @@
   Che poi dovrà diventare un nuovo comando:
     plot-time-interval-run
     plot-dist-interval-run
+  STATUS
+    - lo sketch è pronto nella parte di plot pace over time
+      ma ci sono dei TODO da fare prima o poi
+    - ora vanno aggiunti dei bar charts con i passi medi e gli hr avg|max delle
+      ripetute e dei riposi
 
 - Togli legenda in fondo in plot-simple-run quando non c'è nessuna comparison
   E sposta gli spm nel subtitle

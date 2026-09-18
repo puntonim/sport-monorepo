@@ -90,7 +90,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             hr_zones_to_hatch: list of HR zones that are "disabled" by hatching
              (drawing 45deg grey lines). Eg. ["Z3", "Z4", "Z5"].
             pace_plot_clip_y_axis: eg. (1.2, 0.45) | (0, 0.5). In the
-             MA(pace) chart, cutting out, of the visible part of the plot, the top % and
+             MA(pace) plot, cutting out, of the visible part of the plot, the top % and
              bottom % of data (so the fastest and slowest datapoints). This is done
              because it is better visually: the plot is less compressed vertically.
             pace_plot_rolling_window_size: to smooth out the peaks in the pace plot that
@@ -153,9 +153,6 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
     def _plot_pace(self):
         a: Axes = self._axes_mosaic["pace"]
 
-        _y_axis_top = None
-        _y_axis_bottom = None
-
         ## MAIN activity.
         # X and y data.
         xdata_distance = self._s[0].details_resp.get_distance_stream()
@@ -208,6 +205,8 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         #  datapoint. In simpler words: cutting out of the visible part of the chart
         #  the slowest 0.5% pace datapoints. This is done because it is better
         #  visually: the chart is less compressed vertically.
+        _y_axis_top = None
+        _y_axis_bottom = None
         if self.pace_plot_clip_y_axis:
             _y_axis_top = (
                 ydata_pace_mps_df["MA(pace)"]
@@ -393,7 +392,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         ## Format.
         # Axes labels.
         a.set_ylabel("Pace [min/km]", fontsize=9)
-        a.set_xlabel("Distance [km], Time moving", fontsize=9, labelpad=13.0)
+        a.set_xlabel("Distance [km], Moving time", fontsize=9, labelpad=13.0)
 
         # axes.xaxis.set_label_position("top")
         # Convert the y-axis ticks to pace in min/km (so from base10 to base60).
@@ -573,7 +572,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                     ix = np.searchsorted(xdata_distance, dist)
                     # Now we get the time (seconds) from the time_stream at that index
                     #  and we make an average with the prev data (because 2000m was not
-                    #  an exact distance match, but th eindex of the first value >=2000m).
+                    #  an exact distance match, but the index of the first value >=2000m).
                     try:
                         if ix > 0:
                             time = round(

@@ -86,7 +86,7 @@ console = ConsoleAdapter()
     type=click.Tuple([float, float]),
     help="Optionally cutting out, of the visible part of the pace plot,"
     " the top % and bottom % of data (so the fastest and slowest datapoints);"
-    " the plot becomes less compressed vertically; eg. --pace-plot-clip-y-axis 1.3 0.45 | --pace-plot-clip-y-axis 0 0.45",
+    " the plot becomes less compressed vertically; order: top, bottom; eg. --pace-plot-clip-y-axis 1.3 0.45 | --pace-plot-clip-y-axis 0 0.45",
 )
 @click.option(
     # OPTIONAL arg.
@@ -309,7 +309,7 @@ def plot_simple_run_api_cli_view(
         instruction = (
             "Cut out, of the visible part of the pace plot, the top % and bottom %"
             " of data (so the fastest and slowest datapoints) so the plot becomes"
-            " less compressed vertically\n  >"
+            " less compressed vertically\nOrder: top, bottom  >"
         )
         x = (
             # unsafe_ask() so it can be stopped with ctrl-c.
