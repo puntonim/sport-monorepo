@@ -9,12 +9,6 @@ import numpy as np
 import pandas as pd
 import speed_utils
 import text_utils
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
-from matplotlib.legend_handler import HandlerTuple
-from rich import box
-from rich.table import Table
-
 from garmin_connect_client import (
     ActivityDetailsResponse,
     ActivitySplitsResponse,
@@ -24,6 +18,11 @@ from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
 )
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+from matplotlib.legend_handler import HandlerTuple
+from rich import box
+from rich.table import Table
 
 from ...base_cli_view import ConsoleAdapter
 from ...conf import settings
@@ -159,22 +158,21 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             do_remove_none_values=False
         )
         # Compute the moving average for the speed stream.
-        # Set the window size to 120 datapoints, which is roughly 2 minutes,
+        # Set the window size to 15 datapoints, which is roughly 15 seconds,
         #  however we will compute the windows size in meters and seconds later on.
-        _rolling_window_size = 60 * 2
+        _rolling_window_size = 15
         # Convert to DataFrame.
-        ydata_pace_df = pd.DataFrame(_speed_stream, columns=["pace"])
+        ydata_pace_mps_df = pd.DataFrame(_speed_stream, columns=["pace"])
         del _speed_stream
-        # Convert from m/s to min/km.
-        ydata_pace_df = speed_utils.mps_to_minpkm_base10(ydata_pace_df)
-        ydata_pace_df["MA(pace)"] = (
-            ydata_pace_df["pace"]
+
+        ydata_pace_mps_df["MA(pace)"] = (
+            ydata_pace_mps_df["pace"]
             # `min_periods=1` so that the initial and final data are not excluded
             #  (otherwise they get excluded because the window is < window size and
             #  the plot is missing those data).
             .rolling(_rolling_window_size, min_periods=1, center=True).mean()
         )
-        del ydata_pace_df["pace"]
+        del ydata_pace_mps_df["pace"]
 
         # We want to print some info about how large is the rolling window, so we
         #  compute the avg window size in meters and in seconds.
@@ -200,14 +198,15 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         #  visually: the chart is less compressed vertically.
         if self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc:
             _y_axis_bottom = (
-                ydata_pace_df["MA(pace)"]
+                ydata_pace_mps_df["MA(pace)"]
                 # Get the 0.5% largest datapoints, so the slowest paces.
-                .nlargest(
+                .nsmallest(
                     round(
-                        ydata_pace_df["MA(pace)"].size
+                        ydata_pace_mps_df["MA(pace)"].size
                         / 100
                         * self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc
                     )
+                    or 1
                 )
                 # And get the last one, so the fastest of the slowest 0.5% paces.
                 .iloc[-1]
@@ -216,7 +215,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         # Plot PACE.
         a.plot(
             xdata_distance,
-            ydata_pace_df["MA(pace)"],
+            ydata_pace_mps_df["MA(pace)"],
             label=self._make_legend_label(0),
             # color="red",
             color=base_plot.COL_PLUM,
@@ -306,8 +305,6 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             # Convert to DataFrame.
             ydata_pace_2nd_df = pd.DataFrame(_speed_stream_2nd, columns=["pace"])
             del _speed_stream_2nd
-            # Convert from m/s to min/km.
-            ydata_pace_2nd_df = speed_utils.mps_to_minpkm_base10(ydata_pace_2nd_df)
             ydata_pace_2nd_df["MA(pace)"] = (
                 ydata_pace_2nd_df["pace"]
                 .rolling(_rolling_window_size, center=True)
@@ -333,24 +330,22 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             #  the slowest 0.5% pace datapoints. This is done because it is better
             #  visually: the chart is less compressed vertically.
             if self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc:
-                _y_axis_bottom_tmp = (
+                _y_axis_bottom_2nd = (
                     ydata_pace_2nd_df["MA(pace)"]
                     # Get the 0.5% largest datapoints, so the slowest paces.
-                    .nlargest(
+                    .nsmallest(
                         round(
                             ydata_pace_2nd_df["MA(pace)"].size
                             / 100
                             * self.pace_plot_set_y_axis_bottom_to_slowest_pace_perc
                         )
+                        or 1
                     )
-                    # And get the last one, so the fastest of the slowest 0.5% paces.
+                    # And get the first one, so the fastest of the slowest 0.5% paces.
                     .iloc[-1]
                 )
-                _y_axis_bottom = (
-                    _y_axis_bottom_tmp
-                    if _y_axis_bottom_tmp > _y_axis_bottom
-                    else _y_axis_bottom
-                )
+                if _y_axis_bottom_2nd < _y_axis_bottom:
+                    _y_axis_bottom = _y_axis_bottom_2nd
 
         ## Format.
         # Axes labels.
@@ -358,12 +353,12 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         a.set_xlabel("Distance [km], Time moving", fontsize=9, labelpad=13.0)
 
         # axes.xaxis.set_label_position("top")
-        # Invert the y-axis so the fastest pace is on top.
-        a.invert_yaxis()
         # Convert the y-axis ticks to pace in min/km (so from base10 to base60).
         a.yaxis.set_major_formatter(
             mpl.ticker.FuncFormatter(
-                lambda x, pos: speed_utils.minpkm_base10_to_base60(x)
+                lambda x, pos: speed_utils.minpkm_base10_to_base60(
+                    speed_utils.mps_to_minpkm_base10(x)
+                )
             )
         )
         a.yaxis.grid(color="gray", alpha=0.2, linestyle="--")
@@ -458,17 +453,17 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         # Pace avg horizontal line.
         # Compute pace avg.
         _speed_avg = self._s[0].summary_resp.summary["averageSpeed"]
-        _pace_base10_avg = speed_utils.mps_to_minpkm_base10(_speed_avg)
+        # _pace_base10_avg = speed_utils.mps_to_minpkm_base10(_speed_avg)
         a.axhline(
-            y=_pace_base10_avg,
+            y=_speed_avg,
             color=base_plot.COL_PLUM,
             alpha=0.5,
             linestyle=":",
         )
         # Write text annotation for pace avg.
         a.annotate(
-            f"avg {speed_utils.minpkm_base10_to_base60(_pace_base10_avg)}",
-            (a.get_xlim()[0], _pace_base10_avg),
+            f"avg {speed_utils.minpkm_base10_to_base60(speed_utils.mps_to_minpkm_base10(_speed_avg))}",
+            (a.get_xlim()[0], _speed_avg),
             xytext=(0.1, 0.2),
             textcoords="offset fontsize",
             color=base_plot.COL_PLUM,
@@ -613,8 +608,12 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         )
         table.add_column("km", justify="right", no_wrap=True)
         table.add_column("cum\nkm", justify="right", no_wrap=True)
-        table.add_column("pace", justify="right", style="yellow", no_wrap=True)
-        table.add_column("cum\npace", justify="right", style="yellow", no_wrap=True)
+        table.add_column(
+            "non-paus\npace", justify="right", style="yellow", no_wrap=True
+        )
+        table.add_column(
+            "cum\nnon-paus\npace", justify="right", style="yellow", no_wrap=True
+        )
         table.add_column("cum\nmoving\ntime", justify="right", no_wrap=True)
         table.add_column("cum\nelaps\ntime", justify="right", no_wrap=True)
         table.add_column("elev", justify="right", no_wrap=True)
@@ -754,6 +753,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             transform=figure.dpi_scale_trans,  # Use inches as figure size.
         )
 
+        ## Legend.
         # Docs on legend location:
         #  https://matplotlib.org/stable/users/explain/axes/legend_guide.html
         # Alt 1/2: this is how to show a legend with only the plumb color of the main
@@ -780,7 +780,6 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             fontsize=9,
             labelspacing=0.8,
         )
-
         # Customize legend to make it more visible: less alpha and larger line widths.
         for i in range(0, len(self._s)):
             figure.legends[0].legend_handles[0].set_linestyle("solid")
@@ -839,12 +838,11 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             summary.data["activityName"], ACTIVITY_NAME_MAX_LENGTH
         )
         # Pace, cadence, duration, distance.
-        _speed_avg = summary.summary["averageSpeed"]
-        pace_base10_avg = speed_utils.mps_to_minpkm_base10(_speed_avg)
+        speed_avg = summary.summary["averageSpeed"]
         cadence = summary.summary["averageRunCadence"]
         moving_duration = summary.summary["movingDuration"]
         distance = summary.summary["distance"]
-        legend_label += f"\n{speed_utils.minpkm_base10_to_base60(pace_base10_avg)}/km"
+        legend_label += f"\n{speed_utils.minpkm_base10_to_base60(speed_utils.mps_to_minpkm_base10(speed_avg))}/km"
         legend_label += f" {round(cadence)}spm"
         legend_label += f" for {round(distance/1000, 2)}km"
         legend_label += (

@@ -4,34 +4,16 @@ from pathlib import Path
 import click
 import questionary
 
-from ...base_cli_view import ACTIVITY_ID_TYPE, BaseClickCommand, ConsoleAdapter
+from ...base_cli_view import (
+    ACTIVITY_ID_TYPE,
+    QUESTIONARY_STYLE,
+    BaseClickCommand,
+    ConsoleAdapter,
+)
 from ...conf.settings_module import ROOT_DIR
 from ...utils import questionary_parsers
 from .. import base_plot
 from .plot_simple_run_api_cmd import PlotSimpleRunApiCmd
-
-QUESTIONARY_STYLE = questionary.Style(
-    [
-        ("qmark", "fg:#859901 bold"),  # token in front of the question
-        ("question", "fg:#859901 bold"),  # question text.
-        ("highlighted", "fg:orange"),  # pointed-at choice in select & checkbox prompts.
-        ("answer", "fg:orange bold"),  # submitted answer text behind the question.
-        ("selected", "fg:orange"),  # style for a selected item of a checkbox
-        #
-        # Original:
-        # ('qmark', 'fg:#673ab7 bold'),       # token in front of the question
-        # ("question", "bold"),  # question text
-        # ('answer', 'fg:#f44336 bold'),      # submitted answer text behind the question
-        # ('pointer', 'fg:#673ab7 bold'),     # pointer used in select and checkbox prompts
-        # ('highlighted', 'fg:#673ab7 bold'), # pointed-at choice in select and checkbox prompts
-        # ('selected', 'fg:#cc5454'),         # style for a selected item of a checkbox
-        # ('separator', 'fg:#cc5454'),        # separator in lists
-        # ('instruction', ''),                # user instructions for select, rawselect, checkbox
-        # ('text', ''),                       # plain text
-        # ('disabled', 'fg:#858585 italic')   # disabled choices for select and checkbox prompts
-    ]
-)
-
 
 console = ConsoleAdapter()
 

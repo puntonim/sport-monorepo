@@ -10,14 +10,13 @@ import matplotlib.pyplot as plt
 import number_utils
 import numpy as np
 import speed_utils
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
-
 from garmin_connect_client import ActivitySummaryResponse, ActivityTypedSplitsResponse
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
 )
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 
 from ...base_cli_view import ConsoleAdapter
 from .. import base_api, base_plot
@@ -53,7 +52,7 @@ class DISTANCE_ENUM(IntEnum):
 
 class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarHPlot):
     """
-    Plot charts to support the analysis of an interval run activity performance,
+    Plots to support the analysis of an interval run activity performance,
      optionally compared with previous activities.
     """
 

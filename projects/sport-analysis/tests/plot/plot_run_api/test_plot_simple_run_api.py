@@ -129,6 +129,7 @@ class TestPlotSimpleRunApi:
                 TEST_ACTIVITIES[1]["garmin_activity_id"],
                 TEST_ACTIVITIES[0]["garmin_activity_id"],
             ],
+            pace_plot_set_y_axis_bottom_to_slowest_pace_perc=1.28,
             title="Fosso Bergamasco: Zanica, 5a tappa",
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
@@ -264,7 +265,7 @@ class TestPlotSimpleRunApi:
             22975082447,
             prev_runs_activity_ids_to_compare=(24048184816,),
             garmin_connect_token_manager=self.garmin_token_mgr,
-            pace_plot_set_y_axis_bottom_to_slowest_pace_perc=4.0,
+            pace_plot_set_y_axis_bottom_to_slowest_pace_perc=0.5,
         )
         p.plot(
             save_to_png_file_path=self.png_file_root
@@ -279,7 +280,7 @@ class TestPlotSimpleRunApi:
                 TEST_ACTIVITIES[6]["garmin_activity_id"],
             ),
             garmin_connect_token_manager=self.garmin_token_mgr,
-            pace_plot_set_y_axis_bottom_to_slowest_pace_perc=4.0,
+            pace_plot_set_y_axis_bottom_to_slowest_pace_perc=1,
         )
         p.plot(
             save_to_png_file_path=self.png_file_root
