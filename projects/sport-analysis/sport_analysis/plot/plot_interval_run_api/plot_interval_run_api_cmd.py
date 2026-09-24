@@ -176,10 +176,14 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         #  for the given activity, not for the old activities to compare.
         do_raise_if_n_split_not_expected=True,
     ):
-        max_distance_error = max(3, round(self.distance / 100))
+        # The max distance error allowed for a split is 1.5% of the given distance (min
+        #   3 meters).
+        # So a split is valid if the distance run in that split is <= 1.5% off the
+        #  given distance.
+        max_distance_error = max(3, round((self.distance / 100) * 1.5))
         splits = list()
         for split in response.get_interval_active_splits():
-            if abs(split["distance"] - self.distance) < max_distance_error:
+            if abs(split["distance"] - self.distance) <= max_distance_error:
                 splits.append(split)
         if do_raise_if_n_split_not_expected and (
             len(splits) not in self.n_expected_intervals

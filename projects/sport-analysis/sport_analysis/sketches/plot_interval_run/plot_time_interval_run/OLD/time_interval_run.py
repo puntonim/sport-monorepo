@@ -7,9 +7,9 @@ Note: this script uses VCR.py to record HTTP interactions. Just because I wanted
  test how to use VCR.py in a live code.
 
 Usage:
-    $ poetry run python -m sport_analysis.sketches.time_interval_run.time_interval_run 24387737173
+    $ poetry run python -m sport_analysis.sketches.plot_interval_run.plot_time_interval_run.OLD.time_interval_run 24387737173
     To record new VCR.py episodes:
-    $ IS_VCR_EPISODE_OR_ERROR=n poetry run python -m sport_analysis.sketches.time_interval_run.time_interval_run 24387737173
+    $ IS_VCR_EPISODE_OR_ERROR=n sport_analysis.sketches.plot_interval_run.plot_time_interval_run.OLD.time_interval_run 24387737173
 """
 
 from pathlib import Path
@@ -24,10 +24,9 @@ from garmin_connect_client.garmin_connect_token_managers import (
 )
 from vcr.errors import CannotOverwriteExistingCassetteException
 
+from sport_analysis.base_cli_view import BaseClickCommand, ConsoleAdapter
+from sport_analysis.plot.base_api import MixinGarminRequestsApi
 from tests import conftest
-
-from ...base_cli_view import BaseClickCommand, ConsoleAdapter
-from ...plot.base_api import MixinGarminRequestsApi
 
 console = ConsoleAdapter()
 

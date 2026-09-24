@@ -113,7 +113,7 @@ class MixinBarHPlot(BasePlot):
     ) -> np.ndarray:
         """
         Return the y data to be used in a horizontal bars plot.
-        In a horizontal bars plot there are bar GROUPS, where a group matches a y data.
+        In a horizontal bars plot there are bar GROUPS, where a group matches one y data.
         For example if we want to display the avg height for 2 groups (males and
          females) then we would have 2 groups (males and females).
         Each bar groups has 1 or more BARS.

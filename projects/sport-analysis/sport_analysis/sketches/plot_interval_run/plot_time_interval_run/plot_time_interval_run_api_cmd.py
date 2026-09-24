@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import IntEnum
 from pathlib import Path
-from statistics import mean
+from statistics import fmean
 from typing import Sequence
 
 import datetime_utils
@@ -21,10 +21,14 @@ from garmin_connect_client.garmin_connect_token_managers import (
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
-from ...base_cli_view import ConsoleAdapter
-from ...conf import settings
-from ...plot import base_api, base_plot
-from ...plot.base_plot import _get_bpm_range_for_hr_zone, _make_subtitle, _make_title
+from sport_analysis.base_cli_view import ConsoleAdapter
+from sport_analysis.conf import settings
+from sport_analysis.plot import base_api, base_plot
+from sport_analysis.plot.base_plot import (
+    _get_bpm_range_for_hr_zone,
+    _make_subtitle,
+    _make_title,
+)
 
 console = ConsoleAdapter()
 
@@ -116,8 +120,8 @@ class PlotTimeIntervalRunApiCmd(
             if elapsed_time >= 32 * 60:
                 ix_end = i
                 break
-        xdata_elapsed_time[:] = xdata_elapsed_time[ix_start : ix_end + 1]
-        _speed_stream[:] = _speed_stream[ix_start : ix_end + 1]
+        xdata_elapsed_time = xdata_elapsed_time[ix_start : ix_end + 1]
+        _speed_stream = _speed_stream[ix_start : ix_end + 1]
         assert len(xdata_elapsed_time) == len(_speed_stream)
 
         ydata_pace_mps_df = pd.DataFrame(_speed_stream, columns=["pace"])
@@ -176,7 +180,7 @@ class PlotTimeIntervalRunApiCmd(
             ydata_hr = self._s[0].details_resp.get_heartrate_stream(
                 do_remove_none_values=False
             )
-            ydata_hr[:] = ydata_hr[ix_start : ix_end + 1]
+            ydata_hr = ydata_hr[ix_start : ix_end + 1]
 
             # Plot HR on twin x axis.
             # Create new Axes that share the x-axis.
@@ -191,7 +195,7 @@ class PlotTimeIntervalRunApiCmd(
         ## Format.
         # Axes labels.
         a.set_ylabel("Pace [min/km]", fontsize=9)
-        a.set_xlabel("Elapsed time", fontsize=9, labelpad=13.0)
+        a.set_xlabel("Elapsed time", fontsize=9)  # labelpad=13.0)
 
         # axes.xaxis.set_label_position("top")
         # Convert the y-axis ticks to pace in min/km (so from base10 to base60).
@@ -302,6 +306,327 @@ class PlotTimeIntervalRunApiCmd(
                 alpha=0.2,
             )
 
+    def _plot_pace_bars(self):
+        # TODO rivedi tutti i commenti in questo metodo, xche li ho scopiazzati.
+
+        elapsed_time_stream = self._s[0].details_resp.get_elapsed_time_stream()
+        distance_stream = self._s[0].details_resp.get_distance_stream()
+
+        ## Campute the intervas data: pace and HR.
+        # TODO raise exception
+        assert len(elapsed_time_stream) == len(distance_stream)
+
+        # TODO these 2 should be instance vars and be filled here and in _plot_hr_bars()
+        #  and the used in _print_intervals
+        fast_intervals = dict(
+            paces=[],
+        )
+        slow_intervals = dict(
+            paces=[],
+            pace_deltas=[],
+        )
+
+        ix_start = ix_end = 0
+        interval_count = 1
+        for ix, elapsed_time in enumerate(elapsed_time_stream):
+            if elapsed_time >= (60 * interval_count):
+                ix_start = ix_end
+                ix_end = ix
+
+                interval_time = (
+                    elapsed_time_stream[ix_end] - elapsed_time_stream[ix_start]
+                )
+                interval_distance = distance_stream[ix_end] - distance_stream[ix_start]
+                pace_mps = interval_distance / interval_time
+                # pace_minpkm = speed_utils.minpkm_base10_to_base60(
+                #     speed_utils.mps_to_minpkm_base10(pace_mps)
+                # )
+
+                # Check if it was a fast or slow interval.
+                if interval_count % 2 == 1:
+                    # print(f"{interval_count} % 2 == 0")
+                    fast_intervals["paces"].append(pace_mps)
+                else:
+                    # print(f"{interval_count} % 2 != 0")
+                    slow_intervals["paces"].append(pace_mps)
+
+                # print(f"Interval: {interval_count}")
+                # print(f"Duration: {interval_time}")
+                # print(f"Distance: {round(interval_distance)}")
+                # print(f"Pace: {pace_minpkm}/km")
+
+                # print("\n\n")
+                interval_count += 1
+
+            if interval_count >= 33:
+                break
+
+        ## Plot.
+        a: Axes = self._axes_mosaic["pace-bars"]
+
+        ydata_range = np.arange(len(fast_intervals["paces"]) + 1)
+
+        # Plot main activity's times.
+        bar = a.barh(
+            self._ydata_for_barh_mixin(ydata_range, 0, 3),
+            fast_intervals["paces"] + [fmean(fast_intervals["paces"])],
+            self._bar_height_for_barh_mixin(0, 3),
+            # label=self._make_legend_label(0),
+            color=[base_plot.COL_PLUM for _ in range(len(ydata_range) - 1)]
+            + [base_plot.COL_DARK_GRAY],
+            alpha=1.0,
+        )
+        # Add the main activity's time values at the right of each bar.
+        a.bar_label(bar, fmt=self._fmt_pace, padding=2, path_effects=self.PATH_EFFECTS)
+
+        bar = a.barh(
+            self._ydata_for_barh_mixin(ydata_range, 1, 3),
+            slow_intervals["paces"] + [fmean(slow_intervals["paces"])],
+            self._bar_height_for_barh_mixin(1, 3),
+            # color="gray",
+            color=[base_plot.COL_PLUM for _ in range(len(ydata_range) - 1)]
+            + [base_plot.COL_DARK_GRAY],
+            alpha=0.6,
+        )
+        a.bar_label(
+            bar,
+            fmt=self._fmt_pace,
+            padding=2,
+            fontsize=8,
+            color="gray",
+            alpha=0.7,
+            path_effects=self.PATH_EFFECTS,
+        )
+
+        for i in range(len(fast_intervals["paces"])):
+            fast_pace_mps = fast_intervals["paces"][i]
+            slow_pace_mps = slow_intervals["paces"][i]
+            delta_sec = (
+                speed_utils.mps_to_minpkm_base10(slow_pace_mps)
+                - speed_utils.mps_to_minpkm_base10(fast_pace_mps)
+            ) * 60
+            slow_intervals["pace_deltas"].append(delta_sec)
+        atwiny_pace_delta: Axes = a.twiny()
+        bar = atwiny_pace_delta.barh(
+            self._ydata_for_barh_mixin(ydata_range, 2, 3),
+            slow_intervals["pace_deltas"] + [fmean(slow_intervals["pace_deltas"])],
+            self._bar_height_for_barh_mixin(2, 3),
+            color=[base_plot.COL_PLUM for _ in range(len(ydata_range) - 1)]
+            + [base_plot.COL_DARK_GRAY],
+            alpha=0.3,
+        )
+        atwiny_pace_delta.bar_label(
+            bar,
+            fmt=self._fmt_delta_pace,
+            padding=2,
+            fontsize=8,
+            color="gray",
+            alpha=0.7,
+            path_effects=self.PATH_EFFECTS,
+        )
+
+        max_pace = max(fast_intervals["paces"])
+
+        ## Format.
+        # Invert the y-axis so the 1st attempt is on top.
+        a.invert_yaxis()
+        a.set_xlabel("Pace [min/km], log scale", fontsize=9)
+        # Set the x-axis label to the top.
+        a.xaxis.set_label_position("top")
+        # Use log scale to amplify the small differences.
+        # Using a diff base for the log does NOT change the chart.
+        a.set_xscale("log")  # Add a base with arg: `base=2`.
+        atwiny_pace_delta.set_xscale("log")
+        atwiny_pace_delta.set_axis_off()
+        # Set the start and end scale for the x-axis, adding 2% width to make
+        #  space for the bar labels.
+        a.set_xlim((0, max_pace * 1.03))
+        # Set the start and end scale for the y-axis, so the 2 plots are aligned.
+        a.set_ylim((len(ydata_range) - 0.4, -0.6))
+        # Remove ticks.
+        a.tick_params(
+            axis="both",  # Changes apply to both axes.
+            which="both",  # Both major and minor ticks are affected.
+            bottom=False,  # Ticks along the bottom edge are off.
+            # top=False,
+            left=False,  # Ticks along the left edge are off.
+            # right=False,
+            labelbottom=False,  # Ticks labels along the bottom are off.
+            # labelleft=False,
+        )
+
+        # Prepare the y tick labels as: "1st", "2nd", ... "avg".
+        y_ticks_labels = [number_utils.ordinal(_) for _ in range(1, len(ydata_range))]
+        y_ticks_labels += ["avg"]
+        a.set_yticks(ydata_range, labels=y_ticks_labels)
+
+    def _plot_hr_bars(self):
+        # TODO rivedi tutti i commenti in questo metodo, xche li ho scopiazzati.
+
+        elapsed_time_stream = self._s[0].details_resp.get_elapsed_time_stream()
+        hr_stream = self._s[0].details_resp.get_heartrate_stream(
+            do_remove_none_values=False
+        )
+
+        ## Campute the intervas data: pace and HR.
+        # TODO raise exception
+        assert len(elapsed_time_stream) == len(hr_stream)
+
+        fast_intervals = dict(
+            hrs_avg=[],
+            hrs_max=[],
+        )
+        slow_intervals = dict(
+            hrs_avg=[],
+            hrs_min=[],
+            hr_deltas=[],
+        )
+
+        ix_start = ix_end = 0
+        interval_count = 1
+        for ix, elapsed_time in enumerate(elapsed_time_stream):
+            if elapsed_time >= (60 * interval_count):
+                ix_start = ix_end
+                ix_end = ix
+
+                hr_avg = fmean(hr_stream[ix_start : ix_end + 1])
+
+                # Check if it was a fast or slow interval.
+                if interval_count % 2 == 1:  # Fast interval.
+                    hr_max = max(hr_stream[ix_start : ix_end + 1])
+                    fast_intervals["hrs_avg"].append(hr_avg)
+                    fast_intervals["hrs_max"].append(hr_max)
+                else:  # Slow interval.
+                    hr_min = min(hr_stream[ix_start : ix_end + 1])
+                    slow_intervals["hrs_avg"].append(hr_avg)
+                    slow_intervals["hrs_min"].append(hr_min)
+
+                interval_count += 1
+
+            if interval_count >= 33:
+                break
+
+        ## Plot.
+        a: Axes = self._axes_mosaic["hr-bars"]
+
+        ydata_range = np.arange(len(fast_intervals["hrs_avg"]) + 1)
+
+        bar = a.barh(
+            self._ydata_for_barh_mixin(ydata_range, 0, 3),
+            fast_intervals["hrs_max"] + [fmean(fast_intervals["hrs_max"])],
+            self._bar_height_for_barh_mixin(0, 3),
+            color=[base_plot.COL_DARK_RED for _ in range(len(ydata_range) - 1)]
+            + [base_plot.COL_DARK_GRAY],
+            alpha=0.6,
+        )
+        # Add main activity's maxes HR values at the right of each bar.
+        a.bar_label(bar, fmt="{0:.0f}", padding=2, path_effects=self.PATH_EFFECTS)
+
+        bar = a.barh(
+            self._ydata_for_barh_mixin(ydata_range, 0, 3),
+            fast_intervals["hrs_avg"] + [fmean(fast_intervals["hrs_avg"])],
+            self._bar_height_for_barh_mixin(0, 3),
+            # label=self._make_legend_label(0),
+            color=[base_plot.COL_DARK_RED for _ in range(len(ydata_range) - 1)]
+            + [base_plot.COL_DARK_GRAY],
+            alpha=1.0,
+        )
+        # Add the main activity's time values at the right of each bar.
+        a.bar_label(bar, fmt="{0:.0f}", padding=2, path_effects=self.PATH_EFFECTS)
+
+        bar = a.barh(
+            self._ydata_for_barh_mixin(ydata_range, 1, 3),
+            slow_intervals["hrs_avg"] + [fmean(slow_intervals["hrs_avg"])],
+            self._bar_height_for_barh_mixin(1, 3),
+            color=[base_plot.COL_DARK_RED for _ in range(len(ydata_range) - 1)]
+            + [base_plot.COL_DARK_GRAY],
+            alpha=0.4,
+        )
+        a.bar_label(
+            bar,
+            fmt="{0:.0f}",
+            padding=2,
+            fontsize=8,
+            color="gray",
+            alpha=0.7,
+            path_effects=self.PATH_EFFECTS,
+        )
+        bar = a.barh(
+            self._ydata_for_barh_mixin(ydata_range, 1, 3),
+            slow_intervals["hrs_min"] + [fmean(slow_intervals["hrs_min"])],
+            self._bar_height_for_barh_mixin(1, 3),
+            color=[base_plot.COL_DARK_RED for _ in range(len(ydata_range) - 1)]
+            + [base_plot.COL_DARK_GRAY],
+            alpha=0.7,
+        )
+        a.bar_label(
+            bar,
+            fmt="{0:.0f}",
+            padding=2,
+            fontsize=8,
+            color="gray",
+            alpha=0.7,
+            path_effects=self.PATH_EFFECTS,
+        )
+
+        ###############
+        for i in range(len(fast_intervals["hrs_max"])):
+            fast_pace_hrs_max = fast_intervals["hrs_max"][i]
+            slow_pace_hrs_min = slow_intervals["hrs_min"][i]
+            delta = fast_pace_hrs_max - slow_pace_hrs_min
+            slow_intervals["hr_deltas"].append(delta)
+        atwiny_hr_delta: Axes = a.twiny()
+        bar = atwiny_hr_delta.barh(
+            self._ydata_for_barh_mixin(ydata_range, 2, 3),
+            slow_intervals["hr_deltas"] + [fmean(slow_intervals["hr_deltas"])],
+            self._bar_height_for_barh_mixin(2, 3),
+            color=[base_plot.COL_DARK_RED for _ in range(len(ydata_range) - 1)]
+            + [base_plot.COL_DARK_GRAY],
+            alpha=0.2,
+        )
+        atwiny_hr_delta.bar_label(
+            bar,
+            fmt=r"$\Delta$=" + "{0:.0f}",
+            padding=2,
+            fontsize=8,
+            color="gray",
+            alpha=0.7,
+            path_effects=self.PATH_EFFECTS,
+        )
+        ##############
+        max_hr = max(fast_intervals["hrs_max"])
+
+        ## Format.
+        # Invert the y-axis so the 1st attempt is on top.
+        a.invert_yaxis()
+        a.set_xlabel(
+            "HR avg|max in fast intervals [bpm], log scale\nHR min|avg in slow intervals [bpm], log scale",
+            fontsize=9,
+        )
+        # Set the x-axis label to the top.
+        a.xaxis.set_label_position("top")
+        # Use log scale to amplify the small differences.
+        # Using a diff base for the log does NOT change the chart.
+        a.set_xscale("log")  # Add a base with arg: `base=2`.
+        atwiny_hr_delta.set_xscale("log")
+        atwiny_hr_delta.set_axis_off()
+        # Set the start and end scale for the x-axis, adding 2% width to make
+        #  space for the bar labels.
+        a.set_xlim((0, max_hr * 1.03))
+        # Set the start and end scale for the y-axis, so the 2 plots are aligned.
+        a.set_ylim((len(ydata_range) - 0.4, -0.6))
+        # Remove ticks.
+        a.tick_params(
+            axis="both",  # Changes apply to both axes.
+            which="both",  # Both major and minor ticks are affected.
+            bottom=False,  # Ticks along the bottom edge are off.
+            # top=False,
+            left=False,  # Ticks along the left edge are off.
+            # right=False,
+            labelbottom=False,  # Ticks labels along the bottom are off.
+            labelleft=False,
+        )
+
     def plot(self, save_to_png_file_path: Path | str | None = None):
         ## Find the actual Garmin activity, if the garmin id arg was LATEST or LATEST-3.
         original_garmin_activity_id_arg = self.garmin_activity_id
@@ -342,7 +667,9 @@ class PlotTimeIntervalRunApiCmd(
 
         # All plots.
         self._plot_pace()
-        # self._print_intervals()
+        self._plot_pace_bars()
+        self._plot_hr_bars()
+        # self._print_intervals()  # TODO
 
         # Title and subtitle.
         title = _make_title(
@@ -380,7 +707,7 @@ class PlotTimeIntervalRunApiCmd(
 
     def _make_figure_size(self) -> tuple[float, float]:
         # height = max(len(self._s), 3.5) * 2.1
-        return 10, 5
+        return 10, 10  # width, height.
 
     def _make_subplot_mosaic(self) -> tuple[Figure, dict[str, Axes]]:
         figsize = self.figure_size or self._make_figure_size()
@@ -395,14 +722,33 @@ class PlotTimeIntervalRunApiCmd(
             # fmt: off
     [
                 # 1 rows, 1 col.
-                ["pace", ],
+                ["pace", "pace"],
+                ["pace-bars", "hr-bars"],
             ],
             # fmt: on
             gridspec_kw=dict(
                 # The relative sizes of the subplots.
-                width_ratios=[1],
-                height_ratios=[1],
+                width_ratios=[1, 1],
+                height_ratios=[0.3, 1],
             ),
             figsize=figsize,
             layout="constrained",
         )
+
+    def _fmt_pace(self, pace_mps: float):
+        if pace_mps == 0:
+            return 0
+        x = speed_utils.mps_to_minpkm_base10(pace_mps)
+        return speed_utils.minpkm_base10_to_base60(x)
+
+    def _fmt_delta_pace(self, seconds: float):
+        mm_ss = datetime_utils.seconds_to_hh_mm_ss(
+            round(seconds), do_hide_hours_and_mins_if_zero=True
+        )
+        math_txt = rf"$\Delta$={mm_ss}"
+        return math_txt
+
+    def _fmt_time(self, seconds: float):
+        if seconds > 60:
+            return datetime_utils.seconds_to_hh_mm_ss(round(seconds))[3:]
+        return f"{seconds:.2f}"

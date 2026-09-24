@@ -7,9 +7,9 @@ Note: this script uses VCR.py to record HTTP interactions. Just because I wanted
  test how to use VCR.py in a live code.
 
 Usage:
-    $ poetry run python -m sport_analysis.sketches.time_interval_run.plot_time_interval_run_api_cli 24387737173
+    $ poetry run python -m sport_analysis.sketches.plot_interval_run.plot_time_interval_run.plot_time_interval_run_api_cli 24387737173 --pace-plot-clip-y-axis 0.0 0.2
     To record new VCR.py episodes:
-    $ IS_VCR_EPISODE_OR_ERROR=n poetry run python -m sport_analysis.sketches.time_interval_run.plot_time_interval_run_api_cli 24387737173
+    $ IS_VCR_EPISODE_OR_ERROR=n poetry run python -m sport_analysis.sketches.plot_interval_run.plot_time_interval_run.plot_time_interval_run_api_cli 24387737173 --pace-plot-clip-y-axis 0.0 0.2
 """
 
 from contextlib import suppress
@@ -17,22 +17,31 @@ from pathlib import Path
 
 import click
 import questionary
+import vcr as vcr_module
+from vcr.errors import CannotOverwriteExistingCassetteException
 
-from ...base_cli_view import (
+from sport_analysis.base_cli_view import (
     ACTIVITY_ID_TYPE,
     QUESTIONARY_STYLE,
     BaseClickCommand,
     ConsoleAdapter,
 )
-from ...conf.settings_module import ROOT_DIR
-from ...plot import base_plot
-from ...utils import questionary_parsers
+from sport_analysis.conf.settings_module import ROOT_DIR
+from sport_analysis.plot import base_plot
+from sport_analysis.utils import questionary_parsers
+from tests import conftest
+
 from .intervals_plan import IntervalsPlan, IntervalsPlanParamType
 from .plot_time_interval_run_api_cmd import PlotTimeIntervalRunApiCmd
 
 console = ConsoleAdapter()
 
 INTERVALS_PLAN_PARAM_TYPE = IntervalsPlanParamType()
+
+
+# TODO remove VCR when this becomes an actual CLI.
+def configure_vcr():
+    return vcr_module.VCR(**conftest.vcr_config_dict())
 
 
 # TODO fix help string.
@@ -323,7 +332,29 @@ def plot_interval_run_api_cli_view(
         title=title,
         figure_size=figure_size,
     )
-    return p.plot(save_to_png_file_path=save_to_png_file_path)
+
+    # TODO remove VCR when this becomes an actual CLI.
+    # Configure VCR.py.
+    vcr = configure_vcr()
+    # Use VCR.py with the cassette named after this file and in this same dir.
+    cassette_path = (
+        Path(__file__).parent / "cassettes" / (Path(__file__).stem + ".yaml")
+    )
+    console.print(f"[italic dim]Using VCR.py cassette: {cassette_path}[/]")
+    with vcr.use_cassette(cassette_path):
+        try:
+            return p.plot(save_to_png_file_path=save_to_png_file_path)
+        # Enrich VCR.py's `CannotOverwriteExistingCassetteException` original exception
+        #  with some useful info.
+        except Exception as exc:
+            if isinstance(exc, CannotOverwriteExistingCassetteException) or isinstance(
+                getattr(exc, "kwargs", dict()).get("error"),
+                CannotOverwriteExistingCassetteException,
+            ):
+                args = list(exc.args)
+                args[0] += "\nUse IS_VCR_EPISODE_OR_ERROR=no to record a new episode."
+                exc.args = tuple(args)
+            raise
 
 
 if __name__ == "__main__":
