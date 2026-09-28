@@ -746,13 +746,22 @@ class MixinHrPlot(BasePlot):
         xdata_hr_zones_perc = res[0]
 
         ## Plot data and format.
+        # colors = [
+        #     "#a6a6a6",  # Gray.
+        #     "#e5f49c",  # Very light green.
+        #     "#a0d669",  # Light green.
+        #     "#1a4927",  # "#3eaa59",  # Green.
+        #     "#b59410",  # "#fba85e",  # Dark gold.
+        #     "#580000",  # "#e54d35",  # Red.
+        # ]
+        ## Shades of green-blue.
         colors = [
             "#a6a6a6",  # Gray.
-            "#e5f49c",  # Very light green.
-            "#a0d669",  # Light green.
-            "#1a4927",  # "#3eaa59",  # Green.
-            "#b59410",  # "#fba85e",  # Dark gold.
-            "#580000",  # "#e54d35",  # Red.
+            "#78b2ab",  # Shades of green to blue from here.
+            "#509c87",
+            "#47836c",
+            "#33596f",
+            "#232849",
         ]
 
         # Prepare the HR zones table to be printed to the console.
@@ -800,7 +809,8 @@ class MixinHrPlot(BasePlot):
                     bar,
                     fmt=lambda x: f"Z{i}\n{round(x*100)}%",
                     label_type="center",
-                    color="white" if i != 1 else "#828b98",
+                    # color="white" if i != 1 else "#828b98",
+                    color="white",
                     fontsize=8,
                     fontweight="bold",
                 )

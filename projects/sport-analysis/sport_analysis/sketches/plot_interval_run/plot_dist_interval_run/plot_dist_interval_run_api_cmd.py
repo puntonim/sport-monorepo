@@ -368,7 +368,7 @@ class PlotDistIntervalRunApiCmd(
                         horizontalalignment="center",
                     )
 
-            # Write text annotation for PACE and HR with the matching colors..
+            # Write text annotation for PACE and HR with the matching colors.
             a.annotate(
                 "PACE",
                 (a.get_xlim()[0], a.get_ylim()[1]),
