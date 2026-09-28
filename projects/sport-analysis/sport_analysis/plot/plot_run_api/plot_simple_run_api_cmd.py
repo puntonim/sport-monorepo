@@ -244,7 +244,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             label=self._make_legend_label(0),
             # color="red",
             color=base_plot.COL_PLUM,
-            alpha=0.8,
+            alpha=0.9,
             linewidth=3.0,
         )
         # Plot HR.
@@ -495,24 +495,60 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             )
 
         # Pace avg horizontal line.
-        # Compute pace avg.
         _speed_avg = self._s[0].summary_resp.summary["averageSpeed"]
-        # _pace_base10_avg = speed_utils.mps_to_minpkm_base10(_speed_avg)
         a.axhline(
             y=_speed_avg,
             color=base_plot.COL_PLUM,
             alpha=0.5,
             linestyle=":",
         )
-        # Write text annotation for pace avg.
+        # Pace avg annotation.
         a.annotate(
-            f"avg {speed_utils.minpkm_base10_to_base60(speed_utils.mps_to_minpkm_base10(_speed_avg))}",
+            f"{speed_utils.minpkm_base10_to_base60(speed_utils.mps_to_minpkm_base10(_speed_avg))}",
             (a.get_xlim()[0], _speed_avg),
             xytext=(0.1, 0.2),
             textcoords="offset fontsize",
             color=base_plot.COL_PLUM,
             fontsize=8,
             fontweight="bold",
+            path_effects=self.PATH_EFFECTS,
+        )
+
+        # HR avg horizontal line.
+        if not self.do_skip_hr_in_pace_plot:
+            _hr_avg = self._s[0].summary_resp.summary["averageHR"]
+            atwinx_hr.axhline(
+                y=round(_hr_avg),
+                color="red",
+                alpha=0.2,
+                linestyle=":",
+            )
+            # HR avg annotation.
+            a.annotate(
+                f"{round(_hr_avg)}bpm avg",
+                (a.get_xlim()[1], a.get_ylim()[0]),
+                xytext=(0, 0.2),
+                textcoords="offset fontsize",
+                color="red",
+                alpha=0.3,
+                fontsize=8,
+                fontweight="bold",
+                style="italic",
+                horizontalalignment="right",
+                path_effects=self.PATH_EFFECTS,
+            )
+
+        # Cadence avg (spm) annotation.
+        cadence = self._s[0].summary_resp.summary["averageRunCadence"]
+        a.annotate(
+            f"{round(cadence)}spm avg",
+            (a.get_xlim()[0], a.get_ylim()[0]),
+            xytext=(0.2, 0.2),
+            textcoords="offset fontsize",
+            # color=base_plot.COL_PLUM,
+            fontsize=8,
+            # fontweight="bold",
+            style="italic",
             path_effects=self.PATH_EFFECTS,
         )
 
@@ -797,38 +833,39 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             transform=figure.dpi_scale_trans,  # Use inches as figure size.
         )
 
-        ## Legend.
-        # Docs on legend location:
-        #  https://matplotlib.org/stable/users/explain/axes/legend_guide.html
-        # Alt 1/2: this is how to show a legend with only the plumb color of the main
-        #  plot line in the pace chart.
-        # figure.legend(
-        #     loc="outside lower left",
-        #     ncol=1,
-        #     frameon=False,
-        #     fontsize=9,
-        #     labelspacing=0.8,
-        # )
-        # Alt 2/2: this is how to show a legend with both colors (plumb and red) of the
-        #  main plot line in the pace chart and in the HR histogram chart.
-        pace_axes = self._axes_mosaic["pace"]
-        hr_hist_axes = self._axes_mosaic["hr-hist"]
-        figure.legend(
-            handles=[(hr_hist_axes.lines[0], pace_axes.lines[0])]
-            + pace_axes.lines[1:-1],
-            handler_map={tuple: HandlerTuple(ndivide=None)},
-            labels=[x.get_label() for x in pace_axes.lines[:-1]],
-            loc="outside lower left",
-            ncol=1,
-            frameon=False,
-            fontsize=9,
-            labelspacing=0.8,
-        )
-        # Customize legend to make it more visible: less alpha and larger line widths.
-        for i in range(0, len(self._s)):
-            figure.legends[0].legend_handles[0].set_linestyle("solid")
-            figure.legends[0].legend_handles[i].set_alpha(0.8)
-            figure.legends[0].legend_handles[i].set_linewidth(3.0)
+        if len(self._s) > 1:
+            ## Legend.
+            # Docs on legend location:
+            #  https://matplotlib.org/stable/users/explain/axes/legend_guide.html
+            # Alt 1/2: this is how to show a legend with only the plumb color of the main
+            #  plot line in the pace chart.
+            # figure.legend(
+            #     loc="outside lower left",
+            #     ncol=1,
+            #     frameon=False,
+            #     fontsize=9,
+            #     labelspacing=0.8,
+            # )
+            # Alt 2/2: this is how to show a legend with both colors (plumb and red) of the
+            #  main plot line in the pace chart and in the HR histogram chart.
+            pace_axes = self._axes_mosaic["pace"]
+            hr_hist_axes = self._axes_mosaic["hr-hist"]
+            figure.legend(
+                handles=[(hr_hist_axes.lines[0], pace_axes.lines[0])]
+                + pace_axes.lines[1:-1],
+                handler_map={tuple: HandlerTuple(ndivide=None)},
+                labels=[x.get_label() for x in pace_axes.lines[:-1]],
+                loc="outside lower left",
+                ncol=1,
+                frameon=False,
+                fontsize=9,
+                labelspacing=0.8,
+            )
+            # Customize legend to make it more visible: less alpha and larger line widths.
+            for i in range(0, len(self._s)):
+                figure.legends[0].legend_handles[0].set_linestyle("solid")
+                figure.legends[0].legend_handles[i].set_alpha(0.8)
+                figure.legends[0].legend_handles[i].set_linewidth(3.0)
 
         if save_to_png_file_path:
             self.print_created_image_path(save_to_png_file_path)
@@ -873,31 +910,34 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         Make the text used in the legend label for a plot.
         """
         ACTIVITY_NAME_MAX_LENGTH = 50
-        summary = self._s[activity_index].summary_resp
+        summary_resp = self._s[activity_index].summary_resp
 
         # Start date.
-        legend_label = summary.summary["startTimeLocal"][:10]
+        legend_label = summary_resp.summary["startTimeLocal"][:10]
         # Name.
         legend_label += " " + text_utils.truncate_text(
-            summary.data["activityName"], ACTIVITY_NAME_MAX_LENGTH
+            summary_resp.data["activityName"], ACTIVITY_NAME_MAX_LENGTH
         )
         # Pace, cadence, duration, distance.
-        speed_avg = summary.summary["averageSpeed"]
-        cadence = summary.summary["averageRunCadence"]
-        moving_duration = summary.summary["movingDuration"]
-        distance = summary.summary["distance"]
+        speed_avg = summary_resp.summary["averageSpeed"]
+        cadence = summary_resp.summary["averageRunCadence"]
+        moving_duration = summary_resp.summary["movingDuration"]
+        distance = summary_resp.summary["distance"]
         legend_label += f"\n{speed_utils.minpkm_base10_to_base60(speed_utils.mps_to_minpkm_base10(speed_avg))}/km"
         legend_label += f" {round(cadence)}spm"
         legend_label += f" for {round(distance/1000, 2)}km"
+        elevation_gain = summary_resp.summary["elevationGain"]
+        if elevation_gain > self.MIN_ELEV_GAIN_TO_AUTO_PLOT_ELEV:
+            legend_label += f" {round(elevation_gain)}m+"
         legend_label += (
             f" in {datetime_utils.seconds_to_hh_mm_ss(round(moving_duration))}"
         )
         # HRM.
-        if not summary.has_heart_rate_monitor():
+        if not summary_resp.has_heart_rate_monitor():
             legend_label += " without HRM"
         else:
-            hr_avg = summary.summary["averageHR"]
-            hr_max = summary.summary["maxHR"]
+            hr_avg = summary_resp.summary["averageHR"]
+            hr_max = summary_resp.summary["maxHR"]
             legend_label += f" at {round(hr_avg)}-{round(hr_max)}bpm"
         return legend_label
 

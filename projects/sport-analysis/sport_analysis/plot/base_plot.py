@@ -310,8 +310,8 @@ class MixinHrPlot(BasePlot):
             hr_stream,
             bins=_n_bins,
             weights=1 / len(hr_stream) * np.ones(len(hr_stream)),
-            color=COL_RED,
-            alpha=0.6,
+            color=COL_DARK_RED,
+            alpha=1,
         )
 
         if elevation_stream and time_stream:
@@ -377,7 +377,8 @@ class MixinHrPlot(BasePlot):
                     ((x0 + x1) / 2, axes.get_ylim()[0]),
                     xytext=(0, -1.2),
                     textcoords="offset fontsize",
-                    color="gray",
+                    color="red",
+                    alpha=0.3,
                     fontsize=8,
                     fontweight="bold",
                     horizontalalignment="center",
