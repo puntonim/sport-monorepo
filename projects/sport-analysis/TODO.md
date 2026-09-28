@@ -1,13 +1,19 @@
 
-- sketch per il time interval run
-  Che poi dovrà diventare un nuovo comando:
-    plot-time-interval-run
-    plot-dist-interval-run
-  STATUS
-    - prova a sostituire le barre per HR con una specie di box plot
-    - e aggiungi HR zones per fast intervals come barra verticale nella 3a colonna in basso
-    - sistema commenti e todo
+- sketch per il interval run
+  - sistema time interval:
+    - pace con 2 barre:
+        specie di box plot: slow pace - fast pace
+        pace drop
+    - HR come nel dist interval
+    - HR zones come nel dist interval
+  - testalo con una vecchia corsa ad intervalli sui 1000m o 1000m
+  - sistema commenti e todo
 
+- Colori HR zones: verde fino Z3, poi blu
+
+- ? Optional FIGURE SIZE (eg. 5.0 7.0)
+  ? Optional FIGURE SIZE (width height, eg. 5.0 7.0)
+ 
 - Togli legenda in fondo in plot-simple-run quando non c'è nessuna comparison
   E sposta gli spm nel subtitle
   E aggiungi dislivello (600m+) nella legenda quando ci sono comparisons

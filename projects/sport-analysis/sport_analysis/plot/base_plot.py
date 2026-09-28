@@ -5,7 +5,7 @@ from enum import StrEnum
 from functools import lru_cache
 from pathlib import Path
 from statistics import mean
-from typing import Sequence
+from typing import Literal, Sequence
 
 import datetime_utils
 import matplotlib as mpl
@@ -704,6 +704,8 @@ class MixinHrPlot(BasePlot):
         hr_stream: list,
         hr_min_ever: int = settings.HR_MIN,
         hr_max_ever: int = settings.HR_MAX_EVER_RUN,
+        text_prefix: str = "Time in zones: ",
+        text_position: Literal["TOP_CENTER", "BOTTOM_LEFT"] = "BOTTOM_LEFT",
     ):
         """
         Plot the HR zones.
@@ -714,6 +716,11 @@ class MixinHrPlot(BasePlot):
             hr_min_ever: the min HR ever recorded (the rest HR).
             hr_max_ever: the max HR ever recorded for this type of activity.
         """
+        if text_position not in ("TOP_CENTER", "BOTTOM_LEFT"):
+            raise Exception(
+                f"text_position unknown: {text_position}\nValid values: TOP_CENTER | BOTTOM_LEFT"
+            )
+
         ## Data.
         # X data.
         hr_min = min(hr_stream) if min(hr_stream) < hr_min_ever else hr_min_ever
@@ -743,11 +750,10 @@ class MixinHrPlot(BasePlot):
             "#a6a6a6",  # Gray.
             "#e5f49c",  # Very light green.
             "#a0d669",  # Light green.
-            "#3eaa59",  # Green.
-            "#fba85e",  # Orange,
-            "#e54d35",  # Red.
+            "#1a4927",  # "#3eaa59",  # Green.
+            "#b59410",  # "#fba85e",  # Dark gold.
+            "#580000",  # "#e54d35",  # Red.
         ]
-        left = 0
 
         # Prepare the HR zones table to be printed to the console.
         table = Table(
@@ -775,8 +781,9 @@ class MixinHrPlot(BasePlot):
         table.add_column(
             f"[dim]≥90%\n{z5_x0}-{z5_x1}[/dim]\nZ5", justify="center", no_wrap=True
         )
-        z_perc = []
 
+        left = 0
+        z_perc = []
         for i, xdata_hr_zone_perc in enumerate(xdata_hr_zones_perc):
             bar = axes.barh(
                 0,
@@ -799,17 +806,31 @@ class MixinHrPlot(BasePlot):
                 )
             z_perc.append(round(xdata_hr_zone_perc * 100))
 
-        txt = f"Time in zones: Z0 {z_perc[0]}% | Z1 {z_perc[1]}% | Z2 {z_perc[2]}% | Z3 {z_perc[3]}% | Z4 {z_perc[4]}% | Z5 {z_perc[5]}%"
-        axes.annotate(
-            txt,
-            (axes.get_xlim()[0], axes.get_ylim()[0]),
-            xytext=(0, -1),
-            textcoords="offset fontsize",
-            # color="gray",
-            fontsize=8,
-            # fontweight="bold",
-            style="italic",
-        )
+        if text_position == "BOTTOM_LEFT":
+            txt = f"{text_prefix}Z0 {z_perc[0]}% | Z1 {z_perc[1]}% | Z2 {z_perc[2]}% | Z3 {z_perc[3]}% | Z4 {z_perc[4]}% | Z5 {z_perc[5]}%"
+            axes.annotate(
+                txt,
+                (axes.get_xlim()[0], axes.get_ylim()[0]),
+                xytext=(0, -1),
+                textcoords="offset fontsize",
+                # color="gray",
+                fontsize=8,
+                # fontweight="bold",
+                style="italic",
+            )
+        elif text_position == "TOP_CENTER":
+            txt = f"{text_prefix}Z0 {z_perc[0]}% | Z1 {z_perc[1]}% | Z2 {z_perc[2]}% | Z3 {z_perc[3]}% | Z4 {z_perc[4]}% | Z5 {z_perc[5]}%"
+            axes.annotate(
+                txt,
+                ((axes.get_xlim()[1] + axes.get_xlim()[0]) / 2, axes.get_ylim()[1]),
+                xytext=(0, 0.1),
+                textcoords="offset fontsize",
+                # color="gray",
+                fontsize=9,
+                # fontweight="bold",
+                # style="italic",
+                horizontalalignment="center",
+            )
 
         # Color in red the 2 highest values in the HR zones table to be printed to the
         #  console.

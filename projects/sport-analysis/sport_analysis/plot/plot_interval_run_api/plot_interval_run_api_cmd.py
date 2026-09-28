@@ -744,7 +744,7 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
             activity_txt_to_print="run",
         )
 
-        ## Collect MAIN activity's time splits and summary.
+        ## Collect MAIN activity's typed splits and summary.
         self._s.append(
             CollectedData(
                 summary_resp=self._api_get_activity_summary(self.garmin_activity_id),
