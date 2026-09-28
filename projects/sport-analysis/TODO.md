@@ -8,18 +8,13 @@
     - HR zones come nel dist interval
   - testalo con una vecchia corsa ad intervalli sui 1000m o 1000m
   - sistema commenti e todo
-
-- Colori HR zones: verde fino Z3, poi blu
-
-- ? Optional FIGURE SIZE (eg. 5.0 7.0)
-  ? Optional FIGURE SIZE (width height, eg. 5.0 7.0)
  
 - Togli legenda in fondo in plot-simple-run quando non c'è nessuna comparison
   E sposta gli spm nel subtitle
   E aggiungi dislivello (600m+) nella legenda quando ci sono comparisons
 
-- evidenziare le domande in questionary come fatto in plot-simple-run
-  E usa ">" come ho fatto in plot-simple-run
+- evidenziare le domande in questionary, come fatto in plot-simple-run
+  E usa ">", come ho fatto in plot-simple-run
 
 - Infine usa il nuovo ACTIVITY_ID_PARAM_TYPE, come in get-activity-urls, 
   per tutti i comandi che ora usano LATEST (cioè i comandi plot, facendo attenz che

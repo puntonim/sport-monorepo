@@ -98,7 +98,7 @@ def configure_vcr():
     "--figure-size",
     nargs=2,
     type=click.Tuple([float, float]),
-    help="Optional figure size; eg. --figure-size 5.0 7.0",
+    help="Optional figure size (width height); eg. --figure-size 5.0 7.0",
 )
 @click.option(
     # OPTIONAL arg.
@@ -238,7 +238,7 @@ def plot_interval_run_api_cli_view(
     # Optional arg: figure_size.
     is_input_valid = True if figure_size is not None else False
     while not is_input_valid and not do_skip_any_questions:
-        text = "Optional FIGURE SIZE (eg. 5.0 7.0)\n"
+        text = "Optional FIGURE SIZE (width height, eg. 5.0 7.0)\n"
         instruction = ">"
         # unsafe_ask() so it can be stopped with ctrl-c.
         # Cannot use `validate=<questionary.Validator subclass>` because that is for
