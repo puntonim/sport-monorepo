@@ -53,6 +53,10 @@ class UpdateStravaButton {
         beforeTs: dateToTimestamp(this._parseDate().getEndDate())
       });
     } catch (err) {
+      let msg = `You can update or create the Strava activity manually with the following data.\n\n`;
+      msg += this._makeNewNameForStravaActivity() + "\n\n";
+      msg += this._makeNewDescriptionForStravaActivity();
+      showAlert(msg);
       throw err;
     }
 
@@ -247,6 +251,10 @@ class UpdateStravaButton {
         if (!yesOrNo) return; // "no" answer.
         response = this.stravaFacadeApiClient.updateActivityDescription({...data, doStopIfDescriptionNotNull: false});
       } else {
+        let msg = `You can update or create the Strava activity manually with the following data.\n\n`;
+        msg += this._makeNewNameForStravaActivity() + "\n\n";
+        msg += this._makeNewDescriptionForStravaActivity();
+        showAlert(msg);
         throw err;
       }
     }
@@ -332,6 +340,8 @@ class UpdateStravaButton {
     // The power class starts at 19:00 and the cali at 20:00.
     startHour = this._isPowerliftingClass() ? 19 : startHour;
     startHour = this._isCalisthenicsClass() ? 20 : startHour;
+    // The cali class lasts 1h30m.
+    durationMin = this._isCalisthenicsClass() ? 30 : durationMin;
     // If the parsed date included precise start hour and min, then use them.
     if (parsedDate.hasPreciseHourAndMin()) {
       startHour = parsedDate.getOriginalParsedDate().getHours();
@@ -532,7 +542,7 @@ class StravaFacadeApiClient {
 
     if (responseCode > 299) {
       const msg = "Status code: " + responseCode + "\nBody: " + responseBody;
-      showAlert(`\n************************ E R R O R ************************\n\nError response from Lambda strava-facade-api-*!\n\n${msg}`);
+      showAlert(`\n************************ E R R O R ************************\n\nError response to list activties from Lambda strava-facade-api-*!\n\n${msg}`);
       throw new ResponseError(msg);
     }
     Logger.log("END request to Lambda");
@@ -579,7 +589,7 @@ class StravaFacadeApiClient {
       throw new ActivityNotFound();
     } else if (responseCode > 299) {
       const msg = "Status code: " + responseCode + "\nBody: " + responseBody;
-      showAlert(`** Error response from Lambda strava-facade-api-*! **\n\n${msg}`);
+      showAlert(`** Error response to update activity description from Lambda strava-facade-api-*! **\n\n${msg}`);
       throw new ResponseError(msg);
     }
     Logger.log("END request to Lambda");
@@ -623,7 +633,7 @@ class StravaFacadeApiClient {
 
     if (responseCode > 299) {
       const msg = "Status code: " + responseCode + "\nBody: " + responseBody;
-      showAlert(`** Error response from Lambda strava-facade-api-*! **\n\n${msg}`);
+      showAlert(`** Error response to create activity from Lambda strava-facade-api-*! **\n\n${msg}`);
       throw new ResponseError(msg);
     }
     Logger.log("END request to Lambda");
