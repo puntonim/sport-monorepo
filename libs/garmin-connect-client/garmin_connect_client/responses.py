@@ -153,7 +153,7 @@ class ActivityDetailsResponse(BaseGarminResponse):
         self,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
-    ) -> list:
+    ) -> list[float]:
         """
         Args:
             segment_start_meters: extract a segment by distance, by meters, eg. 0.
@@ -171,7 +171,7 @@ class ActivityDetailsResponse(BaseGarminResponse):
         self,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
-    ) -> list:
+    ) -> list[float]:
         """
         Args:
             segment_start_meters: extract a segment by distance, by meters, eg. 0.
@@ -189,7 +189,7 @@ class ActivityDetailsResponse(BaseGarminResponse):
         self,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
-    ) -> list:
+    ) -> list[float]:
         """
         Args:
             segment_start_meters: extract a segment by distance, by meters, eg. 0.
@@ -207,7 +207,7 @@ class ActivityDetailsResponse(BaseGarminResponse):
         self,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
-    ) -> list:
+    ) -> list[float]:
         """
         Args:
             segment_start_meters: extract a segment by distance, by meters, eg. 0.
@@ -225,7 +225,7 @@ class ActivityDetailsResponse(BaseGarminResponse):
         self,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
-    ) -> list:
+    ) -> list[float]:
         """
         Args:
             segment_start_meters: extract a segment by distance, by meters, eg. 0.
@@ -244,7 +244,7 @@ class ActivityDetailsResponse(BaseGarminResponse):
         do_remove_none_values: bool = False,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
-    ) -> list:
+    ) -> list[float]:
         """
         Args:
             do_remove_none_values: filter out None values.
@@ -264,7 +264,7 @@ class ActivityDetailsResponse(BaseGarminResponse):
         do_remove_none_values: bool = False,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
-    ) -> list:
+    ) -> list[float]:
         """
         Args:
             do_remove_none_values: filter out None values.
@@ -284,7 +284,7 @@ class ActivityDetailsResponse(BaseGarminResponse):
         do_remove_none_values: bool = False,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
-    ) -> list:
+    ) -> list[float]:
         # I found None values in this stream.
         """
         Args:
@@ -304,7 +304,7 @@ class ActivityDetailsResponse(BaseGarminResponse):
         self,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
-    ) -> list:
+    ) -> list[float]:
         """
         Args:
             segment_start_meters: extract a segment by distance, by meters, eg. 0.
@@ -323,7 +323,7 @@ class ActivityDetailsResponse(BaseGarminResponse):
         do_remove_none_values: bool = False,
         segment_start_meters: int | None = None,
         segment_end_meters: int | None = None,
-    ) -> list:
+    ) -> list[float]:
         """
         Args:
             do_remove_none_values: filter out None values.
