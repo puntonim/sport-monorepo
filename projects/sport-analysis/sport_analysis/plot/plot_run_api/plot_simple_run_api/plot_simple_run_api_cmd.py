@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Sequence
+from typing import Literal, Sequence
 
 import datetime_utils
 import matplotlib as mpl
@@ -24,15 +24,16 @@ from matplotlib.legend_handler import HandlerTuple
 from rich import box
 from rich.table import Table
 
-from ...base_cli_view import ConsoleAdapter
-from ...conf import settings
-from .. import base_api, base_plot
-from ..base_plot import (
+from ....base_cli_view import ConsoleAdapter
+from ....conf import settings
+from ... import base_api, base_plot
+from ...base_plot import (
     PERCENTILE_TO_DRAW_ENUM,
     _get_bpm_range_for_hr_zone,
     _make_subtitle,
     _make_title,
 )
+from . import stats
 
 console = ConsoleAdapter()
 
@@ -44,7 +45,11 @@ class CollectedData:
     splits_resp: ActivitySplitsResponse | None = None
 
 
-class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot):
+class PlotSimpleRunApiCmd(
+    base_api.MixinGarminRequestsApi,
+    base_plot.MixinHrPlot,
+    base_plot.MixinBarHPlot,
+):
     """
     Plot charts to support the analysis of a half-marathon run activity performance,
      optionally compared with previous runs.
@@ -72,6 +77,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         # Add elevation to the pace plot. If None, then the elev is automatically
         #  plotted in pace plot when > 300m.
         do_add_elev_to_pace_plot: bool | None = None,
+        custom_splits_distance: Literal["AUTO"] | int | None = None,
         title: str | None = None,
         figure_size: tuple[float, float] | None = None,
         garmin_connect_token_manager: (
@@ -101,8 +107,12 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
              plot becomes too messy).
             do_add_elev_to_pace_plot: add elevation to the pace plot. If None, then the
              elev is automatically plotted in pace plot when > 300m.
+            custom_splits_distance: "AUTO" to plot custom splits with default distance
+             (5000m splits for run >= 15km, else 2000m splits); 2500 (or any int) to
+             choose the splits distance; None (default) not to plot splits. Custom
+             splits are not those automatically computer by Garmin.
             title: plot title.
-            figure_size: customize the figure size, eg. (3.0, 5.5).
+            figure_size: width height; customize the figure size, eg. (3.0, 5.5).
             garmin_connect_token_manager: use FakeTestGarminConnectTokenManager when
              replaying VCR episodes.
         """
@@ -122,6 +132,27 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         if self.prev_runs_activity_ids_to_compare:
             self.do_skip_hr_in_pace_plot = True
         self.do_add_elev_to_pace_plot = do_add_elev_to_pace_plot
+
+        # custom_splits validation.
+        self.custom_splits_distance = custom_splits_distance
+        if (
+            custom_splits_distance is not None
+            and custom_splits_distance != "AUTO"
+            and not isinstance(custom_splits_distance, int)
+        ):
+            raise ValueError(
+                f"custom_splits_distance arg invalid: {custom_splits_distance}\nValid values: AUTO, None or an integer"
+            )
+
+        # self.custom_splits_stats_df example:
+        #           start_distance  end_distance  start_moving_time  end_moving_time  split_hr_avg  split_speed_avg split_speed_avg_str
+        # split_id
+        # 0               0.000000   4998.080078                0.0           1435.0    142.786908         3.482983                4:47
+        # 1            5001.240234   9998.389648             1436.0           2917.0    141.076248         3.374172                4:56
+        # 2           10002.040039  14997.139648             2918.0           4398.0    145.268194         3.375067                4:56
+        # 3           15000.259766  19997.599609             4399.0           5866.0    149.896458         3.406503                4:54
+        # 4           20000.900391  24811.689453             5867.0           7239.0    155.822287         3.506406                4:45
+        self.custom_splits_stats_df: pd.DataFrame = None
 
         ## Validate some args: hr_zones_to_hatch, percentile_to_draw.
         self.hr_zones_to_hatch = hr_zones_to_hatch or tuple()
@@ -150,8 +181,8 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         #  of an actual chart.
         self._axes_mosaic: dict[str, Axes]
 
-    def _plot_pace(self):
-        a: Axes = self._axes_mosaic["pace"]
+    def _plot_pace_line(self):
+        a: Axes = self._axes_mosaic["pace-line"]
 
         ## MAIN activity.
         # X and y data.
@@ -639,16 +670,18 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
                     verticalalignment="top",
                 )
 
-    def _plot_hr_zones(self):
+    def _plot_hr_zones_bars(self):
         hr_stream = self._s[0].details_resp.get_heartrate_stream(
             # None values cause exceptions in self._plot_hr_zones_mixin().
             do_remove_none_values=True
         )
-        self._plot_hr_zones_mixin(
+        self._plot_hr_zones_bars_mixin(
             self._axes_mosaic["hr-zones"],
             hr_stream,
             settings.HR_MIN,
             settings.HR_MAX_EVER_RUN,
+            text_prefix="Time in zones\n",
+            text_position="TOP_CENTER",
         )
 
     def _plot_hr_histogram(self):
@@ -678,10 +711,118 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             percentile_to_draw=self.percentile_to_draw,
         )
 
-    def _print_splits(self):
+    def _plot_custom_splits_pace_bars(self):
+        a: Axes = self._axes_mosaic["5km-splits-pace-bars"]
+
+        xdata_speed = self.custom_splits_stats_df["split_speed_avg"]
+        ydata_range = np.arange(len(xdata_speed))
+
+        bar = a.barh(
+            self._ydata_for_barh_mixin(ydata_range, 0, 1),
+            xdata_speed,
+            self._bar_height_for_barh_mixin(0, 1),
+            # label=self._make_legend_label(0),
+            color=[base_plot.COL_PLUM for _ in range(len(ydata_range))],
+            alpha=0.9,
+        )
+        # Add the main activity's time values at the right of each bar.
+        a.bar_label(bar, fmt=self._fmt_pace, padding=2, path_effects=self.PATH_EFFECTS)
+
+        ## Format.
+        # Invert the y-axis so the 1st attempt is on top.
+        a.invert_yaxis()
+        # Axes labels.
+        a.set_xlabel("Pace avg [min/km]", fontsize=9)
+        # Set the x-axis label to the top.
+        a.xaxis.set_label_position("top")
+        # Use log scale to amplify the small differences.
+        # Using a diff base for the log does NOT change the chart.
+        a.set_xscale("log")  # Add a base with arg: `base=2`.
+        # Set the start and end scale for the x-axis, adding 2% width to make
+        #  space for the bar labels.
+        max_speed = max(xdata_speed)
+        a.set_xlim(right=max_speed * 1.007)
+        # Set the start and end scale for the y-axis, so the 2 plots are aligned.
+        a.set_ylim((len(ydata_range) - 0.4, -0.6))
+        # Remove ticks.
+        a.tick_params(
+            axis="both",  # Changes apply to both axes.
+            which="both",  # Both major and minor ticks are affected.
+            bottom=False,  # Ticks along the bottom edge are off.
+            # top=False,
+            left=False,  # Ticks along the left edge are off.
+            # right=False,
+            labelbottom=False,  # Ticks labels along the bottom are off.
+            # labelleft=False,
+        )
+        # Hide all spines except the left one.
+        a.spines[["right", "top", "bottom"]].set_visible(False)
+
+        # Set the y tick labels as: "0-5km", "5-10km", etc.
+        y_ticks_labels = []
+        for i in range(len(self.custom_splits_stats_df)):
+            _a = round(self.custom_splits_stats_df.iloc[i]["start_distance"] / 1000)
+            _b = round(self.custom_splits_stats_df.iloc[i]["end_distance"] / 1000)
+            # For the last split, use 1 decimal point.
+            if i == len(self.custom_splits_stats_df) - 1:
+                _b = round(
+                    self.custom_splits_stats_df.iloc[i]["end_distance"] / 1000, 1
+                )
+            y_ticks_labels.append(f"{_a}-{_b}km")
+        a.set_yticks(ydata_range, labels=y_ticks_labels, fontsize=8)
+        a.tick_params(axis="y", pad=-2)  # pad smaller than default.
+
+    def _plot_custom_splits_hr_bars(self):
+        a: Axes = self._axes_mosaic["5km-splits-hr-bars"]
+
+        xdata_hr = self.custom_splits_stats_df["split_hr_avg"]
+        ydata_range = np.arange(len(xdata_hr))
+
+        bar = a.barh(
+            self._ydata_for_barh_mixin(ydata_range, 0, 1),
+            xdata_hr,
+            self._bar_height_for_barh_mixin(0, 1),
+            # label=self._make_legend_label(0),
+            color=[base_plot.COL_DARK_RED for _ in range(len(ydata_range))],
+            # alpha=0.9,
+        )
+        # Add the main activity's time values at the right of each bar.
+        a.bar_label(bar, fmt="{0:.0f}", padding=2, path_effects=self.PATH_EFFECTS)
+
+        ## Format.
+        # Invert the y-axis so the 1st attempt is on top.
+        a.invert_yaxis()
+        # Axes labels.
+        a.set_xlabel("HR avg [bpm]", fontsize=9)
+        # Set the x-axis label to the top.
+        a.xaxis.set_label_position("top")
+        # Use log scale to amplify the small differences.
+        # Using a diff base for the log does NOT change the chart.
+        a.set_xscale("log")  # Add a base with arg: `base=2`.
+        # Set the start and end scale for the x-axis, adding 2% width to make
+        #  space for the bar labels.
+        max_hr = max(xdata_hr)
+        a.set_xlim(right=max_hr * 1.007)
+        # Set the start and end scale for the y-axis, so the 2 plots are aligned.
+        a.set_ylim((len(ydata_range) - 0.4, -0.6))
+        # Remove ticks.
+        a.tick_params(
+            axis="both",  # Changes apply to both axes.
+            which="both",  # Both major and minor ticks are affected.
+            bottom=False,  # Ticks along the bottom edge are off.
+            # top=False,
+            left=False,  # Ticks along the left edge are off.
+            # right=False,
+            labelbottom=False,  # Ticks labels along the bottom are off.
+            labelleft=False,
+        )
+        # Hide all spines except the left one.
+        a.spines[["right", "top", "bottom"]].set_visible(False)
+
+    def _print_germin_auto_splits(self):
         # Prepare the Splits table to be printed to the console.
         table = Table(
-            title=":knife: Splits",  # Print all emoji with: `python -m rich.emoji`.
+            title=":knife: Garmin Auto Splits",  # Print all emoji with: `python -m rich.emoji`.
             title_style="bold black on yellow",
             row_styles=["dim", ""],
             box=box.SIMPLE,
@@ -790,16 +931,27 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             else:
                 self.do_add_elev_to_pace_plot = False
 
+        if self.custom_splits_distance:
+            self.custom_splits_stats_df = stats.compute_stats_for_custom_splits(
+                distance_stream=self._s[0].details_resp.get_distance_stream(),
+                moving_time_stream=self._s[0].details_resp.get_moving_time_stream(),
+                hr_stream=self._s[0].details_resp.get_heartrate_stream(),
+                splits_distance=self.custom_splits_distance,
+            )
+
         # Figure.
         figure, self._axes_mosaic = self._make_subplot_mosaic()
         figure: Figure
         self._axes_mosaic: dict[str, Axes]
 
         # All plots.
-        self._plot_pace()
-        self._print_splits()
-        self._plot_hr_zones()
+        self._plot_pace_line()
+        self._print_germin_auto_splits()
+        self._plot_hr_zones_bars()
         self._plot_hr_histogram()
+        if self.custom_splits_distance:
+            self._plot_custom_splits_pace_bars()
+            self._plot_custom_splits_hr_bars()
 
         # Title and subtitle.
         title = _make_title(
@@ -848,7 +1000,7 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             # )
             # Alt 2/2: this is how to show a legend with both colors (plumb and red) of the
             #  main plot line in the pace chart and in the HR histogram chart.
-            pace_axes = self._axes_mosaic["pace"]
+            pace_axes = self._axes_mosaic["pace-line"]
             hr_hist_axes = self._axes_mosaic["hr-hist"]
             figure.legend(
                 handles=[(hr_hist_axes.lines[0], pace_axes.lines[0])]
@@ -874,7 +1026,8 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             plt.show()
 
     def _make_figure_size(self) -> tuple[float, float]:
-        height = max(len(self._s), 3.5) * 2.1
+        k = 2.1 if not self.custom_splits_distance else 3
+        height = max(len(self._s), 3.5) * k
         return 5, height
 
     def _make_subplot_mosaic(self) -> tuple[Figure, dict[str, Axes]]:
@@ -886,20 +1039,28 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
         # Docs for subplot_mosaic():
         #  https://matplotlib.org/stable/users/explain/axes/arranging_axes.html#variable-widths-or-heights-in-a-grid
         #  https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplot_mosaic.html#matplotlib.pyplot.subplot_mosaic
-        return plt.subplot_mosaic(
+
+        mosaic = [
             # fmt: off
-    [
-                # 2 rows, 1 col.
-                ["pace", ],
-                [".", ],
-                ["hr-zones", ],
-                ["hr-hist", ],
-            ],
+            ["pace-line", "pace-line",],
+            [".",         ".",        ],
+            ["hr-hist",   "hr-hist",  ],
+            [".",         ".",        ],
+            ["hr-zones",  "hr-zones", ],
             # fmt: on
+        ]
+        height_ratios = [1.5, 0.05, 1, 0.05, 0.22]
+        if self.custom_splits_distance:
+            mosaic.append([".", "."])
+            mosaic.append(["5km-splits-pace-bars", "5km-splits-hr-bars"])
+            height_ratios.append(0.05)
+            height_ratios.append(0.8)
+        return plt.subplot_mosaic(
+            mosaic=mosaic,
             gridspec_kw=dict(
                 # The relative sizes of the subplots.
-                width_ratios=[1],
-                height_ratios=[1.5, 0.05, 0.22, 1],
+                width_ratios=[1, 1],
+                height_ratios=height_ratios,
             ),
             figsize=figsize,
             layout="constrained",
@@ -940,6 +1101,12 @@ class PlotSimpleRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             hr_max = summary_resp.summary["maxHR"]
             legend_label += f" at {round(hr_avg)}-{round(hr_max)}bpm"
         return legend_label
+
+    def _fmt_pace(self, pace_mps: float):
+        if pace_mps == 0:
+            return 0
+        x = speed_utils.mps_to_minpkm_base10(pace_mps)
+        return speed_utils.minpkm_base10_to_base60(x)
 
 
 class BasePlotRunApiException(Exception):

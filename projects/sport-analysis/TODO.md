@@ -1,3 +1,20 @@
+- HR bars: non disegnare il 1 intervallo e escludilo dalle medie (con arg)
+- Note: 1st interval HR excluded as meaningless
+- poi taglia il pace sia in verticale sia in orizzontale
+- poi passa a print_intervals()
+
+- plot interval run
+  - crea 1 nuovo comando: plot-interval-run
+  - fallo funzionare con i 2 casi che ho negli sketch:
+        dist-interval: 8x1000m
+        time-interval: 16x1min
+  - introduci l'arg `intervals_plan`
+  - cancella il vecchio `plot_interval_run_api`
+  - potrebbe essere interessante gestire i confronti? magari solo i tempi,
+     oppure tempi e HR
+  - move find_matching_stream_start_and_end_indexes_for_typed_split() to Garmin lib
+  - nelle ripetute da dist diverse da 1000 (es. 400m) voglio leggere il passo oltre
+     al tempo
 
 - sketch per il interval run
   - sistema time interval:
@@ -8,10 +25,6 @@
     - HR zones come nel dist interval
   - testalo con una vecchia corsa ad intervalli sui 1000m o 1000m
   - sistema commenti e todo
- 
-- Togli legenda in fondo in plot-simple-run quando non c'è nessuna comparison
-  E sposta gli spm nel subtitle
-  E aggiungi dislivello (600m+) nella legenda quando ci sono comparisons
 
 - evidenziare le domande in questionary, come fatto in plot-simple-run
   E usa ">", come ho fatto in plot-simple-run

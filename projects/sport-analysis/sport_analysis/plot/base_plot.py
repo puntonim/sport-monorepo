@@ -466,7 +466,7 @@ class MixinHrPlot(BasePlot):
             axes.set_title(
                 segment_title,
                 fontsize=9,
-                fontweight="bold",
+                # fontweight="bold",
                 # backgroundcolor="gray",
             )
 
@@ -699,7 +699,7 @@ class MixinHrPlot(BasePlot):
                 verticalalignment="top",
             )
 
-    def _plot_hr_zones_mixin(
+    def _plot_hr_zones_bars_mixin(
         self,
         axes: Axes,
         hr_stream: list,

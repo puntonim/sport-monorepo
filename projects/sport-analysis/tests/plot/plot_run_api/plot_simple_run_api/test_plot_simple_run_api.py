@@ -7,7 +7,9 @@ from garmin_connect_client.garmin_connect_token_managers import (
 )
 
 from sport_analysis.conf.settings_module import ROOT_DIR
-from sport_analysis.plot.plot_run_api.plot_simple_run_api_cmd import PlotSimpleRunApiCmd
+from sport_analysis.plot.plot_run_api.plot_simple_run_api.plot_simple_run_api_cmd import (
+    PlotSimpleRunApiCmd,
+)
 from tests.conftest import is_vcr_enabled, is_vcr_record_mode
 
 TEST_ACTIVITIES = [
@@ -111,6 +113,8 @@ class TestPlotSimpleRunApi:
                 1.28,
             ),
             pace_plot_rolling_window_size=60,
+            do_add_elev_to_pace_plot=True,
+            custom_splits_distance="AUTO",
             garmin_connect_token_manager=self.garmin_token_mgr,
         )
         p.plot(save_to_png_file_path=FILE_TESTED_PATH.replace("_cmd.py", "-21km.png"))
@@ -484,6 +488,55 @@ class TestPlotSimpleRunApi:
             save_to_png_file_path=self.png_file_root
             / f"{inspect.currentframe().f_code.co_qualname}.png"
         )
+
+    def test_custom_splits_distance_none(self):
+        # Note: more test on this feature in test_stats.py.
+        garmin_activity_id = TEST_ACTIVITIES[6]["garmin_activity_id"]
+        p = PlotSimpleRunApiCmd(
+            garmin_activity_id,
+            custom_splits_distance=None,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_custom_splits_distance_AUTO(self):
+        # Note: more test on this feature in test_stats.py.
+        garmin_activity_id = TEST_ACTIVITIES[6]["garmin_activity_id"]
+        p = PlotSimpleRunApiCmd(
+            garmin_activity_id,
+            custom_splits_distance="AUTO",
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_custom_splits_distance_2500(self):
+        # Note: more test on this feature in test_stats.py.
+        garmin_activity_id = TEST_ACTIVITIES[6]["garmin_activity_id"]
+        p = PlotSimpleRunApiCmd(
+            garmin_activity_id,
+            custom_splits_distance=2500,
+            garmin_connect_token_manager=self.garmin_token_mgr,
+        )
+        p.plot(
+            save_to_png_file_path=self.png_file_root
+            / f"{inspect.currentframe().f_code.co_qualname}.png"
+        )
+
+    def test_custom_splits_distance_invalid(self):
+        # Note: more test on this feature in test_stats.py.
+        garmin_activity_id = TEST_ACTIVITIES[6]["garmin_activity_id"]
+        with pytest.raises(ValueError):
+            PlotSimpleRunApiCmd(
+                garmin_activity_id,
+                custom_splits_distance="XXX",
+                garmin_connect_token_manager=self.garmin_token_mgr,
+            )
 
     def test_title(self):
         p = PlotSimpleRunApiCmd(

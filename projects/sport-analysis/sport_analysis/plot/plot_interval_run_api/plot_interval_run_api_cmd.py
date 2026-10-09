@@ -36,6 +36,8 @@ class DISTANCE_ENUM(IntEnum):
     ONE_H = 100
     TWO_H = 200
     THREE_H = 300
+    FOUR_H = 400
+    FIVE_H = 500
     ONE_T = 1000
 
 
@@ -62,6 +64,8 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         100: "x100m ".join((str(x) for x in range(2, 26))) + "x100m",
         200: "x200m ".join((str(x) for x in range(2, 26))) + "x200m",
         300: "x300m ".join((str(x) for x in range(2, 16))) + "x300m",
+        400: "x400m ".join((str(x) for x in range(2, 16))) + "x400m",
+        500: "x500m ".join((str(x) for x in range(2, 16))) + "x500m",
         1000: "x1000m ".join((str(x) for x in range(2, 11))) + "x1000m",
     }
     # List of all possible expected number of intervals: fi. for a 4x1000m it is [4],
@@ -71,6 +75,8 @@ class PlotIntervalRunApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinBarH
         100: range(3, 26),
         200: range(3, 26),
         300: range(3, 16),
+        400: range(3, 16),
+        500: range(3, 16),
         1000: range(3, 11),
     }
 

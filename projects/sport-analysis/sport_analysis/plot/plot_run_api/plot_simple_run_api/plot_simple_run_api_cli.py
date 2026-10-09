@@ -1,21 +1,25 @@
 from contextlib import suppress
 from pathlib import Path
+from typing import Literal
 
 import click
 import questionary
 
-from ...base_cli_view import (
+from ....base_cli_view import (
     ACTIVITY_ID_TYPE,
     QUESTIONARY_STYLE,
+    AutoOrIntParamType,
     BaseClickCommand,
     ConsoleAdapter,
 )
-from ...conf.settings_module import ROOT_DIR
-from ...utils import questionary_parsers
-from .. import base_plot
+from ....conf.settings_module import ROOT_DIR
+from ....utils import questionary_parsers
+from ... import base_plot
 from .plot_simple_run_api_cmd import PlotSimpleRunApiCmd
 
 console = ConsoleAdapter()
+
+AUTO_OR_INT_PARAM_TYPE = AutoOrIntParamType()
 
 
 @click.command(
@@ -115,6 +119,13 @@ console = ConsoleAdapter()
 )
 @click.option(
     # OPTIONAL arg.
+    "--custom-splits-distance",
+    "custom_splits_distance",
+    type=AUTO_OR_INT_PARAM_TYPE,
+    help="Optionally plot pace and HR for custom split distance; eg. --custom-splits-distance AUTO | --custom-splits-distance 5000",
+)
+@click.option(
+    # OPTIONAL arg.
     "--title",
     type=str,
     help="Optional title; eg. --title '80/20 run'",
@@ -173,6 +184,7 @@ def plot_simple_run_api_cli_view(
     pace_plot_rolling_window_size: int | None = None,
     do_skip_hr_in_pace_plot: bool = False,
     do_add_elev_to_pace_plot: bool | None = None,
+    custom_splits_distance: Literal["AUTO"] | int | None = None,
     title: str | None = None,
     figure_size: tuple[float, float] | None = None,
     dir_or_file_path: Path | None = None,
@@ -182,7 +194,6 @@ def plot_simple_run_api_cli_view(
     """
     Plot the given Garmin activity id as a simple run.
     """
-
     # Parse dir_or_file_path.
     save_to_png_file_path: Path | None = None
     if dir_or_file_path is not None:
@@ -309,7 +320,7 @@ def plot_simple_run_api_cli_view(
         instruction = (
             "Cut out, of the visible part of the pace plot, the top % and bottom %"
             " of data (so the fastest and slowest datapoints) so the plot becomes"
-            " less compressed vertically\nOrder: top, bottom  >"
+            " less compressed vertically\n  Order: top, bottom\n  >"
         )
         x = (
             # unsafe_ask() so it can be stopped with ctrl-c.
@@ -378,6 +389,31 @@ def plot_simple_run_api_cli_view(
             do_add_elev_to_pace_plot = True
         else:
             do_add_elev_to_pace_plot = False
+
+    # Optional arg: custom_splits_distance.
+    is_input_valid = True if custom_splits_distance is not None else False
+    while not is_input_valid and not do_skip_any_questions:
+        text = "Optional CUSTOM SPLIT DISTANCE (eg. AUTO | 2000)\n"
+        instruction = "To plot pace and HR of custom splits\n"
+        instruction += (
+            "  Use AUTO or a distance in meters, like 5000; blank not to plot\n"
+        )
+        instruction += "  >"
+        x = (
+            # unsafe_ask() so it can be stopped with ctrl-c.
+            # Cannot use `validate=<questionary.Validator subclass>` because that is for
+            #  the live validation, it's run on every keystroke and returns None.
+            questionary.text(
+                text, instruction=instruction, style=QUESTIONARY_STYLE
+            ).unsafe_ask()
+            or None
+        )
+        with suppress(questionary_parsers.ParserValidationError):
+            if x is not None:
+                custom_splits_distance = (
+                    questionary_parsers.parse_auto_or_int_param_type_input(x)
+                )
+            is_input_valid = True
 
     # Optional arg: title.
     if title is None and not do_skip_any_questions:
@@ -468,6 +504,8 @@ def plot_simple_run_api_cli_view(
             cli_msg += f" --with-elev-in-pace-plot"
         elif do_add_elev_to_pace_plot is False:
             cli_msg += f" --without-elev-in-pace-plot"
+        if custom_splits_distance:
+            cli_msg += f"--custom-splits-distance {custom_splits_distance}"
         if title:
             cli_msg += f" --title '{title}'"
         if figure_size:
@@ -488,6 +526,7 @@ def plot_simple_run_api_cli_view(
             "pace_plot_rolling_window_size",
             "do_skip_hr_in_pace_plot",
             "do_add_elev_to_pace_plot",
+            "custom_splits_distance",
             "title",
             "figure_size",
             "do_skip_any_questions",
@@ -507,6 +546,7 @@ def plot_simple_run_api_cli_view(
         pace_plot_rolling_window_size=pace_plot_rolling_window_size,
         do_skip_hr_in_pace_plot=do_skip_hr_in_pace_plot,
         do_add_elev_to_pace_plot=do_add_elev_to_pace_plot,
+        custom_splits_distance=custom_splits_distance,
         title=title,
         figure_size=figure_size or None,
     )

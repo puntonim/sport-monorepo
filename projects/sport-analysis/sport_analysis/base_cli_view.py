@@ -1,6 +1,7 @@
 import re
 import sys
 from enum import StrEnum
+from typing import Literal
 
 import click
 import log_utils as logger
@@ -332,3 +333,22 @@ class ActivityIdParamType(click.ParamType):
             )
 
         return a
+
+
+class AutoOrIntParamType(click.ParamType):
+    """
+    Parameter type that can be the string "AUTO" or an integer.
+    Eg. AUTO | 5000.
+    """
+
+    name = "auto_or_int"
+
+    def convert(self, value, param=None, ctx=None) -> Literal["AUTO"] | int | None:
+
+        if value is not None and value != "AUTO" and not isinstance(value, int):
+            try:
+                value = int(value)
+            except ValueError as exc:
+                self.fail(f"{value} is not 'AUTO' nor an integer (even as a string)")
+
+        return value

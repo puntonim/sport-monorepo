@@ -727,7 +727,7 @@ class PlotDistIntervalRunApiCmd(
         for split_indexes in self._s[0].typed_splits_stream_indexes:
             xdata_hr.extend(hr_stream[split_indexes[0] : split_indexes[1] + 1])
 
-        self._plot_hr_zones_mixin(
+        self._plot_hr_zones_bars_mixin(
             self._axes_mosaic["hr-zones"],
             xdata_hr,
             settings.HR_MIN,

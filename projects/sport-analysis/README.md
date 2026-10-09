@@ -53,10 +53,10 @@ Optionally compare with previous runs.
 ```sh
 $ san plot-10km-run 19005790234 -vs 19074660632 --title "Fosso BG" --figure-size 5.0 6.5 --pace-plot-set-y-axis-bottom-to-slowest-pace-perc 3.5 -d ~/output-images/
 ```
-![](sport_analysis/plot/plot_run_api/plot_simple_run_api-10km.png)
-![](sport_analysis/plot/plot_run_api/plot_simple_run_api-7km-comparison.png)
-![](sport_analysis/plot/plot_run_api/plot_simple_run_api-21km.png)
-![](sport_analysis/plot/plot_run_api/plot_simple_run_api-trail.png)
+![](sport_analysis/plot/plot_run_api/plot_simple_run_api/plot_simple_run_api-10km.png)
+![](sport_analysis/plot/plot_run_api/plot_simple_run_api/plot_simple_run_api-7km-comparison.png)
+![](sport_analysis/plot/plot_run_api/plot_simple_run_api/plot_simple_run_api-21km.png)
+![](sport_analysis/plot/plot_run_api/plot_simple_run_api/plot_simple_run_api-trail.png)
 
 ### 300 m interval run (api)
 ```sh

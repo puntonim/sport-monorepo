@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Literal
 
 import click
 
@@ -6,6 +7,7 @@ from ..base_cli_view import (
     ACTIVITY_ID_TYPE,
     ActivityId,
     ActivityIdParamType,
+    AutoOrIntParamType,
     ConsoleAdapter,
 )
 from ..plot import base_plot
@@ -48,6 +50,18 @@ def parse_int_input(value: str, format_like="5"):
         console.print_error(msg)
         raise ParserValidationError(msg) from exc
     return value
+
+
+def parse_auto_or_int_param_type_input(
+    value: str, format_like="AUTO | 5000"
+) -> Literal["AUTO"] | int:
+    try:
+        parsed = AutoOrIntParamType().convert(value)
+    except click.BadParameter as exc:
+        msg = f"{exc}\nFormat like: {format_like}"
+        console.print_error(msg)
+        raise ParserValidationError(msg) from exc
+    return parsed
 
 
 def parse_multiple_ints_input(

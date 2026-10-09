@@ -17,7 +17,9 @@ from .plot.plot_interval_run_api.plot_interval_run_api_cli import (
 )
 from .plot.plot_ride_api.plot_climb_ride_api_cli import plot_climb_ride_api_cli_view
 from .plot.plot_ride_api.plot_simple_ride_api_cli import plot_simple_ride_api_cli_view
-from .plot.plot_run_api.plot_simple_run_api_cli import plot_simple_run_api_cli_view
+from .plot.plot_run_api.plot_simple_run_api.plot_simple_run_api_cli import (
+    plot_simple_run_api_cli_view,
+)
 from .search.search_strava_api import search_strava_api_cli_view
 from .search.search_text_db import search_text_db_cli_view
 

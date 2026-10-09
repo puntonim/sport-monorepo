@@ -3,14 +3,13 @@ from pathlib import Path
 from typing import Sequence
 
 import matplotlib.pyplot as plt
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
-
 from garmin_connect_client import ActivityDetailsResponse, ActivitySummaryResponse
 from garmin_connect_client.garmin_connect_token_managers import (
     FakeTestGarminConnectTokenManager,
     FileGarminConnectTokenManager,
 )
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 
 from ...base_cli_view import ConsoleAdapter
 from ...conf import settings
@@ -104,7 +103,7 @@ class PlotSimpleRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlo
         hr_stream = self._s[0].details_resp.get_heartrate_stream(
             do_remove_none_values=False
         )
-        self._plot_hr_zones_mixin(
+        self._plot_hr_zones_bars_mixin(
             self._axes_mosaic["hr-zones"],
             hr_stream,
             settings.HR_MIN,

@@ -5,6 +5,11 @@ from typing import Sequence
 import datetime_utils
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from garmin_connect_client import ActivityDetailsResponse, ActivitySummaryResponse
+from garmin_connect_client.garmin_connect_token_managers import (
+    FakeTestGarminConnectTokenManager,
+    FileGarminConnectTokenManager,
+)
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from strava_client import SegmentEffortNotFound, StravaClient, StreamsResponse
@@ -12,12 +17,6 @@ from strava_client.strava_token_managers import (
     AwsParameterStoreStravaTokenManager,
     FakeTestStravaTokenManager,
     FileStravaTokenManager,
-)
-
-from garmin_connect_client import ActivityDetailsResponse, ActivitySummaryResponse
-from garmin_connect_client.garmin_connect_token_managers import (
-    FakeTestGarminConnectTokenManager,
-    FileGarminConnectTokenManager,
 )
 
 from ...base_cli_view import ConsoleAdapter
@@ -229,11 +228,16 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             segment_start_meters=self.segment_start_meters,
             segment_end_meters=self.segment_end_meters,
         )
-        self._plot_hr_zones_mixin(
+        text_prefix = "Time in zones:\n"
+        if self.segment_start_meters or self.segment_end_meters:
+            text_prefix = "Time in zones, segment only:\n"
+        self._plot_hr_zones_bars_mixin(
             self._axes_mosaic["hr-zones"],
             hr_stream,
             settings.HR_MIN,
             settings.HR_MAX_EVER_RIDE,
+            text_prefix=text_prefix,
+            text_position="TOP_CENTER",
         )
 
     def _get_strava_segment_info(self):
@@ -404,14 +408,16 @@ class PlotClimbRideApiCmd(base_api.MixinGarminRequestsApi, base_plot.MixinHrPlot
             [
                 # 2 rows, 1 col.
                 ["hr", ],
+                ["."],
                 ["hr-hist", ],
+                ["."],
                 ["hr-zones", ]
             ],
             # fmt: on
             gridspec_kw=dict(
                 # The relative sizes of the subplots.
                 width_ratios=[1],
-                height_ratios=[1.5, 1, 1 / 5],
+                height_ratios=[1.5, 0.1, 1, 0.1, 1 / 5],
             ),
             figsize=figsize,
             layout="constrained",
